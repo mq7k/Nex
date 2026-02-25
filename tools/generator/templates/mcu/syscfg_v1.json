@@ -1,0 +1,546 @@
+{
+  "periph": "SYSCFG",
+  "path": "stm32/drivers/syscfg/syscfg_v1.h",
+  "struct": "syscfg_registers_map",
+  "functions": [
+    {
+      "type": "enum_set",
+      "fn": "syscfg_set_memory_mapping",
+      "signature": "{mapping}",
+      "reg": "MEMRMP",
+      "shift": 0,
+      "mask": "0x3",
+      "ifdef": "STM32_SYSCFG_MEMMODE_2BIT",
+      "args": {
+        "mapping": [
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_MAIN_FLASH",
+            "value": "0b000"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_SYSTEM_FLASH",
+            "value": "0b001"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_FMC_BANK1",
+            "value": "0b010",
+            "ifdef": "STM32_SYSCFG_FMC"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_EMBEDDED_SRAM",
+            "value": "0b011"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_FMC_SDRAM_BANK1",
+            "value": "0b100",
+            "ifdef": "STM32_SYSCFG_FMC_SDRAM"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "syscfg_set_memory_mapping",
+      "signature": "{mapping}",
+      "reg": "MEMRMP",
+      "shift": 0,
+      "mask": "0x7",
+      "ifdef": "STM32_SYSCFG_MEMMODE_3BIT",
+      "args": {
+        "mapping": [
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_MAIN_FLASH",
+            "value": "0b000"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_SYSTEM_FLASH",
+            "value": "0b001"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_FMC_BANK1",
+            "value": "0b010",
+            "ifdef": "STM32_SYSCFG_FMC"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_EMBEDDED_SRAM",
+            "value": "0b011"
+          },
+          {
+            "enum": "SYSCFG_MEMORY_MAPPING_FMC_SDRAM_BANK1",
+            "value": "0b100",
+            "ifdef": "STM32_SYSCFG_FMC_SDRAM"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_flash_bank_mode",
+      "signature": "{mode}",
+      "reg": "MEMRMP",
+      "shift": 8,
+      "set": "SYSCFG_FLASH_BANK_MODE_BANK2",
+      "clear": "SYSCFG_FLASH_BANK_MODE_BANK1",
+      "ifdef": "STM32_SYSCFG_FLASH_BANK_MODE"
+    },
+    {
+      "type": "enum_set",
+      "fn": "syscfg_set_fmc_memory_mapping_swap",
+      "signature": "{swap}",
+      "reg": "MEMRMP",
+      "shift": 10,
+      "mask": "0x3",
+      "ifdef": "STM32_SYSCFG_FMC_SWAP",
+      "args": {
+        "swap": [
+          {
+            "enum": "SYSCFG_FMC_MEMSWAP_NOSWAP",
+            "value": "0b00"
+          },
+          {
+            "enum": "SYSCFG_FMC_MEMSWAP_SDRAM_PCCARD_SWAP",
+            "value": "0b01"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "syscfg_adc_dc2",
+      "signature": "{adc}",
+      "reg": "PMC",
+      "shift": 16,
+      "mask": "0x7",
+      "ifdef": [
+        "STM32_SYSCFG_PMC",
+        "STM32_SYSCFG_ADCxDC"
+      ],
+      "args": {
+        "adc": [
+          {
+            "enum": "SYSCFG_ADC1",
+            "shift": 16,
+            "ifdef": "STM32_SYSCFG_ADC1DC"
+          },
+          {
+            "enum": "SYSCFG_ADC2",
+            "shift": 17,
+            "ifdef": "STM32_SYSCFG_ADC2DC"
+          },
+          {
+            "enum": "SYSCFG_ADC3",
+            "shift": 18,
+            "ifdef": "STM32_SYSCFG_ADC3DC"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_ethernet_phy_interface",
+      "signature": "{interface}",
+      "reg": "PMC",
+      "shift": 23,
+      "ifdef": [
+        "STM32_SYSCFG_PMC",
+        "STM32_SYSCFG_PMC_MII_RMII"
+      ],
+      "set": "SYSCFH_ETH_PHY_INTERFACE_RMII_PHY",
+      "clear": "SYSCFH_ETH_PHY_INTERFACE_MII"
+    },
+    {
+      "type": "enum_set",
+      "fn": "syscfg_set_exti_line",
+      "signature": "{port}, {pin}",
+      "mask": "0xf",
+      "args": {
+        "port": [
+          {
+            "enum": "SYSCFG_EXTI_PORTA",
+            "value": "0b0000",
+            "ifdef": "STM32_GPIOA"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTB",
+            "value": "0b0001",
+            "ifdef": "STM32_GPIOB"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTC",
+            "value": "0b0010",
+            "ifdef": "STM32_GPIOC"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTD",
+            "value": "0b0011",
+            "ifdef": "STM32_GPIOD"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTE",
+            "value": "0b0100",
+            "ifdef": "STM32_GPIOE"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTF",
+            "value": "0b0101",
+            "ifdef": "STM32_GPIOF"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTG",
+            "value": "0b0110",
+            "ifdef": "STM32_GPIOG"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTH",
+            "value": "0b0111",
+            "ifdef": "STM32_GPIOH"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTI",
+            "value": "0b1000",
+            "ifdef": "STM32_GPIOI"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTJ",
+            "value": "0b1001",
+            "ifdef": "STM32_GPIOJ"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PORTK",
+            "value": "0b1010",
+            "ifdef": "STM32_GPIOK"
+          }
+        ],
+        "pin": [
+          {
+            "enum": "SYSCFG_EXTI_PIN0",
+            "shift": 0,
+            "reg": "EXTICR1"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN1",
+            "shift": 4,
+            "reg": "EXTICR1"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN2",
+            "shift": 8,
+            "reg": "EXTICR1"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN3",
+            "shift": 12,
+            "reg": "EXTICR1"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN4",
+            "shift": 0,
+            "reg": "EXTICR2"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN5",
+            "shift": 4,
+            "reg": "EXTICR2"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN6",
+            "shift": 8,
+            "reg": "EXTICR2"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN7",
+            "shift": 12,
+            "reg": "EXTICR2"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN8",
+            "shift": 0,
+            "reg": "EXTICR3"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN9",
+            "shift": 4,
+            "reg": "EXTICR3"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN10",
+            "shift": 8,
+            "reg": "EXTICR3"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN11",
+            "shift": 12,
+            "reg": "EXTICR3"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN12",
+            "shift": 0,
+            "reg": "EXTICR4"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN13",
+            "shift": 4,
+            "reg": "EXTICR4"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN14",
+            "shift": 8,
+            "reg": "EXTICR4"
+          },
+          {
+            "enum": "SYSCFG_EXTI_PIN15",
+            "shift": 12,
+            "reg": "EXTICR4"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "syscfg_cm4_lockup",
+      "signature": "",
+      "reg": "CFGR2",
+      "shift": 0,
+      "ifdef": "STM32_SYSCFG_CFGR2"
+    },
+    {
+      "type": "fn_call",
+      "fn": "syscfg_lock_pvd_to_tim1_break_input",
+      "signature": "",
+      "reg": "CFGR2",
+      "shift": 2,
+      "ifdef": "STM32_SYSCFG_CFGR2"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_cell_compensation_mode",
+      "signature": "{mode}",
+      "reg": "CMPCR",
+      "shift": 0,
+      "ifdef": "STM32_SYSCFG_CMPCR",
+      "set": "SYSCFG_CELL_COMPENSATION_MODE_ENABLED",
+      "clear": "SYSCFG_CELL_COMPENSATION_MODE_POWERDOWN"
+    },
+    {
+      "type": "fn_get",
+      "fn": "syscfg_is_cell_compensation_ready",
+      "signature": "",
+      "reg": "CMPCR",
+      "shift": 8,
+      "mask": "0x1",
+      "ifdef": "STM32_SYSCFG_CMPCR"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "syscfg_force_i2c_fmplus_scl_drive",
+      "signature": "",
+      "reg": "CFGR",
+      "shift": 0,
+      "ifdef": "STM32_SYSCFG_CFGR"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "syscfg_force_i2c_fmplus_sda_drive",
+      "signature": "",
+      "reg": "CFGR",
+      "shift": 1,
+      "ifdef": "STM32_SYSCFG_CFGR"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_bitstream_clock_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 0,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_BITSTREAM_CLOCK_SOURCE_DFSDM2",
+      "clear": "SYSCFG_BITSTREAM_CLOCK_SOURCE_OFF"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "syscfg_dfsdm1_delay_clock",
+      "signature": "",
+      "reg": "MCHDLYCR",
+      "shift": 1,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_bitstream_clock_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 2,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_BITSTREAM_CLOCK_SOURCE_DFSDM2",
+      "clear": "SYSCFG_BITSTREAM_CLOCK_SOURCE_OFF"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm1_data_input0_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 2,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM1_DATA_INPUT_SOURCE_SHARED",
+      "clear": "SYSCFG_DFSDM1_DATA_INPUT_SOURCE_UNIQUE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm1_data_input2_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 3,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM1_DATA_INPUT_SOURCE_SHARED",
+      "clear": "SYSCFG_DFSDM1_DATA_INPUT_SOURCE_UNIQUE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm1_oc2_gated_clock_distribution",
+      "signature": "{distribution}",
+      "reg": "MCHDLYCR",
+      "shift": 4,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM1_OC2_GATED_CLOCK_DISTRUBITION_CKIN2",
+      "clear": "SYSCFG_DFSDM1_OC2_GATED_CLOCK_DISTRUBITION_CKIN0"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm1_oc1_gated_clock_distribution",
+      "signature": "{distribution}",
+      "reg": "MCHDLYCR",
+      "shift": 5,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM1_OC1_GATED_CLOCK_DISTRUBITION_CKIN3",
+      "clear": "SYSCFG_DFSDM1_OC1_GATED_CLOCK_DISTRUBITION_CKIN1"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm1_clock_source",
+      "signature": "{distribution}",
+      "reg": "MCHDLYCR",
+      "shift": 6,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM1_CLOCK_SOURCE_DM",
+      "clear": "SYSCFG_DFSDM1_CLOCK_SOURCE_CKIN"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm1_output_clock",
+      "signature": "{distribution}",
+      "reg": "MCHDLYCR",
+      "shift": 7,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM1_OUTPUT_SOURCE_M27",
+      "clear": "SYSCFG_DFSDM1_OUTPUT_SOURCE_CKOUT"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "syscfg_dfsdm2_clock",
+      "signature": "",
+      "reg": "MCHDLYCR",
+      "shift": 8,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_data_input0_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 9,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_SHARED",
+      "clear": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_UNIQUE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_data_input2_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 10,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_SHARED",
+      "clear": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_UNIQUE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_data_input4_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 11,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_SHARED",
+      "clear": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_UNIQUE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_data_input6_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 12,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_SHARED",
+      "clear": "SYSCFG_DFSDM2_DATA_INPUT_SOURCE_UNIQUE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_oc4_gated_clock_distribution",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 13,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_OC4_GATED_CLOCK_DISTRIBUTION_CKIN4",
+      "clear": "SYSCFG_DFSDM2_OC4_GATED_CLOCK_DISTRIBUTION_CKIN0"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_oc3_gated_clock_distribution",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 14,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_OC3_GATED_CLOCK_DISTRIBUTION_CKIN5",
+      "clear": "SYSCFG_DFSDM2_OC3_GATED_CLOCK_DISTRIBUTION_CKIN1"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_oc2_gated_clock_distribution",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 15,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_OC2_GATED_CLOCK_DISTRIBUTION_CKIN6",
+      "clear": "SYSCFG_DFSDM2_OC2_GATED_CLOCK_DISTRIBUTION_CKIN2"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_oc1_gated_clock_distribution",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 16,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_OC1_GATED_CLOCK_DISTRIBUTION_CKIN7",
+      "clear": "SYSCFG_DFSDM2_OC1_GATED_CLOCK_DISTRIBUTION_CKIN3"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_clock_source",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 17,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_CLOCK_SOURCE_DM",
+      "clear": "SYSCFG_DFSDM2_CLOCK_SOURCE_CKIN"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "syscfg_set_dfsdm2_output_clock",
+      "signature": "{source}",
+      "reg": "MCHDLYCR",
+      "shift": 17,
+      "ifdef": "STM32_SYSCFG_MCHDLYCR",
+      "set": "SYSCFG_DFSDM2_OUTPUT_SOURCE_M27",
+      "clear": "SYSCFG_DFSDM2_OUTPUT_SOURCE_CKOUT"
+    }
+  ]
+}

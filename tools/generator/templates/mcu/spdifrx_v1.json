@@ -1,0 +1,554 @@
+{
+  "periph": "SPDIFRX",
+  "path": "stm32/drivers/spdifrx/spdifrx_v1.h",
+  "struct": "spdifrx_registers_map",
+  "functions": [
+    {
+      "type": "enum_set",
+      "fn": "spdifrx_set_active_block",
+      "signature": "{block}",
+      "reg": "CR",
+      "shift": 0,
+      "mask": "0x3",
+      "args": {
+        "block": [
+          {
+            "enum": "SPDIFRX_BLOCK_IDLE",
+            "value": "0b00"
+          },
+          {
+            "enum": "SPDIFRX_BLOCK_SYNC_ONLY",
+            "value": "0b01"
+          },
+          {
+            "enum": "SPDIFRX_BLOCK_RECEIVER",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spdifrx_receiver_dma",
+      "signature": "",
+      "reg": "CR",
+      "shift": 2
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spdifrx_set_audio_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 3,
+      "set": "SPDIFRX_AUDIO_MODE_STEREO",
+      "clear": "SPDIFRX_AUDIO_MODE_MONO"
+    },
+    {
+      "type": "enum_set",
+      "fn": "spdifrx_set_rx_data_format",
+      "signature": "{format}",
+      "reg": "CR",
+      "shift": 4,
+      "mask": "0x3",
+      "args": {
+        "format": [
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_32BIT",
+            "value": "0b10"
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_LEFT_ALIGNED",
+            "value": "0b01"
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_RIGHT_ALIGNED",
+            "value": "0b00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spdifrx_copy_bit",
+      "signature": "{bit}",
+      "reg": "CR",
+      "args": {
+        "bit": [
+          {
+            "enum": "SPDIFRX_BIT_MASK_PARITY",
+            "shift": 6
+          },
+          {
+            "enum": "SPDIFRX_BIT_MASK_VALIDITY",
+            "shift": 7
+          },
+          {
+            "enum": "SPDIFRX_BIT_MASK_CHANNEL_STATUS",
+            "shift": 8
+          },
+          {
+            "enum": "SPDIFRX_BIT_MASK_PREABLE",
+            "shift": 9
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spdifrx_dma_control_flow",
+      "signature": "",
+      "reg": "CR",
+      "shift": 10
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spdifrx_set_channel_flow_control",
+      "signature": "{channel}",
+      "reg": "CR",
+      "shift": 11,
+      "set": "SPDIFRX_CHANNELB",
+      "clear": "SPDIFRX_CHANNELA"
+    },
+    {
+      "type": "enum_set",
+      "fn": "spdifrx_set_max_allowed_retries",
+      "signature": "{retries}",
+      "reg": "CR",
+      "shift": 12,
+      "mask": "0x3",
+      "args": {
+        "retries": [
+          {
+            "enum": "SPDIFRX_RETRIES_NORETRIES",
+            "value": "0b00"
+          },
+          {
+            "enum": "SPDIFRX_RETRIES_3RETRIES",
+            "value": "0b01"
+          },
+          {
+            "enum": "SPDIFRX_RETRIES_15RETRIES",
+            "value": "0b10"
+          },
+          {
+            "enum": "SPDIFRX_RETRIES_63RETRIES",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spdifrx_set_sync_policy",
+      "signature": "{policy}",
+      "reg": "CR",
+      "shift": 14,
+      "set": "SPDIFRX_SYNC_POLICY_WAIT_IN",
+      "clear": "SPDIFRX_SYNC_POLICY_DONT_WAIT"
+    },
+    {
+      "type": "enum_set",
+      "fn": "spdifrx_set_input",
+      "signature": "{input}",
+      "reg": "CR",
+      "shift": 16,
+      "mask": "0x7",
+      "args": {
+        "input": [
+          {
+            "enum": "SPDIFRX_INPUT_IN1",
+            "value": "0b000"
+          },
+          {
+            "enum": "SPDIFRX_INPUT_IN2",
+            "value": "0b001"
+          },
+          {
+            "enum": "SPDIFRX_INPUT_IN3",
+            "value": "0b010"
+          },
+          {
+            "enum": "SPDIFRX_INPUT_IN4",
+            "value": "0b011"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spdifrx_interrupt",
+      "signature": "{interrupt}",
+      "reg": "IMR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "SPDIFRX_INTERRUPT_RXNE",
+            "shift": 0
+          },
+          {
+            "enum": "SPDIFRX_INTERRUPT_CTRL_BUF_READY",
+            "shift": 1
+          },
+          {
+            "enum": "SPDIFRX_INTERRUPT_PARITY_ERR",
+            "shift": 2
+          },
+          {
+            "enum": "SPDIFRX_INTERRUPT_OVERRUN_ERR",
+            "shift": 3
+          },
+          {
+            "enum": "SPDIFRX_INTERRUPT_SYNC_DETECTED",
+            "shift": 4
+          },
+          {
+            "enum": "SPDIFRX_INTERRUPT_SYNC_COMPLETE",
+            "shift": 5
+          },
+          {
+            "enum": "SPDIFRX_INTERRUPT_SERIAL_INTERFACE_ERR",
+            "shift": 6
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "spdifrx_is_flag_set",
+      "signature": "{flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "SPDRFRX_FLAG_RXNE",
+            "shift": 0
+          },
+          {
+            "enum": "SPDRFRX_FLAG_CTRL_BUF_READY",
+            "shift": 1
+          },
+          {
+            "enum": "SPDRFRX_FLAG_PARITY_ERR",
+            "shift": 2
+          },
+          {
+            "enum": "SPDRFRX_FLAG_OVERRUN_ERR",
+            "shift": 3
+          },
+          {
+            "enum": "SPDRFRX_FLAG_SYNC_DETECTED",
+            "shift": 4
+          },
+          {
+            "enum": "SPDRFRX_FLAG_SYNC_COMPLETE",
+            "shift": 5
+          },
+          {
+            "enum": "SPDRFRX_FLAG_FRAMING_ERR",
+            "shift": 6
+          },
+          {
+            "enum": "SPDRFRX_FLAG_SYNC_ERR",
+            "shift": 7
+          },
+          {
+            "enum": "SPDRFRX_FLAG_TIMEOUT_ERR",
+            "shift": 8
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_5symbols_clock_count",
+      "signature": "",
+      "reg": "SR",
+      "shift": 16,
+      "mask": "0x7fff"
+    },
+    {
+      "type": "flag_clear",
+      "fn": "spdifrx_flag_clear",
+      "signature": "{flag}",
+      "reg": "IFCR",
+      "clear_mode": "w1",
+      "args": {
+        "flag": [
+          {
+            "enum": "SPDRFRX_FLAG_RXNE",
+            "shift": 0,
+            "halt": true
+          },
+          {
+            "enum": "SPDRFRX_FLAG_CTRL_BUF_READY",
+            "shift": 1,
+            "halt": true
+          },
+          {
+            "enum": "SPDRFRX_FLAG_PARITY_ERR",
+            "shift": 2
+          },
+          {
+            "enum": "SPDRFRX_FLAG_OVERRUN_ERR",
+            "shift": 3
+          },
+          {
+            "enum": "SPDRFRX_FLAG_SYNC_DETECTED",
+            "shift": 4
+          },
+          {
+            "enum": "SPDRFRX_FLAG_SYNC_COMPLETE",
+            "shift": 5
+          },
+          {
+            "enum": "SPDRFRX_FLAG_FRAMING_ERR",
+            "shift": 6,
+            "halt": true
+          },
+          {
+            "enum": "SPDRFRX_FLAG_SYNC_ERR",
+            "shift": 7,
+            "halt": true
+          },
+          {
+            "enum": "SPDRFRX_FLAG_TIMEOUT_ERR",
+            "shift": 8,
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_recv_bit",
+      "signature": "{fmt}, {bit}",
+      "reg": "DR",
+      "shift": 0,
+      "mask": "0x1",
+      "args": {
+        "fmt": [
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_32BIT",
+            "halt": true
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_LEFT_ALIGNED",
+            "shift": 0
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_RIGHT_ALIGNED",
+            "shift": 24
+          }
+        ],
+        "bit": [
+          {
+            "enum": "SPDIFRX_RECV_BIT_PARITY_ERR",
+            "shift": "+0"
+          },
+          {
+            "enum": "SPDIFRX_RECV_BIT_VALIDITY",
+            "shift": "+1"
+          },
+          {
+            "enum": "SPDIFRX_RECV_BIT_USER",
+            "shift": "+2"
+          },
+          {
+            "enum": "SPDIFRX_RECV_BIT_CHANNEL_STATUS",
+            "shift": "+3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_recv_preamble",
+      "signature": "{fmt}",
+      "reg": "DR",
+      "args": {
+        "fmt": [
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_32BIT",
+            "halt": true
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_LEFT_ALIGNED",
+            "shift": 4
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_RIGHT_ALIGNED",
+            "shift": 28
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_data",
+      "signature": "{fmt}",
+      "reg": "DR",
+      "args": {
+        "fmt": [
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_32BIT",
+            "shift": 0
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_LEFT_ALIGNED",
+            "shift": 8,
+            "mask": "0xffffff"
+          },
+          {
+            "enum": "SPDIFRX_RX_DATA_FORMAT_RIGHT_ALIGNED",
+            "shift": 0,
+            "mask": "0xffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_user_data_info",
+      "signature": "{idx}",
+      "reg": "CSR",
+      "shift": 0,
+      "mask": "0x1",
+      "args": {
+        "idx": [
+          {
+            "value": 0,
+            "shift": "+0"
+          },
+          {
+            "value": 1,
+            "shift": "+1"
+          },
+          {
+            "value": 2,
+            "shift": "+2"
+          },
+          {
+            "value": 3,
+            "shift": "+3"
+          },
+          {
+            "value": 4,
+            "shift": "+4"
+          },
+          {
+            "value": 5,
+            "shift": "+5"
+          },
+          {
+            "value": 6,
+            "shift": "+6"
+          },
+          {
+            "value": 7,
+            "shift": "+7"
+          },
+          {
+            "value": 8,
+            "shift": "+8"
+          },
+          {
+            "value": 9,
+            "shift": "+9"
+          },
+          {
+            "value": 10,
+            "shift": "+10"
+          },
+          {
+            "value": 11,
+            "shift": "+11"
+          },
+          {
+            "value": 12,
+            "shift": "+12"
+          },
+          {
+            "value": 13,
+            "shift": "+13"
+          },
+          {
+            "value": 14,
+            "shift": "+14"
+          },
+          {
+            "value": 15,
+            "shift": "+15"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_channel_status_info",
+      "signature": "{idx}",
+      "reg": "CSR",
+      "shift": 16,
+      "mask": "0x1",
+      "args": {
+        "idx": [
+          {
+            "value": 0,
+            "shift": "+0"
+          },
+          {
+            "value": 1,
+            "shift": "+1"
+          },
+          {
+            "value": 2,
+            "shift": "+2"
+          },
+          {
+            "value": 3,
+            "shift": "+3"
+          },
+          {
+            "value": 4,
+            "shift": "+4"
+          },
+          {
+            "value": 5,
+            "shift": "+5"
+          },
+          {
+            "value": 6,
+            "shift": "+6"
+          },
+          {
+            "value": 7,
+            "shift": "+7"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_start_of_block",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 24,
+      "mask": "0x1"
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_threshold_high",
+      "signature": "",
+      "reg": "DIR",
+      "shift": 0,
+      "mask": "0x1fff"
+    },
+    {
+      "type": "fn_get",
+      "fn": "spdifrx_get_threshold_low",
+      "signature": "",
+      "reg": "DIR",
+      "shift": 16,
+      "mask": "0x1fff"
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "periph": "DAC",
+  "path": "stm32/drivers/dac/dac_v2.h",
+  "struct": "dac_registers_map",
+  "functions": [
+    {
+      "type": "enum_toggle",
+      "fn": "dac_channel",
+      "reg": "CR",
+      "signature": "{channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 0
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "shift": 16
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_toggle",
+      "fn": "dac_channel_buffer",
+      "reg": "CR",
+      "signature": "{channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 1
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "shift": 17
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_toggle",
+      "fn": "dac_channel_trigger",
+      "reg": "CR",
+      "signature": "{channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 2
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "shift": 18
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dac_channel_set_trigger",
+      "reg": "CR",
+      "signature": "{channel}, {trigger}",
+      "mask": "0x7",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 3
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "shift": 19
+          }
+        ],
+        "trigger": [
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_TIM6",
+            "value": "0b000"
+          },
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_TIM3",
+            "value": "0b001"
+          },
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_TIM7",
+            "value": "0b010"
+          },
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_TIM5",
+            "value": "0b011"
+          },
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_TIM2",
+            "value": "0b100"
+          },
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_TIM4",
+            "value": "0b101"
+          },
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_EXT_LINE9",
+            "value": "0b110"
+          },
+          {
+            "enum": "DAC_CHANNEL_TRIGGER_SOFTWARE",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dac_set_channel_wave",
+      "reg": "CR",
+      "signature": "{channel}, {wave}",
+      "mask": "0x3",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 6
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "shift": 22
+          }
+        ],
+        "wave": [
+          {
+            "enum": "DAC_WAVE_OFF",
+            "value": "0b00"
+          },
+          {
+            "enum": "DAC_WAVE_NOISE",
+            "value": "0b01"
+          },
+          {
+            "enum": "DAC_WAVE_TRIANGLE",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dac_set_channel_amplitude",
+      "reg": "CR",
+      "signature": "{channel}, {amplitude}",
+      "mask": "0xf",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 8
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "shift": 24
+          }
+        ],
+        "amplitude": [
+          {
+            "enum": "DAC_AMPLITUDE1",
+            "value": "0b0000"
+          },
+          {
+            "enum": "DAC_AMPLITUDE3",
+            "value": "0b0001"
+          },
+          {
+            "enum": "DAC_AMPLITUDE7",
+            "value": "0b0010"
+          },
+          {
+            "enum": "DAC_AMPLITUDE15",
+            "value": "0b0011"
+          },
+          {
+            "enum": "DAC_AMPLITUDE31",
+            "value": "0b0100"
+          },
+          {
+            "enum": "DAC_AMPLITUDE63",
+            "value": "0b0101"
+          },
+          {
+            "enum": "DAC_AMPLITUDE127",
+            "value": "0b0110"
+          },
+          {
+            "enum": "DAC_AMPLITUDE255",
+            "value": "0b0111"
+          },
+          {
+            "enum": "DAC_AMPLITUDE511",
+            "value": "0b1000"
+          },
+          {
+            "enum": "DAC_AMPLITUDE1023",
+            "value": "0b1001"
+          },
+          {
+            "enum": "DAC_AMPLITUDE2047",
+            "value": "0b1010"
+          },
+          {
+            "enum": "DAC_AMPLITUDE4095",
+            "value": "0b1011"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_toggle",
+      "fn": "dac_dma_enable",
+      "reg": "CR",
+      "signature": "{channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 12
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "shift": 28
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_toggle",
+      "fn": "dac_channel_software_trigger",
+      "reg": "SWTRIGR",
+      "signature": "{channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "shift": 1
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "shift": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dac_set_channel_12bit_right_aligned_data",
+      "signature": "{channel}, {val}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "reg": "DHR12R1"
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "reg": "DHR12R2"
+          }
+        ],
+        "val": [
+          {
+            "value": 0,
+            "reg": "DHR12R1"
+          },
+          {
+            "value": "0xfff",
+            "reg": "DHR12R1"
+          },
+          {
+            "value": "0x1000",
+            "reg": "DHR12R1",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dac_set_channel_12bit_left_aligned_data",
+      "signature": "{channel}, {val}",
+      "shift": 4,
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "reg": "DHR12L1"
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "reg": "DHR12L2"
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dac_set_channel_8bit_data",
+      "signature": "{channel}, {val}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "reg": "DHR8R1"
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "ifdef": "STM32_DAC_CHANNEL2",
+            "reg": "DHR8R2"
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "dac_set_channels_12bit_data",
+      "reg": "DHR12RD",
+      "signature": "{alignment}, {val}, {val2}",
+      "ifdef": "STM32_DAC_CHANNEL_COMMON",
+      "args": {
+        "val": []
+      }
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "dac_set_channels_8bit_data",
+      "reg": "DHR12RD",
+      "signature": "{val}, {val2}",
+      "ifdef": "STM32_DAC_CHANNEL_COMMON",
+      "args": {
+        "val": []
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "dac_get_channel_output_data",
+      "mask": "0xfff",
+      "signature": "{channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "DAC_CHANNEL1",
+            "reg": "DOR1"
+          },
+          {
+            "enum": "DAC_CHANNEL2",
+            "reg": "DOR2"
+          }
+        ]
+      }
+    }
+  ]
+}
+

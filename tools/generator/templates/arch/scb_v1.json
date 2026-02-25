@@ -1,0 +1,37 @@
+{
+  "periph": "SCB",
+  "path": "arch/cortex/drivers/scb/scb_v1.h",
+  "struct": "scb_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "scb_interrupt_multi_cycle_intructions",
+      "signature": "",
+      "reg": "ACTLR",
+      "shift": 0,
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "fn_toggle (TODO)",
+      "fn": "scb_write_buffer",
+      "signature": "",
+      "reg": "ACTLR",
+      "shift": 1,
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "scb_folding_it_instructions",
+      "signature": "",
+      "reg": "ACTLR",
+      "shift": 2,
+      "options": [
+        "inverted"
+      ]
+    }
+  ]
+}

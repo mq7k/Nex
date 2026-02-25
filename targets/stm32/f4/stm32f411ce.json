@@ -1,0 +1,8 @@
+{
+  "mcu": "stm32f411ce",
+  "groups": [ 
+    "stm32f411xc"
+  ],
+  "arch_periph_group": "cm4f",
+  "ld": "fx/f4/stm32f411xe.ld"
+}

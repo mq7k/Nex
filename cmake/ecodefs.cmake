@@ -1,0 +1,53 @@
+set(
+  NEX_LD_SCRIPTS_DIR
+  ${PROJECT_SOURCE_DIR}/ld
+)
+
+set(
+  NEX_LD_SCRIPT_DIR
+  ${NEX_LD_SCRIPTS_DIR}/${NEX_TARGET_FAMILY}
+)
+
+set(
+  NEX_LD_SCRIPTS_MCU_DIR
+  ${NEX_LD_SCRIPTS_DIR}/${NEX_TARGET_FAMILY}
+)
+
+set(
+  NEX_LD_SCRIPT_PATH
+  ${NEX_LD_SCRIPTS_MCU_DIR}/${NEX_LD_SCRIPT}
+)
+
+set(
+  NEX_CMAKE_FILES 
+  ${PROJECT_SOURCE_DIR}/cmake
+)
+
+set(
+  NEX_APPSTACK_BASE_DIR
+  ${PROJECT_SOURCE_DIR}/appstack
+)
+
+set(
+  NEX_LIBTEST_BASE_DIR
+  ${NEX_APPSTACK_BASE_DIR}/libtest
+)
+
+set(
+  NEX_LIBCOM_BASE_DIR
+  ${NEX_APPSTACK_BASE_DIR}/libcom
+)
+
+set(
+  SYN_BASE_DIR
+  ${NEX_APPSTACK_BASE_DIR}/synapse
+)
+
+set(
+  NEX_SYSTEM_BASE_DIR
+  ${NEX_APPSTACK_BASE_DIR}/system
+)
+
+if (NOT EXISTS ${NEX_LD_SCRIPT_PATH})
+  eco_log(FATAL_ERROR "Linker script file '${NEX_LD_SCRIPT_PATH}' doesn't exist.")
+endif()

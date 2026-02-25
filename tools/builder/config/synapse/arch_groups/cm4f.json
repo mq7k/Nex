@@ -1,0 +1,35 @@
+{
+  "compiler_flags": {
+    "arm": [
+      "-mcpu=cortex-m4",
+      "-mfloat-abi=hard",
+      "-mfpu=fpv4-sp-d16"
+    ],
+    "desktop": [
+
+    ],
+    "com": [
+
+    ]
+  },
+  "linker_flags": {
+    "arm": [
+      "-mcpu=cortex-m4",
+      "-mfloat-abi=hard",
+      "-mfpu=fpv4-sp-d16"
+    ],
+    "desktop": [
+
+    ],
+    "com": [
+
+    ]
+  },
+  "avb_periphs": [
+    "vtable/vtable_v1",
+    "systick/systick_v1",
+    "nvic/nvic_v1",
+    "scb/scb_v1",
+    "fpu/fpu_v1"
+  ]
+}

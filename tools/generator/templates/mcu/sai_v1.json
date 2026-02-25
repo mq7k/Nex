@@ -1,0 +1,538 @@
+{
+  "periph": "SAI1A",
+  "path": "stm32/drivers/sai/sai_v1.h",
+  "struct": "sai_registers_map",
+  "output_dir": "sai",
+  "functions": [
+    {
+      "type": "enum_set",
+      "fn": "sai_set_sync_output",
+      "signature": "{periph}, {sync}",
+      "shift": 4,
+      "mask": "0x3",
+      "ifdef": "STM32_SAI_GCR",
+      "reg": "GCR",
+      "args": {
+        "sync": [
+          {
+            "enum": "SAI_SYNC_OUT_NOSYNC",
+            "value": "0b00"
+          },
+          {
+            "enum": "SAI_SYNC_OUT_SYNC_BLOCKA",
+            "value": "0b01"
+          },
+          {
+            "enum": "SAI_SYNC_OUT_SYNC_BLOCKB",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "sai_set_block_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 0,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "SAI_BLOCK_MODE_MASTER_TX",
+            "value": "0b00"
+          },
+          {
+            "enum": "SAI_BLOCK_MODE_MASTER_RX",
+            "value": "0b01"
+          },
+          {
+            "enum": "SAI_BLOCK_MODE_SLAVE_TX",
+            "value": "0b10"
+          },
+          {
+            "enum": "SAI_BLOCK_MODE_SLAVE_RX",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "sai_set_protocol",
+      "signature": "{periph}, {protocol}",
+      "reg": "CR1",
+      "shift": 2,
+      "mask": "0x3",
+      "args": {
+        "protocol": [
+          {
+            "enum": "SAI_PROTOCOL_FREE",
+            "value": "0b00"
+          },
+          {
+            "enum": "SAI_PROTOCOL_SPDIF",
+            "value": "0b01"
+          },
+          {
+            "enum": "SAI_PROTOCOL_AC97",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "sai_set_data_size",
+      "signature": "{periph}, {size}",
+      "reg": "CR1",
+      "shift": 5,
+      "mask": "0x7",
+      "args": {
+        "size": [
+          {
+            "enum": "SAI_DATA_SIZE_8BIT",
+            "value": "0b010"
+          },
+          {
+            "enum": "SAI_DATA_SIZE_10BIT",
+            "value": "0b011"
+          },
+          {
+            "enum": "SAI_DATA_SIZE_16BIT",
+            "value": "0b100"
+          },
+          {
+            "enum": "SAI_DATA_SIZE_20BIT",
+            "value": "0b101"
+          },
+          {
+            "enum": "SAI_DATA_SIZE_24BIT",
+            "value": "0b110"
+          },
+          {
+            "enum": "SAI_DATA_SIZE_32BIT",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_endianess",
+      "signature": "{periph}, {endianess}",
+      "reg": "CR1",
+      "shift": 8,
+      "set": "SAI_ENDIANESS_LSB_FIRST",
+      "clear": "SAI_ENDIANESS_MSB_FIRST"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_clock_strobe",
+      "signature": "{periph}, {strobe}",
+      "reg": "CR1",
+      "shift": 9,
+      "set": "SAI_CLOCK_STROBE_GENERATE_ON_FALLING",
+      "clear": "SAI_CLOCK_STROBE_GENERATE_ON_RISING"
+    },
+    {
+      "type": "enum_set",
+      "fn": "sai_set_subblock_sync",
+      "signature": "{periph}, {sync}",
+      "shift": 10,
+      "mask": "0x3",
+      "reg": "CR1",
+      "args": {
+        "sync": [
+          {
+            "enum": "SAI_SUBBLOCK_SYNC_ASYNC",
+            "value": "0b00"
+          },
+          {
+            "enum": "SAI_SUBBLOCK_SYNC_SYNC_INTERNAL",
+            "value": "0b01"
+          },
+          {
+            "enum": "SAI_SUBBLOCK_SYNC_SYNC_EXTERNAL",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_audio_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 12,
+      "set": "SAI_AUDIO_MODE_MONO",
+      "clear": "SAI_AUDIO_MODE_STEREO"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_outdrive",
+      "signature": "{periph}, {outdrive}",
+      "reg": "CR1",
+      "shift": 13,
+      "set": "SAI_OUTDRIVE_AUTO",
+      "clear": "SAI_OUTDRIVE_MANUAL"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sai_audio_block",
+      "reg": "CR1",
+      "shift": 16
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sai_dma",
+      "reg": "CR1",
+      "shift": 17
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sai_clock_divider",
+      "reg": "CR1",
+      "shift": 19,
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sai_set_clock_divider",
+      "signature": "{periph}, {val}",
+      "shift": 20,
+      "mask": "0xf",
+      "reg": "CR1"
+    },
+    {
+      "type": "enum_set",
+      "fn": "sai_set_fifo_threshold",
+      "signature": "{periph}, {threshold}",
+      "reg": "CR2",
+      "shift": 0,
+      "mask": "0x7",
+      "args": {
+        "threshold": [
+          {
+            "enum": "SAI_FIFO_THRESHOLD_EMPTY",
+            "value": "0b000"
+          },
+          {
+            "enum": "SAI_FIFO_THRESHOLD_1over4_FULL",
+            "value": "0b001"
+          },
+          {
+            "enum": "SAI_FIFO_THRESHOLD_1over2_FULL",
+            "value": "0b010"
+          },
+          {
+            "enum": "SAI_FIFO_THRESHOLD_3over4_FULL",
+            "value": "0b011"
+          },
+          {
+            "enum": "SAI_FIFO_THRESHOLD_FULL",
+            "value": "0b100"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "sai_fifo_flush",
+      "reg": "CR2",
+      "signature": "{periph}",
+      "shift": 3
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_tristate_management",
+      "signature": "{periph}, {management}",
+      "reg": "CR2",
+      "shift": 4,
+      "set": "SAI_TRISTATE_MANAGEMENT_RELEASE",
+      "clear": "SAI_TRISTATE_MANAGEMENT_KEEP_DRIVE"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sai_mute",
+      "reg": "CR2",
+      "shift": 5
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_mute_value",
+      "signature": "{periph}, {muteval}",
+      "reg": "CR2",
+      "shift": 6,
+      "set": "SAI_MUTE_VALUE_LAST",
+      "clear": "SAI_MUTE_VALUE_BIT_VALUE0"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sai_set_mute_counter",
+      "signature": "{periph}, {val}",
+      "reg": "CR2",
+      "shift": 7,
+      "mask": "0x3f"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_bit_complement",
+      "signature": "{periph}, {complement}",
+      "reg": "CR2",
+      "shift": 13,
+      "set": "SAI_BIT_COMPLEMENT2",
+      "clear": "SAI_BIT_COMPLEMENT1"
+    },
+    {
+      "type": "enum_set",
+      "fn": "sai_set_companding_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR2",
+      "shift": 14,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "SAI_COMPANDING_MODE_NOCOMPANDING",
+            "value": "0b00"
+          },
+          {
+            "enum": "SAI_COMPANDING_MODE_uLAW_ALGO",
+            "value": "0b10"
+          },
+          {
+            "enum": "SAI_COMPANDING_MODE_ALAW_ALGO",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sai_set_frame_length",
+      "signature": "{periph}, {val}",
+      "reg": "FRCR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sai_set_frame_sync_active_level",
+      "signature": "{periph}, {val}",
+      "reg": "FRCR",
+      "shift": 8,
+      "mask": "0x7f"
+    },
+    {
+      "type": "fn_get",
+      "fn": "sai_get_frame_sync_mode",
+      "signature": "{periph}",
+      "reg": "FRCR",
+      "shift": 16,
+      "mask": "0x1"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_frame_sync_polarity",
+      "signature": "{periph}, {polarity}",
+      "reg": "FRCR",
+      "shift": 17,
+      "set": "SAI_FRAME_SYNC_POLARITY_ACTIVE_HIGH",
+      "clear": "SAI_FRAME_SYNC_POLARITY_ACTIVE_LOW"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sai_set_frame_sync_offset",
+      "signature": "{periph}, {offset}",
+      "reg": "FRCR",
+      "shift": 18,
+      "set": "SAI_FRAME_SYNC_OFFSET_BEFORE_FIRST_BIT",
+      "clear": "SAI_FRAME_SYNC_OFFSET_FIRST_BIT"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sai_set_first_bit_offset",
+      "signature": "{periph}, {val}",
+      "reg": "SLOTR",
+      "shift": 0,
+      "mask": "0x1f"
+    },
+    {
+      "type": "enum_set",
+      "fn": "sai_set_slot_size",
+      "signature": "{periph}, {size}",
+      "reg": "SLOTR",
+      "shift": 6,
+      "mask": "0x3",
+      "args": {
+        "size": [
+          {
+            "enum": "SAI_SLOT_SIZE_DATASIZE",
+            "value": "0b00"
+          },
+          {
+            "enum": "SAI_SLOT_SIZE_16BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "SAI_SLOT_SIZE_32BIT",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sai_set_audio_frame_slots_count",
+      "signature": "{periph}, {val}",
+      "reg": "SLOTR",
+      "shift": 8,
+      "mask": "0xf"
+    },
+    {
+      "type": "bitmap (TODO)",
+      "fn": "sai_slot",
+      "signature": "{periph}, {slot}",
+      "reg": "SLOTR",
+      "bits": {
+        "name": "slot",
+        "min": 0,
+        "max": 16
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sai_interrupt",
+      "signature": "{periph}, {interrupt}",
+      "reg": "IM",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "SAI_INTERRUPT_OVERRUN_UNDERRUN",
+            "shift": 0
+          },
+          {
+            "enum": "SAI_INTERRUPT_MUTE_DETECTION",
+            "shift": 1
+          },
+          {
+            "enum": "SAI_INTERRUPT_WRONG_CLOCK",
+            "shift": 2
+          },
+          {
+            "enum": "SAI_INTERRUPT_FIFO_REQUEST",
+            "shift": 3
+          },
+          {
+            "enum": "SAI_INTERRUPT_CODEC_NOT_READY",
+            "shift": 4
+          },
+          {
+            "enum": "SAI_INTERRUPT_ANTICIPATED_FRAME_SYNC",
+            "shift": 5
+          },
+          {
+            "enum": "SAI_INTERRUPT_LATE_FRAME_SYNC",
+            "shift": 6
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "sai_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "SAI_FLAG_OVERRUN_UNDERRUN",
+            "shift": 0
+          },
+          {
+            "enum": "SAI_FLAG_MUTE",
+            "shift": 1
+          },
+          {
+            "enum": "SAI_FLAG_WRONG_CLOCK",
+            "shift": 2
+          },
+          {
+            "enum": "SAI_FLAG_FIFO_REQUEST",
+            "shift": 3
+          },
+          {
+            "enum": "SAI_FLAG_CODEC_NOT_READY",
+            "shift": 4
+          },
+          {
+            "enum": "SAI_FLAG_ANTICIPATED_FRAME_SYNC",
+            "shift": 5
+          },
+          {
+            "enum": "SAI_FLAG_LATE_FRAME_SYNC",
+            "shift": 6
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "sai_get_fifo_threshold_level",
+      "reg": "SR",
+      "shift": 16,
+      "mask": "0x7"
+    },
+    {
+      "type": "flag_clear",
+      "fn": "sai_flag_clear",
+      "signature": "{periph}, {flag}",
+      "reg": "CLRFR",
+      "clear_mode": "w1",
+      "args": {
+        "flag": [
+          {
+            "enum": "SAI_FLAG_OVERRUN_UNDERRUN",
+            "shift": 0
+          },
+          {
+            "enum": "SAI_FLAG_MUTE",
+            "shift": 1
+          },
+          {
+            "enum": "SAI_FLAG_WRONG_CLOCK",
+            "shift": 2
+          },
+          {
+            "enum": "SAI_FLAG_FIFO_REQUEST",
+            "shift": 3,
+            "halt": true
+          },
+          {
+            "enum": "SAI_FLAG_CODEC_NOT_READY",
+            "shift": 4
+          },
+          {
+            "enum": "SAI_FLAG_ANTICIPATED_FRAME_SYNC",
+            "shift": 5
+          },
+          {
+            "enum": "SAI_FLAG_LATE_FRAME_SYNC",
+            "shift": 6
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sai_write_data",
+      "signature": "{periph}, {val}",
+      "reg": "DR",
+      "shift": 0,
+      "mask": "0xffffffff"
+    }
+  ]
+}

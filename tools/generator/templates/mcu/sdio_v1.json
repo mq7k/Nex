@@ -1,0 +1,720 @@
+{
+  "periph": "SDIO",
+  "path": "stm32/drivers/sdio/sdio_v1.h",
+  "struct": "sdio_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_power",
+      "suffixes": {
+        "enable": "_on",
+        "disable": "_off"
+      },
+      "signature": "",
+      "reg": "POWER",
+      "shift": 0,
+      "mask": "0x3",
+      "value": "0b11"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sdio_set_clock_divide_factor",
+      "signature": "{val}",
+      "reg": "CLKCR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_clock_config",
+      "signature": "{config}",
+      "reg": "CLKCR",
+      "args": {
+        "config": [
+          {
+            "enum": "SDIO_CLOCK_CONFIG_ENABLE",
+            "shift": 8
+          },
+          {
+            "enum": "SDIO_CLOCK_CONFIG_POWER_SAVING",
+            "shift": 9
+          },
+          {
+            "enum": "SDIO_CLOCK_CONFIG_CLOCK_DIVIDER_BYPASS",
+            "shift": 10
+          },
+          {
+            "enum": "SDIO_CLOCK_CONFIG_HARDWARE_FLOW",
+            "shift": 14
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "sdio_set_widebus_mode",
+      "signature": "{mode}",
+      "reg": "CLKCR",
+      "shift": 11,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "SDIO_WIDEBUS_MODE_DEFAULT",
+            "value": "0b00"
+          },
+          {
+            "enum": "SDIO_WIDEBUS_MODE_4WIDE",
+            "value": "0b01"
+          },
+          {
+            "enum": "SDIO_WIDEBUS_MODE_8WIDE",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sdio_set_clock_edge",
+      "signature": "{edge}",
+      "reg": "CLKCR",
+      "shift": 13,
+      "set": "SDIO_CLOCK_EDGE_FALLING",
+      "clear": "SDIO_CLOCK_EDGE_RISING"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sdio_set_cmd_arg",
+      "signature": "{val}",
+      "reg": "ARG",
+      "shift": 0,
+      "mask": "0xffffffff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sdio_set_cmd",
+      "signature": "{val}",
+      "reg": "CMD",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "enum_set",
+      "fn": "sdio_set_response_type",
+      "signature": "{type}",
+      "shift": 6,
+      "mask": "0x3",
+      "reg": "CMD",
+      "args": {
+        "type": [
+          {
+            "enum": "SDIO_RESPONSE_NO_RESPONSE",
+            "value": "0b00"
+          },
+          {
+            "enum": "SDIO_RESPONSE_TYPE_SHORT",
+            "value": "0b01"
+          },
+          {
+            "enum": "SDIO_RESPONSE_TYPE_LONG",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_waitint",
+      "signature": "",
+      "reg": "CMD",
+      "shift": 8
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_waitpending",
+      "signature": "",
+      "reg": "CMD",
+      "shift": 9
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_cpsm",
+      "signature": "",
+      "reg": "CMD",
+      "shift": 10
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_suspend",
+      "signature": "",
+      "reg": "CMD",
+      "shift": 11
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_cmd_completion",
+      "signature": "",
+      "reg": "CMD",
+      "shift": 12,
+      "ifdef": "STM32_SDIO_CMD_COMPLETION"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_nien",
+      "signature": "",
+      "reg": "CMD",
+      "shift": 13,
+      "ifdef": "STM32_SDIO_NOT_INT"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_atacmd",
+      "signature": "",
+      "reg": "CMD",
+      "shift": 14,
+      "ifdef": "STM32_SDIO_CEATA_CMD"
+    },
+    {
+      "type": "fn_get",
+      "fn": "sdio_get_response_cmdindex",
+      "signature": "",
+      "reg": "RESPCMD",
+      "shift": 0,
+      "mask": "0x3f"
+    },
+    {
+      "type": "fn_get",
+      "fn": "sdio_get_responde_data",
+      "signature": "{reg}",
+      "reg": "RESP[{reg}]",
+      "shift": 0,
+      "mask": "0xffffffff",
+      "args": {
+        "reg": [
+          {
+            "enum": "SDIO_RESPONSE_REG1"
+          },
+          {
+            "enum": "SDIO_RESPONSE_REG2"
+          },
+          {
+            "enum": "SDIO_RESPONSE_REG3"
+          },
+          {
+            "enum": "SDIO_RESPONSE_REG4"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sdio_set_data_transfer_timeout",
+      "signature": "{val}",
+      "reg": "DTIMER",
+      "shift": 0,
+      "mask": "0xffffffff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sdio_set_data_transfer_length",
+      "signature": "{val}",
+      "reg": "DLEN",
+      "shift": 0,
+      "mask": "0x1ffffff"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_data_transfer",
+      "signature": "",
+      "reg": "DCTRL",
+      "shift": 0,
+      "options": [
+        "no_clear"
+      ]
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sdio_set_data_transfer_direction",
+      "signature": "{direction}",
+      "reg": "DCTRL",
+      "shift": 1,
+      "set": "SDIO_TRANSFER_DIRECTION_CARD_TO_CONTROLLER",
+      "clear": "SDIO_TRANSFER_DIRECTION_CONTROLLER_TO_CARD"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "sdio_set_data_transfer_mode",
+      "signature": "{mode}",
+      "reg": "DCTRL",
+      "shift": 2,
+      "set": "SDIO_TRANSFER_MODE_STREAM",
+      "clear": "SDIO_TRANSFER_MODE_BLOCK"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_control",
+      "signature": "{control}",
+      "reg": "DCTRL",
+      "args": {
+        "control": [
+          {
+            "enum": "SDIO_CONTROL_DMA",
+            "shift": 3
+          },
+          {
+            "enum": "SDIO_CONTROL_READ_WAIT_START",
+            "shift": 8
+          },
+          {
+            "enum": "SDIO_CONTROL_READ_WAIT_STOP",
+            "shift": 9
+          },
+          {
+            "enum": "SDIO_CONTROL_READ_WAIT_MODE",
+            "shift": 10
+          },
+          {
+            "enum": "SDIO_CONTROL_SDIO_FUNCTIONS",
+            "shift": 11
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "sdio_set_data_block_size",
+      "signature": "{size}",
+      "reg": "DCTRL",
+      "shift": 4,
+      "mask": "0xf",
+      "args": {
+        "size": [
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_1BYTE",
+            "value": "0b0000"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_2BYTES",
+            "value": "0b0001"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_4BYTES",
+            "value": "0b0010"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_8BYTES",
+            "value": "0b0011"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_16BYTES",
+            "value": "0b0100"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_32BYTES",
+            "value": "0b0101"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_64BYTES",
+            "value": "0b0110"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_128BYTES",
+            "value": "0b0111"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_256BYTES",
+            "value": "0b1000"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_512BYTES",
+            "value": "0b1001"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_1024BYTES",
+            "value": "0b1010"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_2048BYTES",
+            "value": "0b1011"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_4096BYTES",
+            "value": "0b1100"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_8192BYTES",
+            "value": "0b1101"
+          },
+          {
+            "enum": "SDIO_DATA_BLOCK_SIZE_16384BYTES",
+            "value": "0b1110"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "sdio_get_data_transfer_bytes_left",
+      "signature": "",
+      "reg": "DCOUNT",
+      "shift": 0,
+      "mask": "0x1ffffff"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "sdio_is_flag_set",
+      "signature": "{flag}",
+      "reg": "STA",
+      "args": {
+        "flag": [
+          {
+            "enum": "SDIO_FLAG_CMD_CRC_FAIL",
+            "shift": 0
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_CRC_FAIL",
+            "shift": 1
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_TIMEOUT",
+            "shift": 2
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_TIMEOUT",
+            "shift": 3
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_UNDERRUN",
+            "shift": 4
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_OVERRUN",
+            "shift": 5
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_CRC_OK",
+            "shift": 6
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_SENT",
+            "shift": 7
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_END",
+            "shift": 8
+          },
+          {
+            "enum": "SDIO_FLAG_MISSING_START_BIT",
+            "shift": 9
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_CRC_OK",
+            "shift": 10
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_TRANSFER_IN_PROGRESS",
+            "shift": 11
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_TRANSMIT_IN_PROGRESS",
+            "shift": 12
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_RECEIVE_IN_PROGRESS",
+            "shift": 13
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_HALF_EMPTY",
+            "shift": 14
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_HALF_FULL",
+            "shift": 15
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_FULL",
+            "shift": 16
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_FULL",
+            "shift": 17
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_EMPTY",
+            "shift": 18
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_EMPTY",
+            "shift": 19
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_AVAILABLE_IN_TX_FIFO",
+            "shift": 20
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_AVAILABLE_IN_RX_FIFO",
+            "shift": 21
+          },
+          {
+            "enum": "SDIO_FLAG_SDIO_INT",
+            "shift": 22
+          },
+          {
+            "enum": "SDIO_FLAG_CE_ATA_CMD_SIGNAL",
+            "shift": 23
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "sdio_flag_clear",
+      "signature": "{flag}",
+      "reg": "ICR",
+      "clear_mode": "w1",
+      "args": {
+        "flag": [
+          {
+            "enum": "SDIO_FLAG_CMD_CRC_FAIL",
+            "shift": 0
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_CRC_FAIL",
+            "shift": 1
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_TIMEOUT",
+            "shift": 2
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_TIMEOUT",
+            "shift": 3
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_UNDERRUN",
+            "shift": 4
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_OVERRUN",
+            "shift": 5
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_CRC_OK",
+            "shift": 6
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_SENT",
+            "shift": 7
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_END",
+            "shift": 8
+          },
+          {
+            "enum": "SDIO_FLAG_MISSING_START_BIT",
+            "shift": 9
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_CRC_OK",
+            "shift": 10
+          },
+          {
+            "enum": "SDIO_FLAG_CMD_TRANSFER_IN_PROGRESS",
+            "shift": 11,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_TRANSMIT_IN_PROGRESS",
+            "shift": 12,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_RECEIVE_IN_PROGRESS",
+            "shift": 13,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_HALF_EMPTY",
+            "shift": 14,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_HALF_FULL",
+            "shift": 15,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_FULL",
+            "shift": 16,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_FULL",
+            "shift": 17,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_TX_FIFO_EMPTY",
+            "shift": 18,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_RX_FIFO_EMPTY",
+            "shift": 19,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_AVAILABLE_IN_TX_FIFO",
+            "shift": 20,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_DATA_AVAILABLE_IN_RX_FIFO",
+            "shift": 21,
+            "halt": true
+          },
+          {
+            "enum": "SDIO_FLAG_SDIO_INT",
+            "shift": 22
+          },
+          {
+            "enum": "SDIO_FLAG_CE_ATA_CMD_SIGNAL",
+            "shift": 23
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "sdio_interrupt",
+      "signature": "{interrupt}",
+      "reg": "MASK",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "SDIO_INTERRUPT_CMD_CRC_FAIL",
+            "shift": 0
+          },
+          {
+            "enum": "SDIO_INTERRUPT_DATA_CRC_FAIL",
+            "shift": 1
+          },
+          {
+            "enum": "SDIO_INTERRUPT_CMD_TIMEOUT",
+            "shift": 2
+          },
+          {
+            "enum": "SDIO_INTERRUPT_DATA_TIMEOUT",
+            "shift": 3
+          },
+          {
+            "enum": "SDIO_INTERRUPT_TX_FIFO_UNDERRUN",
+            "shift": 4
+          },
+          {
+            "enum": "SDIO_INTERRUPT_RX_FIFO_UNDERRUN",
+            "shift": 5
+          },
+          {
+            "enum": "SDIO_INTERRUPT_CMD_RESPONSE_RECV",
+            "shift": 6
+          },
+          {
+            "enum": "SDIO_INTERRUPT_CMD_SENT",
+            "shift": 7
+          },
+          {
+            "enum": "SDIO_INTERRUPT_DATA_END",
+            "shift": 8
+          },
+          {
+            "enum": "SDIO_INTERRUPT_START_BIT_ERROR",
+            "shift": 9
+          },
+          {
+            "enum": "SDIO_INTERRUPT_DATA_BLOCK_END",
+            "shift": 10
+          },
+          {
+            "enum": "SDIO_INTERRUPT_CMD_TRANSFER",
+            "shift": 11
+          },
+          {
+            "enum": "SDIO_INTERRUPT_DATA_TRANSFER",
+            "shift": 12
+          },
+          {
+            "enum": "SDIO_INTERRUPT_DATA_RECV",
+            "shift": 13
+          },
+          {
+            "enum": "SDIO_INTERRUPT_TX_FIFO_HALF_EMPTY",
+            "shift": 14
+          },
+          {
+            "enum": "SDIO_INTERRUPT_RX_FIFO_HALF_FULL",
+            "shift": 15
+          },
+          {
+            "enum": "SDIO_INTERRUPT_TX_FIFO_FULL",
+            "shift": 16
+          },
+          {
+            "enum": "SDIO_INTERRUPT_RX_FIFO_FULL",
+            "shift": 17
+          },
+          {
+            "enum": "SDIO_INTERRUPT_TX_FIFO_EMPTY",
+            "shift": 18
+          },
+          {
+            "enum": "SDIO_INTERRUPT_RX_FIFO_EMPTY",
+            "shift": 19
+          },
+          {
+            "enum": "SDIO_INTERRUPT_TX_FIFO_DATA_AVAILABLE",
+            "shift": 20
+          },
+          {
+            "enum": "SDIO_INTERRUPT_RX_FIFO_DATA_AVAILABLE",
+            "shift": 21
+          },
+          {
+            "enum": "SDIO_INTERRUPT_SDIO_MODE",
+            "shift": 22
+          },
+          {
+            "enum": "SDIO_INTERRUPT_CE_ATA_SIGNAL",
+            "shift": 23
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "sdio_get_words_left",
+      "signature": "",
+      "reg": "FIFOCNT",
+      "shift": 0,
+      "mask": "0xffffff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "sdio_write_fifo",
+      "signature": "{val}",
+      "reg": "FIFO",
+      "shift": 0,
+      "mask": "0xffffffff"
+    },
+    {
+      "type": "fn_get",
+      "fn": "sdio_read_fifo",
+      "signature": "",
+      "reg": "FIFO",
+      "shift": 0,
+      "mask": "0xffffffff"
+    }
+  ]
+}

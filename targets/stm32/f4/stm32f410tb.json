@@ -1,0 +1,8 @@
+{
+  "mcu": "stm32f410tb",
+  "groups": [ 
+    "stm32f410xb",
+    "stm32f410xx"
+  ],
+  "ld": "fx/f4/stm32f410xb.ld"
+}

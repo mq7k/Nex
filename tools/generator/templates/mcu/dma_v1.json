@@ -1,0 +1,883 @@
+{
+  "periph": "DMA1",
+  "path": "stm32/drivers/dma/dma_v1.h",
+  "struct": "dma_registers_map",
+  "functions": [
+    {
+      "type": "flag_is_set",
+      "fn": "dma_is_stream_flag_set",
+      "signature": "{periph}, {stream}, {flag}",
+      "args": {
+        "stream": [
+          {
+            "enum": "DMA_STREAM0",
+            "shift": 0,
+            "reg": "LISR"
+          },
+          {
+            "enum": "DMA_STREAM1",
+            "shift": 6,
+            "reg": "LISR"
+          },
+          {
+            "enum": "DMA_STREAM2",
+            "shift": 16,
+            "reg": "LISR"
+          },
+          {
+            "enum": "DMA_STREAM3",
+            "shift": 22,
+            "reg": "LISR"
+          },
+          {
+            "enum": "DMA_STREAM4",
+            "shift": 0,
+            "reg": "HISR"
+          },
+          {
+            "enum": "DMA_STREAM5",
+            "shift": 6,
+            "reg": "HISR"
+          },
+          {
+            "enum": "DMA_STREAM6",
+            "shift": 16,
+            "reg": "HISR"
+          },
+          {
+            "enum": "DMA_STREAM7",
+            "shift": 22,
+            "reg": "HISR"
+          }
+        ],
+        "flag": [
+          {
+            "enum": "DMA_STREAM_FLAG_FIFO_ERROR",
+            "shift": "+0"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_DIRECT_MODE_ERROR",
+            "shift": "+2"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_DIRECT_TRANSFER_ERROR",
+            "shift": "+3"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_HALF_TRANSFER",
+            "shift": "+4"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_TRANSFER_COMPLETE",
+            "shift": "+5"
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "dma_stream_flag_clear",
+      "signature": "{periph}, {stream}, {flag}",
+      "clear_mode": "w1",
+      "args": {
+        "stream": [
+          {
+            "enum": "DMA_STREAM0",
+            "shift": 0,
+            "reg": "LIFCR"
+          },
+          {
+            "enum": "DMA_STREAM1",
+            "shift": 6,
+            "reg": "LIFCR"
+          },
+          {
+            "enum": "DMA_STREAM2",
+            "shift": 16,
+            "reg": "LIFCR"
+          },
+          {
+            "enum": "DMA_STREAM3",
+            "shift": 22,
+            "reg": "LIFCR"
+          },
+          {
+            "enum": "DMA_STREAM4",
+            "shift": 0,
+            "reg": "HIFCR"
+          },
+          {
+            "enum": "DMA_STREAM5",
+            "shift": 6,
+            "reg": "HIFCR"
+          },
+          {
+            "enum": "DMA_STREAM6",
+            "shift": 16,
+            "reg": "HIFCR"
+          },
+          {
+            "enum": "DMA_STREAM7",
+            "shift": 22,
+            "reg": "HIFCR"
+          }
+        ],
+        "flag": [
+          {
+            "enum": "DMA_STREAM_FLAG_FIFO_ERROR",
+            "shift": "+0"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_DIRECT_MODE_ERROR",
+            "shift": "+2"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_DIRECT_TRANSFER_ERROR",
+            "shift": "+3"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_HALF_TRANSFER",
+            "shift": "+4"
+          },
+          {
+            "enum": "DMA_STREAM_FLAG_TRANSFER_COMPLETE",
+            "shift": "+5"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "dma_stream_is_enabled",
+      "signature": "{periph}, {stream}",
+      "shift": 0,
+      "mask": "0x1",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_stream",
+      "signature": "{periph}, {stream}",
+      "shift": 0,
+      "mask": "0x1",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle (TODO)",
+      "fn": "dma_stream_interrupt",
+      "signature": "{periph}, {stream}, {interrupt}",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "interrupt": [
+          {
+            "enum": "DMA_STREAM_INTERRUPT_DIRECT_MODE_ERROR",
+            "shift": 1
+          },
+          {
+            "enum": "DMA_STREAM_INTERRUPT_TRANSFER_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "DMA_STREAM_INTERRUPT_HALF_TRANSFER",
+            "shift": 3
+          },
+          {
+            "enum": "DMA_STREAM_INTERRUPT_TRANSFER_COMPLETE",
+            "shift": 4
+          },
+          {
+            "enum": "DMA_STREAM_INTERRUPT_FIFO_ERROR",
+            "shift": 0,
+            "reg": "streams[{stream}]->SFCR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dma_stream_set_flow_controller",
+      "signature": "{periph}, {stream}, {flow}",
+      "shift": 5,
+      "set": "DMA_STREAM_FLOW_CONTROLLER_PERIPH",
+      "clear": "DMA_STREAM_FLOW_CONTROLLER_DMA",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_data_transfer_direction",
+      "signature": "{periph}, {stream}, {direction}",
+      "shift": 6,
+      "mask": "0x3",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "direction": [
+          {
+            "enum": "DMA_STREAM_DIRECTION_PERIPH_TO_MEMORY",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_STREAM_DIRECTION_MEMORY_TO_PERIPH",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_STREAM_DIRECTION_MEMORY_TO_MEMORY",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_stream_circular_mode",
+      "signature": "{periph}, {stream}",
+      "shift": 8,
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_stream_periph_increment_mode",
+      "signature": "{periph}, {stream}",
+      "shift": 9,
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_stream_memory_increment_mode",
+      "signature": "{periph}, {stream}",
+      "shift": 10,
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_periph_data_size",
+      "signature": "{periph}, {stream}, {size}",
+      "shift": 11,
+      "mask": "0x3",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "size": [
+          {
+            "enum": "DMA_STREAM_PERIPH_SIZE_BYTE",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_STREAM_PERIPH_SIZE_HALF_WORD",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_STREAM_PERIPH_SIZE_WORD",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_memory_data_size",
+      "signature": "{periph}, {stream}, {size}",
+      "shift": 13,
+      "mask": "0x3",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "size": [
+          {
+            "enum": "DMA_STREAM_MEMORY_SIZE_BYTE",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_STREAM_MEMORY_SIZE_HALF_WORD",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_STREAM_MEMORY_SIZE_WORD",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dma_stream_set_periph_inc_offset",
+      "signature": "{periph}, {stream}, {offset}",
+      "shift": 15,
+      "set": "DMA_STREAM_PERIPH_INC_OFFSET_32BIT",
+      "clear": "DMA_STREAM_PERIPH_INC_OFFSET_FIXED",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_priority",
+      "signature": "{periph}, {stream}, {priority}",
+      "shift": 16,
+      "mask": "0x3",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "priority": [
+          {
+            "enum": "DMA_STREAM_PRIORITY_LOW",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_STREAM_PRIORITY_MEDIUM",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_STREAM_PRIORITY_HIGH",
+            "value": "0b10"
+          },
+          {
+            "enum": "DMA_STREAM_PRIORITY_VERY_HIGH",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dma_stream_set_double_buffer_mode",
+      "signature": "{periph}, {stream}, {mode}",
+      "shift": 18,
+      "set": "DMA_STREAM_DOUBLE_BUFFER_MODE_SWITCH",
+      "clear": "DMA_STREAM_DOUBLE_BUFFER_MODE_NOSWITCH",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dma_stream_set_current_target",
+      "signature": "{periph}, {stream}, {target}",
+      "shift": 19,
+      "set": "DMA_STREAM_TARGET_MEMORY1",
+      "clear": "DMA_STREAM_TARGET_MEMORY0",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_periph_burst_transfer",
+      "signature": "{periph}, {stream}, {burst}",
+      "shift": 21,
+      "mask": "0x3",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "burst": [
+          {
+            "enum": "DMA_STREAM_PERIPH_BURST_SINGLE_TRANSFER",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_STREAM_PERIPH_BURST_INCR4",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_STREAM_PERIPH_BURST_INCR8",
+            "value": "0b10"
+          },
+          {
+            "enum": "DMA_STREAM_PERIPH_BURST_INCR16",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_memory_burst_transfer",
+      "signature": "{periph}, {stream}, {burst}",
+      "shift": 23,
+      "mask": "0x3",
+      "reg": "streams[{stream}].SCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "burst": [
+          {
+            "enum": "DMA_STREAM_MEMORY_BURST_SINGLE_TRANSFER",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_STREAM_MEMORY_BURST_INCR4",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_STREAM_MEMORY_BURST_INCR8",
+            "value": "0b10"
+          },
+          {
+            "enum": "DMA_STREAM_MEMORY_BURST_INCR16",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_channel",
+      "signature": "{periph}, {stream}, {channel}",
+      "shift": 25,
+      "mask": "0xf",
+      "reg": "streams[{stream}].SCR",
+      "ifdef": "STM32_DMA_CHSEL_4BIT",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "channel": [
+          {
+            "enum": "DMA_STREAM_CHANNEL0",
+            "value": "0b000"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL1",
+            "value": "0b001"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL2",
+            "value": "0b010"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL3",
+            "value": "0b011"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL4",
+            "value": "0b100"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL5",
+            "value": "0b101"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL6",
+            "value": "0b110"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL7",
+            "value": "0b111"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL8",
+            "value": "0b1000"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL9",
+            "value": "0b1001"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL10",
+            "value": "0b1010"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL11",
+            "value": "0b1011"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL12",
+            "value": "0b1100"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL13",
+            "value": "0b1101"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL14",
+            "value": "0b1110"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL15",
+            "value": "0b1111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_channel",
+      "signature": "{periph}, {stream}, {channel}",
+      "shift": 25,
+      "mask": "0x7",
+      "reg": "streams[{stream}].SCR",
+      "ifdef": "STM32_DMA_CHSEL_3BIT",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "channel": [
+          {
+            "enum": "DMA_STREAM_CHANNEL0",
+            "value": "0b000"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL1",
+            "value": "0b001"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL2",
+            "value": "0b010"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL3",
+            "value": "0b011"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL4",
+            "value": "0b100"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL5",
+            "value": "0b101"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL6",
+            "value": "0b110"
+          },
+          {
+            "enum": "DMA_STREAM_CHANNEL7",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma_stream_set_items_transfer_count",
+      "signature": "{periph}, {stream}, {val}",
+      "mask": "0xffff",
+      "reg": "streams[{stream}].SNDTR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffff"
+          },
+          {
+            "value": "0x10000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma_stream_set_periph_address",
+      "signature": "{periph}, {stream}, {val}",
+      "reg": "streams[{stream}].SPAR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "dma_stream_set_memory_address",
+      "signature": "{periph}, {stream}, {memory}, {address}",
+      "reg": "streams[{stream}].SMAR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_stream_set_fifo_threshold",
+      "signature": "{periph}, {stream}, {threshold}",
+      "shift": 0,
+      "mask": "0x3",
+      "reg": "streams[{stream}].SFCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ],
+        "threshold": [
+          {
+            "enum": "DMA_STREAM_FIFO_THRESHOLD_1over4_FULL",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_STREAM_FIFO_THRESHOLD_1over2_FULL",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_STREAM_FIFO_THRESHOLD_3over4_FULL",
+            "value": "0b10"
+          },
+          {
+            "enum": "DMA_STREAM_FIFO_THRESHOLD_FULL",
+            "value":" 0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_stream_direct_mode",
+      "signature": "{periph}, {stream}",
+      "shift": 2,
+      "reg": "streams[{stream}].SFCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "dma_stream_get_fifo_status",
+      "signature": "{periph}, {stream}",
+      "shift": 3,
+      "mask": "0x7",
+      "reg": "streams[{stream}].SFCR",
+      "args": {
+        "stream": [
+          "DMA_STREAM0",
+          "DMA_STREAM1",
+          "DMA_STREAM2",
+          "DMA_STREAM3",
+          "DMA_STREAM4",
+          "DMA_STREAM5",
+          "DMA_STREAM6",
+          "DMA_STREAM7"
+        ]
+      }
+    }
+  ]
+}
+ 

@@ -1,0 +1,29 @@
+{
+  "periph": "GPIOA",
+  "path": "stm32/drivers/gpio/gpio_v1.h",
+  "struct": "gpio_registers_map",
+  "functions": [
+    {
+      "type": "enum_set (TODO)",
+      "fn": "gpio_setup_port"
+    },
+    {
+      "type": "enum_set (TODO)",
+      "fn": "gpio_setup_port_pin"
+    },
+    {
+      "type": "fn_get",
+      "fn": "gpio_port_read",
+      "reg": "IDR"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "gpio_pin_read",
+      "reg": "IDR"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "gpio_is_pin_set_high"
+    }
+  ]
+}

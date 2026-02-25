@@ -1,0 +1,118 @@
+{
+  "periph": "CRC",
+  "path": "stm32/drivers/crc/crc_v1.h",
+  "struct": "crc_registers_map",
+  "functions": [
+    {
+      "type": "fn_get",
+      "fn": "crc_data_read",
+      "signature": "",
+      "reg": "DR"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "crc_data_write",
+      "signature": "{val}",
+      "reg": "DR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "crc_independent_data_read",
+      "reg": "IDR",
+      "signature": "",
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "crc_independent_data_write",
+      "reg": "IDR",
+      "signature": "{val}",
+      "mask": "0xff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "crc_reset",
+      "signature": "",
+      "reg": "CR",
+      "shift": "0"
+    },
+    {
+      "type": "enum_set",
+      "fn": "crc_set_input_data_reverse",
+      "signature": "{periph}, {reverse}",
+      "reg": "CR",
+      "mask": "0x3",
+      "shift": 5,
+      "ifdef": "STM32_CRC_REVERSE_DATA",
+      "args": {
+        "reverse": [
+          {
+            "enum": "CRC_INPUT_DATA_REVERSE_OFF",
+            "value": "0b00"
+          },
+          {
+            "enum": "CRC_INPUT_DATA_REVERSE_BYTE",
+            "value": "0b01"
+          },
+          {
+            "enum": "CRC_INPUT_DATA_REVERSE_HALF_WORD",
+            "value": "0b10"
+          },
+          {
+            "enum": "CRC_INPUT_DATA_REVERSE_WORD",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "crc_output_data_reverse_enable",
+      "reg": "CR",
+      "shift": 7,
+      "ifdef": "STM32_CRC_REVERSE_DATA"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "crc_set_initial_value",
+      "signature": "{val}",
+      "reg": "INIT",
+      "mask": "0xffffffff",
+      "ifdef": "STM32_CRC_EXTENDED",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    }
+  ]
+}

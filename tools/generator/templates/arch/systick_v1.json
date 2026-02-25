@@ -1,0 +1,92 @@
+{
+  "periph": "SYSTICK",
+  "path": "arch/cortex/drivers/systick/systick_v1.h",
+  "struct": "systick_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "systick",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 0
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "systick_interrupt",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 1
+    },
+    {
+      "type": "bienum_set",
+      "fn": "systick_set_clock_source",
+      "signature": "{source}",
+      "reg": "CSR",
+      "shift": 2,
+      "set": "SYSTICK_CLOCK_SOURCE_PROCESSOR",
+      "clear": "SYSTICK_CLOCK_SOURCE_EXTERNAL"
+    },
+    {
+      "type": "fn_get",
+      "fn": "systick_has_overflowed",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 16,
+      "mask": "0x1"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "systick_set_reload_value",
+      "signature": "{val}",
+      "reg": "RVR",
+      "shift": 0,
+      "mask": "0xffffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "systick_set_current_value",
+      "signature": "{val}",
+      "reg": "CVR",
+      "shift": 0,
+      "mask": "0xffffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "systick_get_current_value",
+      "signature": "",
+      "reg": "CVR",
+      "shift": 0,
+      "mask": "0xffffff"
+    },
+    {
+      "type": "fn_get",
+      "fn": "systick_get_calibration_value",
+      "signature": "",
+      "reg": "CALIB",
+      "shift": 0,
+      "mask": "0xffffff"
+    },
+    {
+      "type": "fn_get",
+      "fn": "systick_is_calibration_value_available",
+      "signature": "",
+      "reg": "CALIB",
+      "shift": 30,
+      "mask": "0x1"
+    },
+    {
+      "type": "fn_get",
+      "fn": "systick_has_reference_clock",
+      "signature": "",
+      "reg": "CALIB",
+      "shift": 31,
+      "mask": "0x1"
+    }
+  ]
+}

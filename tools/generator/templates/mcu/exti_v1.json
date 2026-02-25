@@ -1,0 +1,18 @@
+{
+  "periph": "EXTI",
+  "path": "stm32/drivers/exti/exti_v1.h",
+  "struct": "exti_registers_map",
+  "functions": [
+    {
+      "type": "bitmap (TODO)",
+      "fn": "exti_interrupt_line",
+      "signature": "{line}",
+      "reg": "FM1R",
+      "bits": {
+        "name": "line",
+        "min": 0,
+        "max": 27
+      }
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "examples": {
+    "blink_v2": [
+      "stm32f4"
+    ],
+    "pwm_servo_v1": [
+      "stm32f4"
+    ],
+    "dma_m2m_v2": [
+      "stm32f4"
+    ],
+    "usart_v2": [
+      "stm32f4"
+    ],
+    "rtc_v1": [
+      "stm32f4"
+    ],
+    "iwdg_v1": [
+      "stm32f4"
+    ],
+    "wwdg_v1": [
+      "stm32f4"
+    ],
+    "8bit_music_v1": [
+      "stm32f4"
+    ],
+    "dshot": [
+      "stm32f4"
+    ],
+    "mpu6500_9250_v1": [
+      "stm32f4"
+    ],
+    "sdcard": [
+      "stm32f4 (TODO: Re-enabled this)"
+    ],
+    "profiler_v1": [
+      "stm32f4 (TODO: Re-enabled this)"
+    ],
+    "runtime_v1": [
+      "stm32f4"
+    ],
+    "scheduler": [
+      "stm32f4"
+    ]
+  }
+}

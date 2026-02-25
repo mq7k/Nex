@@ -1,0 +1,182 @@
+{
+  "periph": "BKP",
+  "path": "stm32/drivers/bkp/bkp_v1.h",
+  "struct": "bkp_registers_map",
+  "functions": [
+    {
+      "type": "fn_set_value",
+      "fn": "bkp_data_write",
+      "signature": "{idx}, {val}",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffff"
+          },
+          {
+            "value": "0x10000",
+            "halt": true
+          }
+        ],
+        "idx": [
+          {
+            "value": 0,
+            "reg": "DR0[0]"
+          },
+          {
+            "value": 9,
+            "reg": "DR0[9]"
+          },
+          {
+            "value": 10,
+            "reg": "DR1[0]"
+          },
+          {
+            "value": "BKP_DR_MAX_IDX-1",
+            "reg": "DR1[BKP_DR_MAX_IDX-1]"
+          },
+          {
+            "value": "BKP_DR_MAX_IDX",
+            "reg": "DR1[BKP_DR_MAX_IDX]",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "bkp_data_read",
+      "signature": "{idx}",
+      "args": {
+        "idx": [
+          {
+            "value": 0,
+            "reg": "DR0[0]"
+          },
+          {
+            "value": 9,
+            "reg": "DR0[9]"
+          },
+          {
+            "value": 10,
+            "reg": "DR1[0]"
+          },
+          {
+            "value": "BKP_DR_MAX_IDX-1",
+            "reg": "DR1[BKP_DR_MAX_IDX-1]"
+          },
+          {
+            "value": "BKP_DR_MAX_IDX",
+            "reg": "DR1[BKP_DR_MAX_IDX]",
+            "halt": true
+          }
+
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "bkp_set_rtc_calibration_value",
+      "signature": "{val}",
+      "reg": "RTCCR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x1f"
+          },
+          {
+            "value": "0x20",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "bkp_rtc_calib_clock_output",
+      "signature": "",
+      "reg": "RTCCR",
+      "shift": 7,
+      "options": [
+        "no_clear"
+      ]
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "bkp_rtc_signal_output",
+      "signature": "",
+      "reg": "RTCCR",
+      "shift": 9,
+      "options": [
+        "no_clear"
+      ]
+    },
+    {
+      "type": "bienum_set",
+      "fn": "bkp_set_rtc_output_signal",
+      "signature": "{signal}",
+      "reg": "RTCCR",
+      "shift": 9,
+      "set": "BKP_RTC_SIGNAL_SECOND",
+      "clear": "BKP_RTC_SIGNAL_ALARM"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "bkp_tamper_pin",
+      "signature": "",
+      "reg": "CR",
+      "shift": 0
+    },
+    {
+      "type": "bienum_set",
+      "fn": "bkp_set_tamper_pin_active_level",
+      "signature": "{level}",
+      "reg": "CR",
+      "shift": 1,
+      "set": "BKP_TAMPER_PIN_LEVEL_LOW",
+      "clear": "BKP_TAMPER_PIN_LEVEL_HIGH"
+    },
+    {
+      "type": "fn_call",
+      "fn": "bkp_tamper_event_clear",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 0
+    },
+    {
+      "type": "fn_call",
+      "fn": "bkp_tamper_interrupt_clear",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 1
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "bkp_tamper_interrupt",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 2
+    },
+    {
+      "type": "fn_get",
+      "fn": "bkp_is_tamper_event_flag_set",
+      "signature": "",
+      "reg": "CSR",
+      "mask": 1,
+      "shift": 8
+    },
+    {
+      "type": "fn_get",
+      "fn": "bkp_is_tamper_interrupt_flag_set",
+      "signature": "",
+      "reg": "CSR",
+      "mask": 1,
+      "shift": 9
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+set(
+  NEX_SYSTEM_TESTS_DIR
+  ${NEX_SYSTEM_BASE_DIR}/tests
+)
+

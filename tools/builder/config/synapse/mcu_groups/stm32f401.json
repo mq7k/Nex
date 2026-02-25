@@ -1,0 +1,25 @@
+{
+  "avb_periphs": [
+    "rcc/rcc_v2",
+    "adc/adc_v1",
+    "rtc/rtc_v2",
+    "gpio/gpio_v2",
+    "tim/tim_v1",
+    "flash/flash_v2",
+    "pwr/pwr_v2",
+    "syscfg/syscfg_v1",
+    "exti/exti_v1",
+    "dma/dma_v1",
+    "usart/usart_v1",
+    "i2c/i2c_v1",
+    "spi/spi_v1",
+    "iwdg/iwdg_v1",
+    "wwdg/wwdg_v1",
+    "sdio/sdio_v1"
+  ],
+  "missing": [
+    "usb/usb_v1",
+    "dbg/dbg_v1"
+  ]
+}
+

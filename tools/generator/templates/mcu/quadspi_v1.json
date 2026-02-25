@@ -1,0 +1,541 @@
+{
+  "periph": "QUADSPI",
+  "path": "stm32/drivers/quadspi/quadspi_v1.h",
+  "struct": "quadspi_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "quadspi",
+      "signature": "",
+      "reg": "CR",
+      "shift": 0
+    },
+    {
+      "type": "fn_call",
+      "fn": "quadspi_abort",
+      "signature": "",
+      "reg": "CR",
+      "shift": 1
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "quadspi_dma",
+      "signature": "",
+      "reg": "CR",
+      "shift": 2
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "quadspi_timeout_counter",
+      "signature": "",
+      "reg": "CR",
+      "shift": 3
+    },
+    {
+      "type": "bienum_set",
+      "fn": "quadspi_set_sample_shift",
+      "signature": "{sshift}",
+      "reg": "CR",
+      "shift": 4,
+      "set": "QUADSPI_SAMPLE_SHIFT_HALF_SHIFT",
+      "clear": "QUADSPI_SAMPLE_SHIFT_NO_SHIFT"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "quadspi_dual_flash",
+      "signature": "",
+      "reg": "CR",
+      "shift": 6
+    },
+    {
+      "type": "bienum_set",
+      "fn": "quadspi_select_flash_memory",
+      "signature": "{memory}",
+      "reg": "CR",
+      "shift": 7,
+      "set": "QUADSPI_FLASH_MEMORY_FLASH2",
+      "clear": "QUADSPI_FLASH_MEMORY_FLASH1"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_fifo_threshold_level",
+      "signature": "{val}",
+      "reg": "CR",
+      "shift": 8,
+      "mask": "0x1f"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "quadspi_interrupt",
+      "signature": "{interrupt}",
+      "reg": "CR",
+      "shift":"",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "QUADSPI_INTERRUPT_TRANSFER_ERROR",
+            "shift": 16
+          },
+          {
+            "enum": "QUADSPI_INTERRUPT_TRANSFER_COMPLETE",
+            "shift": 17
+          },
+          {
+            "enum": "QUADSPI_INTERRUPT_FIFO_THRESHOLD",
+            "shift": 18
+          },
+          {
+            "enum": "QUADSPI_INTERRUPT_STATUS_MATCH",
+            "shift": 19
+          },
+          {
+            "enum": "QUADSPI_INTERRUPT_TIMEOUT",
+            "shift": 20
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "quadspi_set_automatic_status_polling_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 22,
+      "set": "QUADSPI_POLLING_STOP_MODE_MATCH",
+      "clear": "QUADSPI_POLLING_STOP_MODE_ONLY_ABORT"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "quadspi_set_polling_match_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 23,
+      "set": "QUADSPI_POLLING_MATCH_MODE_OR",
+      "clear": "QUADSPI_POLLING_MATCH_MODE_AND"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_prescaler",
+      "signature": "{val}",
+      "reg": "CR",
+      "shift": 24,
+      "mask": "0xff"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "quadspi_set_clock_mode",
+      "signature": "{mode}",
+      "reg": "DCR",
+      "shift": 0,
+      "set": "QUADSPI_CLOCK_MODE_MODE3",
+      "clear": "QUADSPI_CLOCK_MODE_MODE0"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_cs_min_high_cycles_count",
+      "signature": "{val}",
+      "reg": "DCR",
+      "shift": 8,
+      "mask": "0x7"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_address_bits",
+      "signature": "{val}",
+      "reg": "DCR",
+      "shift": 16,
+      "mask": "0x1f"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "quadspi_is_flag_set",
+      "signature": "{flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "QUADSPI_FLAG_TRANSFER_ERROR",
+            "shift": 0
+          },
+          {
+            "enum": "QUADSPI_FLAG_TRANSFER_COMPLETE",
+            "shift": 1
+          },
+          {
+            "enum": "QUADSPI_FLAG_FIFO_THRESHOLD",
+            "shift": 2
+          },
+          {
+            "enum": "QUADSPI_FLAG_STATUS_MATCH",
+            "shift": 3
+          },
+          {
+            "enum": "QUADSPI_FLAG_TIMEOUT",
+            "shift": 4
+          },
+          {
+            "enum": "QUADSPI_FLAG_BUSY",
+            "shift": 5
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "quadspi_get_fifo_bytes_count",
+      "signature": "",
+      "reg": "SR",
+      "shift": 8,
+      "mask": "0x3f"
+    },
+    {
+      "type": "flag_clear",
+      "fn": "quadspi_flag_clear",
+      "signature": "{flag}",
+      "clear_mode": "w1",
+      "reg": "FCR",
+      "args": {
+        "flag": [
+          {
+            "enum": "QUADSPI_FLAG_TRANSFER_ERROR",
+            "shift": 0
+          },
+          {
+            "enum": "QUADSPI_FLAG_TRANSFER_COMPLETE",
+            "shift": 1
+          },
+          {
+            "enum": "QUADSPI_FLAG_STATUS_MATCH",
+            "shift": 3
+          },
+          {
+            "enum": "QUADSPI_FLAG_TIMEOUT",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_transfer_bytes_count",
+      "signature": "{val}",
+      "reg": "DLR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_instruction",
+      "signature": "{val}",
+      "reg": "CCR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "enum_set",
+      "fn": "quadspi_set_intruction_mode",
+      "signature": "{mode}",
+      "reg": "CCR",
+      "shift": 8,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "QUADSPI_INTRUCTION_MODE_NO_INSTRUCTION",
+            "value": "0b00"
+          },
+          {
+            "enum": "QUADSPI_INTRUCTION_MODE_1LINE",
+            "value": "0b01"
+          },
+          {
+            "enum": "QUADSPI_INTRUCTION_MODE_2LINES",
+            "value": "0b10"
+          },
+          {
+            "enum": "QUADSPI_INTRUCTION_MODE_4LINES",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "quadspi_set_address_mode",
+      "signature": "{mode}",
+      "reg": "CCR",
+      "shift": 10,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "QUADSPI_ADDRESS_MODE_NO_ADDRESS",
+            "value": "0b00"
+          },
+          {
+            "enum": "QUADSPI_ADDRESS_MODE_1LINE",
+            "value": "0b01"
+          },
+          {
+            "enum": "QUADSPI_ADDRESS_MODE_2LINES",
+            "value": "0b10"
+          },
+          {
+            "enum": "QUADSPI_ADDRESS_MODE_4LINES",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "quadspi_set_address_size",
+      "signature": "{size}",
+      "reg": "CCR",
+      "shift": 12,
+      "mask": "0x3",
+      "args": {
+        "size": [
+          {
+            "enum": "QUADSPI_ADDRESS_SIZE_8BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "QUADSPI_ADDRESS_SIZE_16BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "QUADSPI_ADDRESS_SIZE_24BIT",
+            "value": "0b10"
+          },
+          {
+            "enum": "QUADSPI_ADDRESS_SIZE_32BIT",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "quadspi_set_alternate_byte_mode",
+      "signature": "{mode}",
+      "reg": "CCR",
+      "shift": 14,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_MODE_NO_ALTERNATE",
+            "value": "0b00"
+          },
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_MODE_1LINE",
+            "value": "0b01"
+          },
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_MODE_2LINES",
+            "value": "0b10"
+          },
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_MODE_4LINES",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "quadspi_set_alternate_byte_size",
+      "signature": "{size}",
+      "reg": "CCR",
+      "shift": 16,
+      "mask": "0x3",
+      "args": {
+        "size": [
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_SIZE_8BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_SIZE_16BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_SIZE_24BIT",
+            "value": "0b10"
+          },
+          {
+            "enum": "QUADSPI_ALTERNATE_BYTE_SIZE_32BIT",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_dummy_cycles_count",
+      "signature": "{val}",
+      "reg": "CCR",
+      "shift": 18,
+      "mask": "0x1f"
+    },
+    {
+      "type": "enum_set",
+      "fn": "quadspi_set_data_mode",
+      "signature": "{mode}",
+      "reg": "CCR",
+      "shift": 24,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "QUADSPI_DATA_MODE_NO_DATA",
+            "value": "0b00"
+          },
+          {
+            "enum": "QUADSPI_DATA_MODE_1LINE",
+            "value": "0b01"
+          },
+          {
+            "enum": "QUADSPI_DATA_MODE_2LINES",
+            "value": "0b10"
+          },
+          {
+            "enum": "QUADSPI_DATA_MODE_4LINES",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "quadspi_set_functional_mode",
+      "signature": "{mode}",
+      "reg": "CCR",
+      "shift": 26,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "QUADSPI_FUNCTIONAL_MODE_INDIRECT_WRITE",
+            "value": "0b00"
+          },
+          {
+            "enum": "QUADSPI_FUNCTIONAL_MODE_INDIRECT_READ",
+            "value": "0b01"
+          },
+          {
+            "enum": "QUADSPI_FUNCTIONAL_MODE_AUTOMATIC_STATUS_POLLING",
+            "value": "0b10"
+          },
+          {
+            "enum": "QUADSPI_FUNCTIONAL_MODE_MEMORY_MAPPED",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "quadspi_set_send_instruction_mode",
+      "signature": "{mode}",
+      "reg": "CCR",
+      "shift": 28,
+      "set": "QUADSPI_SEND_INSTRUCTION_MODE_FIRST_CMD_ONLY",
+      "clear": "QUADSPI_SEND_INSTRUCTION_MODE_EVERY_TRANSACTION"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "quadspi_set_double_data_rate_delay_mode",
+      "signature": "{delay}",
+      "reg": "CCR",
+      "shift": 30,
+      "set": "QUADSPI_DATA_DELAY_1over4_CLK_CYCLE",
+      "clear": "QUADSPI_DATA_DELAY_ANALOG_DELAY"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "quadspi_double_data_rate",
+      "signature": "",
+      "reg": "CCR",
+      "shift": 31
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_flash_address",
+      "signature": "{val}",
+      "reg": "AR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_alternate_bytes",
+      "signature": "{val}",
+      "reg": "ABR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_data_write",
+      "signature": "{val}",
+      "reg": "DR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "quadspi_data_read",
+      "signature": "",
+      "reg": "DR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_status_byte_mask",
+      "signature": "{val}",
+      "reg": "PSMKR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_status_match",
+      "signature": "{val}",
+      "reg": "PSMAR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_polling_interval",
+      "signature": "{val}",
+      "reg": "PIR",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "quadspi_set_timeout_period",
+      "signature": "{val}",
+      "reg": "LPTR",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    }
+  ]
+}

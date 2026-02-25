@@ -1,0 +1,326 @@
+{
+  "periph": "CRYP",
+  "path": "stm32/drivers/cryp/cryp_v1.h",
+  "struct": "cryp_registers_map",
+  "functions": [
+    {
+      "type": "bienum_set",
+      "fn": "cryp_set_algorithm_direction",
+      "signature": "{direction}",
+      "reg": "CR",
+      "shift": 2,
+      "set": "CRYP_ALGORITHM_DIRECTION_DECRYPT",
+      "clear": "CRYP_ALGORITHM_DIRECTION_ENCRYPT"
+    },
+    {
+      "type": "enum_set (TODO)",
+      "fn": "cryp_set_algorithm_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 3,
+      "args": {
+        "mode": [
+
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "cryp_set_data_type",
+      "signature": "{type}",
+      "reg": "CR",
+      "mask": "0x3",
+      "shift": 6,
+      "args": {
+        "type": [
+          {
+            "enum": "CRYP_DATA_TYPE_32BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "CRYP_DATA_TYPE_16BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "CRYP_DATA_TYPE_8BIT",
+            "value": "0b10"
+          },
+          {
+            "enum": "CRYP_DATA_TYPE_BITSTR",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "cryp_set_key_size",
+      "signature": "{size}",
+      "reg": "CR",
+      "shift": 8,
+      "mask": "0x3",
+      "args": {
+        "size": [
+          {
+            "enum": "CRYP_KEY_SIZE_128BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "CRYP_KEY_SIZE_192BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "CRYP_KEY_SIZE_256BIT",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "cryp_fifo_flush",
+      "signature": "",
+      "shift": 14,
+      "reg": "CR"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "cryp",
+      "signature": "",
+      "shift": 15,
+      "reg": "CR"
+    },
+    {
+      "type": "enum_set",
+      "fn": "cryp_set_gcm_phase",
+      "signature": "{phase}",
+      "shift": 16,
+      "mask": "0x3",
+      "reg": "CR",
+      "ifdef": "STM32_CRYP_ALGO_EXTENDED",
+      "args": {
+        "phase": [
+          {
+            "enum": "CRYP_GCM_PHASE_INIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "CRYP_GCM_PHASE_HEADER",
+            "value": "0b01"
+          },
+          {
+            "enum": "CRYP_GCM_PHASE_PAYLOAD",
+            "value": "0b10"
+          },
+          {
+            "enum": "CRYP_GCM_PHASE_FINAL",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "cryp_is_flag_set",
+      "signature": "{flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "CRYP_FLAG_INPUT_FIFO_EMPTY",
+            "shift": 0
+          },
+          {
+            "enum": "CRYP_FLAG_INPUT_FIFO_NOT_NULL",
+            "shift": 1
+          },
+          {
+            "enum": "CRYP_FLAG_OUTPUT_FIFO_NOT_EMPTY",
+            "shift": 2
+          },
+          {
+            "enum": "CRYP_FLAG_OUTPUT_FIFO_FULL",
+            "shift": 3
+          },
+          {
+            "enum": "CRYP_FLAG_BUSY",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "cryp_write_input_data",
+      "signature": "{val}",
+      "reg": "DIN",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "cryp_read_output_data",
+      "signature": "",
+      "reg": "DOUT"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "cryp_dma",
+      "signature": "{dma}",
+      "reg": "DMACR",
+      "args": {
+        "dma": [
+          {
+            "enum": "CRYP_DMA_INPUT",
+            "shift": 0
+          },
+          {
+            "enum": "CRYP_DMA_OUTPUT",
+            "shift": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "cryp_interrupt",
+      "reg": "IMSCR",
+      "signature": "{interrupt}",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "CRYP_INTERRUPT_INPUT_FIFO_SERVICE",
+            "shift": 0
+          },
+          {
+            "enum": "CRYP_INTERRUPT_OUTPUT_FIFO_SERVICE",
+            "shift": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "cryp_has_interrupt_occurred",
+      "signature": "{interrupt}",
+      "reg": "RISR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "CRYP_INTERRUPT_INPUT_FIFO_SERVICE",
+            "shift": 0
+          },
+          {
+            "enum": "CRYP_INTERRUPT_OUTPUT_FIFO_SERVICE",
+            "shift": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "cryp_is_interrupt_pending",
+      "signature": "{interrupt}",
+      "reg": "MISR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "CRYP_INTERRUPT_INPUT_FIFO_SERVICE",
+            "shift": 0
+          },
+          {
+            "enum": "CRYP_INTERRUPT_OUTPUT_FIFO_SERVICE",
+            "shift": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "(TODO)",
+      "fn": "cryp_write_key_128bit",
+      "signature": "{key}",
+      "reg": "KR",
+      "args": {
+        "key": [
+
+        ]
+      }
+    },
+    {
+      "type": "(TODO)",
+      "fn": "cryp_write_key_192bit",
+      "signature": "{key}",
+      "reg": "KR",
+      "args": {
+        "key": [
+
+        ]
+      }
+    },
+    {
+      "type": "(TODO)",
+      "fn": "cryp_write_key_256bit",
+      "signature": "{key}",
+      "reg": "KR",
+      "args": {
+        "key": [
+
+        ]
+      }
+    },
+    {
+      "type": "(TODO)",
+      "fn": "cryp_write_iv_64bit",
+      "signature": "{iv}",
+      "reg": "IV",
+      "args": {
+        "iv": [
+
+        ]
+      }
+    },
+    {
+      "type": "(TODO)",
+      "fn": "cryp_write_iv_128bit",
+      "signature": "{iv}",
+      "reg": "IV",
+      "args": {
+        "iv": [
+
+        ]
+      }
+    },
+    {
+      "type": "(TODO)",
+      "fn": "cryp_dump_all",
+      "signature": "{regs}",
+      "reg": "IV",
+      "ifdef": "STM32_CRYP_CS",
+      "args": {
+        "regs": [
+
+        ]
+      }
+    },
+    {
+      "type": "(TODO)",
+      "fn": "cryp_restore_all",
+      "signature": "{regs}",
+      "reg": "IV",
+      "ifdef": "STM32_CRYP_CS",
+      "args": {
+        "regs": [
+
+        ]
+      }
+    }
+  ]
+}

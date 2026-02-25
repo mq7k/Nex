@@ -1,0 +1,967 @@
+{
+  "periph": "LTDC",
+  "path": "stm32/drivers/ltdc/ltdc_v1.h",
+  "struct": "ltdc_registers_map",
+  "functions": [
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_sync_height",
+      "signature": "{val}",
+      "reg": "SSCR",
+      "shift": 0,
+      "mask": "0x7ff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x7ff"
+          },
+          {
+            "value": "0x800",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_sync_width",
+      "signature": "{val}",
+      "reg": "SSCR",
+      "shift": 16,
+      "mask": "0xfff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_vertical_back_porch",
+      "signature": "{val}",
+      "reg": "BPCR",
+      "shift": 0,
+      "mask": "0x7ff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x7ff"
+          },
+          {
+            "value": "0x800",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_horizontal_back_porch",
+      "signature": "{val}",
+      "reg": "BPCR",
+      "shift": 16,
+      "mask": "0xfff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_active_height",
+      "signature": "{val}",
+      "reg": "AWCR",
+      "shift": 0,
+      "mask": "0x7ff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x7ff"
+          },
+          {
+            "value": "0x800",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_active_width",
+      "signature": "{val}",
+      "reg": "AWCR",
+      "shift": 16,
+      "mask": "0xfff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_total_height",
+      "signature": "{val}",
+      "reg": "TWCR",
+      "shift": 0,
+      "mask": "0x7ff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_total_width",
+      "signature": "{val}",
+      "reg": "TWCR",
+      "shift": 16,
+      "mask": "0xfff"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "ltdc",
+      "signature": "",
+      "reg": "GCR",
+      "shift": 0
+    },
+    {
+      "type": "fn_get",
+      "fn": "ltdc_get_dither_blue_width",
+      "signature": "",
+      "reg": "GCR",
+      "shift": 4,
+      "mask": "0x7"
+    },
+    {
+      "type": "fn_get",
+      "fn": "ltdc_get_dither_green_width",
+      "signature": "",
+      "reg": "GCR",
+      "shift": 8,
+      "mask": "0x7"
+    },
+    {
+      "type": "fn_get",
+      "fn": "ltdc_get_dither_red_width",
+      "signature": "",
+      "reg": "GCR",
+      "shift": 12,
+      "mask": "0x7"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "ltdc_dither",
+      "signature": "",
+      "reg": "GCR",
+      "shift": 16
+    },
+    {
+      "type": "bienum_set",
+      "fn": "ltdc_set_pixel_clock_polarity",
+      "signature": "{polarity}",
+      "reg": "GCR",
+      "shift": 28,
+      "set": "LTDC_PIXEL_CLOCK_POLARITY_ACTIVE_HIGH",
+      "clear": "LTDC_PIXEL_CLOCK_POLARITY_ACTIVE_LOW"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "ltdc_set_data_enable_polarity",
+      "signature": "{polarity}",
+      "reg": "GCR",
+      "shift": 29,
+      "set": "LTDC_DATA_ENABLE_POLARITY_ACTIVE_HIGH",
+      "clear": "LTDC_DATA_ENABLE_POLARITY_ACTIVE_LOW"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "ltdc_set_vertical_sync_polarity",
+      "signature": "{polarity}",
+      "reg": "GCR",
+      "shift": 30,
+      "set": "LTDC_VERTICAL_SYNC_POLARITY_ACTIVE_HIGH",
+      "clear": "LTDC_VERTICAL_SYNC_POLARITY_ACTIVE_LOW"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "ltdc_set_horizontal_sync_polarity",
+      "signature": "{polarity}",
+      "reg": "GCR",
+      "shift": 31,
+      "set": "LTDC_HORIZONTAL_SYNC_POLARITY_ACTIVE_HIGH",
+      "clear": "LTDC_HORIZONTAL_SYNC_POLARITY_ACTIVE_LOW"
+    },
+    {
+      "type": "fn_call",
+      "fn": "ltdc_immediate_reload",
+      "signature": "",
+      "reg": "SRCR",
+      "shift": 0
+    },
+    {
+      "type": "fn_call",
+      "fn": "ltdc_vertical_blanking_reload",
+      "signature": "",
+      "reg": "SRCR",
+      "shift": 1
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_bg_color_value",
+      "signature": "{color}, {val}",
+      "reg": "BCCR",
+      "mask": "0xff",
+      "args": {
+        "color": [
+          {
+            "enum": "LTDC_BG_COLOR_BLUE",
+            "shift": 0
+          },
+          {
+            "enum": "LTDC_BG_COLOR_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "LTDC_BG_COLOR_RED",
+            "shift": 16
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_bg_color",
+      "signature": "{val}",
+      "reg": "BCCR",
+      "shift": 0,
+      "mask": "0xffffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "ltdc_interrupt",
+      "signature": "{interrupt}",
+      "reg": "IER",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "LTDC_INTERRUPT_LINE",
+            "shift": 0
+          },
+          {
+            "enum": "LTDC_INTERRUPT_FIFO_UNDERRUN",
+            "shift": 1
+          },
+          {
+            "enum": "LTDC_INTERRUPT_TRANSFER_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "LTDC_INTERRUPT_REGISTER_RELOAD",
+            "shift": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "ltdc_is_interrupt_occurred",
+      "signature": "{interrupt}",
+      "reg": "ISR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "LTDC_INTERRUPT_LINE",
+            "shift": 0
+          },
+          {
+            "enum": "LTDC_INTERRUPT_FIFO_UNDERRUN",
+            "shift": 1
+          },
+          {
+            "enum": "LTDC_INTERRUPT_TRANSFER_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "LTDC_INTERRUPT_REGISTER_RELOAD",
+            "shift": 3
+          }
+
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "ltdc_interrupt_clear",
+      "signature": "{interrupt}",
+      "reg": "ICR",
+      "clear_mode": "w1",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "LTDC_INTERRUPT_LINE",
+            "shift": 0
+          },
+          {
+            "enum": "LTDC_INTERRUPT_FIFO_UNDERRUN",
+            "shift": 1
+          },
+          {
+            "enum": "LTDC_INTERRUPT_TRANSFER_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "LTDC_INTERRUPT_REGISTER_RELOAD",
+            "shift": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_line_interrupt_position",
+      "signature": "{val}",
+      "reg": "LIPCR",
+      "shift": 0,
+      "mask": "0x7ff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "ltdc_get_current_position_y",
+      "signature": "",
+      "reg": "CPSR",
+      "shift": 0,
+      "mask": "0xffff"
+    },
+    {
+      "type": "fn_get",
+      "fn": "ltdc_get_current_position_x",
+      "signature": "",
+      "reg": "CPSR",
+      "shift": 16,
+      "mask": "0xffff"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "ltdc_is_flag_set",
+      "signature": "{flag}",
+      "reg": "CDSR",
+      "args": {
+        "flag": [
+          {
+            "enum": "LTDC_FLAG_VERTICAL_DATA",
+            "shift": 0
+          },
+          {
+            "enum": "LTDC_FLAG_HORIZONTAL_DATA",
+            "shift": 1
+          },
+          {
+            "enum": "LTDC_FLAG_VERTICAL_SYNC",
+            "shift": 2
+          },
+          {
+            "enum": "LTDC_FLAG_HORIZONTAL_SYNC",
+            "shift": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "ltdc_layer",
+      "signature": "{layer}",
+      "shift": 0,
+      "reg": "layers[{layer}].LCR",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "ltdc_layer_color_keying",
+      "signature": "{layer}",
+      "shift": 1,
+      "reg": "layers[{layer}].LCR",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "ltdc_layer_color_lookup_table",
+      "signature": "{layer}",
+      "shift": 4,
+      "reg": "layers[{layer}].LCR",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_layer_set_window_horizontal_start_position",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LWHPCR",
+      "shift": 0,
+      "mask": "0xfff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_layer_set_window_horizontal_stop_position",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LWHPCR",
+      "shift": 16,
+      "mask": "0xfff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_layer_set_window_vertical_start_position",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LWVPCR",
+      "shift": 0,
+      "mask": "0x7ff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_layer_set_window_vertical_stop_position",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LWVPCR",
+      "shift": 16,
+      "mask": "0x7ff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_keyring_color_value",
+      "signature": "{layer}, {color}, {val}",
+      "reg": "layers[{layer}].LCKCR",
+      "mask": "0xff",
+      "args": {
+        "layer": [
+          {
+            "enum": "LTDC_LAYER1"
+          },
+          {
+            "enum": "LTDC_LAYER2"
+          }
+        ],
+        "color": [
+          {
+            "enum": "LTDC_KEYRING_COLOR_BLUE",
+            "shift": 0
+          },
+          {
+            "enum": "LTDC_KEYRING_COLOR_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "LTDC_KEYRING_COLOR_RED",
+            "shift": 16
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_keyring_color",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCKCR",
+      "mask": "0xffffff",
+      "options": [
+        "ioreg"
+      ],
+      "args": {
+        "layer": [
+          {
+            "enum": "LTDC_LAYER1"
+          },
+          {
+            "enum": "LTDC_LAYER2"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "ltdc_set_layer_pixel_format",
+      "signature": "{layer}, {format}",
+      "reg": "layers[{layer}].LPFCR",
+      "shift": 0,
+      "mask": "0x7",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "format": [
+          {
+            "enum": "LTDC_PIXEL_FORMAT_ARGB8888",
+            "value": "0b000"
+          },
+          {
+            "enum": "LTDC_PIXEL_FORMAT_RGB888",
+            "value": "0b001"
+          },
+          {
+            "enum": "LTDC_PIXEL_FORMAT_RGB565",
+            "value": "0b010"
+          },
+          {
+            "enum": "LTDC_PIXEL_FORMAT_ARGB1555",
+            "value": "0b011"
+          },
+          {
+            "enum": "LTDC_PIXEL_FORMAT_ARGB4444",
+            "value": "0b100"
+          },
+          {
+            "enum": "LTDC_PIXEL_FORMAT_L8",
+            "value": "0b101"
+          },
+          {
+            "enum": "LTDC_PIXEL_FORMAT_AL44",
+            "value": "0b110"
+          },
+          {
+            "enum": "LTDC_PIXEL_FORMAT_AL88",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_constant_alpha",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCACR",
+      "shift": 0,
+      "mask": "0xff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_def_color_value",
+      "signature": "{layer}, {color}, {val}",
+      "reg": "layers[{layer}].LDCCR",
+      "mask": "0xff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "color": [
+          {
+            "enum": "LAYER_DEF_COLOR_CHANNEL_BLUE",
+            "shift": 0
+          },
+          {
+            "enum": "LAYER_DEF_COLOR_CHANNEL_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "LAYER_DEF_COLOR_CHANNEL_RED",
+            "shift": 16
+          },
+          {
+            "enum": "LAYER_DEF_COLOR_CHANNEL_ALPHA",
+            "shift": 24
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_def_color",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LDCCR",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "ltdc_set_layer_blend_factor2",
+      "signature": "{layer}, {factor}",
+      "reg": "layers[{layer}].LBFCR",
+      "shift": 0,
+      "mask": "0x7",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "factor": [
+          {
+            "enum": "LTDC_BLEND_FACTOR2_CONST_ALPHA",
+            "value": "0b101"
+          },
+          {
+            "enum": "LTDC_BLEND_FACTOR2_PIXEL_ALPHA_x_CONST_ALPHA",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "ltdc_set_layer_blend_factor1",
+      "signature": "{layer}, {factor}",
+      "reg": "layers[{layer}].LBFCR",
+      "shift": 8,
+      "mask": "0x7",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "factor": [
+          {
+            "enum": "LTDC_BLEND_FACTOR1_CONST_ALPHA",
+            "value": "0b100"
+          },
+          {
+            "enum": "LTDC_BLEND_FACTOR1_PIXEL_ALPHA_x_CONST_ALPHA",
+            "value": "0b110"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_color_frame_buffer_start_address",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCFBAR",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_color_frame_buffer_length",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCFBLR",
+      "shift": 0,
+      "mask": "0x1fff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x1fff"
+          },
+          {
+            "value": "0x2000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_color_frame_buffer_pitch",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCFBLR",
+      "shift": 16,
+      "mask": "0x1fff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x1fff"
+          },
+          {
+            "value": "0x2000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_frame_buffer_line_number",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCFBLNR",
+      "shift": 0,
+      "mask": "0x7ff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_clut_color_value",
+      "signature": "{layer}, {channel}, {val}",
+      "reg": "layers[{layer}].LCLUTWR",
+      "mask": "0xff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "channel": [
+          {
+            "enum": "LTDC_CLUT_COLOR_CHANNEL_BLUE",
+            "shift": 0
+          },
+          {
+            "enum": "LTDC_CLUT_COLOR_CHANNEL_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "LTDC_CLUT_COLOR_CHANNEL_RED",
+            "shift": 16
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_clut_color",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCLUTWR",
+      "shift": 0,
+      "mask": "0xffffff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffff"
+          },
+          {
+            "value": "0x1000000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "ltdc_set_layer_clut_address",
+      "signature": "{layer}, {val}",
+      "reg": "layers[{layer}].LCLUTWR",
+      "shift": 24,
+      "mask": "0xff",
+      "args": {
+        "layer": [
+          "LTDC_LAYER1",
+          "LTDC_LAYER2"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    }
+  ]
+}
+

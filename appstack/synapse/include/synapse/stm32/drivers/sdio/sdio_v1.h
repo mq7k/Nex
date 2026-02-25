@@ -1,0 +1,669 @@
+#ifndef STM32_DRIVER_SDIO_H
+#define STM32_DRIVER_SDIO_H
+
+#include "synapse/common/util/common.h"
+#include "libcom/types.h"
+#include "synapse/specs.h"
+
+/**
+ * Supports:
+ *  - STM32F1x
+ */
+
+BEGIN_DECLARATIONS
+
+struct sdio_registers_map
+{
+  u32 POWER;
+  u32 CLKCR;
+  u32 ARG;
+  u32 CMD;
+  u32 RESPCMD;
+  u32 RESP[4];
+  u32 DTIMER;
+  u32 DLEN;
+  u32 DCTRL;
+  u32 DCOUNT;
+  u32 STA;
+  u32 ICR;
+  u32 MASK;
+  u32 FIFOCNT;
+  u32 FIFO;
+};
+
+// ┌──────────────────────────────────────────────────────┐
+// │                                                      │
+// │                    Core section                      │
+// │                                                      │
+// └──────────────────────────────────────────────────────┘
+
+enum sdio_power_pwrctrl : u32
+{
+  SDIO_POWER_PWRCTRL_POWEROFF = 0b00,
+  SDIO_POWER_PWRCTRL_POWERON = 0b11
+};
+
+enum sdio_clkcr : u32
+{
+  SDIO_CLKCR_CLKEN = (1 << 8),
+  SDIO_CLKCR_PWRSAV = (1 << 9),
+  SDIO_CLKCR_BYPASS = (1 << 10),
+  SDIO_CLKCR_NEGEDGE = (1 << 13),
+  SDIO_CLKCR_HWFC_EN = (1 << 14)
+};
+
+#define SDIO_CLKCR_CLKDIV_SHIFT (0)
+#define SDIO_CLKCR_CLKDIV_MASK (0xff)
+
+#define SDIO_CLKCR_WIDBUS_SHIFT (11)
+#define SDIO_CLKCR_WIDBUS_MASK (0x3)
+
+enum sdio_clkcr_widbus : u32
+{
+  SDIO_CLKCR_WIDBUS_DEFAULT = 0b00,
+  SDIO_CLKCR_WIDBUS_4WIDE = 0b01,
+  SDIO_CLKCR_WIDBUS_8WIDE = 0b10
+};
+
+enum sdio_cmd : u32
+{
+  SDIO_CMD_WAITINT = (1 << 8),
+  SDIO_CMD_WAITPEND = (1 << 9),
+  SDIO_CMD_CPSMEN = (1 << 10),
+  SDIO_CMD_SDIOSUSPEND = (1 << 11),
+
+#if defined(STM32_SDIO_CMD_COMPLETION)
+  SDIO_CMD_ENCMDCOMPL = (1 << 12),
+#endif
+
+#if defined(STM32_SDIO_NOT_INT)
+  SDIO_CMD_NIEN = (1 << 13),
+#endif
+
+#if defined(STM32_SDIO_CEATA_CMD)
+  SDIO_CMD_ATACMD = (1 << 14)
+#endif
+};
+
+#define SDIO_CMD_CMDINDEX_SHIFT (0)
+#define SDIO_CMD_CMDINDEX_MASK (0x3f)
+
+enum sdio_cmd_cmdindex : u32
+{
+  SDIO_CMD_CMDINDEX_GO_IDLE_STATE = 0,
+  SDIO_CMD_CMDINDEX_SEND_OP_COND = 1,
+  SDIO_CMD_CMDINDEX_ALL_SEND_CID = 2,
+  SDIO_CMD_CMDINDEX_SEND_RELATIVE_ADDR = 3,
+  SDIO_CMD_CMDINDEX_SET_DSR = 4,
+  SDIO_CMD_CMDINDEX_SWITCH_FUNC = 6,
+  SDIO_CMD_CMDINDEX_SELECT_DESELECT_CARD = 7,
+  SDIO_CMD_CMDINDEX_SEND_IF_COND = 8,
+  SDIO_CMD_CMDINDEX_SEND_CSD = 9,
+  SDIO_CMD_CMDINDEX_SEND_CID = 10,
+  SDIO_CMD_CMDINDEX_VOLTAGE_SWITCH = 11,
+  SDIO_CMD_CMDINDEX_STOP_TRANSMISSION = 12,
+  SDIO_CMD_CMDINDEX_SEND_STATUS = 13,
+  SDIO_CMD_CMDINDEX_GO_INACTIVE_STATE = 15,
+
+  // Basic Commands
+  SDIO_CMD_CMDINDEX_SET_BLOCKLEN = 16,
+  SDIO_CMD_CMDINDEX_READ_SINGLE_BLOCK = 17,
+  SDIO_CMD_CMDINDEX_READ_MULTIPLE_BLOCK = 18,
+  SDIO_CMD_CMDINDEX_SEND_TUNING_BLOCK = 19,
+  SDIO_CMD_CMDINDEX_SPEED_CLASS_CONTROL = 20,
+  SDIO_CMD_CMDINDEX_ADDRESS_EXTENSION = 22,
+  SDIO_CMD_CMDINDEX_SET_BLOCK_COUNT = 23,
+  SDIO_CMD_CMDINDEX_WRITE_BLOCK = 24,
+  SDIO_CMD_CMDINDEX_WRITE_MULTIPLE_BLOCK = 25,
+  SDIO_CMD_CMDINDEX_PROGRAM_CSD = 27,
+  SDIO_CMD_CMDINDEX_SET_WRITE_PROT = 28,
+  SDIO_CMD_CMDINDEX_CLR_WRITE_PROT = 29,
+  SDIO_CMD_CMDINDEX_SEND_WRITE_PROT = 30,
+  SDIO_CMD_CMDINDEX_ERASE_WR_BLK_START = 32,
+  SDIO_CMD_CMDINDEX_ERASE_WR_BLK_END = 33,
+  SDIO_CMD_CMDINDEX_ERASE = 38,
+  SDIO_CMD_CMDINDEX_SELECT_CARD_PARTITION = 39,
+  SDIO_CMD_CMDINDEX_Q_MANAGEMENT = 43,
+  SDIO_CMD_CMDINDEX_Q_TASK_INFO_A = 44,
+  SDIO_CMD_CMDINDEX_Q_TASK_INFO_B = 45,
+  SDIO_CMD_CMDINDEX_Q_RD_TASK = 46,
+  SDIO_CMD_CMDINDEX_Q_WR_TASK = 47,
+  SDIO_CMD_CMDINDEX_READ_EXTR_SINGLE = 48,
+  SDIO_CMD_CMDINDEX_WRITE_EXTR_SINGLE = 49,
+  SDIO_CMD_CMDINDEX_LOCK_UNLOCK = 42,
+  SDIO_CMD_CMDINDEX_APP_CMD = 55,
+  SDIO_CMD_CMDINDEX_GEN_CMD = 56,
+  SDIO_CMD_CMDINDEX_ACMD_SET_BUS_WIDTH = 6,
+  SDIO_CMD_CMDINDEX_ACMD_SD_STATUS = 13,
+  SDIO_CMD_CMDINDEX_ACMD_SEND_NUM_WR_BLOCKS = 22,
+  SDIO_CMD_CMDINDEX_ACMD_SET_WR_BLK_ERASE_COUNT = 23,
+  SDIO_CMD_CMDINDEX_ACMD_SD_SEND_OP_COND = 41,
+  SDIO_CMD_CMDINDEX_ACMD_SET_CLR_CARD_DETECT = 42,
+  SDIO_CMD_CMDINDEX_ACMD_SEND_SCR = 51,
+  SDIO_CMD_CMDINDEX_ACMD_SECURE_RECEIVE = 53,
+  SDIO_CMD_CMDINDEX_ACMD_SECURE_SEND = 54,
+  SDIO_CMD_CMDINDEX_READ_EXTR_MULTI = 58,
+  SDIO_CMD_CMDINDEX_WRITE_EXTR_MULTI = 59
+};
+
+#define SDIO_CMD_WAITRESP_SHIFT (6)
+#define SDIO_CMD_WAITRESP_MASK (0x3)
+
+enum sdio_cmd_waitresp : u32
+{
+  SDIO_CMD_WAITRESP_NORESPONSE = 0b00,
+  SDIO_CMD_WAITRESP_SHORT_RESPONSE = 0b01,
+  SDIO_CMD_WAITRESP_LONG_RESPONSE = 0b11
+};
+
+#define SDIO_RESPCMD_SHIFT (0)
+#define SDIO_RESPCMD_MASK (0x3f)
+
+#define SDIO_DLEN_DATALENGTH_SHIFT (0)
+#define SDIO_DLEN_DATALENGTH_MASK (0x1ffffff)
+
+enum sdio_dctrl : u32
+{
+  SDIO_DCTRL_DTEN = (1 << 0),
+  SDIO_DCTRL_DTDIR = (1 << 1),
+  SDIO_DCTRL_DTMODE = (1 << 2),
+  SDIO_DCTRL_DMAEN = (1 << 3),
+  SDIO_DCTRL_RWSTART = (1 << 8),
+  SDIO_DCTRL_RWSTOP = (1 << 9),
+  SDIO_DCTRL_RWMOD = (1 << 10),
+  SDIO_DCTRL_SDIOEN = (1 << 11)
+};
+
+#define SDIO_DCTRL_DBLOCKSIZE_SHIFT (4)
+#define SDIO_DCTRL_DBLOCKSIZE_MASK (0xf)
+
+enum sdio_dctrl_dblocksize : u32
+{
+  SDIO_DCTRL_DBLOCKSIZE_1BYTE = 0b0000,
+  SDIO_DCTRL_DBLOCKSIZE_2BYTES = 0b0001,
+  SDIO_DCTRL_DBLOCKSIZE_4BYTES = 0b0010,
+  SDIO_DCTRL_DBLOCKSIZE_8BYTES = 0b0011,
+  SDIO_DCTRL_DBLOCKSIZE_16BYTES = 0b0100,
+  SDIO_DCTRL_DBLOCKSIZE_32BYTES = 0b0101,
+  SDIO_DCTRL_DBLOCKSIZE_64BYTES = 0b0110,
+  SDIO_DCTRL_DBLOCKSIZE_128BYTES = 0b0111,
+  SDIO_DCTRL_DBLOCKSIZE_256BYTES = 0b1000,
+  SDIO_DCTRL_DBLOCKSIZE_512BYTES = 0b1001,
+  SDIO_DCTRL_DBLOCKSIZE_1024BYTES = 0b1010,
+  SDIO_DCTRL_DBLOCKSIZE_2048BYTES = 0b1011,
+  SDIO_DCTRL_DBLOCKSIZE_4096BYTES = 0b1100,
+  SDIO_DCTRL_DBLOCKSIZE_8192BYTES = 0b1101,
+  SDIO_DCTRL_DBLOCKSIZE_16384BYTES = 0b1110
+};
+
+#define SDIO_DCOUNT_DATACOUNT_SHIFT (0)
+#define SDIO_DCOUNT_DATACOUNT_MASK (0x1ffffff)
+
+enum sdio_sta : u32
+{
+  SDIO_STA_CCRCFAIL = (1 << 0),
+  SDIO_STA_DCRCFAIL = (1 << 1),
+  SDIO_STA_CTIMEOUT = (1 << 2),
+  SDIO_STA_DTIMEOUT = (1 << 3),
+  SDIO_STA_TXUNDERR = (1 << 4),
+  SDIO_STA_RXOVERR = (1 << 5),
+  SDIO_STA_CMDREND = (1 << 6),
+  SDIO_STA_CMDSENT = (1 << 7),
+  SDIO_STA_DATAEND = (1 << 8),
+  SDIO_STA_STBITERR = (1 << 9),
+  SDIO_STA_DBCKEND = (1 << 10),
+  SDIO_STA_CMDACT = (1 << 11),
+  SDIO_STA_TXACT = (1 << 12),
+  SDIO_STA_RXACT = (1 << 13),
+  SDIO_STA_TXFIFOHE = (1 << 14),
+  SDIO_STA_RXFIFOHF = (1 << 15),
+  SDIO_STA_TXFIFOF = (1 << 16),
+  SDIO_STA_RXFIFOF = (1 << 17),
+  SDIO_STA_TXFIFOE = (1 << 18),
+  SDIO_STA_RXFIFOE = (1 << 19),
+  SDIO_STA_TXDAVL = (1 << 20),
+  SDIO_STA_RXDAVL = (1 << 21),
+  SDIO_STA_SDIOIT = (1 << 22),
+  SDIO_STA_CEATAEND = (1 << 23)
+};
+
+enum sdio_icr : u32
+{
+  SDIO_ICR_CCRCFAILC = (1 << 0),
+  SDIO_ICR_DCRCFAILC = (1 << 1),
+  SDIO_ICR_CTIMEOUTC = (1 << 2),
+  SDIO_ICR_DTIMEOUTC = (1 << 3),
+  SDIO_ICR_TXUNDERRC = (1 << 4),
+  SDIO_ICR_RXOVERRC = (1 << 5),
+  SDIO_ICR_CMDRENDC = (1 << 6),
+  SDIO_ICR_CMDSENTC = (1 << 7),
+  SDIO_ICR_DATAENDC = (1 << 8),
+  SDIO_ICR_STBITERRC = (1 << 9),
+  SDIO_ICR_DBCKENDC = (1 << 10),
+  SDIO_ICR_SDIOITC = (1 << 22),
+  SDIO_ICR_CEATAENDC = (1 << 23)
+};
+
+enum sdio_mask : u32
+{
+  SDIO_MASK_CCRCFAILIE = (1 << 0),
+  SDIO_MASK_DCRCFAILIE = (1 << 1),
+  SDIO_MASK_CTIMEOUTIE = (1 << 2),
+  SDIO_MASK_DTIMEOUTIE = (1 << 3),
+  SDIO_MASK_TXUNDERRIE = (1 << 4),
+  SDIO_MASK_RXOVERRIE = (1 << 5),
+  SDIO_MASK_CMDRENDIE = (1 << 6),
+  SDIO_MASK_CMDSENTIE = (1 << 7),
+  SDIO_MASK_DATAENDIE = (1 << 8),
+  SDIO_MASK_STBITERRIE = (1 << 9),
+  SDIO_MASK_DBCKENDIE = (1 << 10),
+  SDIO_MASK_CMDACTIE = (1 << 11),
+  SDIO_MASK_TXACTIE = (1 << 12),
+  SDIO_MASK_RXACTIE = (1 << 13),
+  SDIO_MASK_TXFIFOHEIE = (1 << 14),
+  SDIO_MASK_RXFIFOHFIE = (1 << 15),
+  SDIO_MASK_TXFIFOFIE = (1 << 16),
+  SDIO_MASK_RXFIFOFIE = (1 << 17),
+  SDIO_MASK_TXFIFOEIE = (1 << 18),
+  SDIO_MASK_RXFIFOEIE = (1 << 19),
+  SDIO_MASK_TXDAVLIE = (1 << 20),
+  SDIO_MASK_RXDAVLIE = (1 << 21),
+  SDIO_MASK_SDIOITIE = (1 << 22),
+  SDIO_MASK_CEATAENDIE = (1 << 23)
+};
+
+#define SDIO_FIFOCNT_SHIFT (0)
+#define SDIO_FIFOCNT_MASK (0xffffff)
+
+// ┌──────────────────────────────────────────────────────┐
+// │                                                      │
+// │                     API section                      │
+// │                                                      │
+// └──────────────────────────────────────────────────────┘
+
+enum sdio_clock_config
+{
+  SDIO_CLOCK_CONFIG_ENABLE,
+  SDIO_CLOCK_CONFIG_POWER_SAVING,
+  SDIO_CLOCK_CONFIG_CLOCK_DIVIDER_BYPASS,
+  SDIO_CLOCK_CONFIG_HARDWARE_FLOW
+};
+
+enum sdio_widebus_mode
+{
+  SDIO_WIDEBUS_MODE_DEFAULT,
+  SDIO_WIDEBUS_MODE_4WIDE,
+  SDIO_WIDEBUS_MODE_8WIDE
+};
+
+enum sdio_clock_edge
+{
+  SDIO_CLOCK_EDGE_RISING,
+  SDIO_CLOCK_EDGE_FALLING
+};
+
+enum sdio_command
+{
+  SDIO_COMMAND_GO_IDLE_STATE,
+  SDIO_COMMAND_SEND_OP_COND,
+  SDIO_COMMAND_ALL_SEND_CID,
+  SDIO_COMMAND_SEND_RELATIVE_ADDR,
+  SDIO_COMMAND_SET_DSR,
+  SDIO_COMMAND_SWITCH_FUNC,
+  SDIO_COMMAND_SELECT_DESELECT_CARD,
+  SDIO_COMMAND_SEND_IF_COND,
+  SDIO_COMMAND_SEND_CSD,
+  SDIO_COMMAND_SEND_CID,
+  SDIO_COMMAND_VOLTAGE_SWITCH,
+  SDIO_COMMAND_STOP_TRANSMISSION,
+  SDIO_COMMAND_SEND_STATUS,
+  SDIO_COMMAND_GO_INACTIVE_STATE,
+
+  // Basic Commands
+  SDIO_COMMAND_SET_BLOCKLEN,
+  SDIO_COMMAND_READ_SINGLE_BLOCK,
+  SDIO_COMMAND_READ_MULTIPLE_BLOCK,
+  SDIO_COMMAND_SEND_TUNING_BLOCK,
+  SDIO_COMMAND_SPEED_CLASS_CONTROL,
+  SDIO_COMMAND_ADDRESS_EXTENSION,
+  SDIO_COMMAND_SET_BLOCK_COUNT,
+
+  // Block-Oriented Read Commands
+  SDIO_COMMAND_WRITE_BLOCK,
+  SDIO_COMMAND_WRITE_MULTIPLE_BLOCK,
+  SDIO_COMMAND_PROGRAM_CSD,
+
+  // Block-Oriented Write Commands
+  SDIO_COMMAND_SET_WRITE_PROT,
+  SDIO_COMMAND_CLR_WRITE_PROT,
+  SDIO_COMMAND_SEND_WRITE_PROT,
+  SDIO_COMMAND_ERASE_WR_BLK_START,
+  SDIO_COMMAND_ERASE_WR_BLK_END,
+  SDIO_COMMAND_ERASE,
+
+  // Erase Commands
+  SDIO_COMMAND_LOCK_UNLOCK,
+  SDIO_COMMAND_APP_CMD,
+  SDIO_COMMAND_GEN_CMD,
+
+  // I/O Commands
+  SDIO_COMMAND_SET_BUS_WIDTH,
+  SDIO_COMMAND_SD_STATUS,
+  SDIO_COMMAND_SEND_NUM_WR_BLOCKS,
+  SDIO_COMMAND_SET_WR_BLK_ERASE_COUNT,
+  SDIO_COMMAND_SD_SEND_OP_COND,
+  SDIO_COMMAND_SET_CLR_CARD_DETECT,
+  SDIO_COMMAND_SEND_SCR,
+  SDIO_COMMAND_SECURE_RECEIVE,
+  SDIO_COMMAND_SECURE_SEND,
+
+  // Switch Function Commands
+  SDIO_COMMAND_SELECT_CARD_PARTITION,
+  SDIO_COMMAND_READ_EXTR_SINGLE,
+  SDIO_COMMAND_WRITE_EXTR_SINGLE,
+  SDIO_COMMAND_READ_EXTR_MULTI,
+  SDIO_COMMAND_WRITE_EXTR_MULTI,
+  SDIO_COMMAND_Q_MANAGEMENT,
+  SDIO_COMMAND_Q_TASK_INFO_A,
+  SDIO_COMMAND_Q_TASK_INFO_B,
+  SDIO_COMMAND_Q_RD_TASK,
+  SDIO_COMMAND_Q_WR_TASK
+};
+
+enum sdio_response_type
+{
+  SDIO_RESPONSE_NO_RESPONSE,
+  SDIO_RESPONSE_TYPE_SHORT,
+  SDIO_RESPONSE_TYPE_LONG
+};
+
+enum sdio_response_reg
+{
+  SDIO_RESPONSE_REG1,
+  SDIO_RESPONSE_REG2,
+  SDIO_RESPONSE_REG3,
+  SDIO_RESPONSE_REG4
+};
+
+enum sdio_transfer_direction
+{
+  SDIO_TRANSFER_DIRECTION_CONTROLLER_TO_CARD,
+  SDIO_TRANSFER_DIRECTION_CARD_TO_CONTROLLER
+};
+
+enum sdio_transfer_mode
+{
+  SDIO_TRANSFER_MODE_BLOCK,
+  SDIO_TRANSFER_MODE_STREAM
+};
+
+enum sdio_control
+{
+  SDIO_CONTROL_DMA,
+  SDIO_CONTROL_READ_WAIT_START,
+  SDIO_CONTROL_READ_WAIT_STOP,
+  SDIO_CONTROL_READ_WAIT_MODE,
+  SDIO_CONTROL_SDIO_FUNCTIONS
+};
+
+enum sdio_data_block_size
+{
+  SDIO_DATA_BLOCK_SIZE_1BYTE,
+  SDIO_DATA_BLOCK_SIZE_2BYTES,
+  SDIO_DATA_BLOCK_SIZE_4BYTES,
+  SDIO_DATA_BLOCK_SIZE_8BYTES,
+  SDIO_DATA_BLOCK_SIZE_16BYTES,
+  SDIO_DATA_BLOCK_SIZE_32BYTES,
+  SDIO_DATA_BLOCK_SIZE_64BYTES,
+  SDIO_DATA_BLOCK_SIZE_128BYTES,
+  SDIO_DATA_BLOCK_SIZE_256BYTES,
+  SDIO_DATA_BLOCK_SIZE_512BYTES,
+  SDIO_DATA_BLOCK_SIZE_1024BYTES,
+  SDIO_DATA_BLOCK_SIZE_2048BYTES,
+  SDIO_DATA_BLOCK_SIZE_4096BYTES,
+  SDIO_DATA_BLOCK_SIZE_8192BYTES,
+  SDIO_DATA_BLOCK_SIZE_16384BYTES
+};
+
+enum sdio_flag
+{
+  SDIO_FLAG_CMD_CRC_FAIL,
+  SDIO_FLAG_DATA_CRC_FAIL,
+  SDIO_FLAG_CMD_TIMEOUT,
+  SDIO_FLAG_DATA_TIMEOUT,
+  SDIO_FLAG_TX_FIFO_UNDERRUN,
+  SDIO_FLAG_RX_FIFO_OVERRUN,
+  SDIO_FLAG_CMD_CRC_OK,
+  SDIO_FLAG_CMD_SENT,
+  SDIO_FLAG_DATA_END,
+  SDIO_FLAG_MISSING_START_BIT,
+  SDIO_FLAG_DATA_CRC_OK,
+  SDIO_FLAG_CMD_TRANSFER_IN_PROGRESS,
+  SDIO_FLAG_DATA_TRANSMIT_IN_PROGRESS,
+  SDIO_FLAG_DATA_RECEIVE_IN_PROGRESS,
+  SDIO_FLAG_TX_FIFO_HALF_EMPTY,
+  SDIO_FLAG_RX_FIFO_HALF_FULL,
+  SDIO_FLAG_TX_FIFO_FULL,
+  SDIO_FLAG_RX_FIFO_FULL,
+  SDIO_FLAG_TX_FIFO_EMPTY,
+  SDIO_FLAG_RX_FIFO_EMPTY,
+  SDIO_FLAG_DATA_AVAILABLE_IN_TX_FIFO,
+  SDIO_FLAG_DATA_AVAILABLE_IN_RX_FIFO,
+  SDIO_FLAG_SDIO_INT,
+  SDIO_FLAG_CE_ATA_CMD_SIGNAL
+};
+
+enum sdio_interrupt
+{
+  SDIO_INTERRUPT_CMD_CRC_FAIL,
+  SDIO_INTERRUPT_DATA_CRC_FAIL,
+  SDIO_INTERRUPT_CMD_TIMEOUT,
+  SDIO_INTERRUPT_DATA_TIMEOUT,
+  SDIO_INTERRUPT_TX_FIFO_UNDERRUN,
+  SDIO_INTERRUPT_RX_FIFO_UNDERRUN,
+  SDIO_INTERRUPT_CMD_RESPONSE_RECV,
+  SDIO_INTERRUPT_CMD_SENT,
+  SDIO_INTERRUPT_DATA_END,
+  SDIO_INTERRUPT_START_BIT_ERROR,
+  SDIO_INTERRUPT_DATA_BLOCK_END,
+  SDIO_INTERRUPT_CMD_TRANSFER,
+  SDIO_INTERRUPT_DATA_TRANSFER,
+  SDIO_INTERRUPT_DATA_RECV,
+  SDIO_INTERRUPT_TX_FIFO_HALF_EMPTY,
+  SDIO_INTERRUPT_RX_FIFO_HALF_FULL,
+  SDIO_INTERRUPT_TX_FIFO_FULL,
+  SDIO_INTERRUPT_RX_FIFO_FULL,
+  SDIO_INTERRUPT_TX_FIFO_EMPTY,
+  SDIO_INTERRUPT_RX_FIFO_EMPTY,
+  SDIO_INTERRUPT_TX_FIFO_DATA_AVAILABLE,
+  SDIO_INTERRUPT_RX_FIFO_DATA_AVAILABLE,
+  SDIO_INTERRUPT_SDIO_MODE,
+  SDIO_INTERRUPT_CE_ATA_SIGNAL
+};
+
+extern volatile struct sdio_registers_map* SDIO;
+
+void
+sdio_power_on(void);
+
+void
+sdio_power_off(void);
+
+void
+sdio_set_clock_divide_factor(
+  u32 factor
+);
+
+void
+sdio_clock_config_enable(
+  enum sdio_clock_config config
+);
+
+void
+sdio_clock_config_disable(
+  enum sdio_clock_config config
+);
+
+void
+sdio_set_widebus_mode(
+  enum sdio_widebus_mode mode
+);
+
+void
+sdio_set_clock_edge(
+  enum sdio_clock_edge edge
+);
+
+void
+sdio_set_cmd_arg(
+  u32 arg
+);
+
+// Page 609
+void
+sdio_set_cmd(
+  enum sdio_command cmd
+);
+
+void
+sdio_set_response_type(
+  enum sdio_response_type type
+);
+
+void
+sdio_waitint_enable(void);
+
+void
+sdio_waitint_disable(void);
+
+void
+sdio_waitpending_enable(void);
+
+void
+sdio_waitpending_disable(void);
+
+void
+sdio_cpsm_enable(void);
+
+void
+sdio_cpsm_disable(void);
+
+void
+sdio_suspend_enable(void);
+
+void
+sdio_suspend_disable(void);
+
+#if defined(STM32_SDIO_CMD_COMPLETION)
+void
+sdio_cmd_completion_enable(void);
+
+void
+sdio_cmd_completion_disable(void);
+#endif
+
+#if defined(STM32_SDIO_NOT_INT)
+void
+sdio_nien_enable(void);
+
+void
+sdio_nien_disable(void);
+#endif
+
+#if defined(STM32_SDIO_CEATA_CMD)
+void
+sdio_atacmd_enable(void);
+
+void
+sdio_atacmd_disable(void);
+#endif
+
+u32
+sdio_get_response_cmdindex(void);
+
+u32
+sdio_get_responde_data(
+  enum sdio_response_reg reg
+);
+
+void
+sdio_set_data_transfer_timeout(
+  u32 timeout
+);
+
+void
+sdio_set_data_transfer_length(
+  u32 length
+);
+
+void
+sdio_data_transfer_enable(void);
+
+void
+sdio_set_data_transfer_direction(
+  enum sdio_transfer_direction direction
+);
+
+void
+sdio_set_data_transfer_mode(
+  enum sdio_transfer_mode mode
+);
+
+void
+sdio_dma_enable(void);
+
+void
+sdio_dma_disable(void);
+
+void
+sdio_control_enable(
+  enum sdio_control control
+);
+
+void
+sdio_control_disable(
+  enum sdio_control control
+);
+
+void
+sdio_set_data_block_size(
+  enum sdio_data_block_size size
+);
+
+u32
+sdio_get_data_transfer_bytes_left(void);
+
+u32
+sdio_is_flag_set(
+  enum sdio_flag flag
+);
+
+void
+sdio_flag_clear(
+  enum sdio_flag flag
+);
+
+void
+sdio_interrupt_enable(
+  enum sdio_interrupt interrupt
+);
+
+void
+sdio_interrupt_disable(
+  enum sdio_interrupt interrupt
+);
+
+u32
+sdio_get_words_left(void);
+
+void
+sdio_write_fifo(
+  u32 value
+);
+
+u32
+sdio_read_fifo(void);
+
+END_DECLARATIONS
+
+#endif

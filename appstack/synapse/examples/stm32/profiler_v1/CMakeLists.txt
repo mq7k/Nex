@@ -1,0 +1,1 @@
+syn_create_example(profiler_v1)

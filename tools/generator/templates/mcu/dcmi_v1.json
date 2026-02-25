@@ -1,0 +1,508 @@
+{
+  "periph": "DCMI",
+  "path": "stm32/drivers/dcmi/dcmi_v1.h",
+  "struct": "dcmi_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "dcmi_capture",
+      "signature": "",
+      "reg": "CR",
+      "shift": 0
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_capture_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 1,
+      "set": "DCMI_CAPTURE_MODE_SNAPSHOT",
+      "clear": "DCMI_CAPTURE_MODE_CONTINUOUS"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_image_crop",
+      "signature": "{crop}",
+      "reg": "CR",
+      "shift": 2,
+      "set": "DCMI_IMAGE_CROP_WINDOW",
+      "clear": "DCMI_IMAGE_CROP_FULL_IMAGE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_jpeg_format",
+      "signature": "{format}",
+      "reg": "CR",
+      "shift": 3,
+      "set": "DCMI_JPEG_FORMAT_JPEG",
+      "clear": "DCMI_JPEG_FORMAT_UNCOMPRESSED"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_embedded_sync",
+      "signature": "{sync}",
+      "reg": "CR",
+      "shift": 4,
+      "set": "DCMI_EMBEDDED_SYNC_DATA_FLOW",
+      "clear": "DCMI_EMBEDDED_SYNC_HARDWARE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_pixel_clock_polarity",
+      "signature": "{polarity}",
+      "reg": "CR",
+      "shift": 5,
+      "set": "DCMI_PIXEL_CLOCK_POLARITY_RISING_EDGE",
+      "clear": "DCMI_PIXEL_CLOCK_POLARITY_FALLING_EDGE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_hsync_polarity",
+      "signature": "{polarity}",
+      "reg": "CR",
+      "shift": 6,
+      "set": "DCMI_HSYNC_POLARITY_ACTIVE_HIGH",
+      "clear": "DCMI_HSYNC_POLARITY_ACTIVE_LOW"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_vsync_polarity",
+      "signature": "{polarity}",
+      "reg": "CR",
+      "shift": 7,
+      "set": "DCMI_VSYNC_POLARITY_ACTIVE_HIGH",
+      "clear": "DCMI_VSYNC_POLARITY_ACTIVE_LOW"
+    },
+    {
+      "type": "enum_set",
+      "fn": "dcmi_set_frame_capture_rate",
+      "signature": "{rate}",
+      "shift": 8,
+      "reg": "CR",
+      "mask": "0x3",
+      "args": {
+        "rate": [
+          {
+            "enum": "DCMI_FRAME_CAPTURE_RATE_ALL",
+            "value": "0b00"
+          },
+          {
+            "enum": "DCMI_FRAME_CAPTURE_RATE_SKIP2",
+            "value": "0b01"
+          },
+          {
+            "enum": "DCMI_FRAME_CAPTURE_RATE_SKIP4",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dcmi_set_extended_data_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 10,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "DCMI_EXTENDED_DATA_MODE_8BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "DCMI_EXTENDED_DATA_MODE_10BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "DCMI_EXTENDED_DATA_MODE_12BIT",
+            "value": "0b10"
+          },
+          {
+            "enum": "DCMI_EXTENDED_DATA_MODE_14BIT",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dcmi",
+      "signature": "",
+      "reg": "CR",
+      "shift": 14
+    },
+    {
+      "type": "enum_set",
+      "fn": "dcmi_set_byte_capture_mode",
+      "signature": "{mode}",
+      "shift": 16,
+      "mask": "0x3",
+      "reg": "CR",
+      "ifdef": "STM32_DCMI_CR_EXTENDED",
+      "args": {
+        "mode": [
+          {
+            "enum": "DCMI_BYTE_CAPTURE_MODE_ALL",
+            "value": "0b00"
+          },
+          {
+            "enum": "DCMI_BYTE_CAPTURE_MODE_SKIP1",
+            "value": "0b01"
+          },
+          {
+            "enum": "DCMI_BYTE_CAPTURE_MODE_SKIP3",
+            "value": "0b10"
+          },
+          {
+            "enum": "DCMI_BYTE_CAPTURE_MODE_SKIP2",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_byte_capture_start",
+      "signature": "{start}",
+      "shift": "18",
+      "reg": "CR",
+      "set": "DCMI_BYTE_CAPTURE_START_ODD",
+      "clear": "DCMI_BYTE_CAPTURE_START_EVEN",
+      "ifdef": "STM32_DCMI_CR_EXTENDED"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_line_capture_mode",
+      "signature": "{mode}",
+      "shift": 19,
+      "reg": "CR",
+      "set": "DCMI_LINE_CAPTURE_MODE_ALTERNATE",
+      "clear": "DCMI_LINE_CAPTURE_MODE_ALL",
+      "ifdef": "STM32_DCMI_CR_EXTENDED"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dcmi_set_line_capture_start",
+      "signature": "{mode}",
+      "shift": 20,
+      "reg": "CR",
+      "set": "DCMI_LINE_CAPTURE_START_ODD",
+      "clear": "DCMI_LINE_CAPTURE_START_EVEN",
+      "ifdef": "STM32_DCMI_CR_EXTENDED"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "dcmi_is_flag_set",
+      "signature": "{flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "DCMI_FLAG_HSYNC",
+            "shift": 0
+          },
+          {
+            "enum": "DCMI_FLAG_VSYNC",
+            "shift": 1
+          },
+          {
+            "enum": "DCMI_FLAG_FIFO_NOT_EMPTY",
+            "shift": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "dcmi_is_interrupt_event_occurred",
+      "signature": "{flag}",
+      "reg": "RIS",
+      "args": {
+        "flag": [
+          {
+            "enum": "DCMI_INTERRUPT_CAPTURE_COMPLETE",
+            "shift": 0
+          },
+          {
+            "enum": "DCMI_INTERRUPT_OVERRUN",
+            "shift": 1
+          },
+          {
+            "enum": "DCMI_INTERRUPT_SYNC_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "DCMI_INTERRUPT_VSYNC",
+            "shift": 3
+          },
+          {
+            "enum": "DCMI_INTERRUPT_LINE",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dcmi_interrupt",
+      "reg": "IER",
+      "signature": "{interrupt}",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "DCMI_INTERRUPT_CAPTURE_COMPLETE",
+            "shift": 0
+          },
+          {
+            "enum": "DCMI_INTERRUPT_OVERRUN",
+            "shift": 1
+          },
+          {
+            "enum": "DCMI_INTERRUPT_SYNC_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "DCMI_INTERRUPT_VSYNC",
+            "shift": 3
+          },
+          {
+            "enum": "DCMI_INTERRUPT_LINE",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "dcmi_is_interrupt_pending",
+      "signature": "{interrupt}",
+      "reg": "MIS",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "DCMI_INTERRUPT_CAPTURE_COMPLETE",
+            "shift": 0
+          },
+          {
+            "enum": "DCMI_INTERRUPT_OVERRUN",
+            "shift": 1
+          },
+          {
+            "enum": "DCMI_INTERRUPT_SYNC_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "DCMI_INTERRUPT_VSYNC",
+            "shift": 3
+          },
+          {
+            "enum": "DCMI_INTERRUPT_LINE",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "dcmi_interrupt_pending_clear",
+      "signature": "{interrupt}",
+      "clear_mode": "w1",
+      "reg": "ICR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "DCMI_INTERRUPT_CAPTURE_COMPLETE",
+            "shift": 0
+          },
+          {
+            "enum": "DCMI_INTERRUPT_OVERRUN",
+            "shift": 1
+          },
+          {
+            "enum": "DCMI_INTERRUPT_SYNC_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "DCMI_INTERRUPT_VSYNC",
+            "shift": 3
+          },
+          {
+            "enum": "DCMI_INTERRUPT_LINE",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dcmi_set_delimiter",
+      "reg": "ESCR",
+      "signature": "{delimiter}, {val}",
+      "mask": "0xff",
+      "args": {
+        "delimiter": [
+          {
+            "enum": "DCMI_DELIMITER_FRAME_START",
+            "shift": 0
+          },
+          {
+            "enum": "DCMI_DELIMITER_LINE_START",
+            "shift": 8
+          },
+          {
+            "enum": "DCMI_DELIMITER_LINE_END",
+            "shift": 16
+          },
+          {
+            "enum": "DCMI_DELIMITER_FRAME_END",
+            "shift": 24
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dcmi_set_delimiter_unmask",
+      "reg": "ESUR",
+      "signature": "{delimiter}, {val}",
+      "mask": "0xff",
+      "args": {
+        "delimiter": [
+          {
+            "enum": "DCMI_DELIMITER_FRAME_START",
+            "shift": 0
+          },
+          {
+            "enum": "DCMI_DELIMITER_LINE_START",
+            "shift": 8
+          },
+          {
+            "enum": "DCMI_DELIMITER_LINE_END",
+            "shift": 16
+          },
+          {
+            "enum": "DCMI_DELIMITER_FRAME_END",
+            "shift": 24
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dcmi_set_horizontal_offset",
+      "signature": "{val}",
+      "reg": "CWSTRT",
+      "mask": "0x3fff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3fff"
+          },
+          {
+            "value": "0x4000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dcmi_set_vertical_start_line",
+      "signature": "{val}",
+      "reg": "CWSTRT",
+      "mask": "0x1fff",
+      "shift": 16,
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x1fff"
+          },
+          {
+            "value": "0x2000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dcmi_set_capture_count",
+      "signature": "{val}",
+      "reg": "CWSIZE",
+      "mask": "0x3fff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3fff"
+          },
+          {
+            "value": "0x4000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dcmi_set_vertical_line_count",
+      "signature": "{val}",
+      "reg": "CWSIZE",
+      "mask": "0x3fff",
+      "shift": 16,
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3fff"
+          },
+          {
+            "value": "0x4000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "dcmi_data_read",
+      "signature": "",
+      "reg": "DR"
+    }
+  ]
+}

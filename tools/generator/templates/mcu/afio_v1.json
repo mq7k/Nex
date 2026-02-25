@@ -1,0 +1,489 @@
+{
+  "periph": "AFIO",
+  "path": "stm32/drivers/afio/afio_v1.h",
+  "struct": "afio_registers_map",
+  "functions": [
+    {
+      "type": "enum_set",
+      "fn": "afio_set_eventout_port",
+      "signature": "{port}",
+      "reg": "EVCR",
+      "shift": 4,
+      "args": {
+        "port": [
+          {
+            "enum": "AFIO_PORTA",
+            "value": "0b000"
+          },
+          {
+            "enum": "AFIO_PORTB",
+            "value": "0b001"
+          },
+          {
+            "enum": "AFIO_PORTC",
+            "value": "0b010"
+          },
+          {
+            "enum": "AFIO_PORTD",
+            "value": "0b011"
+          },
+          {
+            "enum": "AFIO_PORTE",
+            "value": "0b100"
+          },
+          {
+            "enum": "AFIO_PORTF",
+            "value": "0b101",
+            "halt": true
+          },
+          {
+            "enum": "AFIO_PORTG",
+            "value": "0b110",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_eventout_pin",
+      "signature": "{pin}",
+      "reg": "EVCR",
+      "shift": 0,
+      "args": {
+        "pin": [
+          {
+            "enum": "AFIO_PIN0",
+            "value": 0
+          },
+          {
+            "enum": "AFIO_PIN1",
+            "value": 1
+          },
+          {
+            "enum": "AFIO_PIN2",
+            "value": 2
+          },
+          {
+            "enum": "AFIO_PIN3",
+            "value": 3
+          },
+          {
+            "enum": "AFIO_PIN4",
+            "value": 4
+          },
+          {
+            "enum": "AFIO_PIN5",
+            "value": 5
+          },
+          {
+            "enum": "AFIO_PIN6",
+            "value": 6
+          },
+          {
+            "enum": "AFIO_PIN7",
+            "value": 7
+          },
+          {
+            "enum": "AFIO_PIN8",
+            "value": 8
+          },
+          {
+            "enum": "AFIO_PIN9",
+            "value": 9
+          },
+          {
+            "enum": "AFIO_PIN10",
+            "value": 10
+          },
+          {
+            "enum": "AFIO_PIN11",
+            "value": 11
+          },
+          {
+            "enum": "AFIO_PIN12",
+            "value": 12
+          },
+          {
+            "enum": "AFIO_PIN13",
+            "value": 13
+          },
+          {
+            "enum": "AFIO_PIN14",
+            "value": 14
+          },
+          {
+            "enum": "AFIO_PIN15",
+            "value": 15
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "afio_eventout",
+      "signature": "",
+      "reg": "EVCR",
+      "shift": 7
+    },
+    {
+      "type": "enum_toggle",
+      "fn": "afio_remap",
+      "signature": "{remap}",
+      "args": {
+        "remap": [
+          {
+            "enum": "AFIO_REMAP_SPI1",
+            "shift": 0,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_I2C1",
+            "shift": 1,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_USART1",
+            "shift": 2,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_USART2",
+            "shift": 3,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM9",
+            "shift": 5,
+            "reg": "MAPR2"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM10",
+            "shift": 6,
+            "reg": "MAPR2"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM11",
+            "shift": 7,
+            "reg": "MAPR2"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM13",
+            "shift": 8,
+            "reg": "MAPR2"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM14",
+            "shift": 9,
+            "reg": "MAPR2"
+          },
+          {
+            "enum": "AFIO_REMAP_FSMC_NADV",
+            "shift": 10,
+            "reg": "MAPR2"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM4",
+            "shift": 12,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_PD01",
+            "shift": 15,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM5_CH4",
+            "shift": 16,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_ADC1_ETRGINJ",
+            "shift": 17,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_ADC1_ETRGREG",
+            "shift": 18,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_ADC2_ETRGINJ",
+            "shift": 19,
+            "reg": "MAPR"
+          },
+          {
+            "enum": "AFIO_REMAP_ADC2_ETRGREG",
+            "shift": 20,
+            "reg": "MAPR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_usart3_remap",
+      "signature": "{remap}",
+      "shift": 4,
+      "reg": "MAPR",
+      "args": {
+        "remap": [
+          {
+            "enum": "AFIO_REMAP_USART3_NOREMAP",
+            "value": "0b00"
+          },
+          {
+            "enum": "AFIO_REMAP_USART3_PARTIAL",
+            "value": "0b01"
+          },
+          {
+            "enum": "AFIO_REMAP_USART3_FULL",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_tim1_remap",
+      "signature": "{remap}",
+      "shift": 6,
+      "reg": "MAPR",
+      "args": {
+        "remap": [
+          {
+            "enum": "AFIO_REMAP_TIM1_NOREMAP",
+            "value": "0b00"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM1_PARTIAL",
+            "value": "0b01"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM1_FULL",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_tim2_remap",
+      "signature": "{remap}",
+      "shift": 8,
+      "reg": "MAPR",
+      "args": {
+        "remap": [
+          {
+            "enum": "AFIO_REMAP_TIM2_NOREMAP",
+            "value": "0b00"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM2_PARTIAL1",
+            "value": "0b01"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM2_PARTIAL2",
+            "value": "0b10"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM2_FULL",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_tim3_remap",
+      "signature": "{remap}",
+      "shift": 10,
+      "reg": "MAPR",
+      "args": {
+        "remap": [
+          {
+            "enum": "AFIO_REMAP_TIM3_NOREMAP",
+            "value": "0b00"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM3_PARTIAL",
+            "value": "0b10"
+          },
+          {
+            "enum": "AFIO_REMAP_TIM3_FULL",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_can1_remap",
+      "signature": "{remap}",
+      "shift": 13,
+      "reg": "MAPR",
+      "args": {
+        "remap": [
+          {
+            "enum": "AFIO_REMAP_CAN_1",
+            "value": "0b00"
+          },
+          {
+            "enum": "AFIO_REMAP_CAN_2",
+            "value": "0b10"
+          },
+          {
+            "enum": "AFIO_REMAP_CAN_3",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_swj_remap",
+      "signature": "{remap}",
+      "reg": "MAPR",
+      "shift": 24,
+      "args": {
+        "remap": [
+          {
+            "enum": "AFIO_REMAP_SWJ_FULL",
+            "value": "0b000"
+          },
+          {
+            "enum": "AFIO_REMAP_SWJ_FULL_NO_NJTRST",
+            "value": "0b001"
+          },
+          {
+            "enum": "AFIO_REMAP_SWJ_NOJTAG",
+            "value": "0b010"
+          },
+          {
+            "enum": "AFIO_REMAP_SWJ_NOJTAG_NOSWDP",
+            "value": "0b100"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "afio_set_external_interrupt_source",
+      "signature": "{port}, {pin}",
+      "args": {
+        "port": [
+          {
+            "enum": "AFIO_PORTA",
+            "value": "0b0000"
+          },
+          {
+            "enum": "AFIO_PORTB",
+            "value": "0b0001"
+          },
+          {
+            "enum": "AFIO_PORTC",
+            "value": "0b0010"
+          },
+          {
+            "enum": "AFIO_PORTD",
+            "value": "0b0011"
+          },
+          {
+            "enum": "AFIO_PORTE",
+            "value": "0b0100"
+          },
+          {
+            "enum": "AFIO_PORTF",
+            "value": "0b0101"
+          },
+          {
+            "enum": "AFIO_PORTG",
+            "value": "0b0110"
+          }
+        ],
+        "pin": [
+          {
+            "enum": "AFIO_PIN0",
+            "reg": "EXTICR1",
+            "shift": 0
+          },
+          {
+            "enum": "AFIO_PIN1",
+            "reg": "EXTICR1",
+            "shift": 4
+          },
+          {
+            "enum": "AFIO_PIN2",
+            "reg": "EXTICR1",
+            "shift": 8
+          },
+          {
+            "enum": "AFIO_PIN3",
+            "reg": "EXTICR1",
+            "shift": 12
+          },
+          {
+            "enum": "AFIO_PIN4",
+            "reg": "EXTICR2",
+            "shift": 0
+          },
+          {
+            "enum": "AFIO_PIN5",
+            "reg": "EXTICR2",
+            "shift": 4
+          },
+          {
+            "enum": "AFIO_PIN6",
+            "reg": "EXTICR2",
+            "shift": 8
+          },
+          {
+            "enum": "AFIO_PIN7",
+            "reg": "EXTICR2",
+            "shift": 12
+          },
+          {
+            "enum": "AFIO_PIN8",
+            "reg": "EXTICR3",
+            "shift": 0
+          },
+          {
+            "enum": "AFIO_PIN9",
+            "reg": "EXTICR3",
+            "shift": 4
+          },
+          {
+            "enum": "AFIO_PIN10",
+            "reg": "EXTICR3",
+            "shift": 8
+          },
+          {
+            "enum": "AFIO_PIN11",
+            "reg": "EXTICR3",
+            "shift": 12
+          },
+          {
+            "enum": "AFIO_PIN12",
+            "reg": "EXTICR4",
+            "shift": 0
+          },
+          {
+            "enum": "AFIO_PIN13",
+            "reg": "EXTICR4",
+            "shift": 4
+          },
+          {
+            "enum": "AFIO_PIN14",
+            "reg": "EXTICR4",
+            "shift": 8
+          },
+          {
+            "enum": "AFIO_PIN15",
+            "reg": "EXTICR4",
+            "shift": 12
+          }
+        ]
+      }
+    }
+  ]
+}

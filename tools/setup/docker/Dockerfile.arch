@@ -1,0 +1,9 @@
+FROM archlinux:latest
+
+WORKDIR /app
+
+COPY . .
+
+RUN pacman -Sy python3 --noconfirm
+RUN python3 setup.py
+

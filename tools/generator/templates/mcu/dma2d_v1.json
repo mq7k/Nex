@@ -1,0 +1,942 @@
+{
+  "periph": "DMA2D",
+  "path": "stm32/drivers/dma2d/dma2d_v1.h",
+  "struct": "dma2d_registers_map",
+  "functions": [
+    {
+      "type": "fn_call",
+      "fn": "dma2d_start",
+      "signature": "",
+      "reg": "CR",
+      "shift": 0
+    },
+    {
+      "type": "fn_call",
+      "fn": "dma2d_suspend",
+      "signature": "",
+      "reg": "CR",
+      "shift": 1
+    },
+    {
+      "type": "fn_call",
+      "fn": "dma2d_abort",
+      "signature": "",
+      "reg": "CR",
+      "shift": 2
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma2d_interrupt",
+      "signature": "{interrupt}",
+      "reg": "CR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "DMA2D_INTERRUPT_TRANSFER_ERROR",
+            "shift": 8
+          },
+          {
+            "enum": "DMA2D_INTERRUPT_TRANSFER_COMPLETE",
+            "shift": 9
+          },
+          {
+            "enum": "DMA2D_INTERRUPT_TRANSFER_WATERMARK",
+            "shift": 10
+          },
+          {
+            "enum": "DMA2D_INTERRUPT_CLUT_ACCESS_ERROR",
+            "shift": 11
+          },
+          {
+            "enum": "DMA2D_INTERRUPT_CLUT_TRANSFER_COMPLETE",
+            "shift": 12
+          },
+          {
+            "enum": "DMA2D_INTERRUPT_CONFIGURATION_ERROR",
+            "shift": 13
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_mode",
+      "reg": "CR",
+      "signature": "{mode}",
+      "shift": 16,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "DMA2D_MODE_MEMORY_TO_MEMORY_FG",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA2D_MODE_MEMORY_TO_MEMORY_PFC",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA2D_MODE_MEMORY_TO_MEMORY_BLENDING",
+            "value": "0b10"
+          },
+          {
+            "enum": "DMA2D_MODE_REGISTER_TO_MEMORY",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "dma2d_is_flag_set",
+      "signature": "{flag}",
+      "reg": "ISR",
+      "args": {
+        "flag": [
+          {
+            "enum": "DMA2D_FLAG_TRANSFER_ERROR",
+            "shift": 0
+          },
+          {
+            "enum": "DMA2D_FLAG_TRANSFER_COMPLETE",
+            "shift": 1
+          },
+          {
+            "enum": "DMA2D_FLAG_TRANSFER_WATERMARK",
+            "shift": 2
+          },
+          {
+            "enum": "DMA2D_FLAG_CLUT_ACCESS_ERROR",
+            "shift": 3
+          },
+          {
+            "enum": "DMA2D_FLAG_CLUT_TRANSFER_COMPLETE",
+            "shift": 4
+          },
+          {
+            "enum": "DMA2D_FLAG_CONFIGURATION_ERROR",
+            "shift": 5
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "dma2d_flag_clear",
+      "signature": "{flag}",
+      "reg": "IFCR",
+      "clear_mode": "w1",
+      "args": {
+        "flag": [
+          {
+            "enum": "DMA2D_FLAG_TRANSFER_ERROR",
+            "shift": 0
+          },
+          {
+            "enum": "DMA2D_FLAG_TRANSFER_COMPLETE",
+            "shift": 1
+          },
+          {
+            "enum": "DMA2D_FLAG_TRANSFER_WATERMARK",
+            "shift": 2
+          },
+          {
+            "enum": "DMA2D_FLAG_CLUT_ACCESS_ERROR",
+            "shift": 3
+          },
+          {
+            "enum": "DMA2D_FLAG_CLUT_TRANSFER_COMPLETE",
+            "shift": 4
+          },
+          {
+            "enum": "DMA2D_FLAG_CONFIGURATION_ERROR",
+            "shift": 5
+          }
+
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_fg_memory_address",
+      "signature": "{val}",
+      "reg": "FGMAR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_fg_line_offset",
+      "signature": "{val}",
+      "reg": "FGOR",
+      "shift": 0,
+      "mask": "0x3fff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3fff"
+          },
+          {
+            "value": "0x4000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_bg_memory_address",
+      "signature": "{val}",
+      "reg": "BGMAR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_bg_img_offset",
+      "signature": "{val}",
+      "reg": "BGOR",
+      "shift": 0,
+      "mask": "0x3fff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3fff"
+          },
+          {
+            "value": "0x4000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_fg_color_mode",
+      "signature": "{mode}",
+      "reg": "FGPFCCR",
+      "shift": 0,
+      "mask": "0xf",
+      "args": {
+        "mode": [
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_ARGB8888",
+            "value": "0b0000"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_RGB888",
+            "value": "0b0001"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_RGB565",
+            "value": "0b0010"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_ARGB1555",
+            "value": "0b0011"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_ARGB4444",
+            "value": "0b0100"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_L8",
+            "value": "0b0101"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_AL44",
+            "value": "0b0110"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_AL88",
+            "value": "0b0111"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_L4",
+            "value": "0b1000"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_A8",
+            "value": "0b1001"
+          },
+          {
+            "enum": "DMA2D_FG_COLOR_MODE_A4",
+            "value": "0b1010"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dma2d_set_fg_clut_color_mode",
+      "signature": "{mode}",
+      "reg": "FGPFCCR",
+      "shift": 4,
+      "set": "DMA2D_FG_CLUT_COLOR_MODE_RGB888",
+      "clear": "DMA2D_FG_CLUT_COLOR_MODE_ARGB8888"
+    },
+    {
+      "type": "fn_call",
+      "fn": "dma2d_fg_start",
+      "signature": "",
+      "shift": 5,
+      "reg": "FGPFCCR"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_fg_clut_size",
+      "signature": "{val}",
+      "shift": 8,
+      "mask": "0xff",
+      "reg": "FGPFCCR"
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_fg_alpha_mode",
+      "signature": "{mode}",
+      "shift": 16,
+      "mask": "0x3",
+      "reg": "FGPFCCR",
+      "args": {
+        "mode": [
+          {
+            "enum": "DMA2D_FG_ALPHA_MODE_NOMOD",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA2D_FG_ALPHA_MODE_REPLACE_ALPHA",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA2D_FG_ALPHA_MODE_REPLACE_ALPHA_MUL",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_fg_pfc_alpha_value",
+      "signature": "{val}",
+      "shift": 24,
+      "mask": "0xff",
+      "reg": "FGPFCCR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_fg_color_channel_value",
+      "signature": "{channel}, {val}",
+      "reg": "FGCOLR",
+      "mask": "0xff",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_RED",
+            "shift": 16
+          },
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_BLUE",
+            "shift": 0
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_bg_color_mode",
+      "signature": "{mode}",
+      "reg": "BGPFCCR",
+      "shift": 0,
+      "mask": "0xf",
+      "args": {
+        "mode": [
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_ARGB8888",
+            "value": "0b0000"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_RGB888",
+            "value": "0b0001"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_RGB565",
+            "value": "0b0010"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_ARGB1555",
+            "value": "0b0011"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_ARGB4444",
+            "value": "0b0100"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_L8",
+            "value": "0b0101"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_AL44",
+            "value": "0b0110"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_AL88",
+            "value": "0b0111"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_L4",
+            "value": "0b1000"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_A8",
+            "value": "0b1001"
+          },
+          {
+            "enum": "DMA2D_BG_COLOR_MODE_A4",
+            "value": "0b1010"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dma2d_set_bg_clut_color_mode",
+      "signature": "{mode}",
+      "reg": "BGPFCCR",
+      "shift": 4,
+      "set": "DMA2D_BG_CLUT_COLOR_MODE_RGB888",
+      "clear": "DMA2D_BG_CLUT_COLOR_MODE_ARGB8888"
+    },
+    {
+      "type": "fn_call",
+      "fn": "dma2d_bg_start",
+      "signature": "",
+      "reg": "BGPFCCR",
+      "shift": 5
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_bg_clut_size",
+      "signature": "{val}",
+      "shift": 8,
+      "mask": "0xff",
+      "reg": "BGPFCCR"
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_bg_pfc_alpha_mode",
+      "signature": "{mode}",
+      "shift": 16,
+      "mask": "0x3",
+      "reg": "BGPFCCR",
+      "args": {
+        "mode": [
+          {
+            "enum": "DMA2D_BG_ALPHA_MODE_NOMOD",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA2D_BG_ALPHA_MODE_REPLACE_ALPHA",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA2D_BG_ALPHA_MODE_REPLACE_ALPHA_MUL",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_bg_pfc_alpha_value",
+      "signature": "{val}",
+      "shift": 24,
+      "mask": "0xff",
+      "reg": "BGPFCCR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_bg_color_channel_value",
+      "signature": "{channel}, {val}",
+      "reg": "BGCOLR",
+      "mask": "0xff",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_RED",
+            "shift": 16
+          },
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_BLUE",
+            "shift": 0
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_fg_clut_memory_address",
+      "signature": "{val}",
+      "reg": "FGCMAR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_bg_clut_memory_address",
+      "signature": "{val}",
+      "reg": "BGCMAR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma2d_set_output_color_mode",
+      "signature": "{mode}",
+      "reg": "OPFCCR",
+      "shift": 0,
+      "mask": "0x7",
+      "args": {
+        "mode": [
+          {
+            "enum": "DMA2D_OUTPUT_COLOR_MODE_ARGB8888",
+            "value": "0b000"
+          },
+          {
+            "enum": "DMA2D_OUTPUT_COLOR_MODE_RGB888",
+            "value": "0b001"
+          },
+          {
+            "enum": "DMA2D_OUTPUT_COLOR_MODE_RGB565",
+            "value": "0b010"
+          },
+          {
+            "enum": "DMA2D_OUTPUT_COLOR_MODE_ARGB1555",
+            "value": "0b011"
+          },
+          {
+            "enum": "DMA2D_OUTPUT_COLOR_MODE_ARGB4444",
+            "value": "0b100"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_argb8888_output_color",
+      "signature": "{val}",
+      "reg": "OCOLR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_argb8888_output_color_channel_value",
+      "signature": "{channel}, {val}",
+      "mask": "0xff",
+      "reg": "OCOLR",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA2D_ARGB8888_COLOR_CHANNEL_RED",
+            "shift": 16
+          },
+          {
+            "enum": "DMA2D_ARGB8888_COLOR_CHANNEL_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "DMA2D_ARGB8888_COLOR_CHANNEL_BLUE",
+            "shift": 0
+          },
+          {
+            "enum": "DMA2D_ARGB8888_COLOR_CHANNEL_ALPHA",
+            "shift": 24
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_rgb8888_output_color",
+      "signature": "{val}",
+      "reg": "OCOLR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffff"
+          },
+          {
+            "value": "0x1000000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_rgb888_output_color_channel_value",
+      "signature": "{channel}, {val}",
+      "reg": "OCOLR",
+      "mask": "0xff",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_RED",
+            "shift": 16
+          },
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_GREEN",
+            "shift": 8
+          },
+          {
+            "enum": "DMA2D_RGB888_COLOR_CHANNEL_BLUE",
+            "shift": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_rgb565_output_color",
+      "signature": "{val}",
+      "reg": "OCOLR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "dma2d_set_rgb565_output_color_channel_value",
+      "signature": "{channel}, {val}",
+      "reg": "OCOLR",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA2D_RGB565_COLOR_CHANNEL_BLUE",
+            "shift": 0,
+            "mask": "0x1f"
+          },
+          {
+            "enum": "DMA2D_RGB565_COLOR_CHANNEL_GREEN",
+            "shift": 5,
+            "mask": "0x3f"
+          },
+          {
+            "enum": "DMA2D_RGB565_COLOR_CHANNEL_RED",
+            "shift": 11,
+            "mask": "0x1f"
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x1f"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_argb1555_output_color",
+      "signature": "{val}",
+      "reg": "OCOLR",
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_argb1555_output_color_channel_value",
+      "signature": "{channel}, {val}",
+      "reg": "OCOLR",
+      "options": [
+        "ioreg"
+      ],
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA2D_ARGB1555_COLOR_CHANNEL_BLUE",
+            "shift": 0,
+            "mask": "0x1f"
+          },
+          {
+            "enum": "DMA2D_ARGB1555_COLOR_CHANNEL_GREEN",
+            "shift": 5,
+            "mask": "0x1f"
+          },
+          {
+            "enum": "DMA2D_ARGB1555_COLOR_CHANNEL_RED",
+            "shift": 10,
+            "mask": "0x1f"
+          },
+          {
+            "enum": "DMA2D_ARGB1555_COLOR_CHANNEL_ALPHA",
+            "shift": 15,
+            "mask": "0x1"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_argb4444_output_color",
+      "signature": "{val}",
+      "reg": "OCOLR",
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_argb4444_output_color_channel_value",
+      "signature": "{channel}, {val}",
+      "reg": "OCOLR",
+      "mask": "0xf",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA2D_ARGB4444_COLOR_CHANNEL_BLUE",
+            "shift": 0
+          },
+          {
+            "enum": "DMA2D_ARGB4444_COLOR_CHANNEL_GREEN",
+            "shift": 4
+          },
+          {
+            "enum": "DMA2D_ARGB4444_COLOR_CHANNEL_RED",
+            "shift": 8
+          },
+          {
+            "enum": "DMA2D_ARGB4444_COLOR_CHANNEL_ALPHA",
+            "shift": 12
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xf"
+          },
+          {
+            "value": "0x10",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_output_memory_address",
+      "signature": "{val}",
+      "reg": "OMAR",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_output_line_offset",
+      "signature": "{val}",
+      "reg": "OOR",
+      "mask": "0x3fff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3fff"
+          },
+          {
+            "value": "0x4000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_number_of_lines",
+      "signature": "{val}",
+      "reg": "NLR",
+      "mask": "0xffff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_pixel_per_lines",
+      "signature": "{val}",
+      "reg": "NLR",
+      "shift": 16,
+      "mask": "0x3fff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_line_watermark",
+      "signature": "{val}",
+      "reg": "LWR",
+      "mask": "0xffff"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma2d_deadtime",
+      "signature": "",
+      "reg": "AMTCR",
+      "shift": 0
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma2d_set_deadtime",
+      "signature": "{val}",
+      "reg": "AMTCR",
+      "shift": 8,
+      "mask": "0xff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          },
+          {
+            "value": "0x100",
+            "halt": true
+          }
+        ]
+      }
+    }
+  ]
+}

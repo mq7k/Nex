@@ -1,0 +1,446 @@
+{
+  "periph": "DMA1",
+  "path": "stm32/drivers/dma/dma_v2.h",
+  "struct": "dma_registers_map",
+  "functions": [
+    {
+      "type": "flag_is_set",
+      "fn": "dma_is_channel_flag_set",
+      "signature": "{periph}, {channel}, {flag}",
+      "reg": "ISR",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA_CHANNEL1",
+            "shift": 0
+          },
+          {
+            "enum": "DMA_CHANNEL2",
+            "shift": 4
+          },
+          {
+            "enum": "DMA_CHANNEL3",
+            "shift": 8
+          },
+          {
+            "enum": "DMA_CHANNEL4",
+            "shift": 12
+          },
+          {
+            "enum": "DMA_CHANNEL5",
+            "shift": 16
+          },
+          {
+            "enum": "DMA_CHANNEL6",
+            "shift": 20
+          },
+          {
+            "enum": "DMA_CHANNEL7",
+            "shift": 24
+          }
+        ],
+        "flag": [
+          {
+            "enum": "DMA_FLAG_GLOBAL_INTERRUPT",
+            "shift": "+0"
+          },
+          {
+            "enum": "DMA_FLAG_TRANSER_COMPLETE",
+            "shift": "+1"
+          },
+          {
+            "enum": "DMA_FLAG_HALF_TRANSFER",
+            "shift": "+2"
+          },
+          {
+            "enum": "DMA_FLAG_TRANSFER_ERROR",
+            "shift": "+3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "dma_channel_flag_clear",
+      "signature": "{periph}, {channel}, {flag}",
+      "reg": "IFCR",
+      "clear_mode": "w1",
+      "args": {
+        "channel": [
+          {
+            "enum": "DMA_CHANNEL1",
+            "shift": 0
+          },
+          {
+            "enum": "DMA_CHANNEL2",
+            "shift": 4
+          },
+          {
+            "enum": "DMA_CHANNEL3",
+            "shift": 8
+          },
+          {
+            "enum": "DMA_CHANNEL4",
+            "shift": 12
+          },
+          {
+            "enum": "DMA_CHANNEL5",
+            "shift": 16
+          },
+          {
+            "enum": "DMA_CHANNEL6",
+            "shift": 20
+          },
+          {
+            "enum": "DMA_CHANNEL7",
+            "shift": 24
+          }
+        ],
+        "flag": [
+          {
+            "enum": "DMA_FLAG_GLOBAL_INTERRUPT",
+            "shift": "+0"
+          },
+          {
+            "enum": "DMA_FLAG_TRANSER_COMPLETE",
+            "shift": "+1"
+          },
+          {
+            "enum": "DMA_FLAG_HALF_TRANSFER",
+            "shift": "+2"
+          },
+          {
+            "enum": "DMA_FLAG_TRANSFER_ERROR",
+            "shift": "+3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_channel",
+      "signature": "{periph}, {channel}",
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_channel_interrupt",
+      "signature": "{periph}, {channel}, {interrupt}",
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ],
+        "interrupt": [
+          {
+            "enum": "DMA_INTERRUPT_TRANSFER_COMPLETE",
+            "shift": 1
+          },
+          {
+            "enum": "DMA_INTERRUPT_HALF_TRANSFER",
+            "shift": 2
+          },
+          {
+            "enum": "DMA_INTERRUPT_TRANSFER_ERROR",
+            "shift": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "dma_channel_set_data_transfer_direction",
+      "signature": "{periph}, {channel}, {direction}",
+      "reg": "channels[{channel}].CCR",
+      "set": "DMA_TRANSFER_DIRECTION_FROM_MEMORY",
+      "clear": "DMA_TRANSFER_DIRECTION_FROM_PERIPH",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_channel_circular_mode",
+      "signature": "{periph}, {channel}",
+      "shift": 5,
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ]
+      } 
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_channel_periph_increment_mode",
+      "signature": "{periph}, {channel}",
+      "shift": 6,
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ]
+      } 
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_channel_memory_increment_mode",
+      "signature": "{periph}, {channel}",
+      "shift": 7,
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ]
+      } 
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_channel_set_periph_size",
+      "signature": "{periph}, {channel}, {size}",
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ],
+        "size": [
+          {
+            "enum": "DMA_PERIPH_SIZE_8BITS",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_PERIPH_SIZE_16BITS",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_PERIPH_SIZE_32BITS",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_channel_set_memory_size",
+      "signature": "{periph}, {channel}, {size}",
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ],
+        "size": [
+          {
+            "enum": "DMA_MEMORY_SIZE_8BITS",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_MEMORY_SIZE_16BITS",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_MEMORY_SIZE_32BITS",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "dma_channel_set_priority_level",
+      "signature": "{periph}, {channel}, {level}",
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ],
+        "size": [
+          {
+            "enum": "DMA_CHANNEL_PRIORITY_LOW",
+            "value": "0b00"
+          },
+          {
+            "enum": "DMA_CHANNEL_PRIORITY_MEDIUM",
+            "value": "0b01"
+          },
+          {
+            "enum": "DMA_CHANNEL_PRIORITY_HIGH",
+            "value": "0b10"
+          },
+          {
+            "enum": "DMA_CHANNEL_PRIORITY_VERY_HIGH",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "dma_channel_mem2mem_mode",
+      "signature": "{periph}, {channel}",
+      "reg": "channels[{channel}].CCR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma_set_channel_transfer_items_count",
+      "signature": "{periph}, {channel}, {count}",
+      "reg": "channels[{channel}].CNDTR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "dma_get_channel_transfer_items_left",
+      "reg": "channels[{channel}].CNDTR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma_channel_set_periph_address",
+      "signature": "{periph}, {channel}, {val}",
+      "reg": "channels[{channel}].CPAR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "dma_channel_set_memory_address",
+      "signature": "{periph}, {channel}, {val}",
+      "reg": "channels[{channel}].CMAR",
+      "args": {
+        "channel": [
+          "DMA_CHANNEL1",
+          "DMA_CHANNEL2",
+          "DMA_CHANNEL3",
+          "DMA_CHANNEL4",
+          "DMA_CHANNEL5",
+          "DMA_CHANNEL6",
+          "DMA_CHANNEL7"
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    }
+  ]
+}

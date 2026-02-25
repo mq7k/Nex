@@ -1,0 +1,315 @@
+{
+  "periph": "PWR",
+  "path": "stm32/drivers/pwr/pwr_v2.h",
+  "struct": "pwr_registers_map",
+  "functions": [
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_low_power_deepsleep_stop_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 0,
+      "set": "PWR_VOLTAGE_REGULATOR_LOW_POWER",
+      "clear": "PWR_VOLTAGE_REGULATOR_ON"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_power_down_deepsleep_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 1,
+      "set": "PWR_DEEPSLEEP_MODE_STANDBY_MODE",
+      "clear": "PWR_DEEPSLEEP_MODE_STOP_MODE"
+    },
+    {
+      "type": "flag_clear",
+      "fn": "pwr_flag_clear",
+      "signature": "{flag}",
+      "reg": "CR",
+      "clear_mode": "w1",
+      "args": {
+        "flag": [
+          {
+            "enum": "PWR_FLAG_WAKEUP",
+            "shift": 2
+          },
+          {
+            "enum": "PWR_FLAG_STANDBY",
+            "shift": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_voltage_detector",
+      "signature": "",
+      "reg": "CR",
+      "shift": 4
+    },
+    {
+      "type": "enum_set",
+      "fn": "pwr_set_voltage_detector_level",
+      "signature": "{level}",
+      "reg": "CR",
+      "shift": 5,
+      "mask": "0x7",
+      "args": {
+        "level": [
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot0v",
+            "value": "0b000"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot1v",
+            "value": "0b001"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot3v",
+            "value": "0b010"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot5v",
+            "value": "0b011"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot6v",
+            "value": "0b100"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot7v",
+            "value": "0b101"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot8v",
+            "value": "0b110"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot9v",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_backup_domain_protection",
+      "signature": "",
+      "reg": "CR",
+      "shift": 8,
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_powerdown_flash_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 9,
+      "set": "PWR_POWERDOWN_FLASH_MODE_POWER_DOWN",
+      "clear": "PWR_POWERDOWN_FLASH_MODE_DEFAULT"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_low_power_under_drive_regulator_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 10,
+      "ifdef": "STM32_PWR_UD",
+      "set": "PWR_LOW_POWER_REGULATOR_MODE_UNDERDRIVE",
+      "clear": "PWR_LOW_POWER_REGULATOR_MODE_ON"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_low_power_low_voltage_deepsleep_stop_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 10,
+      "ifdef": "STM32_PWR_LVDS",
+      "set": "PWR_LOW_POWER_REGULATOR_MODE_LOW_VOLTAGE",
+      "clear": "PWR_LOW_POWER_REGULATOR_MODE_ON"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_low_power_low_voltage_regulator_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 11,
+      "ifdef": "STM32_PWR_LVDS",
+      "set": "PWR_LOW_POWER_MAIN_REGULATOR_MODE_LOW_VOLTAGE",
+      "clear": "PWR_LOW_POWER_MAIN_REGULATOR_MODE_ON"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_main_regulator_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 11,
+      "ifdef": "STM32_PWR_UD",
+      "set": "PWR_LOW_POWER_MAIN_REGULATOR_MODE_UNDERDRIVE",
+      "clear": "PWR_LOW_POWER_MAIN_REGULATOR_MODE_ON"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_voltage_regulator_scale",
+      "signature": "{scale}",
+      "reg": "CR",
+      "shift": 14,
+      "set": "PWR_VOLTAGE_REGULATOR_SCALE1",
+      "clear": "PWR_VOLTAGE_REGULATOR_SCALE2",
+      "ifdef": "STM32_PWR_VOS_1BIT"
+    },
+    {
+      "type": "enum_set",
+      "fn": "pwr_set_voltage_regulator_scale",
+      "signature": "{scale}",
+      "reg": "CR",
+      "ifdef": "STM32_PWR_VOS_2BIT",
+      "shift": 14,
+      "mask": "0x3",
+      "args": {
+        "scale": [
+          {
+            "enum": "PWR_VOLTAGE_REGULATOR_SCALE1",
+            "value": "0b11"
+          },
+          {
+            "enum": "PWR_VOLTAGE_REGULATOR_SCALE2",
+            "value": "0b10"
+          },
+          {
+            "enum": "PWR_VOLTAGE_REGULATOR_SCALE3",
+            "value": "0b01"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_overdrive",
+      "signature": "",
+      "reg": "CR",
+      "shift": 16,
+      "ifdef": "STM32_PWR_OD"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_overdrive_switching",
+      "signature": "",
+      "reg": "CR",
+      "shift": 17,
+      "ifdef": "STM32_PWR_OD"
+    },
+    {
+      "type": "fn_toggle (TODO)",
+      "fn": "pwr_underdrive_in_stop_mode",
+      "signature": "",
+      "reg": "CR",
+      "shift": 18,
+      "mask": "0x3",
+      "ifdef": "STM32_PWR_UD"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_flash_memory_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 20,
+      "set": "PWR_FLASH_MEMORY_MODE_FORCE_STOP",
+      "clear": "PWR_FLASH_MEMORY_MODE_DEFAULT",
+      "ifdef": "STM32_PWR_FLASH"
+    },
+    {
+      "type": "fn_toggle (TODO)",
+      "fn": "pwr_flash_clock",
+      "signature": "",
+      "reg": "CR",
+      "shift": 21,
+      "ifdef": "STM32_PWR_FLASH",
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "pwr_is_flag_set",
+      "signature": "{flag}",
+      "reg": "CSR",
+      "args": {
+        "flag": [
+          {
+            "enum": "PWR_FLAG_WAKEUP",
+            "shift": 0
+          },
+          {
+            "enum": "PWR_FLAG_STANDBY",
+            "shift": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "pwr_is_vdd_lower_than_pvd_threshold",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 2,
+      "mask": "0x1"
+    },
+    {
+      "type": "fn_get",
+      "fn": "pwr_is_backup_regulator_ready",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 3,
+      "mask": "0x1"
+    },
+    {
+      "type": "enum_set (TODO)",
+      "fn": "pwr_set_wakeup_pin_mode"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_backup_regulator",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 9
+    },
+    {
+      "type": "fn_get",
+      "fn": "pwr_is_voltage_regulator_scaling_ready",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 14,
+      "mask": "0x1"
+    },
+    {
+      "type": "fn_get",
+      "fn": "pwr_is_overdrive_mode_ready",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 16,
+      "mask": "0x1",
+      "ifdef": "STM32_PWR_OD"
+    },
+    {
+      "type": "fn_get",
+      "fn": "pwr_is_overdrive_mode_switching_ready",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 17,
+      "mask": "0x1",
+      "ifdef": "STM32_PWR_OD"
+    },
+    {
+      "type": "fn_get",
+      "fn": "pwr_is_underdrive_mode_ready",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 18,
+      "mask": "0x3",
+      "ifdef": "STM32_PWR_UD"
+    }
+  ]
+}

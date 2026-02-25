@@ -1,0 +1,456 @@
+{
+  "periph": "USART1",
+  "path": "stm32/drivers/usart/usart_v1.h",
+  "struct": "usart_registers_map",
+  "functions": [
+    {
+      "type": "flag_is_set",
+      "fn": "usart_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "USART_FLAG_PARITY_ERROR",
+            "shift": 0
+          },
+          {
+            "enum": "USART_FLAG_FRAMING_ERROR",
+            "shift": 1
+          },
+          {
+            "enum": "USART_FLAG_NOISE_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "USART_FLAG_OVERRUN_ERROR",
+            "shift": 3
+          },
+          {
+            "enum": "USART_FLAG_IDLE_LINE",
+            "shift": 4
+          },
+          {
+            "enum": "USART_FLAG_READ_REG_NOT_EMPTY",
+            "shift": 5
+          },
+          {
+            "enum": "USART_FLAG_TRANSMISSION_COMPLETE",
+            "shift": 6
+          },
+          {
+            "enum": "USART_FLAG_TRANSMIT_REG_EMPTY",
+            "shift": 7
+          },
+          {
+            "enum": "USART_FLAG_LIN_BREAK",
+            "shift": 8
+          },
+          {
+            "enum": "USART_FLAG_CTS",
+            "shift": 9
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "usart_flag_clear",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "clear_mode": "w0:!!",
+      "args": {
+        "flag": [
+          {
+            "enum": "USART_FLAG_PARITY_ERROR",
+            "shift": 0,
+            "halt": true
+          },
+          {
+            "enum": "USART_FLAG_FRAMING_ERROR",
+            "shift": 1,
+            "halt": true
+          },
+          {
+            "enum": "USART_FLAG_NOISE_ERROR",
+            "shift": 2,
+            "halt": true
+          },
+          {
+            "enum": "USART_FLAG_OVERRUN_ERROR",
+            "shift": 3,
+            "halt": true
+          },
+          {
+            "enum": "USART_FLAG_IDLE_LINE",
+            "shift": 4,
+            "halt": true
+          },
+          {
+            "enum": "USART_FLAG_READ_REG_NOT_EMPTY",
+            "shift": 5
+          },
+          {
+            "enum": "USART_FLAG_TRANSMISSION_COMPLETE",
+            "shift": 6
+          },
+          {
+            "enum": "USART_FLAG_TRANSMIT_REG_EMPTY",
+            "shift": 7,
+            "halt": true
+          },
+          {
+            "enum": "USART_FLAG_LIN_BREAK",
+            "shift": 8
+          },
+          {
+            "enum": "USART_FLAG_CTS",
+            "shift": 9
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear (TODO)",
+      "fn": "usart_flag_clear_multibuffer",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "args": {
+        "flag": []
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "usart_data_read",
+      "reg": "DR",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "usart_send_byte",
+      "signature": "{periph}, {val}",
+      "reg": "DR",
+      "shift": 0,
+      "mask": "0x1ff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "usart_set_bittime",
+      "signature": "{periph}, {val}",
+      "reg": "BRR",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "usart_set_div_fraction",
+      "signature": "{periph}, {val}",
+      "reg": "BRR",
+      "shift": 0,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "usart_set_div_mantissa",
+      "signature": "{periph}, {val}",
+      "reg": "BRR",
+      "shift": 4,
+      "mask": "0xfff"
+    },
+    {
+      "type": "fn_call",
+      "fn": "usart_send_break",
+      "reg": "CR1",
+      "shift": 0
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_receiver_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 1,
+      "set": "USART_RECEIVER_MODE_MUTE",
+      "clear": "USART_RECEIVER_MODE_ACTIVE"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_receiver",
+      "reg": "CR1",
+      "shift": 2
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_transmitter",
+      "reg": "CR1",
+      "shift": 3
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_interrupt",
+      "signature": "{periph}, {interrupt}",
+      "reg": "CR1",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "USART_INTERRUPT_IDLE",
+            "shift": 4,
+            "reg": "CR1"
+          },
+          {
+            "enum": "USART_INTERRUPT_READ_REG_NOT_EMPTY",
+            "shift": 5,
+            "reg": "CR1"
+          },
+          {
+            "enum": "USART_INTERRUPT_TRANSMITTION_COMPLETE",
+            "shift": 6,
+            "reg": "CR1"
+          },
+          {
+            "enum": "USART_INTERRUPT_WRITE_REG_EMPTY",
+            "shift": 7,
+            "reg": "CR1"
+          },
+          {
+            "enum": "USART_INTERRUPT_PARITY_ERROR",
+            "shift": 8,
+            "reg": "CR1"
+          },
+          {
+            "enum": "USART_INTERRUPT_LINE_BREAK_DETECTION",
+            "shift": 6,
+            "reg": "CR2"
+          },
+          {
+            "enum": "USART_INTERRUPT_ERROR",
+            "shift": 0,
+            "reg": "CR3"
+          },
+          {
+            "enum": "USART_INTERRUPT_CTS",
+            "shift": 10,
+            "reg": "CR3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_parity",
+      "signature": "{periph}, {parity}",
+      "reg": "CR1",
+      "shift": 9,
+      "set": "USART_PARITY_ODD",
+      "clear": "USART_PARITY_EVEN"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_parity_control",
+      "reg": "CR1",
+      "shift": 10
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_wakeup_method",
+      "signature": "{periph}, {parity}",
+      "reg": "CR1",
+      "shift": 11,
+      "set": "USART_WAKEUP_METHOD_ADDRESS_MARK",
+      "clear": "USART_WAKEUP_METHOD_IDLE_LINE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_word_length",
+      "signature": "{periph}, {parity}",
+      "reg": "CR1",
+      "shift": 12,
+      "set": "USART_WORD_LENGTH_9BITS",
+      "clear": "USART_WORD_LENGTH_8BITS"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart",
+      "reg": "CR1",
+      "shift": 13
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_oversampling_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 15,
+      "set": "USART_OVERSAMPLING_MODE8",
+      "clear": "USART_OVERSAMPLING_MODE16",
+      "ifdef": "STM32_USART_OVERSAMPLING"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "usart_set_node_address",
+      "signature": "{periph}, {val}",
+      "reg": "CR2",
+      "shift": 0,
+      "mask": "0xf"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_line_break_detection_length",
+      "signature": "{periph}, {length}",
+      "reg": "CR2",
+      "shift": 5,
+      "set": "USART_LINE_BREAK_LENGTH_11BITS",
+      "clear": "USART_LINE_BREAK_LENGTH_10BITS"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_last_bit_clock_pulse_output",
+      "reg": "CR2",
+      "shift": 8
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_clock_phase",
+      "signature": "{periph}, {phase}",
+      "reg": "CR2",
+      "shift": 9,
+      "set": "USART_CLOCK_PHASE_SECOND",
+      "clear": "USART_CLOCK_PHASE_FIRST"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_clock_polarity",
+      "signature": "{periph}, {polarity}",
+      "reg": "CR2",
+      "shift": 10,
+      "set": "USART_CLOCK_POLARITY_STEADY_HIGH",
+      "clear": "USART_CLOCK_POLARITY_STEADY_LOW"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_clock",
+      "reg": "CR2",
+      "shift": 11
+    },
+    {
+      "type": "enum_set",
+      "fn": "usart_set_stop_bits",
+      "signature": "{periph}, {bits}",
+      "reg": "CR2",
+      "shift": 12,
+      "mask": "0x3",
+      "args": {
+        "bits": [
+          {
+            "enum": "USART_STOP_BITS_1BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "USART_STOP_BITS_0DOT5_BITS",
+            "value": "0b01"
+          },
+          {
+            "enum": "USART_STOP_BITS_2BITS",
+            "value": "0b10"
+          },
+          {
+            "enum": "USART_STOP_BITS_1DOT5_BITS",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_line_mode",
+      "reg": "CR2",
+      "shift": 14
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_irda_mode",
+      "reg": "CR3",
+      "shift": 1
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_irda_low_power",
+      "reg": "CR3",
+      "shift": 2
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_half_duplex",
+      "reg": "CR3",
+      "shift": 3
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_smartcard_nack",
+      "reg": "CR3",
+      "shift": 4
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_smardcard_mode",
+      "reg": "CR3",
+      "shift": 5
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_dma_reception",
+      "reg": "CR3",
+      "shift": 6
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_dma_transmission",
+      "reg": "CR3",
+      "shift": 7
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_rts",
+      "reg": "CR3",
+      "shift": 8
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "usart_cts",
+      "reg": "CR3",
+      "shift": 9
+    },
+    {
+      "type": "bienum_set",
+      "fn": "usart_set_onebit_sampling_method",
+      "signature": "{periph}, {method}",
+      "reg": "CR3",
+      "shift": 11,
+      "set": "USART_ONEBIT_SAMPLING_METHOD_ONE_SAMPLE",
+      "clear": "USART_ONEBIT_SAMPLING_METHOD_THREE_SAMPLE",
+      "ifdef": "STM32_USART_ONEBIT_SAMPLING"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "usart_set_prescaler",
+      "signature": "{periph}, {val}",
+      "reg": "GTPR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "usart_set_guard_time",
+      "signature": "{periph}, {val}",
+      "reg": "GTPR",
+      "shift": 8,
+      "mask": "0xff"
+    }
+  ]
+}

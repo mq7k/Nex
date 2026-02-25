@@ -1,0 +1,1 @@
+syn_create_example(usart_v2)

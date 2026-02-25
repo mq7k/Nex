@@ -1,0 +1,61 @@
+#ifndef STM32_RMCOM_H
+#define STM32_RMCOM_H
+
+#define ARCH_FPU_V1
+
+#define STM32_ADC_V1
+#define STM32_ADC_OVR
+#define STM32_ADC_RESOLUTION
+#define STM32_ADC_CR2_LAYOUT2
+#define STM32_ADC_xEXTSEL_LAYOUT2
+#define STM32_ADC_SMPR
+#define STM32_ADC_SMPR_LAYOUT2
+#define STM32_ADC_COM
+#define STM32_ADC_CCR_REG
+#define STM32_ADC_COM_PRE
+
+#define STM32_RTC_V2
+
+#define STM32_GPIO_V2
+
+#define STM32_TIM_V1
+
+#define STM32_FLASH_V2
+#define STM32_FLASH_ACR
+#define STM32_FLASH_PREFETCH
+#define STM32_FLASH_CACHE
+#define STM32_FLASH_SR_LAYOUT1
+
+#define STM32_RCC_TIMPRE
+#define STM32_RCC_PLLI2S_FACTORN
+
+#define STM32_PWR_V2
+
+#define STM32_CRC_V1
+
+#define STM32_RCC_V2
+
+#define STM32_SYSCFG_V1
+
+#define STM32_EXTI_V1
+
+#define STM32_DMA_V1
+
+#define STM32_USART_V1
+#define STM32_USART_OVERSAMPLING
+#define STM32_USART_ONEBIT_SAMPLING
+
+#define STM32_SPI_V1
+#define STM32_SPI_FRAME_STANDARD
+
+#define STM32_I2C_V1
+
+#define STM32_IWDG_V1
+
+#define STM32_WWDG_V1
+
+#define STM32_CAN_V1
+
+#define ARCH_NVIC_IRQ_COUNT (102)
+
+#endif

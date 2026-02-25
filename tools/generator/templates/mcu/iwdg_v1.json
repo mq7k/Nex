@@ -1,0 +1,105 @@
+{
+  "periph": "IWDG",
+  "path": "stm32/drivers/iwdg/iwdg_v1.h",
+  "struct": "iwdg_registers_map",
+  "functions": [
+    {
+      "type": "fn_call (TODO)",
+      "fn": "iwdg_reset",
+      "signature": "",
+      "reg": "KEY"
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "iwdg_write_unlock",
+      "signature": "",
+      "reg": "KEY"
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "iwdg_start",
+      "signature": "",
+      "reg": "KEY"
+    },
+    {
+      "type": "enum_set",
+      "fn": "iwdg_set_prescaler",
+      "signature": "{prescaler}",
+      "reg": "PR",
+      "shift": 0,
+      "mask": "0x7",
+      "args": {
+        "prescaler": [
+          {
+            "enum": "IWDG_PRESCALER_DIV4",
+            "value": "0b000"
+          },
+          {
+            "enum": "IWDG_PRESCALER_DIV8",
+            "value": "0b001"
+          },
+          {
+            "enum": "IWDG_PRESCALER_DIV16",
+            "value": "0b010"
+          },
+          {
+            "enum": "IWDG_PRESCALER_DIV32",
+            "value": "0b011"
+          },
+          {
+            "enum": "IWDG_PRESCALER_DIV64",
+            "value": "0b100"
+          },
+          {
+            "enum": "IWDG_PRESCALER_DIV128",
+            "value": "0b101"
+          },
+          {
+            "enum": "IWDG_PRESCALER_DIV256",
+            "value": "0b110"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "iwdg_set_reload_value",
+      "signature": "{val}",
+      "reg": "RLR",
+      "shift": 0,
+      "mask": "0xfff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "iwdg_is_flag_set",
+      "signature": "{flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "IWDG_FLAG_PRESCALER_UPDATE",
+            "shift": 0
+          },
+          {
+            "enum": "IWDG_FLAG_COUNTER_UPDATE",
+            "shift": 1
+          }
+        ]
+      }
+    }
+  ]
+}

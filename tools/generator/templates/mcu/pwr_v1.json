@@ -1,0 +1,180 @@
+{
+  "periph": "PWR",
+  "path": "stm32/drivers/pwr/pwr_v1.h",
+  "struct": "pwr_registers_map",
+  "functions": [
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_voltage_regulator_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 0,
+      "set": "PWR_VOLTAGE_REGULATOR_MODE_LOW_POWER",
+      "clear": "PWR_VOLTAGE_REGULATOR_MODE_DEFAULT"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "pwr_set_deepsleep_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 0,
+      "set": "PWR_DEEPSLEEP_MODE_STANDBY_MODE",
+      "clear": "PWR_DEEPSLEEP_MODE_STOP_MODE"
+    },
+    {
+      "type": "flag_clear",
+      "fn": "pwr_flag_clear",
+      "signature": "{flag}",
+      "reg": "CR",
+      "args": {
+        "flag": [
+          {
+            "enum": "PWR_FLAG_STANDBY",
+            "shift": 3
+          },
+          {
+            "enum": "PWR_FLAG_WAKEUP",
+            "shift": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_voltage_detector",
+      "signature": "",
+      "reg": "CR",
+      "shift": 4,
+      "ifdef": "STM32_PWR_PVD"
+    },
+    {
+      "type": "enum_set",
+      "fn": "pwr_set_voltage_detector_level",
+      "signature": "{level}",
+      "reg": "CR",
+      "ifdef": "STM32_PWR_PVD",
+      "shift": 5,
+      "mask": "0x7",
+      "args": {
+        "level": [
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot2v",
+            "value": "0b000"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot3v",
+            "value": "0b001"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot4v",
+            "value": "0b010"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot5v",
+            "value": "0b011"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot6v",
+            "value": "0b100"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot7v",
+            "value": "0b101"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot8v",
+            "value": "0b110"
+          },
+          {
+            "enum": "PWR_VOLTAGE_DETECTOR_LEVEL_2dot9v",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_backup_domain_protection",
+      "signature": "",
+      "reg": "CR",
+      "shift": 8,
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "pwr_is_flag_set",
+      "signature": "{flag}",
+      "reg": "CSR",
+      "args": {
+        "flag": [
+          {
+            "enum": "PWR_FLAG_STANDBY",
+            "shift": 1
+          },
+          {
+            "enum": "PWR_FLAG_WAKEUP",
+            "shift": 0
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "pwr_voltage_detector_level_compare",
+      "signature": "",
+      "reg": "CSR",
+      "shift": 2
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "pwr_wakeup_pin",
+      "signature": "{pin}",
+      "reg": "CSR",
+      "args": {
+        "pin": [
+          {
+            "enum": "PWR_WAKEUP_PIN1",
+            "shift": 8
+          },
+          {
+            "enum": "PWR_WAKEUP_PIN2",
+            "shift": 9,
+            "ifdef": "STM32_PWR_MULTI_WKUP_PIN"
+          },
+          {
+            "enum": "PWR_WAKEUP_PIN3",
+            "shift": 10,
+            "ifdef": "STM32_PWR_MULTI_WKUP_PIN"
+          },
+          {
+            "enum": "PWR_WAKEUP_PIN4",
+            "shift": 11,
+            "ifdef": "STM32_PWR_MULTI_WKUP_PIN"
+          },
+          {
+            "enum": "PWR_WAKEUP_PIN5",
+            "shift": 12,
+            "ifdef": "STM32_PWR_MULTI_WKUP_PIN"
+          },
+          {
+            "enum": "PWR_WAKEUP_PIN6",
+            "shift": 13,
+            "ifdef": "STM32_PWR_MULTI_WKUP_PIN"
+          },
+          {
+            "enum": "PWR_WAKEUP_PIN7",
+            "shift": 14,
+            "ifdef": "STM32_PWR_MULTI_WKUP_PIN"
+          },
+          {
+            "enum": "PWR_WAKEUP_PIN8",
+            "shift": 15,
+            "ifdef": "STM32_PWR_MULTI_WKUP_PIN"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "periph": "HASH",
+  "path": "stm32/drivers/hash/hash_v1.h",
+  "struct": "hash_registers_map",
+  "functions": [
+    {
+      "type": "fn_call",
+      "fn": "hash_init",
+      "signature": "",
+      "reg": "CR",
+      "shift": 2
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "hash_dma",
+      "signature": "",
+      "reg": "CR",
+      "shift": 3
+    },
+    {
+      "type": "enum_set",
+      "fn": "hash_set_data_type",
+      "signature": "{type}",
+      "reg": "CR",
+      "shift": 4,
+      "mask": "0x3",
+      "args": {
+        "type": [
+          {
+            "enum": "HASH_DATA_TYPE_32BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "HASH_DATA_TYPE_16BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "HASH_DATA_TYPE_8BIT",
+            "value": "0b10"
+          },
+          {
+            "enum": "HASH_DATA_TYPE_BITSTR",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "hash_set_mode",
+      "signature": "{mode}",
+      "reg": "CR",
+      "shift": 6,
+      "set": "HASH_MODE_HMAC",
+      "clear": "HASH_MODE_HASH"
+    },
+    {
+      "type": "enum_set (TODO: bit 18)",
+      "fn": "hash_set_algorithm",
+      "signature": "{algorithm}",
+      "reg": "CR",
+      "shift": 7,
+      "mask": "0x3",
+      "args": {
+        "algorithm": [
+          {
+            "enum": "HASH_ALGORITHM_SHA1",
+            "value": "0b00"
+          },
+          {
+            "enum": "HASH_ALGORITHM_MD5",
+            "value": "0b01"
+          },
+          {
+            "enum": "HASH_ALGORITHM_SHA224",
+            "value": "0b01",
+            "ifdef": "STM32_HASH_ALGO_EXTENDED"
+          },
+          {
+            "enum": "HASH_ALGORITHM_SHA256",
+            "value": "0b11",
+            "ifdef": "STM32_HASH_ALGO_EXTENDED"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "hash_get_transferred_word_count",
+      "signature": "",
+      "reg": "CR",
+      "shift": 8,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "hash_multiple_dma_transfers",
+      "signature": "",
+      "reg": "CR",
+      "shift": 13,
+      "ifdef": "STM32_HASH_MULTI_DMA_TRANSFERS"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "hash_set_key_type",
+      "signature": "{type}",
+      "reg": "CR",
+      "shift": 16,
+      "set": "HASH_KEY_TYPE_LONG",
+      "clear": "HASH_KEY_TYPE_SHORT",
+      "ifdef": "STM32_HASH_KEY_TYPE"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "hash_write_data",
+      "signature": "{val}",
+      "reg": "DIN",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "hash_set_input_valid_bits_count",
+      "signature": "{val}",
+      "reg": "STR",
+      "shift": 0,
+      "mask": "0x1f",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x1f"
+          },
+          {
+            "value": "0x20",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "hash_digest_calc_start",
+      "signature": "",
+      "reg": "STR",
+      "shift": 8
+    },
+    {
+      "periph": "HASHHR",
+      "type": "fn_get (TODO)",
+      "fn": "hash_read_digest",
+      "signature": "{idx}",
+      "reg": "HR[{idx}]",
+      "ifdef": "STM32_HASH_HR_8BYTES",
+      "args": {
+        "idx": [
+          {
+            "value": 0
+          },
+          {
+            "value": 1
+          },
+          {
+            "value": 2
+          },
+          {
+            "value": 3
+          },
+          {
+            "value": 4
+          },
+          {
+            "value": 5
+          },
+          {
+            "value": 6
+          },
+          {
+            "value": 7
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "hash_read_digest",
+      "signature": "{idx}",
+      "reg": "HRA[{idx}]",
+      "ifdef": "STM32_HASH_HR_5BYTES",
+      "args": {
+        "idx": [
+          {
+            "value": 0
+          },
+          {
+            "value": 1
+          },
+          {
+            "value": 2
+          },
+          {
+            "value": 3
+          },
+          {
+            "value": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "hash_interrupt",
+      "signature": "{interrupt}",
+      "reg": "IMR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "HASH_INTERRUPT_DATA_INPUT",
+            "shift": 0
+          },
+          {
+            "enum": "HASH_INTERRUPT_DIGEST_CALC_COMPLETE",
+            "shift": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "hash_is_flag_set",
+      "signature": "{flag}",
+      "args": {
+        "flag": [
+          {
+            "enum": "HASH_FLAG_INPUT_FULL",
+            "reg": "CR",
+            "shift": 12
+          },
+          {
+            "enum": "HASH_FLAG_DATA_INPUT",
+            "reg": "SR",
+            "shift": 0
+          },
+          {
+            "enum": "HASH_FLAG_DATA_OUTPUT",
+            "reg": "SR",
+            "shift": 1
+          },
+          {
+            "enum": "HASH_FLAG_DMA",
+            "reg": "SR",
+            "shift": 2
+          },
+          {
+            "enum": "HASH_FLAG_BUSY",
+            "reg": "SR",
+            "shift": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "hash_flag_clear",
+      "signature": "{flag}",
+      "clear_mode": "w0",
+      "args": {
+        "flag": [
+          {
+            "enum": "HASH_FLAG_INPUT_FULL",
+            "reg": "CR",
+            "halt": true,
+            "shift": 12
+          },
+          {
+            "enum": "HASH_FLAG_DATA_INPUT",
+            "reg": "SR",
+            "shift": 0
+          },
+          {
+            "enum": "HASH_FLAG_DATA_OUTPUT",
+            "reg": "SR",
+            "shift": 1
+          },
+          {
+            "enum": "HASH_FLAG_DMA",
+            "reg": "SR",
+            "halt": true,
+            "shift": 2
+          },
+          {
+            "enum": "HASH_FLAG_BUSY",
+            "reg": "SR",
+            "halt": true,
+            "shift": 3
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "hash_dump_all"
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "hash_restore_all"
+    }
+  ]
+}

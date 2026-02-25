@@ -1,0 +1,1138 @@
+{
+  "periph": "ADC1",
+  "path": "stm32/drivers/adc/adc_v1.h",
+  "struct": "adc_registers_map",
+  "functions": [
+    {
+      "type": "flag_is_set",
+      "fn": "adc_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "ADC_FLAG_ANALOG_WATCHDOG",
+            "shift": 0
+          },
+          {
+            "enum": "ADC_FLAG_EOC",
+            "shift": 1
+          },
+          {
+            "enum": "ADC_FLAG_JEOC",
+            "shift": 2
+          },
+          {
+            "enum": "ADC_FLAG_JSTART",
+            "shift": 3
+          },
+          {
+            "enum": "ADC_FLAG_START",
+            "shift": 4
+          },
+          {
+            "enum": "ADC_FLAG_OVERRUN",
+            "shift": 5,
+            "ifdef": [
+              "STM32_ADC_OVR"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "adc_flag_clear",
+      "signature": "{periph}, {flag}",
+      "clear_mode": "w0",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "ADC_FLAG_ANALOG_WATCHDOG",
+            "shift": 0
+          },
+          {
+            "enum": "ADC_FLAG_EOC",
+            "shift": 1
+          },
+          {
+            "enum": "ADC_FLAG_JEOC",
+            "shift": 2
+          },
+          {
+            "enum": "ADC_FLAG_JSTART",
+            "shift": 3
+          },
+          {
+            "enum": "ADC_FLAG_START",
+            "shift": 4
+          },
+          {
+            "enum": "ADC_FLAG_OVERRUN",
+            "shift": 5,
+            "ifdef": [
+              "STM32_ADC_OVR"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_analog_watchdog_channel",
+      "signature": "{periph}, {channel}",
+      "reg": "CR1",
+      "shift": "0",
+      "mask": "0x1f",
+      "args": {
+        "channel": [
+          {
+            "enum": "ADC_REG_CHANNEL0",
+            "value": "0"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL1",
+            "value": "1"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL2",
+            "value": "2"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL3",
+            "value": "3"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL4",
+            "value": "4"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL5",
+            "value": "5"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL6",
+            "value": "6"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL7",
+            "value": "7"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL8",
+            "value": "8"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL9",
+            "value": "9"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL10",
+            "value": "10"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL11",
+            "value": "11"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL12",
+            "value": "12"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL13",
+            "value": "13"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL14",
+            "value": "14"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL15",
+            "value": "15"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL16",
+            "value": "16"
+          },
+          {
+            "enum": "ADC_REG_CHANNEL17",
+            "value": "17",
+            "ifdef": [
+              "STM32_ADC_AWDCH17"
+            ]
+          },
+          {
+            "enum": "ADC_REG_CHANNEL18",
+            "value": "18",
+            "ifdef": [
+              "STM32_ADC_MAX_CHANNELS18",
+              "STM32_ADC_AWDCH18"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_toggle",
+      "fn": "adc_interrupt",
+      "signature": "{periph}, {interrupt}",
+      "reg": "CR1",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "ADC_INTERRUPT_EOC",
+            "shift": 5
+          },
+          {
+            "enum": "ADC_INTERRUPT_ANALOG_WATCHDOG",
+            "shift": 6
+          },
+          {
+            "enum": "ADC_INTERRUPT_JEOC",
+            "shift": 7
+          },
+          {
+            "enum": "ADC_INTERRUPT_OVERRUN",
+            "shift": 26,
+            "ifdef": [
+              "STM32_ADC_OVR"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_scan_mode",
+      "reg": "CR1",
+      "shift": "8"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "adc_set_watchdog_mode",
+      "reg": "CR1",
+      "signature": "{periph}, {mode}",
+      "set": "ADC_WATCHDOG_MODE_SINGLE_CHANNEL",
+      "clear": "ADC_WATCHDOG_MODE_ALL_CHANNELS",
+      "shift": "9"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_automatic_inj_group_conversion",
+      "reg": "CR1",
+      "shift": "10"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_discontinuous_mode_reg_channels",
+      "reg": "CR1",
+      "shift": "11"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_discontinuous_mode_inj_channels",
+      "reg": "CR1",
+      "shift": "12"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "adc_set_discontinuous_mode_channel_count",
+      "signature": "{periph}, {val}",
+      "reg": "CR1",
+      "mask": "0x7",
+      "shift": 13,
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": 7
+          },
+          {
+            "value": 8,
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_dualmode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": "16",
+      "mask": "0xf",
+      "ifdef": "STM32_ADC_DUALMODE",
+      "args": {
+        "mode": [ 
+          {
+            "enum": "ADC_DUALMODE_INDEPENDENT",
+            "value": "0b0000"
+          },
+          {
+            "enum": "ADC_DUALMODE_REG_SIM_AND_INJ_SIM",
+            "value": "0b0001"
+          },
+          {
+            "enum": "ADC_DUALMODE_REG_SIM_AND_ALT_TRG",
+            "value": "0b0010"
+          },
+          {
+            "enum": "ADC_DUALMODE_INJ_SIM_AND_FAST_INTERLEAVED",
+            "value": "0b0011"
+          },
+          {
+            "enum": "ADC_DUALMODE_INJ_SIM_AND_SLOW_INTERLEAVED",
+            "value": "0b0100"
+          },
+          {
+            "enum": "ADC_DUALMODE_INJ_SIM",
+            "value": "0b0101"
+          },
+          {
+            "enum": "ADC_DUALMODE_REG_SIM",
+            "value": "0b0110"
+          },
+          {
+            "enum": "ADC_DUALMODE_FAST_INTERLEAVED",
+            "value": "0b0111"
+          },
+          {
+            "enum": "ADC_DUALMODE_SLOW_INTERLEAVED",
+            "value": "0b1000"
+          },
+          {
+            "enum": "ADC_DUALMODE_ALT_TRG",
+            "value": "0b1001"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_watchdog_inj",
+      "reg": "CR1",
+      "shift": "22"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_watchdog_reg",
+      "reg": "CR1",
+      "shift": "23"
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_resolution",
+      "signature": "{periph}, {resolution}",
+      "reg": "CR1",
+      "shift": "24",
+      "mask": "0x3",
+      "args": {
+        "resolution": [
+          {
+            "enum": "ADC_RESOLUTION_12BIT",
+            "value": "0b00"
+          },
+          {
+            "enum": "ADC_RESOLUTION_10BIT",
+            "value": "0b01"
+          },
+          {
+            "enum": "ADC_RESOLUTION_8BIT",
+            "value": "0b10"
+          },
+          {
+            "enum": "ADC_RESOLUTION_6BIT",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc",
+      "reg": "CR2",
+      "shift": 0
+    },
+    {
+      "type": "bienum_set",
+      "fn": "adc_set_conversion_method",
+      "reg": "CR2",
+      "signature": "{periph}, {toggleenum}",
+      "set": "ADC_CONVERSION_METHOD_CONTINUOUS",
+      "clear": "ADC_CONVERSION_METHOD_SINGLE",
+      "shift": "1"
+    },
+    {
+      "type": "fn_call",
+      "fn": "adc_calibration_begin",
+      "reg": "CR2",
+      "shift": "2",
+      "ifdef": "STM32_ADC_CALIBRATION"
+    },
+    {
+      "type": "fn_get",
+      "fn": "adc_is_calibration_in_progress",
+      "reg": "CR2",
+      "shift": "2",
+      "ifdef": "STM32_ADC_CALIBRATION"
+    },
+    {
+      "type": "fn_call",
+      "fn": "adc_calibration_reset",
+      "reg": "CR2",
+      "shift": "3",
+      "ifdef": "STM32_ADC_CALIBRATION"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_dma",
+      "reg": "CR2",
+      "shift": "8"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_dma_requests",
+      "reg": "CR2",
+      "shift": "9",
+      "ifdef": "STM32_ADC_CR2_LAYOUT2"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "adc_set_eoc_policy",
+      "signature": "{periph}, {toggleenum}",
+      "reg": "CR2",
+      "set": "ADC_EOC_POLICY_EACH_CONVERSION",
+      "clear": "ADC_EOC_POLICY_EACH_SEQUENCE",
+      "shift": "10",
+      "ifdef": "STM32_ADC_CR2_LAYOUT2"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "adc_set_data_alignment",
+      "signature": "{periph}, {alignment}",
+      "reg": "CR2",
+      "set": "ADC_DATA_ALIGNMENT_LEFT",
+      "clear": "ADC_DATA_ALIGNMENT_RIGHT",
+      "shift": "11"
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_inj_external_event",
+      "signature": "{periph}, {event}",
+      "reg": "CR2",
+      "mask": "0x7",
+      "shift": "12",
+      "ifdef": "STM32_ADC_xEXTSEL_LAYOUT1",
+      "args": {
+        "event": [
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC12_TIM1_TRGO",
+            "value": "0b000"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC12_TIM1_CC4",
+            "value": "0b001"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC12_TIM2_TRGO",
+            "value": "0b010"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC12_TIM2_CC1",
+            "value": "0b011"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC12_TIM3_CC4",
+            "value": "0b100"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC12_TIM4_TRGO",
+            "value": "0b101"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC12_EXTI",
+            "value": "0b110"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC3_TIM1_TRGO",
+            "value": "0b000"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC3_TIM1_CC4",
+            "value": "0b001"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC3_TIM4_CC3",
+            "value": "0b010"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC3_TIM8_CC2",
+            "value": "0b011"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC3_TIM8_CC4",
+            "value": "0b100"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC3_TIM5_TRGO",
+            "value": "0b101"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_ADC3_TIM5_CC4",
+            "value": "0b110"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_JSWSTART",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_inj_external_event",
+      "signature": "{periph}, {event}",
+      "reg": "CR2",
+      "mask": "0xf",
+      "shift": "16",
+      "ifdef": "STM32_ADC_xEXTSEL_LAYOUT2",
+      "args": {
+        "event": [
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM1_OC4",
+            "value": "0b0000"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM1_TRGO",
+            "value": "0b0001"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM2_OC1",
+            "value": "0b0010",
+            "ifdef": "STM32_TIM2"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM2_TRGO",
+            "value": "0b0011",
+            "ifdef": "STM32_TIM2"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM3_OC2",
+            "value": "0b0100",
+            "ifdef": "STM32_TIM3"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM3_OC4",
+            "value": "0b0101",
+            "ifdef": "STM32_TIM3"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM4_OC1",
+            "value": "0b0110",
+            "ifdef": "STM32_TIM4"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM4_OC2",
+            "value": "0b0111",
+            "ifdef": "STM32_TIM4"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM4_OC3",
+            "value": "0b1000",
+            "ifdef": "STM32_TIM4"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM4_TRGO",
+            "value": "0b1001",
+            "ifdef": "STM32_TIM4"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM5_OC4",
+            "value": "0b1010"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM5_TRGO",
+            "value": "0b1011"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM8_OC2",
+            "value": "0b1100",
+            "ifdef": "STM32_TIM8"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM8_OC3",
+            "value": "0b1101",
+            "ifdef": "STM32_TIM8"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_TIM8_OC4",
+            "value": "0b1110",
+            "ifdef": "STM32_TIM8"
+          },
+          {
+            "enum": "ADC_INJ_TRIGGER_EVENT_EXTI15",
+            "value": "0b1111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "adc_inj_start",
+      "reg": "CR2",
+      "shift": "22"
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_reg_external_event",
+      "signature": "{periph}, {event}",
+      "reg": "CR2",
+      "mask": "0x7",
+      "shift": "17",
+      "ifdef": "STM32_ADC_xEXTSEL_LAYOUT1",
+      "args": {
+        "event": [
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC1",
+            "value": "0b000"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC2",
+            "value": "0b001"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC3",
+            "value": "0b010"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM2_CC2",
+            "value": "0b011"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM3_TRGO",
+            "value": "0b100"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM4_CC4",
+            "value": "0b101"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_EXTI11",
+            "value": "0b110"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_SWSTART",
+            "value": "0b111"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM3_CC1",
+            "value": "0b000"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM2_CC3",
+            "value": "0b001"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM1_CC3",
+            "value": "0b010"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_CC1",
+            "value": "0b011"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_TRGO",
+            "value": "0b100"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC1",
+            "value": "0b101"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC3",
+            "value": "0b110"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_SWSTART",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_reg_external_event",
+      "signature": "{periph}, {event}",
+      "reg": "CR2",
+      "mask": "0xf",
+      "shift": "24",
+      "ifdef": "STM32_ADC_xEXTSEL_LAYOUT2",
+      "args": {
+        "event": [
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM1_OC1",
+            "value": "0b0000"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM1_OC2",
+            "value": "0b0001"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM1_OC3",
+            "value": "0b0010"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM2_OC2",
+            "value": "0b0011",
+            "ifdef": "STM32_TIM2"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM2_OC3",
+            "value": "0b0100",
+            "ifdef": "STM32_TIM2"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM2_OC4",
+            "value": "0b0101",
+            "ifdef": "STM32_TIM2"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM2_TRGO",
+            "value": "0b0110",
+            "ifdef": "STM32_TIM2"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM3_OC1",
+            "value": "0b0111",
+            "ifdef": "STM32_TIM3"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM3_TRGO",
+            "value": "0b1000",
+            "ifdef": "STM32_TIM3"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM4_OC4",
+            "value": "0b1001",
+            "ifdef": "STM32_TIM4"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM5_OC1",
+            "value": "0b1010"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM5_OC2",
+            "value": "0b1011"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM5_OC3",
+            "value": "0b1100"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM8_OC1",
+            "value": "0b1101",
+            "ifdef": "STM32_TIM8"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_TIM8_TRGO",
+            "value": "0b1110",
+            "ifdef": "STM32_TIM8"
+          },
+          {
+            "enum": "ADC_REG_TRIGGER_EVENT_EXTI11",
+            "value": "0b1111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "adc_reg_start",
+      "reg": "CR2",
+      "shift": "30"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "adc_temperature_sensor",
+      "reg": "CR2",
+      "shift": "23",
+      "ifdef": "STM32_ADC_CR2_LAYOUT1"
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_inj_external_trigger_edge",
+      "signature": "{periph}, {edge}",
+      "reg": "CR2",
+      "mask": "0x3",
+      "shift": "20",
+      "ifdef": "STM32_ADC_CR2_LAYOUT2",
+      "args": {
+        "edge": [
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_OFF",
+            "value": "0b00"
+          },
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_RISING",
+            "value": "0b01"
+          },
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_FALLING",
+            "value": "0b10"
+          },
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_BOTH",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "adc_set_reg_external_trigger_edge",
+      "signature": "{periph}, {edge}",
+      "reg": "CR2",
+      "mask": "0x3",
+      "shift": "28",
+      "ifdef": "STM32_ADC_CR2_LAYOUT2",
+      "args": {
+        "edge": [
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_OFF",
+            "value": "0b00"
+          },
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_RISING",
+            "value": "0b01"
+          },
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_FALLING",
+            "value": "0b10"
+          },
+          {
+            "enum": "ADC_EXTERNAL_TRIGGER_EDGE_BOTH",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "inject",
+      "fn": "adc_set_inj_offset",
+      "code": [
+        "void",
+        "test_adc_set_inj_offset(void)",
+        "{",
+        ".indent()",
+        "constexpr enum adc_inj_channel channels[] = {",
+          ".indent()",
+            "ADC_INJ_CHANNEL0,",
+            "ADC_INJ_CHANNEL1,",
+            "ADC_INJ_CHANNEL2,",
+            "ADC_INJ_CHANNEL3",
+          ".deindent()",
+          "};",
+          "constexpr u32 channels_count = ARR_SIZE(channels);",
+          "constexpr u32 shift = 0;",
+          "constexpr u32 mask = 0xfff << shift;",
+          "",
+          "for (u32 i = 0; i < channels_count; ++i)",
+          "{",
+          ".indent()",
+            "volatile u32* reg;",
+            "switch (i)",
+            "{",
+            ".indent()",
+              "case ADC_INJ_CHANNEL0:",
+              ".indent()",
+                "reg = &ADC1->JOFR1;",
+                "break;",
+                ".deindent()",
+                "",
+              "case ADC_INJ_CHANNEL1:",
+              ".indent()",
+                "reg = &ADC1->JOFR2;",
+                "break;",
+                "",
+              ".deindent()",
+              "case ADC_INJ_CHANNEL2:",
+              ".indent()",
+                "reg = &ADC1->JOFR3;",
+                "break;",
+                "",
+              ".deindent()",
+              "case ADC_INJ_CHANNEL3:",
+              ".indent()",
+                "reg = &ADC1->JOFR4;",
+                "break;",
+              ".deindent()",
+            ".deindent()",
+          "}",
+          "",
+          "*reg = ~mask;",
+          "adc_set_inj_offset(ADC1, channels[i], 0);",
+          "ASSERT_EQ(*reg, ~mask | (0 << shift));",
+          "ASSERT_FALSE(execution_halted());",
+          "",
+          "*reg = ~mask;",
+          "adc_set_inj_offset(ADC1, channels[i], 0xfff);",
+          "ASSERT_EQ(*reg, ~mask | (0xfff << shift));",
+          "ASSERT_FALSE(execution_halted());",
+          "",
+          "*reg = ~mask;",
+          "adc_set_inj_offset(ADC1, channels[i], 0);",
+          "ASSERT_EQ(*reg, ~mask | (0 << shift));",
+          "ASSERT_FALSE(execution_halted());",
+          "",
+          "*reg = ~mask;",
+          "adc_set_inj_offset(ADC1, channels[i], 0x1fff);",
+          "ASSERT_TRUE(execution_halted());",
+          "execution_resume();",
+          "",
+          "*reg = 0;",
+          "adc_set_inj_offset(ADC1, channels[i], 0xfff);",
+          "ASSERT_EQ(*reg, 0xfff << shift);",
+          "ASSERT_FALSE(execution_halted());",
+          ".deindent()",
+          "}",
+          ".deindent()",
+          "}",
+          ""
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "adc_set_watchdog_high_threshold",
+      "signature": "{periph}, {val}",
+      "reg": "HTR",
+      "mask": "0xfff",
+      "shift": "0",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1fff",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "adc_set_watchdog_low_threshold",
+      "signature": "{periph}, {val}",
+      "reg": "LTR",
+      "mask": "0xfff",
+      "shift": "0",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1fff",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "inject",
+      "fn": "adc_set_reg_sequence",
+      "code": [
+        "void",
+        "test_adc_set_reg_sequence(void)",
+        "{",
+        ".indent()",
+        "constexpr u32 len_shift = 20;",
+        "constexpr u32 stride = 5;",
+        "",
+        "u32 sequence[16];",
+        "u32 len;",
+        "",
+        "for (u32 i = 0; i < 16; ++i)",
+        "{",
+        ".indent()",
+        "sequence[i] = i;",
+        "}",
+        ".deindent()",
+        "",
+        "u32 sqr1 = 0;",
+        "u32 sqr2 = 0;",
+        "u32 sqr3 = 0;",
+        "",
+        "for (u32 i = 0; i < 6; ++i)",
+        "{",
+        ".indent()",
+        "sqr3 |= sequence[i] << (stride * i);",
+        "sqr2 |= sequence[6 + i] << (stride * i);",
+        "",
+        "if (i <= 3)",
+        "{",
+        ".indent()",
+        "sqr1 |= sequence[12 + i] << (stride * i);",
+        ".deindent()",
+        "}",
+        ".deindent()",
+        "}",
+        "",
+        "len = 6;",
+        "adc_set_reg_sequence(ADC1, sequence, len);",
+        "ASSERT_EQ(ADC1->SQR1, (len - 1) << len_shift);",
+        "ASSERT_EQ(ADC1->SQR2, 0);",
+        "ASSERT_EQ(ADC1->SQR3, sqr3);",
+        "ASSERT_FALSE(execution_halted());",
+        "",
+        "len = 12;",
+        "adc_set_reg_sequence(ADC1, sequence, len);",
+        "ASSERT_EQ(ADC1->SQR1, (len - 1) << len_shift);",
+        "ASSERT_EQ(ADC1->SQR2, sqr2);",
+        "ASSERT_EQ(ADC1->SQR3, sqr3);",
+        "ASSERT_FALSE(execution_halted());",
+        "",
+        "len = 16;",
+        "adc_set_reg_sequence(ADC1, sequence, len);",
+        "ASSERT_EQ(ADC1->SQR1, sqr1 | ((len - 1) << len_shift));",
+        "ASSERT_EQ(ADC1->SQR2, sqr2);",
+        "ASSERT_EQ(ADC1->SQR3, sqr3);",
+        "ASSERT_FALSE(execution_halted());",
+        ".deindent()",
+        "}",
+        ""
+      ]
+    },
+    {
+      "type": "inject",
+      "fn": "adc_set_inj_sequence",
+      "code": [
+        "void",
+        "test_adc_set_inj_sequence(void)",
+        "{",
+        ".indent()",
+        "constexpr u32 len_shift = 20;",
+        "constexpr u32 stride = 5;",
+        "",
+        "u32 sequence[] = { 0, 1, 2, 3 };",
+        "u32 len = 4;",
+        "",
+        "u32 exp = 0;",
+        "for (u32 i = 0; i < len; ++i)",
+        "{",
+        ".indent()",
+        "exp |= (sequence[i] << (stride * i));",
+        ".deindent()",
+        "}",
+        "",
+        "adc_set_inj_sequence(ADC1, sequence, len);",
+        "ASSERT_EQ(ADC1->JSQR, exp | ((len - 1) << len_shift));",
+        "ASSERT_FALSE(execution_halted());",
+        ".deindent()",
+        "}",
+        ""
+      ]
+    },
+    {
+      "type": "inject",
+      "fn": "adc_inj_data_read",
+      "code": [
+        "void",
+        "test_adc_inj_data_read(void)",
+        "{",
+        ".indent()",
+        "constexpr u32 min_value = 0;",
+        "constexpr u32 max_value = 0xffff;",
+        "",
+        "constexpr enum adc_inj_channel channels[] = {",
+        ".indent()",
+        "ADC_INJ_CHANNEL0,",
+        "ADC_INJ_CHANNEL1,",
+        "ADC_INJ_CHANNEL2,",
+        "ADC_INJ_CHANNEL3",
+        ".deindent()",
+        "};",
+        "constexpr u32 channels_count = ARR_SIZE(channels);",
+        "",
+        "for (u32 i = 0; i < channels_count; ++i)",
+        "{",
+        ".indent()",
+        "volatile u32* reg;",
+        "switch (i)",
+        "{",
+        ".indent()",
+        "case ADC_INJ_CHANNEL0:",
+        ".indent()",
+        "reg = &ADC1->JDR1;",
+        "break;",
+        ".deindent()",
+        "",
+        "case ADC_INJ_CHANNEL1:",
+        ".indent()",
+        "reg = &ADC1->JDR2;",
+        "break;",
+        ".deindent()",
+        "",
+        "case ADC_INJ_CHANNEL2:",
+        ".indent()",
+        "reg = &ADC1->JDR3;",
+        "break;",
+        ".deindent()",
+        "",
+        "case ADC_INJ_CHANNEL3:",
+        ".indent()",
+        "reg = &ADC1->JDR4;",
+        "break;",
+        ".deindent()",
+        ".deindent()",
+        "}",
+        "",
+        "*reg = min_value;",
+        "ASSERT_EQ(adc_inj_data_read(ADC1, channels[i]), min_value);",
+        "ASSERT_FALSE(execution_halted());",
+        "",
+        "*reg = max_value;",
+        "ASSERT_EQ(adc_inj_data_read(ADC1, channels[i]), max_value);",
+        "ASSERT_FALSE(execution_halted());",
+        ".deindent()",
+        "}",
+        ".deindent()",
+        "}",
+        ""
+      ]
+    },
+    {
+      "type": "inject",
+      "fn": "adc_reg_data_read",
+      "code": [
+        "void",
+        "test_adc_reg_data_read(void)",
+        "{",
+        ".indent()",
+        "constexpr u32 min_value = 0;",
+        "constexpr u32 max_value = 0xffff;",
+        "",
+        "ADC1->DR = min_value;",
+        "ASSERT_EQ(adc_reg_data_read(ADC1), min_value);",
+        "ASSERT_FALSE(execution_halted());",
+        "",
+        "ADC1->DR = max_value;",
+        "ASSERT_EQ(adc_reg_data_read(ADC1), max_value);",
+        "ASSERT_FALSE(execution_halted());",
+        ".deindent()",
+        "}",
+        ""
+      ]
+    }
+  ]
+}
+

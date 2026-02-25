@@ -1,0 +1,139 @@
+{
+  "periph": "RTC",
+  "path": "stm32/drivers/rtc/rtc_v1.h",
+  "struct": "rtc_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_interrupt",
+      "signature": "{interrupt}",
+      "reg": "CRH",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "RTC_INTERRUPT_SECOND",
+            "shift": 0
+          },
+          {
+            "enum": "RTC_INTERRUPT_ALARM",
+            "shift": 1
+          },
+          {
+            "enum": "RTC_INTERRUPT_OVERFLOW",
+            "shift": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "rtc_is_flag_set",
+      "signature": "{flag}",
+      "reg": "CRL",
+      "args": {
+        "flag": [
+          {
+            "enum": "RTC_FLAG_SECOND",
+            "shift": 0
+          },
+          {
+            "enum": "RTC_FLAG_ALARM",
+            "shift": 1
+          },
+          {
+            "enum": "RTC_FLAG_OVERFLOW",
+            "shift": 2
+          },
+          {
+            "enum": "RTC_FLAG_SYNC",
+            "shift": 3
+          },
+          {
+            "enum": "RTC_FLAG_CONFIGURATION",
+            "shift": 4
+          },
+          {
+            "enum": "RTC_FLAG_WRITE_IDLE",
+            "shift": 5
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "rtc_flag_clear",
+      "signature": "{flag}",
+      "reg": "CRL",
+      "clear_mode": "w0",
+      "args": {
+        "flag": [
+          {
+            "enum": "RTC_FLAG_SECOND",
+            "shift": 0
+          },
+          {
+            "enum": "RTC_FLAG_ALARM",
+            "shift": 1
+          },
+          {
+            "enum": "RTC_FLAG_OVERFLOW",
+            "shift": 2
+          },
+          {
+            "enum": "RTC_FLAG_SYNC",
+            "shift": 3
+          },
+          {
+            "enum": "RTC_FLAG_CONFIGURATION",
+            "shift": 4,
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_WRITE_IDLE",
+            "shift": 5,
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_config",
+      "signature": "",
+      "reg": "CRL",
+      "shift": 4
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_prescaler",
+      "signature": "{val}",
+      "reg": "PRLH",
+      "shift": 0,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "rtc_get_prescaler_divider",
+      "signature": "",
+      "reg": "DIVH",
+      "shift": 0,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_counter",
+      "signature": "{val}",
+      "reg": "PRLH",
+      "shift": 0,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_alarm",
+      "signature": "{val}",
+      "reg": "ALRH",
+      "shift": 0,
+      "mask": "0xf"
+    }
+  ]
+}

@@ -1,0 +1,575 @@
+{
+  "periph": "I2C1",
+  "path": "stm32/drivers/i2c/i2c_v1.h",
+  "struct": "i2c_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "i2c",
+      "reg": "CR1",
+      "shift": 0
+    },
+    {
+      "type": "bienum_set",
+      "fn": "i2c_set_operational_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 1,
+      "set": "I2C_OPERATIONAL_MODE_SMBUS",
+      "clear": "I2C_OPERATIONAL_MODE_I2C"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "i2c_set_smbus_type",
+      "signature": "{periph}, {type}",
+      "reg": "CR1",
+      "shift": 3,
+      "set": "I2C_SMBUS_TYPE_HOST",
+      "clear": "I2C_SMBUS_TYPE_DEVICE"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_config",
+      "signature": "{periph}, {config}",
+      "reg": "CR1",
+      "args": {
+        "config": [
+          {
+            "enum": "I2C_CONFIG_ARP",
+            "shift": 4
+          },
+          {
+            "enum": "I2C_CONFIG_PEC",
+            "shift": 5
+          },
+          {
+            "enum": "I2C_CONFIG_GENERAL_CALL",
+            "shift": 6
+          },
+          {
+            "enum": "I2C_CONFIG_NO_CLOCK_STRETCH",
+            "shift": 7
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "i2c_transaction_start",
+      "reg": "CR1",
+      "shift": 8
+    },
+    {
+      "type": "fn_call",
+      "fn": "i2c_transaction_stop",
+      "reg": "CR1",
+      "shift": 9
+    },
+    {
+      "type": "fn_call",
+      "fn": "i2c_send_ack",
+      "reg": "CR1",
+      "shift": 10
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "i2c_send_nack",
+      "reg": "CR1"
+    },
+    {
+      "type": "fn_call",
+      "fn": "i2c_nack_on_next_byte",
+      "reg": "CR1",
+      "shift": 11
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "i2c_nack_on_current_byte",
+      "reg": "CR1"
+    },
+    {
+      "type": "fn_call",
+      "fn": "i2c_send_pec_byte",
+      "reg": "CR1",
+      "shift": 12
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_send_smbus_alert",
+      "reg": "CR1",
+      "shift": 13
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_software_reset",
+      "reg": "CR1",
+      "shift": 15
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_set_peripheral_clock_frequency",
+      "signature": "{periph}, {val}",
+      "reg": "CR2",
+      "shift": 0,
+      "mask": "0x3f",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3f"
+          },
+          {
+            "value": "0x40",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_interrupt",
+      "signature": "{periph}, {interrupt}",
+      "reg": "CR2",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "I2C_INTERRUPT_ERROR",
+            "shift": 8
+          },
+          {
+            "enum": "I2C_INTERRUPT_EVENT",
+            "shift": 9
+          },
+          {
+            "enum": "I2C_INTERRUPT_BUFFER",
+            "shift": 10
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_dma_requests",
+      "reg": "CR2",
+      "shift": 11
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_dma_last_transfer",
+      "reg": "CR2",
+      "shift": 12
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_set_7bit_address",
+      "signature": "{periph}, {val}",
+      "reg": "OAR1",
+      "shift": 1,
+      "mask": "0x3f",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3f"
+          },
+          {
+            "value": "0x40",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_set_10bit_address",
+      "signature": "{periph}, {val}",
+      "reg": "OAR1",
+      "shift": 0,
+      "mask": "0x3ff"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "i2c_set_address_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "OAR1",
+      "shift": 15,
+      "set": "I2C_ADDRESS_MODE_10BITS",
+      "clear": "I2C_ADDRESS_MODE_7BITS"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_dual_addressing_mode",
+      "reg": "OAR2",
+      "shift": 0
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_set_secondary_address",
+      "signature": "{periph}, {val}",
+      "reg": "OAR2",
+      "shift": 1,
+      "mask": "0x7f"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_send_byte",
+      "signature": "{periph}, {val}",
+      "reg": "DR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_get",
+      "fn": "i2c_read_byte",
+      "reg": "DR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "i2c_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "args": {
+        "flag": [
+          {
+            "enum": "I2C_FLAG_START_BIT",
+            "shift": 0,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_ADDRESS",
+            "shift": 1,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_BYTE_TRANSFER_FINISHED",
+            "shift": 2,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_ADDRESS10",
+            "shift": 3,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_STOP_BIT",
+            "shift": 4,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_DATA_REG_NOT_EMPTY",
+            "shift": 6,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_DATA_REG_EMPTY",
+            "shift": 7,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_BUS_ERROR",
+            "shift": 8,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_ARBITRACTION_LOST",
+            "shift": 9,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_ACK_FAIL",
+            "shift": 10,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_OVERRUN_UNDERRUN",
+            "shift": 11,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_PEC_ERROR",
+            "shift": 12,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_TIMEOUT",
+            "shift": 14,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_SMBUS_ALERT",
+            "shift": 15,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_MASTER_SLAVE",
+            "shift": 0,
+            "reg": "SR2"
+          },
+          {
+            "enum": "I2C_FLAG_BUS_BUSY",
+            "shift": 1,
+            "reg": "SR2"
+          },
+          {
+            "enum": "I2C_FLAG_BYTES_TRANSMITTED",
+            "shift": 2,
+            "reg": "SR2"
+          },
+          {
+            "enum": "I2C_FLAG_GENERAL_CALL_ADDRESS",
+            "shift": 4,
+            "reg": "SR2"
+          },
+          {
+            "enum": "I2C_FLAG_SMBUS_DEFAULT_ADDRESS",
+            "shift": 5,
+            "reg": "SR2"
+          },
+          {
+            "enum": "I2C_FLAG_SMBUS_HOST_HEADER",
+            "shift": 6,
+            "reg": "SR2"
+          },
+          {
+            "enum": "I2C_FLAG_DUAL_FLAG",
+            "shift": 7,
+            "reg": "SR2"
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "i2c_flag_clear",
+      "signature": "{periph}, {flag}",
+      "clear_mode": "w0",
+      "args": {
+        "flag": [
+          {
+            "enum": "I2C_FLAG_START_BIT",
+            "shift": 0,
+            "reg": "SR1",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_ADDRESS",
+            "shift": 1,
+            "reg": "SR1",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_BYTE_TRANSFER_FINISHED",
+            "shift": 2,
+            "reg": "SR1",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_ADDRESS10",
+            "shift": 3,
+            "reg": "SR1",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_STOP_BIT",
+            "shift": 4,
+            "reg": "SR1",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_DATA_REG_NOT_EMPTY",
+            "shift": 6,
+            "reg": "SR1",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_DATA_REG_EMPTY",
+            "shift": 7,
+            "reg": "SR1",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_BUS_ERROR",
+            "shift": 8,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_ARBITRACTION_LOST",
+            "shift": 9,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_ACK_FAIL",
+            "shift": 10,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_OVERRUN_UNDERRUN",
+            "shift": 11,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_PEC_ERROR",
+            "shift": 12,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_TIMEOUT",
+            "shift": 14,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_SMBUS_ALERT",
+            "shift": 15,
+            "reg": "SR1"
+          },
+          {
+            "enum": "I2C_FLAG_MASTER_SLAVE",
+            "shift": 0,
+            "reg": "SR2",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_BUS_BUSY",
+            "shift": 1,
+            "reg": "SR2",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_BYTES_TRANSMITTED",
+            "shift": 2,
+            "reg": "SR2",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_GENERAL_CALL_ADDRESS",
+            "shift": 4,
+            "reg": "SR2",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_SMBUS_DEFAULT_ADDRESS",
+            "shift": 5,
+            "reg": "SR2",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_SMBUS_HOST_HEADER",
+            "shift": 6,
+            "reg": "SR2",
+            "halt": true
+          },
+          {
+            "enum": "I2C_FLAG_DUAL_FLAG",
+            "shift": 7,
+            "reg": "SR2",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "i2c_get_pec",
+      "reg": "SR2",
+      "shift": 8,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_set_clock",
+      "signature": "{periph}, {val}",
+      "reg": "CCR",
+      "shift": 0,
+      "mask": "0xfff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xfff"
+          },
+          {
+            "value": "0x1000",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "i2c_set_fm_duty_cycle",
+      "signature": "{periph}, {dc}",
+      "reg": "CCR",
+      "shift": 14,
+      "set": "I2C_FM_DUTY_CYCLE_16_9",
+      "clear": "I2C_FM_DUTY_CYCLE_2"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "i2c_set_master_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CCR",
+      "shift": 15,
+      "set": "I2C_MASTER_MODE_FM",
+      "clear": "I2C_MASTER_MODE_SM"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_set_trise_time",
+      "signature": "{periph}, {val}",
+      "reg": "TRISE",
+      "shift": 0,
+      "mask": "0x3f",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3f"
+          },
+          {
+            "value": "0x40",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "i2c_set_digital_noise_filter_capability",
+      "signature": "{periph}, {val}",
+      "reg": "FLTR",
+      "shift": 0,
+      "mask": "0xf",
+      "ifdef": "STM32_I2C_FILTER",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xf"
+          },
+          {
+            "value": "0x10",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "i2c_digital_noise_filter",
+      "reg": "FLTR",
+      "shift": 4,
+      "ifdef": "STM32_I2C_FILTER"
+    }
+  ]
+}

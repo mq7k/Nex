@@ -1,0 +1,1 @@
+syn_create_example(mpu9250_v1)

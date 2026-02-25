@@ -1,0 +1,7 @@
+{
+  "mcu": "stm32f401ce",
+  "groups": [ 
+    "stm32f401xe"
+  ],
+  "ld": "fx/f4/stm32f401xe.ld"
+}

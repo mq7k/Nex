@@ -1,0 +1,29 @@
+{
+  "compiler_flags": {
+    "arm": [
+      "-mcpu=cortex-m3"
+    ],
+    "desktop": [
+
+    ],
+    "com": [
+
+    ]
+  },
+  "linker_flags": {
+    "arm": [
+      "-mcpu=cortex-m3"
+    ],
+    "desktop": [
+
+    ],
+    "com": [
+
+    ]
+  },
+  "avb_periphs": [
+    "systick/systick_v1",
+    "nvic/nvic_v1",
+    "scb/scb_v1"
+  ]
+}

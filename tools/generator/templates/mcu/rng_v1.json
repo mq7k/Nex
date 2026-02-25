@@ -1,0 +1,101 @@
+{
+  "periph": "RNG",
+  "path": "stm32/drivers/rng/rng_v1.h",
+  "struct": "rng_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "rng",
+      "signature": "",
+      "reg": "CR",
+      "shift": 2
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rng_interrupt",
+      "test_fn": "{fn}_toggle",
+      "signature": "",
+      "reg": "CR",
+      "shift": 3
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rng_clock_error_detection",
+      "signature": "",
+      "reg": "CR",
+      "shift": 5,
+      "ifdef": "STM32_RNG_CK_ERRDE"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "rng_is_flag_set",
+      "reg": "SR",
+      "signature": "{flag}",
+      "args": {
+        "flag": [
+          {
+            "enum": "RNG_FLAG_DATA_READY",
+            "shift": 0
+          },
+          {
+            "enum": "RNG_FLAG_CLOCK_ERROR_CURRENT",
+            "shift": 1
+          },
+          {
+            "enum": "RNG_FLAG_SEED_ERROR_CURRENT",
+            "shift": 2
+          },
+          {
+            "enum": "RNG_FLAG_CLOCK_ERROR",
+            "shift": 5
+          },
+          {
+            "enum": "RNG_FLAG_SEED_ERROR",
+            "shift": 6
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "rng_flag_clear",
+      "reg": "SR",
+      "signature": "{flag}",
+      "clear_mode": "w0",
+      "args": {
+        "flag": [
+          {
+            "enum": "RNG_FLAG_DATA_READY",
+            "shift": 0,
+            "halt": true
+          },
+          {
+            "enum": "RNG_FLAG_CLOCK_ERROR_CURRENT",
+            "shift": 1,
+            "halt": true
+          },
+          {
+            "enum": "RNG_FLAG_SEED_ERROR_CURRENT",
+            "shift": 2,
+            "halt": true
+          },
+          {
+            "enum": "RNG_FLAG_CLOCK_ERROR",
+            "shift": 5
+          },
+          {
+            "enum": "RNG_FLAG_SEED_ERROR",
+            "shift": 6
+          }
+
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "rng_get_random_32bit",
+      "signature": "",
+      "reg": "DR"
+    }
+  ]
+}

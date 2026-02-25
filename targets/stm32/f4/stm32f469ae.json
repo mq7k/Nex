@@ -1,0 +1,8 @@
+{
+  "mcu": "stm32f469ae",
+  "groups": [ 
+    "stm32f469xx"
+  ],
+  "arch_periph_group": "cm4",
+  "ld": "fx/f4/stm32f469xe.ld"
+}

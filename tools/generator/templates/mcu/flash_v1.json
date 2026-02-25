@@ -1,0 +1,319 @@
+{
+  "periph": "FLASH",
+  "path": "stm32/drivers/flash/flash_v1.h",
+  "struct": "flash_registers_map",
+  "functions": [
+    {
+      "type": "enum_set",
+      "fn": "flash_set_wait_state",
+      "signature": "{ws}",
+      "reg": "ACR",
+      "shift": 0,
+      "mask": "0xf",
+      "args": {
+        "ws": [
+          {
+            "enum": "FLASH_WAIT_STATE0",
+            "value": "0b000"
+          },
+          {
+            "enum": "FLASH_WAIT_STATE1",
+            "value": "0b001"
+          },
+          {
+            "enum": "FLASH_WAIT_STATE2",
+            "value": "0b010"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_half_cycle_access",
+      "signature": "",
+      "reg": "ACR",
+      "shift": 3,
+      "ifdef": "STM32_FLASH_HALF_CYCLE_ACCESS"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_prefetch_buffer_enable",
+      "signature": "",
+      "reg": "ACR",
+      "shift": 4,
+      "ifdef": "STM32_FLASH_PREFETCH_BUFFER"
+    },
+    {
+      "type": "fn_get",
+      "fn": "flash_get_prefetch_buffer_status",
+      "signature": "",
+      "reg": "ACR",
+      "shift": 5
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "flash_unlock",
+      "signature": "",
+      "reg": "KEYR",
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "flash_option_unlock",
+      "signature": "",
+      "reg": "OPTKEYR",
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "flash_is_flag_set",
+      "signature": "{flag}",
+      "reg": "SR",
+      "ifdef": "STM32_FLASH_EXTENDED",
+      "args": {
+        "flag": [
+          {
+            "enum": "FLASH_FLAG_BUSY",
+            "shift": 0
+          },
+          {
+            "enum": "FLASH_FLAG_PROGRAMMING_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "FLASH_FLAG_WRITE_PROTECTION_ERROR",
+            "shift": 4
+          },
+          {
+            "enum": "FLASH_FLAG_EOP",
+            "shift": 5
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "flash_flag_clear",
+      "signature": "{flag}",
+      "reg": "SR",
+      "clear_mode": "w1",
+      "ifdef": "STM32_FLASH_EXTENDED",
+      "args": {
+        "flag": [
+          {
+            "enum": "FLASH_FLAG_BUSY",
+            "halt": true,
+            "shift": 0
+          },
+          {
+            "enum": "FLASH_FLAG_PROGRAMMING_ERROR",
+            "shift": 2
+          },
+          {
+            "enum": "FLASH_FLAG_WRITE_PROTECTION_ERROR",
+            "shift": 4
+          },
+          {
+            "enum": "FLASH_FLAG_EOP",
+            "shift": 5
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_programming",
+      "reg": "CR",
+      "shift": 0,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_page_erase",
+      "reg": "CR",
+      "shift": 1,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_mass_erase",
+      "reg": "CR",
+      "shift": 2,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_option_byte_programming",
+      "reg": "CR",
+      "shift": 4,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_option_byte_erase",
+      "reg": "CR",
+      "shift": 5,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_erase",
+      "reg": "CR",
+      "shift": 6,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_call",
+      "fn": "flash_lock",
+      "reg": "CR",
+      "shift": 7,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_option_byte_write",
+      "reg": "CR",
+      "shift": 9,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "flash_interrupt",
+      "signature": "{interrupt}",
+      "reg": "CR",
+      "ifdef": "STM32_FLASH_EXTENDED",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "FLASH_INTERRUPT_ERROR",
+            "shift": 10
+          },
+          {
+            "enum": "FLASH_INTERRUPT_EOP",
+            "shift": 12
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "flash_force_option_byte_reload",
+      "signature": "",
+      "reg": "CR",
+      "shift": 13,
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "flash_set_address",
+      "signature": "{val}",
+      "reg": "AR",
+      "ifdef": "STM32_FLASH_EXTENDED",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "flash_get_current_address",
+      "signature": "",
+      "reg": "AR",
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "flash_is_option_set",
+      "signature": "{option}",
+      "reg": "OBR",
+      "ifdef": "STM32_FLASH_EXTENDED",
+      "args": {
+        "option": [
+          {
+            "enum": "FLASH_OPTION_OPTION_BYTE_ERROR",
+            "shift": 0
+          },
+          {
+            "enum": "FLASH_OPTION_WDG_SW",
+            "shift": 8
+          },
+          {
+            "enum": "FLASH_OPTION_RST_STOP",
+            "shift": 9
+          },
+          {
+            "enum": "FLASH_OPTION_RST_STANDBY",
+            "shift": 10
+          },
+          {
+            "enum": "FLASH_OPTION_BOOT0",
+            "shift": 11,
+            "ifdef": "STM32_FLASH_BOOT0"
+          },
+          {
+            "enum": "FLASH_OPTION_BOOT1",
+            "shift": 12
+          },
+          {
+            "enum": "FLASH_OPTION_VDDA_MONITOR",
+            "shift": 13
+          },
+          {
+            "enum": "FLASH_OPTION_RAM_PARITY_CHECK",
+            "shift": 14
+          },
+          {
+            "enum": "FLASH_OPTION_BOOTSEL",
+            "shift": 15,
+            "ifdef": "STM32_FLASH_BOOTSEL"
+          },
+          {
+            "enum": "FLASH_OPTION_SDADC12_VDD_MONITOR",
+            "shift": 13,
+            "ifdef": "FLASH_OPTION_SDADC12_VDD_MONITOR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "flash_get_read_protection_level",
+      "signature": "",
+      "reg": "AR",
+      "shift": 1,
+      "mask": "0x3",
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_get",
+      "fn": "flash_get_option_data0",
+      "signature": "",
+      "reg": "AR",
+      "shift": 16,
+      "mask": "0xff",
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_get",
+      "fn": "flash_get_option_data1",
+      "signature": "",
+      "reg": "AR",
+      "shift": 24,
+      "mask": "0xff",
+      "ifdef": "STM32_FLASH_EXTENDED"
+    },
+    {
+      "type": "fn_get",
+      "fn": "flash_get_reloaded_option_byte",
+      "signature": "",
+      "reg": "WRPR",
+      "ifdef": "STM32_FLASH_EXTENDED"
+    }
+  ]
+}

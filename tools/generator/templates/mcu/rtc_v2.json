@@ -1,0 +1,1320 @@
+{
+  "periph": "RTC",
+  "path": "stm32/drivers/rtc/rtc_v2.h",
+  "struct": "rtc_registers_map",
+  "functions": [
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_calendar_time",
+      "signature": "{time}"
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_calendar_date",
+      "signature": "{time}"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "rtc_get_calendar_time",
+      "signature": "{date}"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "rtc_get_calendar_date",
+      "signature": "{date}"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_calendar_time_format",
+      "signature": "{format}",
+      "reg": "TR",
+      "shift": 22,
+      "set": "RTC_TIME_FORMAT_12HOURS",
+      "clear": "RTC_TIME_FORMAT_24HOURS"
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_wakeup_clock",
+      "signature": "{clock}",
+      "reg": "CR",
+      "shift": 0,
+      "mask": "0x7",
+      "args": {
+        "clock": [
+          {
+            "enum": "RTC_WAKEUP_CLOCK_DIV16",
+            "value": "0b000"
+          },
+          {
+            "enum": "RTC_WAKEUP_CLOCK_DIV8",
+            "value": "0b001"
+          },
+          {
+            "enum": "RTC_WAKEUP_CLOCK_DIV4",
+            "value": "0b010"
+          },
+          {
+            "enum": "RTC_WAKEUP_CLOCK_DIV2",
+            "value": "0b011"
+          },
+          {
+            "enum": "RTC_WAKEUP_CLOCK_NODIV",
+            "value": "0b100"
+          },
+          {
+            "enum": "RTC_WAKEUP_CLOCK_NODIV_OFFSET",
+            "value": "0b110"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_timestamp_event_edge",
+      "signature": "{edge}",
+      "reg": "CR",
+      "shift": 3,
+      "set": "RTC_EVENT_EDGE_FALLING",
+      "clear": "RTC_EVENT_EDGE_RISING"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_reference_clock",
+      "signature": "",
+      "reg": "CR",
+      "shift": 4
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_shadow_register_bypass",
+      "signature": "",
+      "reg": "CR",
+      "shift": 5
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_time_format",
+      "signature": "{format}",
+      "reg": "CR",
+      "shift": 6,
+      "set": "RTC_TIME_FORMAT_12HOURS",
+      "clear": "RTC_TIME_FORMAT_24HOURS"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_coarse_digital_calib",
+      "signature": "",
+      "reg": "CR",
+      "shift": 7,
+      "ifdef": "STM32_RTC_COARSE_DIGITAL_CALIB"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_alarm",
+      "signature": "{alarm}",
+      "reg": "CR",
+      "args": {
+        "alarm": [
+          {
+            "enum": "RTC_ALARMA",
+            "shift": 8
+          },
+          {
+            "enum": "RTC_ALARMB",
+            "shift": 9,
+            "ifdef": "STM32_RTC_ALARMB"
+          }
+        ]
+      }
+    }, 
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_wakeup_timer",
+      "signature": "",
+      "reg": "CR",
+      "shift": 10
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_timestamp",
+      "signature": "",
+      "reg": "CR",
+      "shift": 11
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_interrupt",
+      "signature": "{interrupt}",
+      "reg": "CR",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "RTC_INTERRUPT_ALARMA",
+            "shift": 12
+          },
+          {
+            "enum": "RTC_INTERRUPT_ALARMB",
+            "shift": 13,
+            "ifdef": "STM32_RTC_ALARMB"
+          },
+          {
+            "enum": "RTC_INTERRUPT_WAKEUP_TIMER",
+            "shift": 14
+          },
+          {
+            "enum": "RTC_INTERRUPT_TIMESTAMP",
+            "shift": 15
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER1",
+            "shift": 2,
+            "ifdef": "STM32_RTC_TAFCR_REG",
+            "reg": "TAFCR"
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER2",
+            "shift": 2,
+            "reg": "TAFCR",
+            "ifdef": [
+              "STM32_RTC_TAMPER2",
+              "STM32_RTC_TAFCR_REG"
+            ]
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER3",
+            "shift": 2,
+            "reg": "TAFCR",
+            "ifdef": [
+              "STM32_RTC_TAMPER3",
+              "STM32_RTC_TAFCR_REG"
+            ]
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER1",
+            "shift": 16,
+            "ifdef": "STM32_RTC_TAMPCR_REG",
+            "reg": "TAMPCR"
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER2",
+            "shift": 19,
+            "reg": "TAMPCR",
+            "ifdef": [
+              "STM32_RTC_TAMPER2",
+              "STM32_RTC_TAMPCR_REG"
+            ]
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER3",
+            "shift": 22,
+            "reg": "TAMPCR",
+            "ifdef": [
+              "STM32_RTC_TAMPER3",
+              "STM32_RTC_TAMPCR_REG"
+            ]
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER_ALL",
+            "shift": 2,
+            "ifdef": [
+              "STM32_RTC_TAFCR_REG",
+              "STM32_RTC_TAMPCR_REG"
+            ]
+          },
+          {
+            "enum": "RTC_INTERRUPT_TAMPER_ALL",
+            "shift": 2,
+            "reg": "TAMPCR",
+            "ifdef": [
+              "STM32_RTC_TAMPCR_REG"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set (TODO)",
+      "fn": "rtc_set_time_offset",
+      "signature": "{offset}",
+      "reg": "CR"
+    },
+    {
+      "type": "fn_call",
+      "fn": "rtc_daylight_time_change_save",
+      "signature": "",
+      "reg": "CR",
+      "shift": 18
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_calibration_output",
+      "signature": "{output}",
+      "reg": "CR",
+      "shift": 19,
+      "set": "RTC_CALIBRATION_OUTPUT_1HZ",
+      "clear": "RTC_CALIBRATION_OUTPUT_512HZ"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_alarm_output_polarity",
+      "signature": "{output}",
+      "reg": "CR",
+      "shift": 20,
+      "set": "RTC_ALARM_OUTPUT_POLARITY_LOW",
+      "clear": "RTC_ALARM_OUTPUT_POLARITY_HIGH"
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_output",
+      "signature": "{output}",
+      "reg": "CR",
+      "shift": 21,
+      "mask": "0x3",
+      "args": {
+        "output": [
+          {
+            "enum": "RTC_OUTPUT_OFF",
+            "value": "0b00"
+          },
+          {
+            "enum": "RTC_OUTPUT_ALARMA",
+            "value": "0b01"
+          },
+          {
+            "enum": "RTC_OUTPUT_ALARMB",
+            "value": "0b10",
+            "ifdef": "STM32_RTC_ALARMB"
+          },
+          {
+            "enum": "RTC_OUTPUT_WAKEUP",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_calibration_output",
+      "signature": "",
+      "reg": "CR",
+      "shift": 23
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_internal_event_timestamp_enable",
+      "signature": "",
+      "reg": "CR",
+      "shift": 24,
+      "ifdef": "STM32_RTC_TIMESTAMP_INTERNAL_EVENT"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "rtc_is_flag_set",
+      "signature": "{flag}",
+      "reg": "ISR",
+      "args": {
+        "flag": [
+          {
+            "enum": "RTC_FLAG_ALARMA_WRITE",
+            "shift": 0
+          },
+          {
+            "enum": "RTC_FLAG_ALARMB_WRITE",
+            "shift": 1,
+            "ifdef": "STM32_RTC_ALARMB"
+          },
+          {
+            "enum": "RTC_FLAG_WAKEUP_TIMER_WRITE",
+            "shift": 2
+          },
+          {
+            "enum": "RTC_FLAG_SHIFT_OP",
+            "shift": 3
+          },
+          {
+            "enum": "RTC_FLAG_INIT_STATUS",
+            "shift": 4
+          },
+          {
+            "enum": "RTC_FLAG_SYNC",
+            "shift": 5
+          },
+          {
+            "enum": "RTC_FLAG_INIT",
+            "shift": 6
+          },
+          {
+            "enum": "RTC_FLAG_ALARMA",
+            "shift": 8
+          },
+          {
+            "enum": "RTC_FLAG_ALARMB",
+            "shift": 9,
+            "ifdef": "STM32_RTC_ALARMB"
+          },
+          {
+            "enum": "RTC_FLAG_WAKEUP_TIMER",
+            "shift": 10
+          },
+          {
+            "enum": "RTC_FLAG_TIMESTAMP",
+            "shift": 11
+          },
+          {
+            "enum": "RTC_FLAG_TIMESTAMP_OVERFLOW",
+            "shift": 12
+          },
+          {
+            "enum": "RTC_FLAG_TAMPER1",
+            "shift": 13
+          },
+          {
+            "enum": "RTC_FLAG_TAMPER2",
+            "shift": 14,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_FLAG_TAMPER3",
+            "shift": 15,
+            "ifdef": "STM32_RTC_TAMPER3"
+          },
+          {
+            "enum": "RTC_FLAG_INTERNAL_TIMESTAMP_EVENT",
+            "shift": 17,
+            "ifdef": "STM32_RTC_TIMESTAMP_INTERNAL_EVENT"
+          },
+          {
+            "enum": "RTC_FLAG_RECALIB_PENDING",
+            "shift": 16
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "rtc_flag_clear",
+      "signature": "{flag}",
+      "reg": "ISR",
+      "clear_mode": "w0",
+      "args": {
+        "flag": [
+          {
+            "enum": "RTC_FLAG_ALARMA_WRITE",
+            "shift": 0,
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_ALARMB_WRITE",
+            "shift": 1,
+            "ifdef": "STM32_RTC_ALARMB",
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_WAKEUP_TIMER_WRITE",
+            "shift": 2,
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_SHIFT_OP",
+            "shift": 3,
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_INIT_STATUS",
+            "shift": 4,
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_SYNC",
+            "shift": 5
+          },
+          {
+            "enum": "RTC_FLAG_INIT",
+            "shift": 6,
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_ALARMA",
+            "shift": 8
+          },
+          {
+            "enum": "RTC_FLAG_ALARMB",
+            "shift": 9,
+            "ifdef": "STM32_RTC_ALARMB"
+          },
+          {
+            "enum": "RTC_FLAG_WAKEUP_TIMER",
+            "shift": 10
+          },
+          {
+            "enum": "RTC_FLAG_TIMESTAMP",
+            "shift": 11
+          },
+          {
+            "enum": "RTC_FLAG_TIMESTAMP_OVERFLOW",
+            "shift": 12
+          },
+          {
+            "enum": "RTC_FLAG_TAMPER1",
+            "shift": 13
+          },
+          {
+            "enum": "RTC_FLAG_TAMPER2",
+            "shift": 14,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_FLAG_TAMPER3",
+            "shift": 15,
+            "ifdef": "STM32_RTC_TAMPER3"
+          },
+          {
+            "enum": "RTC_FLAG_INTERNAL_TIMESTAMP_EVENT",
+            "shift": 17,
+            "ifdef": "STM32_RTC_TIMESTAMP_INTERNAL_EVENT",
+            "halt": true
+          },
+          {
+            "enum": "RTC_FLAG_RECALIB_PENDING",
+            "shift": 16,
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_init_mode",
+      "signature": "",
+      "reg": "ISR",
+      "shift": 7
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_prescalers",
+      "signature": "{prescalers}"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "rtc_set_wakeup_auto_reload_value",
+      "signature": "{val}",
+      "reg": "WUTR",
+      "shift": 0,
+      "mask": "0xffff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "rtc_set_digital_calib",
+      "signature": "{val}",
+      "reg": "CALIBR",
+      "shift": 0,
+      "mask": "0x1f",
+      "ifdef": "STM32_RTC_EXTENDED"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_digital_calib_sign",
+      "signature": "{sign}",
+      "reg": "CALIBR",
+      "shift": 7,
+      "set": "RTC_DIGITAL_CALIB_SIGN_NEGATIVE",
+      "clear": "RTC_DIGITAL_CALIB_SIGN_POSITIVE",
+      "ifdef": "STM32_RTC_EXTENDED"
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_alarm_time",
+      "signature": "{alarm}, {datetime}"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_alarm_time_format",
+      "signature": "{alarm}, {format}",
+      "shift": 22,
+      "set": "RTC_TIME_FORMAT_12HOURS",
+      "clear": "RTC_TIME_FORMAT_24HOURS",
+      "args": {
+        "alarm": [
+          {
+            "enum": "RTC_ALARMA",
+            "reg": "ALRMAR"
+          },
+          {
+            "enum": "RTC_ALARMB",
+            "reg": "ALRMBR",
+            "ifdef": "STM32_RTC_ALARMB"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_alarm_compare",
+      "signature": "{alarm}, {compare}",
+      "args": {
+        "alarm": [
+          {
+            "enum": "RTC_ALARMA",
+            "reg": "ALRMAR"
+          },
+          {
+            "enum": "RTC_ALARMB",
+            "reg": "ALRMBR",
+            "ifdef": "STM32_RTC_ALARMB"
+          }
+        ],
+        "compare": [
+          {
+            "enum": "RTC_ALARM_COMPARE_SECONDS",
+            "shift": 7
+          },
+          {
+            "enum": "RTC_ALARM_COMPARE_MINUTES",
+            "shift": 15
+          },
+          {
+            "enum": "RTC_ALARM_COMPARE_HOURS",
+            "shift": 23
+          },
+          {
+            "enum": "RTC_ALARM_COMPARE_DATE",
+            "shift": 31
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_datetime_type",
+      "signature": "{alarm}, {type}",
+      "shift": 30,
+      "set": "RTC_DATETIME_TYPE_WEEKDAY",
+      "clear": "RTC_DATETIME_TYPE_DATE",
+      "args": {
+        "alarm": [
+          {
+            "enum": "RTC_ALARMA",
+            "reg": "ALRMAR"
+          },
+          {
+            "enum": "RTC_ALARMB",
+            "reg": "ALRMBR",
+            "ifdef": "STM32_RTC_ALARMB"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "rtc_unlock_write_protection",
+      "signature": "",
+      "reg": "WRP"
+    },
+    {
+      "type": "fn_get",
+      "fn": "rtc_get_async_prescaler_subsecond_value",
+      "signature": "",
+      "reg": "SSR",
+      "shift": 0,
+      "mask": "0xffff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "rtc_set_subsecond_value",
+      "signature": "{val}",
+      "reg": "SHIFTR",
+      "shift": 0,
+      "mask": "0x3fff"
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_set_seconds_offset",
+      "signature": "{val1}, {val2}"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "rtc_get_timestamp_time",
+      "signature": "{time}"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "rtc_get_tamper_date",
+      "signature": "{time}"
+    },
+    {
+      "type": "fn_get",
+      "fn": "rtc_get_timestamp_format",
+      "reg": "TSTR",
+      "signature": "",
+      "shift": 22,
+      "mask": "0x1"
+    },
+    {
+      "type": "fn_get",
+      "fn": "rtc_get_timestamp_subsecond",
+      "signature": "",
+      "reg": "TSSSR",
+      "shift": 0,
+      "mask": "0xffff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "rtc_set_calibration_minus",
+      "signature": "{val}",
+      "reg": "CALR",
+      "shift": 0,
+      "mask": "0x1ff"
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_calibration_cycle_period",
+      "signature": "{period}",
+      "reg": "CALR",
+      "args": {
+        "period": [
+          {
+            "enum": "RTC_CALIBRATION_CYCLE_PERIOD_8SECODNS",
+            "shift": 14
+          },
+          {
+            "enum": "RTC_CALIBRATION_CYCLE_PERIOD_16SECONDS",
+            "shift": 13
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_increase_frequency",
+      "signature": "",
+      "reg": "CALR",
+      "shift": 15
+    },
+
+
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_tamper",
+      "signature": "{tamper}",
+      "reg": "TAMPCR",
+      "ifdef": "STM32_RTC_TAMPCR_REG",
+      "args": {
+        "tamper": [
+          {
+            "enum": "RTC_TAMPER1",
+            "shift": 0
+          },
+          {
+            "enum": "RTC_TAMPER2",
+            "shift": 3,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_TAMPER3",
+            "shift": 5,
+            "ifdef": "STM32_RTC_TAMPER3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_active_level",
+      "signature": "{tamper}, {level}",
+      "reg": "TAMPCR",
+      "ifdef": "STM32_RTC_TAMPCR_REG",
+      "mask": "0x1",
+      "args": {
+        "tamper": [
+          {
+            "enum": "RTC_TAMPER1",
+            "shift": 1
+          },
+          {
+            "enum": "RTC_TAMPER2",
+            "shift": 4,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_TAMPER3",
+            "shift": 6,
+            "ifdef": "STM32_RTC_TAMPER3"
+          }
+        ],
+        "level": [
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_STAY_LOW",
+            "value": 0
+          },
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_RISING_EDGE",
+            "value": 0
+          },
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_STAY_HIGH",
+            "value": 1
+          },
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_FALLING_EDGE",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_timestamp_on_tamper_event",
+      "signature": "",
+      "reg": "TAMPCR",
+      "shift": 7,
+      "ifdef": "STM32_RTC_TAMPCR_REG"
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_sampling_frequency",
+      "signature": "{frequency}",
+      "reg": "TAMPCR",
+      "shift": 8,
+      "mask": "0x7",
+      "ifdef": "STM32_RTC_TAMPCR_REG",
+      "args": {
+        "frequency": [
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV32768",
+            "value": "0b000"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV16384",
+            "value": "0b001"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV8192",
+            "value": "0b010"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV4096",
+            "value": "0b011"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV2048",
+            "value": "0b100"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV1024",
+            "value": "0b101"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV512",
+            "value": "0b110"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV256",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_filter_count",
+      "signature": "{count}",
+      "reg": "TAMPCR",
+      "shift": 11,
+      "mask": "0x3",
+      "ifdef": "STM32_RTC_TAMPCR_REG",
+      "args": {
+        "count": [
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_NOSKIP",
+            "value": "0b00"
+          },
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_SKIP2",
+            "value": "0b01"
+          },
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_SKIP4",
+            "value": "0b10"
+          },
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_SKIP8",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_precharge_duration",
+      "signature": "{duration}",
+      "reg": "TAMPCR",
+      "shift": 13,
+      "mask": "0x3",
+      "ifdef": "STM32_RTC_TAMPCR_REG",
+      "args": {
+        "duration": [
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_1CYCLE",
+            "value": "0b00"
+          },
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_2CYCLES",
+            "value": "0b01"
+          },
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_4CYCLES",
+            "value": "0b10"
+          },
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_8CYCLES",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_tamper_pullup",
+      "signature": "",
+      "reg": "TAMPCR",
+      "shift": 15,
+      "ifdef": "STM32_RTC_TAMPCR_REG"
+    },
+
+
+
+
+
+
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_tamper",
+      "signature": "{tamper}",
+      "reg": "TAFCR",
+      "ifdef": "STM32_RTC_TAFCR_REG",
+      "args": {
+        "tamper": [
+          {
+            "enum": "RTC_TAMPER1",
+            "shift": 0
+          },
+          {
+            "enum": "RTC_TAMPER2",
+            "shift": 3,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_TAMPER3",
+            "shift": 5,
+            "ifdef": "STM32_RTC_TAMPER3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_active_level",
+      "signature": "{tamper}, {level}",
+      "reg": "TAFCR",
+      "ifdef": "STM32_RTC_TAFCR_REG",
+      "mask": "0x1",
+      "args": {
+        "tamper": [
+          {
+            "enum": "RTC_TAMPER1",
+            "shift": 1
+          },
+          {
+            "enum": "RTC_TAMPER2",
+            "shift": 4,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_TAMPER3",
+            "shift": 6,
+            "ifdef": "STM32_RTC_TAMPER3"
+          }
+        ],
+        "level": [
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_STAY_LOW",
+            "value": 0
+          },
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_RISING_EDGE",
+            "value": 0
+          },
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_STAY_HIGH",
+            "value": 1
+          },
+          {
+            "enum": "RTC_TAMPER_ACTIVE_LEVEL_FALLING_EDGE",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_timestamp_on_tamper_event",
+      "signature": "",
+      "reg": "TAFCR",
+      "shift": 7,
+      "ifdef": "STM32_RTC_TAFCR_REG"
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_sampling_frequency",
+      "signature": "{frequency}",
+      "reg": "TAFCR",
+      "shift": 8,
+      "mask": "0x7",
+      "ifdef": "STM32_RTC_TAFCR_REG",
+      "args": {
+        "frequency": [
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV32768",
+            "value": "0b000"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV16384",
+            "value": "0b001"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV8192",
+            "value": "0b010"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV4096",
+            "value": "0b011"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV2048",
+            "value": "0b100"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV1024",
+            "value": "0b101"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV512",
+            "value": "0b110"
+          },
+          {
+            "enum": "RTC_TAMPER_SAMPLING_FREQUENCY_DIV256",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_filter_count",
+      "signature": "{count}",
+      "reg": "TAFCR",
+      "shift": 11,
+      "mask": "0x3",
+      "ifdef": "STM32_RTC_TAFCR_REG",
+      "args": {
+        "count": [
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_NOSKIP",
+            "value": "0b00"
+          },
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_SKIP2",
+            "value": "0b01"
+          },
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_SKIP4",
+            "value": "0b10"
+          },
+          {
+            "enum": "RTC_TAMPER_FILTER_COUNT_SKIP8",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_tamper_precharge_duration",
+      "signature": "{duration}",
+      "reg": "TAFCR",
+      "shift": 13,
+      "mask": "0x3",
+      "ifdef": "STM32_RTC_TAFCR_REG",
+      "args": {
+        "duration": [
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_1CYCLE",
+            "value": "0b00"
+          },
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_2CYCLES",
+            "value": "0b01"
+          },
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_4CYCLES",
+            "value": "0b10"
+          },
+          {
+            "enum": "RTC_TAMPER_PRECHARGE_DURATION_8CYCLES",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle (TODO)",
+      "fn": "rtc_tamper_pullup",
+      "signature": "",
+      "reg": "TAFCR",
+      "shift": 15,
+      "ifdef": "STM32_RTC_TAFCR_REG",
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "bienum_set (TODO, currently unused)",
+      "fn": "rtc_set_tamper_mapping",
+      "signature": "{mapping}",
+      "reg": "TAFCR",
+      "shift": 16,
+      "mask": "",
+      "ifdef": [
+        "STM32_RTC_TAFCR_REG",
+        "STM32_RTC_TAMPER1_MAPPING"
+      ]
+    },
+    {
+      "type": "bienum_set (TODO, currently unused)",
+      "fn": "rtc_set_timestamp_mapping",
+      "signature": "{mapping}",
+      "reg": "TAFCR",
+      "shift": 17,
+      "mask": "",
+      "ifdef": [
+        "STM32_RTC_TAFCR_REG",
+        "STM32_RTC_TIMESTAMP_MAPPING"
+      ]
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_alarm_output_pin_configuration",
+      "signature": "{pin}, {config}",
+      "reg": "TAFCR",
+      "set": "RTC_OUTPUT_PIN_CONFIG_PUSHPULL",
+      "clear": "RTC_OUTPUT_PIN_CONFIG_OPEN_DRAIN",
+      "ifdef": [
+        "STM32_RTC_TAFCR_REG",
+        "STM32_RTC_GPIO_CONTROL"
+      ],
+      "args": {
+        "pin": [
+          {
+            "enum": "RTC_OUTPUT_PIN_PC13",
+            "shift": 18
+          },
+          {
+            "enum": "RTC_OUTPUT_PIN_PC14",
+            "shift": 20
+          },
+          {
+            "enum": "RTC_OUTPUT_PIN_PC15",
+            "shift": 22
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "rtc_force_pushpull_output",
+      "signature": "{pin}",
+      "reg": "TAFCR",
+      "ifdef": [
+        "STM32_RTC_TAFCR_REG",
+        "STM32_RTC_GPIO_CONTROL"
+      ],
+      "args": {
+        "pin": [
+          {
+            "enum": "RTC_OUTPUT_PIN_PC13",
+            "shift": 19
+          },
+          {
+            "enum": "RTC_OUTPUT_PIN_PC14",
+            "shift": 21
+          },
+          {
+            "enum": "RTC_OUTPUT_PIN_PC15",
+            "shift": 23
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_alarm_output_type",
+      "signature": "{type}",
+      "reg": "TAFCR",
+      "shift": 18,
+      "set": "RTC_ALARM_OUTPUT_TYPE_PUSH_PULL",
+      "clear": "RTC_ALARM_OUTPUT_TYPE_OPEN_DRAIN",
+      "ifdef": [
+        "STM32_RTC_TAFCR_REG",
+        "STM32_RTC_ALARM_TYPE"
+      ]
+    },
+    
+
+
+
+
+
+
+
+
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_tamper_erase",
+      "signature": "{tamper}, {erase}",
+      "reg": "TAMPCR",
+      "set": "RTC_TAMPER_ERASE_OFF",
+      "clear": "RTC_TAMPER_ERASE_ON",
+      "ifdef": "STM32_RTC_TAMPCR_REG",
+      "args": {
+        "tamper": [
+          {
+            "enum": "RTC_TAMPER1",
+            "shift": 17
+          },
+          {
+            "enum": "RTC_TAMPER2",
+            "shift": 20,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_TAMPER3",
+            "shift": 23,
+            "ifdef": "STM32_RTC_TAMPER3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_tamper_mask",
+      "signature": "{tamper}, {mask}",
+      "reg": "TAMPCR",
+      "ifdef": "STM32_RTC_TAMPCR_REG",
+      "set": "RTC_TAMPER_MASK_AUTO",
+      "clear": "RTC_TAMPER_MASK_MANUAL",
+      "args": {
+        "tamper": [
+          {
+            "enum": "RTC_TAMPER1",
+            "shift": 17
+          },
+          {
+            "enum": "RTC_TAMPER2",
+            "shift": 20,
+            "ifdef": "STM32_RTC_TAMPER2"
+          },
+          {
+            "enum": "RTC_TAMPER3",
+            "shift": 23,
+            "ifdef": "STM32_RTC_TAMPER3"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "rtc_set_alarm_subsecond_value",
+      "signature": "{alarm}, {val}",
+      "shift": 0,
+      "mask": "0x7fff",
+      "args": {
+        "alarm": [
+          {
+            "enum": "RTC_ALARMA",
+            "reg": "ALRMASSR"
+          },
+          {
+            "enum": "RTC_ALARMB",
+            "reg": "ALRMBSSR",
+            "ifdef": "STM32_RTC_ALARMB"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "rtc_set_alarm_mask_bits",
+      "signature": "{alarm}, {val}",
+      "shift": 24,
+      "mask": "0xf",
+      "args": {
+        "alarm": [
+          {
+            "enum": "RTC_ALARMA",
+            "reg": "ALRMASSR"
+          },
+          {
+            "enum": "RTC_ALARMB",
+            "reg": "ALRMBSSR",
+            "ifdef": "STM32_RTC_ALARMB"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rtc_set_timestamp_mapping",
+      "signature": "{mapping}",
+      "reg": "OR",
+      "shift": 1,
+      "mask": "0x3",
+      "ifdef": "STM32_RTC_OR",
+      "args": {
+        "mapping": [
+          {
+            "enum": "RTC_TIMESTAMP_MAPPING_PC13",
+            "value": "0b00"
+          },
+          {
+            "enum": "RTC_TIMESTAMP_MAPPING_PI8",
+            "value": "0b01"
+          },
+          {
+            "enum": "RTC_TIMESTAMP_MAPPING_PC1",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "rtc_set_alarm_type",
+      "signature": "{type}",
+      "reg": "OR",
+      "shift": 3,
+      "ifdef": "STM32_RTC_OR",
+      "set": "RTC_ALARM_TYPE_PUSH_PULL",
+      "clear": "RTC_ALARM_TYPE_OPEN_DRAIN"
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "rtc_backup_data_write",
+      "signature": "{idx}, {val}"
+    },
+    {
+      "type": "fn_get (TODO)",
+      "fn": "rtc_backup_data_read",
+      "signature": "{idx}"
+    }
+  ]
+}

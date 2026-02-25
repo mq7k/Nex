@@ -1,0 +1,553 @@
+{
+  "periph": "FMPI2C1",
+  "path": "stm32/drivers/fmpi2c/fmpi2c_v1.h",
+  "struct": "fmpi2c_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c",
+      "reg": "CR1",
+      "shift": 0
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_interrupt",
+      "signature": "{periph}, {interrupt}",
+      "reg": "CR1",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "FMPI2C_INTERRUPT_TX",
+            "shift": 1
+          },
+          {
+            "enum": "FMPI2C_INTERRUPT_RX",
+            "shift": 2
+          },
+          {
+            "enum": "FMPI2C_INTERRUPT_ADDR_MATCH",
+            "shift": 3
+          },
+          {
+            "enum": "FMPI2C_INTERRUPT_NACK",
+            "shift": 4
+          },
+          {
+            "enum": "FMPI2C_INTERRUPT_STOP",
+            "shift": 5
+          },
+          {
+            "enum": "FMPI2C_INTERRUPT_TRANSFER_COMPLETE",
+            "shift": 6
+          },
+          {
+            "enum": "FMPI2C_INTERRUPT_ERR",
+            "shift": 7
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_digital_noise_filter",
+      "signature": "{periph}, {val}",
+      "reg": "CR1",
+      "shift": 8,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_analog_noise_filter",
+      "reg": "CR1",
+      "shift": 12,
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_dma_tx",
+      "reg": "CR1",
+      "shift": 14
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_dma_rx",
+      "reg": "CR1",
+      "shift": 15
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_target_byte",
+      "reg": "CR1",
+      "shift": 16
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_clock_stretching",
+      "reg": "CR1",
+      "shift": 17,
+      "options": [
+        "inverted"
+      ]
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_general_call",
+      "reg": "CR1",
+      "shift": 19
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_smbus_host_addr",
+      "reg": "CR1",
+      "shift": 20
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_smbus_device_default_addr",
+      "reg": "CR1",
+      "shift": 21
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_smbus_alert",
+      "reg": "CR1",
+      "shift": 22
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_pec",
+      "reg": "CR1",
+      "shift": 23
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_target_addr",
+      "signature": "{periph}, {val}",
+      "reg": "CR2",
+      "shift": 0,
+      "mask": "0x3ff"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "fmpi2c_set_transfer_direction",
+      "signature": "{periph}, {dir}",
+      "reg": "CR2",
+      "shift": 10,
+      "set": "FMPI2C_TRANSFER_DIR_READ",
+      "clear": "FMPI2C_TRANSFER_DIR_WRITE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "fmpi2c_set_addressing_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR2",
+      "shift": 11,
+      "set": "FMPI2C_ADDRESSING_MODE_10BIT",
+      "clear": "FMPI2C_ADDRESSING_MODE_7BIT"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "fmpi2c_set_10bit_addr_dir_change_seq",
+      "signature": "{periph}, {seq}",
+      "reg": "CR2",
+      "shift": 12,
+      "set": "FMPI2C_10BIT_ADDR_DIR_CHANGE_SEQ_HEADER_ONLY",
+      "clear": "FMPI2C_10BIT_ADDR_DIR_CHANGE_SEQ_FULL"
+    },
+    {
+      "type": "fn_call",
+      "fn": "fmpi2c_generate_start",
+      "reg": "CR2",
+      "shift": 13
+    },
+    {
+      "type": "fn_call",
+      "fn": "fmpi2c_generate_stop",
+      "reg": "CR2",
+      "shift": 14
+    },
+    {
+      "type": "fn_call",
+      "fn": "fmpi2c_generate_nack",
+      "reg": "CR2",
+      "shift": 15
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_transfer_bytes_count",
+      "signature": "{periph}, {val}",
+      "reg": "CR2",
+      "shift": 16,
+      "mask": "0xff"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "fmpi2c_set_reload_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR2",
+      "shift": 24,
+      "set": "FMPI2C_RELOAD_MODE_CONTINUE",
+      "clear": "FMPI2C_RELOAD_MODE_COMPLETE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "fmpi2c_set_end_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR2",
+      "shift": 25,
+      "set": "FMPI2C_END_MODE_AUTOMATIC",
+      "clear": "FMPI2C_END_MODE_SOFTWARE"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_pec_byte",
+      "reg": "CR2",
+      "shift": 26
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_interface_7bit_addr",
+      "signature": "{periph}, {addr}, {val}",
+      "shift": 1,
+      "mask": "0x7f",
+      "args": {
+        "addr": [
+          {
+            "enum": "FMPI2C_INTERFACE_ADDR1",
+            "reg": "OAR1"
+          },
+          {
+            "enum": "FMPI2C_INTERFACE_ADDR2",
+            "reg": "OAR2"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_interface_10bit_addr",
+      "signature": "{periph}, {val}",
+      "reg": "OAR1",
+      "shift": 0,
+      "mask": "0x3ff"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "fmpi2c_set_interface_addr1_type",
+      "signature": "{periph}, {type}",
+      "reg": "OAR1",
+      "shift": 10,
+      "set": "FMPI2C_INTERFACE_ADDR_TYPE_10BIT",
+      "clear": "FMPI2C_INTERFACE_ADDR_TYPE_7BIT"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_interface_addr",
+      "signature": "{periph}, {addr}",
+      "shift": 15,
+      "args": {
+        "addr": [
+          {
+            "enum": "FMPI2C_INTERFACE_ADDR1",
+            "reg": "OAR1"
+          },
+          {
+            "enum": "FMPI2C_INTERFACE_ADDR2",
+            "reg": "OAR2"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_interface_addr2_mask",
+      "signature": "{periph}, {val}",
+      "reg": "OAR2",
+      "shift": 8,
+      "mask": "0x7"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_scl_low_period",
+      "signature": "{periph}, {val}",
+      "reg": "TIMINGR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_scl_high_period",
+      "signature": "{periph}, {val}",
+      "reg": "TIMINGR",
+      "shift": 8,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_data_hold_time",
+      "signature": "{periph}, {val}",
+      "reg": "TIMINGR",
+      "shift": 16,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_data_setup_time",
+      "signature": "{periph}, {val}",
+      "reg": "TIMINGR",
+      "shift": 20,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_timing_prescaler",
+      "signature": "{periph}, {val}",
+      "reg": "TIMINGR",
+      "shift": 28,
+      "mask": "0xf"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_timeouta",
+      "signature": "{periph}, {val}",
+      "reg": "TIMEOUTR",
+      "shift": 0,
+      "mask": "0xfff"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_idle_clock_timeout",
+      "reg": "TIMEOUTR",
+      "shift": 12
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_clock_timeout",
+      "reg": "TIMEOUTR",
+      "shift": 15
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_set_timeoutb",
+      "signature": "{periph}, {val}",
+      "reg": "TIMEOUTR",
+      "shift": 16,
+      "mask": "0xfff"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "fmpi2c_extended_clock_timeout",
+      "reg": "TIMEOUTR",
+      "shift": 31,
+      "mask": "0xfff"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "fmpi2c_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "ISR",
+      "args": {
+        "flag": [
+          {
+            "enum": "FMPI2C_FLAG_TXE",
+            "shift": 0
+          },
+          {
+            "enum": "FMPI2C_FLAG_TXI",
+            "shift": 1
+          },
+          {
+            "enum": "FMPI2C_FLAG_RXNE",
+            "shift": 2
+          },
+          {
+            "enum": "FMPI2C_FLAG_ADDR_MATCH",
+            "shift": 3
+          },
+          {
+            "enum": "FMPI2C_FLAG_NACK",
+            "shift": 4
+          },
+          {
+            "enum": "FMPI2C_FLAG_STOP",
+            "shift": 5
+          },
+          {
+            "enum": "FMPI2C_FLAG_TRANSFER_COMPLETE",
+            "shift": 6
+          },
+          {
+            "enum": "FMPI2C_FLAG_TRANSFER_COMPLETE_RELOAD",
+            "shift": 7
+          },
+          {
+            "enum": "FMPI2C_FLAG_BUS_ERR",
+            "shift": 8
+          },
+          {
+            "enum": "FMPI2C_FLAG_ARBITRATION_LOST",
+            "shift": 9
+          },
+          {
+            "enum": "FMPI2C_FLAG_OVERRUN_UNDERRUN",
+            "shift": 10
+          },
+          {
+            "enum": "FMPI2C_FLAG_PEC_ERR",
+            "shift": 11
+          },
+          {
+            "enum": "FMPI2C_FLAG_TIMEOUT",
+            "shift": 12
+          },
+          {
+            "enum": "FMPI2C_FLAG_SMBUS_ALERT",
+            "shift": 13
+          },
+          {
+            "enum": "FMPI2C_FLAG_BUS_BUSY",
+            "shift": 15
+          },
+          {
+            "enum": "FMPI2C_FLAG_TRANSFER_DIRECTION",
+            "shift": 16
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "fmpi2c_get_addr_match_code",
+      "reg": "ISR",
+      "shift": 17,
+      "mask": "0x7f"
+    },
+    {
+      "type": "fn_call",
+      "fn": "fmpi2c_flush_tx",
+      "reg": "ISR",
+      "shift": 0,
+      "mask": "0x1"
+    },
+    {
+      "type": "fn_call",
+      "fn": "fmpi2c_generate_txis_event",
+      "reg": "ISR",
+      "shift": 1,
+      "mask": "0x1"
+    },
+    {
+      "type": "flag_clear",
+      "fn": "fmpi2c_flag_clear",
+      "signature": "{periph}, {flag}",
+      "clear_mode": "w1",
+      "reg": "ICR",
+      "args": {
+        "flag": [
+          {
+            "enum": "FMPI2C_FLAG_TXE",
+            "shift": 0,
+            "halt": true
+          },
+          {
+            "enum": "FMPI2C_FLAG_TXI",
+            "shift": 1,
+            "halt": true
+          },
+          {
+            "enum": "FMPI2C_FLAG_RXNE",
+            "shift": 2,
+            "halt": true
+          },
+          {
+            "enum": "FMPI2C_FLAG_ADDR_MATCH",
+            "shift": 3
+          },
+          {
+            "enum": "FMPI2C_FLAG_NACK",
+            "shift": 4
+          },
+          {
+            "enum": "FMPI2C_FLAG_STOP",
+            "shift": 5
+          },
+          {
+            "enum": "FMPI2C_FLAG_TRANSFER_COMPLETE",
+            "shift": 6,
+            "halt": true
+          },
+          {
+            "enum": "FMPI2C_FLAG_TRANSFER_COMPLETE_RELOAD",
+            "shift": 7,
+            "halt": true
+          },
+          {
+            "enum": "FMPI2C_FLAG_BUS_ERR",
+            "shift": 8
+          },
+          {
+            "enum": "FMPI2C_FLAG_ARBITRATION_LOST",
+            "shift": 9
+          },
+          {
+            "enum": "FMPI2C_FLAG_OVERRUN_UNDERRUN",
+            "shift": 10
+          },
+          {
+            "enum": "FMPI2C_FLAG_PEC_ERR",
+            "shift": 11
+          },
+          {
+            "enum": "FMPI2C_FLAG_TIMEOUT",
+            "shift": 12
+          },
+          {
+            "enum": "FMPI2C_FLAG_SMBUS_ALERT",
+            "shift": 13
+          },
+          {
+            "enum": "FMPI2C_FLAG_BUS_BUSY",
+            "shift": 14,
+            "halt": true
+          },
+          {
+            "enum": "FMPI2C_FLAG_TRANSFER_DIRECTION",
+            "shift": 15,
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "fmpi2c_get_pec",
+      "reg": "PECR",
+      "shift": 0,
+      "mask": "0xff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "fmpi2c_read_data",
+      "reg": "RXDR",
+      "shift": 0,
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "fmpi2c_write_data",
+      "signature": "{periph}, {val}",
+      "reg": "TXDR",
+      "shift": 0,
+      "options": [
+        "ioreg"
+      ]
+    }
+  ]
+}

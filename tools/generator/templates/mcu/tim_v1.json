@@ -1,0 +1,1493 @@
+{
+  "periph": "TIM1",
+  "path": "stm32/drivers/tim/tim_v1.h",
+  "struct": "tim_registers_map",
+  "functions": [
+    {
+      "type": "fn_toggle",
+      "fn": "tim_counter",
+      "reg": "CR1",
+      "shift": 0
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_update_event",
+      "reg": "CR1",
+      "shift": 1
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_update_request_event_source",
+      "signature": "{periph}, {source}",
+      "reg": "CR1",
+      "shift": 2,
+      "set": "TIM_UPDATE_REQUEST_SOURCE_ALL",
+      "clear": "TIM_UPDATE_REQUEST_SOURCE_COUNTER_AND_DMA"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_one_pulse_mode",
+      "reg": "CR1",
+      "shift": 3
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_counter_direction",
+      "signature": "{periph}, {direction}",
+      "reg": "CR1",
+      "shift": 4,
+      "set": "TIM_COUNTER_DIRECTION_DOWN",
+      "clear": "TIM_COUNTER_DIRECTION_UP"
+    },
+    {
+      "type": "fn_get",
+      "fn": "tim_get_counter_direction",
+      "reg": "CR1",
+      "shift": 4,
+      "mask": "0x1"
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_center_aligned_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 5,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "TIM_CENTER_ALIGNED_MODE_EDGE",
+            "value": "0b00"
+          },
+          {
+            "enum": "TIM_CENTER_ALIGNED_MODE_1",
+            "value": "0b01"
+          },
+          {
+            "enum": "TIM_CENTER_ALIGNED_MODE_2",
+            "value": "0b10"
+          },
+          {
+            "enum": "TIM_CENTER_ALIGNED_MODE_3",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_auto_reload_preload",
+      "reg": "CR1",
+      "shift": 7
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_clock_division",
+      "signature": "{periph}, {division}",
+      "reg": "CR1",
+      "shift": 8,
+      "mask": "0x3",
+      "args": {
+        "division": [
+          {
+            "enum": "TIM_CLOCK_DIVISION_NODIV",
+            "value": "0b00"
+          },
+          {
+            "enum": "TIM_CLOCK_DIVISION_DIV2",
+            "value": "0b01"
+          },
+          {
+            "enum": "TIM_CLOCK_DIVISION_DIV4",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_cc_preload",
+      "reg": "CR2",
+      "shift": 0
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_cc_update_trigger",
+      "signature": "{periph}, {trigger}",
+      "reg": "CR2",
+      "shift": 2,
+      "set": "TIM_UPDATE_TRIGGER_COMG_BIT_OR_TRGI",
+      "clear": "TIM_UPDATE_TRIGGER_COMG_BIT"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_cc_dma_request_source",
+      "signature": "{periph}, {source}",
+      "reg": "CR2",
+      "shift": 3,
+      "set": "TIM_CC_DMA_REQUEST_SOURCE_UPDATE_EVENT",
+      "clear": "TIM_CC_DMA_REQUEST_SOURCE_CC_EVENT"
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_master_mode_trigger",
+      "signature": "{periph}, {trigger}",
+      "reg": "CR2",
+      "shift": 4,
+      "mask": "0x7",
+      "args": {
+        "trigger": [
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_RESET",
+            "value": "0b000"
+          },
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_ENABLE",
+            "value": "0b001"
+          },
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_UPDATE",
+            "value": "0b010"
+          },
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_COMPARE_PULSE",
+            "value": "0b011"
+          },
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_COMPARE_OC1",
+            "value": "0b100"
+          },
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_COMPARE_OC2",
+            "value": "0b101"
+          },
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_COMPARE_OC3",
+            "value": "0b110"
+          },
+          {
+            "enum": "TIM_MASTER_MODE_TRIGGER_COMPARE_OC4",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_ti1_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR2",
+      "shift": 7,
+      "set": "TIM_TI1_MODE_XOR",
+      "clear": "TIM_TI1_MODE_DEFAULT"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_output_idle_state",
+      "signature": "{periph}, {output}, {state}",
+      "reg": "CR2",
+      "set": "TIM_OC_IDLE_STATE_HIGH",
+      "clear": "TIM_OC_IDLE_STATE_LOW",
+      "args": {
+        "output": [
+          {
+            "enum": "TIM_OC_OUTPUT_OIS1",
+            "shift": 8
+          },
+          {
+            "enum": "TIM_OC_OUTPUT_OIS1N",
+            "shift": 9
+          },
+          {
+            "enum": "TIM_OC_OUTPUT_OIS2",
+            "shift": 10
+          },
+          {
+            "enum": "TIM_OC_OUTPUT_OIS2N",
+            "shift": 11
+          },
+          {
+            "enum": "TIM_OC_OUTPUT_OIS3",
+            "shift": 12
+          },
+          {
+            "enum": "TIM_OC_OUTPUT_OIS3N",
+            "shift": 13
+          },
+          {
+            "enum": "TIM_OC_OUTPUT_OIS4",
+            "shift": 14
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_slave_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "SMCR",
+      "shift": 0,
+      "mask": "0x7",
+      "args": {
+        "mode": [
+          {
+            "enum": "TIM_SLAVE_MODE_DISABLED",
+            "value": "0b000"
+          },
+          {
+            "enum": "TIM_SLAVE_MODE_ENCODER_MODE_1",
+            "value": "0b001"
+          },
+          {
+            "enum": "TIM_SLAVE_MODE_ENCODER_MODE_2",
+            "value": "0b010"
+          },
+          {
+            "enum": "TIM_SLAVE_MODE_ENCODER_MODE_3",
+            "value": "0b011"
+          },
+          {
+            "enum": "TIM_SLAVE_MODE_RESET_MODE",
+            "value": "0b100"
+          },
+          {
+            "enum": "TIM_SLAVE_MODE_GATED_MODE",
+            "value": "0b101"
+          },
+          {
+            "enum": "TIM_SLAVE_MODE_TRIGGER_MODE",
+            "value": "0b110"
+          },
+          {
+            "enum": "TIM_SLAVE_MODE_EXTERNAL_CLOCK",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_input_trigger",
+      "signature": "{periph}, {trigger}",
+      "reg": "SMCR",
+      "shift": 4,
+      "mask": "0x7",
+      "args": {
+        "trigger": [
+          {
+            "enum": "TIM_INPUT_TRIGGER_INTERNAL_0",
+            "value": "0b000"
+          },
+          {
+            "enum": "TIM_INPUT_TRIGGER_INTERNAL_1",
+            "value": "0b001"
+          },
+          {
+            "enum": "TIM_INPUT_TRIGGER_INTERNAL_2",
+            "value": "0b010"
+          },
+          {
+            "enum": "TIM_INPUT_TRIGGER_INTERNAL_3",
+            "value": "0b011"
+          },
+          {
+            "enum": "TIM_INPUT_TRIGGER_TI1_EDGE",
+            "value": "0b100"
+          },
+          {
+            "enum": "TIM_INPUT_TRIGGER_FILTERED_INPUT_1",
+            "value": "0b101"
+          },
+          {
+            "enum": "TIM_INPUT_TRIGGER_FILTERED_INPUT_2",
+            "value": "0b110"
+          },
+          {
+            "enum": "TIM_INPUT_TRIGGER_EXTERNAL_TRIGGER",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_master_slave_sync",
+      "reg": "SMCR",
+      "shift": 7
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_external_trigger_filter",
+      "signature": "{periph}, {filter}",
+      "reg": "SMCR",
+      "shift": 8,
+      "mask": "0xf",
+      "args": {
+        "filter": [
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DISABLED",
+            "value": "0b0000"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_NODIV_N2",
+            "value": "0b0001"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_NODIV_N4",
+            "value": "0b0010"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_NODIV_N8",
+            "value": "0b0011"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV2_N6",
+            "value": "0b0100"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV2_N8",
+            "value": "0b0101"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV4_N6",
+            "value": "0b0110"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV4_N8",
+            "value": "0b0111"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV8_N6",
+            "value": "0b1000"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV8_N8",
+            "value": "0b1001"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV16_N5",
+            "value": "0b1010"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV16_N6",
+            "value": "0b1011"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV16_N8",
+            "value": "0b1100"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV32_N5",
+            "value": "0b1101"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV32_N6",
+            "value": "0b1110"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_FILTER_DIV32_N8",
+            "value": "0b1111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_external_trigger_prescaler",
+      "signature": "{periph}, {prescaler}",
+      "reg": "SMCR",
+      "shift": 12,
+      "mask": "0x3",
+      "args": {
+        "prescaler": [
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_PRESCALER_OFF",
+            "value": "0b00"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_PRESCALER_DIV2",
+            "value": "0b01"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_PRESCALER_DIV4",
+            "value": "0b10"
+          },
+          {
+            "enum": "TIM_EXTERNAL_TRIGGER_PRESCALER_DIV8",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_external_clock",
+      "reg": "SMCR",
+      "shift": 14
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_external_trigger_polarity",
+      "signature": "{periph}, {polarity}",
+      "reg": "SMCR",
+      "shift": 15,
+      "set": "TIM_EXTERNAL_TRIGGER_POLARITY_INVERTED",
+      "clear": "TIM_EXTERNAL_TRIGGER_POLARITY_NON_INVERTED"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_interrupt",
+      "signature": "{periph}, {interrupt}",
+      "reg": "DIER",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "TIM_INTERRUPT_UPDATE",
+            "shift": 0
+          },
+          {
+            "enum": "TIM_INTERRUPT_CC1",
+            "shift": 1
+          },
+          {
+            "enum": "TIM_INTERRUPT_CC2",
+            "shift": 2
+          },
+          {
+            "enum": "TIM_INTERRUPT_CC3",
+            "shift": 3
+          },
+          {
+            "enum": "TIM_INTERRUPT_CC4",
+            "shift": 4
+          },
+          {
+            "enum": "TIM_INTERRUPT_COM",
+            "shift": 5
+          },
+          {
+            "enum": "TIM_INTERRUPT_TRIGGER",
+            "shift": 6
+          },
+          {
+            "enum": "TIM_INTERRUPT_BREAK",
+            "shift": 7
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_dma_request",
+      "signature": "{periph}, {request}",
+      "reg": "DIER",
+      "args": {
+        "request": [
+          {
+            "enum": "TIM_DMA_MODE_UPDATE",
+            "shift": 8
+          },
+          {
+            "enum": "TIM_DMA_MODE_CC1",
+            "shift": 9
+          },
+          {
+            "enum": "TIM_DMA_MODE_CC2",
+            "shift": 10
+          },
+          {
+            "enum": "TIM_DMA_MODE_CC3",
+            "shift": 11
+          },
+          {
+            "enum": "TIM_DMA_MODE_CC4",
+            "shift": 12
+          },
+          {
+            "enum": "TIM_DMA_MODE_COM",
+            "shift": 13
+          },
+          {
+            "enum": "TIM_DMA_MODE_TRIGGER",
+            "shift": 14
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "tim_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "TIM_FLAG_UPDATE",
+            "shift": 0
+          },
+          {
+            "enum": "TIM_FLAG_CC1_INTERRUPT",
+            "shift": 1
+          },
+          {
+            "enum": "TIM_FLAG_CC2_INTERRUPT",
+            "shift": 2
+          },
+          {
+            "enum": "TIM_FLAG_CC3_INTERRUPT",
+            "shift": 3
+          },
+          {
+            "enum": "TIM_FLAG_CC4_INTERRUPT",
+            "shift": 4
+          },
+          {
+            "enum": "TIM_FLAG_COM",
+            "shift": 5
+          },
+          {
+            "enum": "TIM_FLAG_TRIGGER",
+            "shift": 6
+          },
+          {
+            "enum": "TIM_FLAG_BREAK",
+            "shift": 7
+          },
+          {
+            "enum": "TIM_FLAG_CC1_OVERCAPTURE",
+            "shift": 9
+          },
+          {
+            "enum": "TIM_FLAG_CC2_OVERCAPTURE",
+            "shift": 10
+          },
+          {
+            "enum": "TIM_FLAG_CC3_OVERCAPTURE",
+            "shift": 11
+          },
+          {
+            "enum": "TIM_FLAG_CC4_OVERCAPTURE",
+            "shift": 12
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "tim_flag_clear",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "clear_mode": "w0",
+      "args": {
+        "flag": [
+          {
+            "enum": "TIM_FLAG_UPDATE",
+            "shift": 0
+          },
+          {
+            "enum": "TIM_FLAG_CC1_INTERRUPT",
+            "shift": 1
+          },
+          {
+            "enum": "TIM_FLAG_CC2_INTERRUPT",
+            "shift": 2
+          },
+          {
+            "enum": "TIM_FLAG_CC3_INTERRUPT",
+            "shift": 3
+          },
+          {
+            "enum": "TIM_FLAG_CC4_INTERRUPT",
+            "shift": 4
+          },
+          {
+            "enum": "TIM_FLAG_COM",
+            "shift": 5
+          },
+          {
+            "enum": "TIM_FLAG_TRIGGER",
+            "shift": 6
+          },
+          {
+            "enum": "TIM_FLAG_BREAK",
+            "shift": 7
+          },
+          {
+            "enum": "TIM_FLAG_CC1_OVERCAPTURE",
+            "shift": 9
+          },
+          {
+            "enum": "TIM_FLAG_CC2_OVERCAPTURE",
+            "shift": 10
+          },
+          {
+            "enum": "TIM_FLAG_CC3_OVERCAPTURE",
+            "shift": 11
+          },
+          {
+            "enum": "TIM_FLAG_CC4_OVERCAPTURE",
+            "shift": 12
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "tim_trigger_event_generation",
+      "signature": "{periph}, {event}",
+      "reg": "EGR",
+      "clear_mode": "w1",
+      "args": {
+        "event": [
+          {
+            "enum": "TIM_EVENT_UPDATE",
+            "shift": 0
+          },
+          {
+            "enum": "TIM_EVENT_CC1",
+            "shift": 1
+          },
+          {
+            "enum": "TIM_EVENT_CC2",
+            "shift": 2
+          },
+          {
+            "enum": "TIM_EVENT_CC3",
+            "shift": 3
+          },
+          {
+            "enum": "TIM_EVENT_CC4",
+            "shift": 4
+          },
+          {
+            "enum": "TIM_EVENT_COM",
+            "shift": 5
+          },
+          {
+            "enum": "TIM_EVENT_TRIGGER",
+            "shift": 6
+          },
+          {
+            "enum": "TIM_EVENT_BREAK",
+            "shift": 7
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set (TODO)",
+      "fn": "tim_set_channel_direction",
+      "signature": "{periph}, {channel}, {direction}",
+      "mask": "0x3",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 0,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 8,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 0,
+            "reg": "CCMR2"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 8,
+            "reg": "CCMR2"
+          }
+        ],
+        "direction": [
+          {
+            "enum": "TIM_CHANNEL_DIRECTION_OUTPUT",
+            "value": "0b00"
+          },
+          {
+            "enum": "TIM_CHANNEL_DIRECTION_TI24",
+            "value": "0b01"
+          },
+          {
+            "enum": "TIM_CHANNEL_DIRECTION_TI13",
+            "value": "0b10"
+          },
+          {
+            "enum": "TIM_CHANNEL_DIRECTION_TRC",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_channel_ic_prescaler",
+      "signature": "{periph}, {channel}, {prescaler}",
+      "mask": "0x3",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 2,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 10,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 2,
+            "reg": "CCMR2"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 10,
+            "reg": "CCMR2"
+          }
+        ],
+        "prescaler": [
+          {
+            "enum": "TIM_IC_PRESCALER_NOSKIP",
+            "value": "0b00"
+          },
+          {
+            "enum": "TIM_IC_PRESCALER_SKIP_2",
+            "value": "0b01"
+          },
+          {
+            "enum": "TIM_IC_PRESCALER_SKIP_4",
+            "value": "0b10"
+          },
+          {
+            "enum": "TIM_IC_PRESCALER_SKIP_8",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_ic_filter",
+      "signature": "{periph}, {channel}, {filter}",
+      "mask": "0xf",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 4,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 12,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 4,
+            "reg": "CCMR2"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 12,
+            "reg": "CCMR2"
+          }
+        ],
+        "filter": [
+          {
+            "enum": "TIM_IC_FILTER_NOFILTER",
+            "value": "0b0000"
+          },
+          {
+            "enum": "TIM_IC_FILTER_NODIV_N2",
+            "value": "0b0001"
+          },
+          {
+            "enum": "TIM_IC_FILTER_NODIV_N4",
+            "value": "0b0010"
+          },
+          {
+            "enum": "TIM_IC_FILTER_NODIV_N8",
+            "value": "0b0011"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV2_N6",
+            "value": "0b0100"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV2_N8",
+            "value": "0b0101"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV4_N6",
+            "value": "0b0110"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV4_N8",
+            "value": "0b0111"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV8_N6",
+            "value": "0b1000"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV8_N8",
+            "value": "0b1001"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV16_N5",
+            "value": "0b1010"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV16_N6",
+            "value": "0b1011"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV16_N8",
+            "value": "0b1100"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV32_N5",
+            "value": "0b1101"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV32_N6",
+            "value": "0b1110"
+          },
+          {
+            "enum": "TIM_IC_FILTER_DIV32_N8",
+            "value": "0b1111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_oc_fast",
+      "signature": "{periph}, {channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 2,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 10,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 2,
+            "reg": "CCMR2"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 10,
+            "reg": "CCMR2"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_oc_preload",
+      "signature": "{periph}, {channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 3,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 11,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 3,
+            "reg": "CCMR2"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 11,
+            "reg": "CCMR2"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_oc_mode",
+      "signature": "{periph}, {channel}, {mode}",
+      "mask": "0x7",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 4,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 12,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 4,
+            "reg": "CCMR2"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 12,
+            "reg": "CCMR2"
+          }
+        ],
+        "mode": [
+          {
+            "enum": "TIM_OC_MODE_FROZEN",
+            "value": "0b000"
+          },
+          {
+            "enum": "TIM_OC_MODE_FORCED_HIGH",
+            "value": "0b001"
+          },
+          {
+            "enum": "TIM_OC_MODE_FORCED_LOW",
+            "value": "0b010"
+          },
+          {
+            "enum": "TIM_OC_MODE_TOGGLE",
+            "value": "0b011"
+          },
+          {
+            "enum": "TIM_OC_MODE_FORCE_INACTIVE",
+            "value": "0b100"
+          },
+          {
+            "enum": "TIM_OC_MODE_FORCE_ACTIVE",
+            "value": "0b101"
+          },
+          {
+            "enum": "TIM_OC_MODE_PWM1",
+            "value": "0b110"
+          },
+          {
+            "enum": "TIM_OC_MODE_PWM2",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_oc_clear",
+      "signature": "{periph}, {channel}",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 7,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 15,
+            "reg": "CCMR1"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 7,
+            "reg": "CCMR2"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 15,
+            "reg": "CCMR2"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_cc_channel",
+      "signature": "{periph}, {channel}",
+      "reg": "CCER",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 0
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 4
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 8
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 12
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_ic_channel_polarity",
+      "signature": "{periph}, {channel}, {polarity}",
+      "reg": "CCER",
+      "mask": "0x3",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 1
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 5
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 9
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 13
+          }
+        ],
+        "polarity": [
+          {
+            "enum": "TIM_IC_POLARITY_NON_INVERTED_RISING_EDGE",
+            "value": "0b00"
+          },
+          {
+            "enum": "TIM_IC_POLARITY_INVERTED_FALLING_EDGE",
+            "value": "0b01"
+          },
+          {
+            "enum": "TIM_IC_POLARITY_NON_INVERTED_BOTH",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_oc_channel_polarity",
+      "signature": "{periph}, {channel}, {polarity}",
+      "reg": "CCER",
+      "set": "TIM_OC_POLARITY_ACTIVE_LOW",
+      "clear": "TIM_OC_POLARITY_ACTIVE_HIGH",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 1
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 5
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 9
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 13
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_cc_channel_complementary_output",
+      "signature": "{periph}, {channel}",
+      "reg": "CCER",
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "shift": 2
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "shift": 6
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "shift": 10
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "shift": 14,
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_set_counter_value",
+      "signature": "{periph}, {val}",
+      "reg": "CNT",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "tim_get_counter_value",
+      "reg": "CNT",
+      "shift": 0
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_set_prescaler",
+      "signature": "{periph}, {val}",
+      "reg": "PSC",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "tim_get_prescaler",
+      "reg": "PSC",
+      "shift": 0
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_set_autoreload_value",
+      "signature": "{periph}, {val}",
+      "reg": "ARR",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "tim_get_autoreload_value",
+      "reg": "ARR",
+      "shift": 0
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_set_repetition_counter",
+      "signature": "{periph}, {val}",
+      "reg": "RCR",
+      "shift": 0,
+      "mask": "0xff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "tim_get_repetition_counter",
+      "reg": "RCR",
+      "shift": 0
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_set_cc_value",
+      "signature": "{periph}, {channel}, {val}",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ],
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "reg": "CCR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "reg": "CCR2"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "reg": "CCR3"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "reg": "CCR4"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "tim_get_cc_value",
+      "signature": "{periph}, {channel}",
+      "shift": 0,
+      "args": {
+        "channel": [
+          {
+            "enum": "TIM_CHANNEL1",
+            "reg": "CCR1"
+          },
+          {
+            "enum": "TIM_CHANNEL2",
+            "reg": "CCR2"
+          },
+          {
+            "enum": "TIM_CHANNEL3",
+            "reg": "CCR3"
+          },
+          {
+            "enum": "TIM_CHANNEL4",
+            "reg": "CCR4"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "tim_set_deadtime_generator",
+      "signature": "{periph}, {prescaler}, {val}",
+      "reg": "BDTR",
+      "shift": 0,
+      "mask": "0xff",
+      "args": {
+        "prescaler": [
+          {
+            "enum": "TIM_DEADTIME_FORMULA1",
+            "value": "0b000"
+          },
+          {
+            "enum": "TIM_DEADTIME_FORMULA2",
+            "value": "0b100"
+          },
+          {
+            "enum": "TIM_DEADTIME_FORMULA3",
+            "value": "0b110"
+          },
+          {
+            "enum": "TIM_DEADTIME_FORMULA4",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_set_dead_time_generator_value",
+      "signature": "{periph}, {val}",
+      "reg": "BDTR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_lock_configuration",
+      "signature": "{periph}, {config}",
+      "reg": "BDTR",
+      "shift": 8,
+      "mask": "0x3",
+      "args": {
+        "config": [
+          {
+            "enum": "TIM_LOCK_CONFIGURATION_OFF",
+            "value": "0b00"
+          },
+          {
+            "enum": "TIM_LOCK_CONFIGURATION_LVL1",
+            "value": "0b01"
+          },
+          {
+            "enum": "TIM_LOCK_CONFIGURATION_LVL2",
+            "value": "0b10"
+          },
+          {
+            "enum": "TIM_LOCK_CONFIGURATION_LVL3",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_idle_mode_off_state",
+      "signature": "{periph}, {state}",
+      "reg": "BDTR",
+      "shift": 10,
+      "set": "TIM_IDLE_MODE_OFF_STATE_FORCED",
+      "clear": "TIM_IDLE_MODE_OFF_STATE_OFF"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_run_mode_off_state",
+      "signature": "{periph}, {state}",
+      "reg": "BDTR",
+      "shift": 11,
+      "set": "TIM_RUN_MODE_OFF_STATE_FORCED",
+      "clear": "TIM_RUN_MODE_OFF_STATE_OFF"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_break_input",
+      "reg": "BDTR",
+      "shift": 12
+    },
+    {
+      "type": "bienum_set",
+      "fn": "tim_set_break_pin_polarity",
+      "signature": "{periph}, {polarity}",
+      "reg": "BDTR",
+      "shift": 13,
+      "set": "TIM_BREAK_PIN_POLARITY_ON",
+      "clear": "TIM_BREAK_PIN_POLARITY_OFF"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_automatic_output",
+      "reg": "BDTR",
+      "shift": 14
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "tim_main_output",
+      "reg": "BDTR",
+      "shift": 15
+    },
+    {
+      "type": "enum_set",
+      "fn": "tim_set_dma_base_address",
+      "signature": "{periph}, {register}",
+      "shift": 0,
+      "mask": "0x1f",
+      "reg": "DCR",
+      "args": {
+        "register": [
+          {
+            "enum": "TIM_REGISTER_CR1",
+            "value": "0b00000"
+          },
+          {
+            "enum": "TIM_REGISTER_CR2",
+            "value": "0b00001"
+          },
+          {
+            "enum": "TIM_REGISTER_SMCR",
+            "value": "0b00010"
+          },
+          {
+            "enum": "TIM_REGISTER_DIER",
+            "value": "0b00011"
+          },
+          {
+            "enum": "TIM_REGISTER_SR",
+            "value": "0b00100"
+          },
+          {
+            "enum": "TIM_REGISTER_EGR",
+            "value": "0b00101"
+          },
+          {
+            "enum": "TIM_REGISTER_CCMR1",
+            "value": "0b00110"
+          },
+          {
+            "enum": "TIM_REGISTER_CCMR2",
+            "value": "0b00111"
+          },
+          {
+            "enum": "TIM_REGISTER_CCER",
+            "value": "0b01000"
+          },
+          {
+            "enum": "TIM_REGISTER_CNT",
+            "value": "0b01001"
+          },
+          {
+            "enum": "TIM_REGISTER_PSC",
+            "value": "0b01010"
+          },
+          {
+            "enum": "TIM_REGISTER_ARR",
+            "value": "0b01011"
+          },
+          {
+            "enum": "TIM_REGISTER_RCR",
+            "value": "0b01100"
+          },
+          {
+            "enum": "TIM_REGISTER_CCR1",
+            "value": "0b01101"
+          },
+          {
+            "enum": "TIM_REGISTER_CCR2",
+            "value": "0b01110"
+          },
+          {
+            "enum": "TIM_REGISTER_CCR3",
+            "value": "0b01111"
+          },
+          {
+            "enum": "TIM_REGISTER_CCR4",
+            "value": "0b10000"
+          },
+          {
+            "enum": "TIM_REGISTER_BDTR",
+            "value": "0b10001"
+          },
+          {
+            "enum": "TIM_REGISTER_DCR",
+            "value": "0b10010"
+          },
+          {
+            "enum": "TIM_REGISTER_DMAR",
+            "value": "0b10011"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_set_dma_burst_length",
+      "signature": "{periph}, {val}",
+      "reg": "DCR",
+      "shift": 8,
+      "mask": "0x1f"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "tim_dma_burst_access_reg_write",
+      "signature": "{periph}, {val}",
+      "reg": "DMAR",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "tma_dma_burst_access_reg_read",
+      "reg": "DMAR",
+      "shift": 0
+    }
+  ]
+}

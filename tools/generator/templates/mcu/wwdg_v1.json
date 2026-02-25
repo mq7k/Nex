@@ -1,0 +1,88 @@
+{
+  "periph": "WWDG",
+  "path": "stm32/drivers/wwdg/wwdg_v1.h",
+  "struct": "wwdg_registers_map",
+  "functions": [ 
+    {
+      "type": "fn_set_value",
+      "fn": "wwdg_set_counter",
+      "signature": "{val}",
+      "reg": "CR",
+      "shift": 0,
+      "mask": "0x7f"
+    },
+    {
+      "type": "fn_get",
+      "fn": "wwdg_get_counter",
+      "signature": "",
+      "reg": "CR",
+      "shift": 0,
+      "mask": "0x7f"
+    },
+    {
+      "type": "fn_call",
+      "fn": "wwdg_start",
+      "signature": "",
+      "reg": "CR",
+      "shift": 7
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "wwdg_set_upper_threshold",
+      "signature": "{val}",
+      "reg": "CFR",
+      "shift": 0,
+      "mask": "0x7f"
+    },
+    {
+      "type": "enum_set",
+      "fn": "wwdg_set_prescaler",
+      "signature": "{prescaler}",
+      "reg": "CFR",
+      "shift": 7,
+      "mask": "0x3",
+      "args": {
+        "prescaler": [
+          {
+            "enum": "WWDG_PRESCALER_DIV1",
+            "value": "0b00"
+          },
+          {
+            "enum": "WWDG_PRESCALER_DIV2",
+            "value": "0b01"
+          },
+          {
+            "enum": "WWDG_PRESCALER_DIV4",
+            "value": "0b10"
+          },
+          {
+            "enum": "WWDG_PRESCALER_DIV8",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "wwdg_early_wakeup_interrupt",
+      "signature": "",
+      "reg": "CFR",
+      "shift": 9
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "wwdg_is_early_wakeup_interrupt_flag_set",
+      "signature": "",
+      "reg": "SR",
+      "shift": 0
+    },
+    {
+      "type": "flag_clear",
+      "fn": "wwdg_early_wakeup_interrupt_flag_clear",
+      "signature": "",
+      "reg": "SR",
+      "shift": 0,
+      "clear_mode": "w0"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+function(syn_log level message)
+  message(${level} "[Syn] ${message}")
+endfunction()
+
+function(syn_any_in_list list_a list_b result)
+  set(${result} FALSE PARENT_SCOPE)
+  foreach (item IN LISTS ${list_a})
+    if (item IN_LIST ${list_b})
+      set(${result} TRUE PARENT_SCOPE)
+      return()
+    endif()
+  endforeach()
+endfunction()

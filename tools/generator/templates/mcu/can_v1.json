@@ -1,0 +1,1094 @@
+{
+  "periph": "CAN1",
+  "path": "stm32/drivers/can/can_v1.h",
+  "struct": "can_registers_map",
+  "functions": [
+    {
+      "type": "bienum_set",
+      "fn": "can_set_hardware_mode",
+      "reg": "MCR",
+      "signature": "{periph}, {mode}",
+      "set": "CAN_HARDWARE_MODE_INIT",
+      "clear": "CAN_HARDWARE_MODE_NORMAL",
+      "shift": 0
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "can_sleep_mode",
+      "reg": "MCR",
+      "shift": 1
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_tx_fifo_priority",
+      "signature": "{periph}, {priority}",
+      "reg": "MCR",
+      "shift": 2,
+      "set": "CAN_TX_FIFO_PRIORTY_REQUEST_ORDER",
+      "clear": "CAN_TX_FIFO_PRIORTY_MESSAGE_IDENTIFIER"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_rx_fifo_locked_mode",
+      "signature": "{periph}, {toggleenum}",
+      "reg": "MCR",
+      "shift": 3,
+      "set": "CAN_RX_FIFO_LOCKED_MODE_DISCARD",
+      "clear": "CAN_RX_FIFO_LOCKED_MODE_OVERRIDE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_automatic_transmission_policy",
+      "signature": "{periph}, {toggleenum}",
+      "reg": "MCR",
+      "shift": 4,
+      "set": "CAN_AUTOMATIC_TRANSMISSION_POLICY_ONCE",
+      "clear": "CAN_AUTOMATIC_TRANSMISSION_POLICY_REPEATED"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_automatic_wakeup_mode",
+      "signature": "{periph}, {toggleenum}",
+      "reg": "MCR",
+      "shift": 5,
+      "set": "CAN_AUTOMATIC_WAKEUP_MODE_HARDWARE",
+      "clear": "CAN_AUTOMATIC_WAKEUP_MODE_SOFTWARE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_automatic_bus_off",
+      "signature": "{periph}, {toggleenum}",
+      "reg": "MCR",
+      "shift": 6,
+      "set": "CAN_BUS_OFF_MANAGEMENT_HARDWARE",
+      "clear": "CAN_BUS_OFF_MANAGEMENT_SOFTWARE"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "can_time_triggered_communication",
+      "reg": "MCR",
+      "shift": 7
+    },
+    {
+      "type": "fn_call",
+      "fn": "can_software_reset",
+      "reg": "MCR",
+      "shift": 15
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_debug_freeze",
+      "signature": "{periph}, {freeze}",
+      "reg": "MCR",
+      "shift": 16,
+      "set": "CAN_DEBUG_FREEZE_FROZEN",
+      "clear": "CAN_DEBUG_FREEZE_UNFROZEN"
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "can_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "MSR",
+      "args": {
+        "flag": [
+          {
+            "enum": "CAN_FLAG_INIT_ACK",
+            "shift": 0
+          },
+          {
+            "enum": "CAN_FLAG_SLEEP_ACK",
+            "shift": 1
+          },
+          {
+            "enum": "CAN_FLAG_ERROR_INTERRUPT",
+            "shift": 2
+          },
+          {
+            "enum": "CAN_FLAG_WAKEUP_INTERRUPT",
+            "shift": 3
+          },
+          {
+            "enum": "CAN_FLAG_SLEEP_ACK_INTERRUPT",
+            "shift": 4
+          },
+          {
+            "enum": "CAN_FLAG_TX_MODE",
+            "shift": 8
+          },
+          {
+            "enum": "CAN_FLAG_RX_MODE",
+            "shift": 9
+          },
+          {
+            "enum": "CAN_FLAG_LAST_SAMPLE_POINT",
+            "shift": 10
+          },
+          {
+            "enum": "CAN_FLAG_RX_SIGNAL",
+            "shift": 11
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "can_flag_clear",
+      "signature": "{periph}, {flag}",
+      "reg": "MSR",
+      "clear_mode": "w1",
+      "args": {
+        "flag": [
+          {
+            "enum": "CAN_FLAG_INIT_ACK",
+            "shift": 0,
+            "halt": true
+          },
+          {
+            "enum": "CAN_FLAG_SLEEP_ACK",
+            "shift": 1,
+            "halt": true
+          },
+          {
+            "enum": "CAN_FLAG_ERROR_INTERRUPT",
+            "shift": 2
+          },
+          {
+            "enum": "CAN_FLAG_WAKEUP_INTERRUPT",
+            "shift": 3
+          },
+          {
+            "enum": "CAN_FLAG_SLEEP_ACK_INTERRUPT",
+            "shift": 4
+          },
+          {
+            "enum": "CAN_FLAG_TX_MODE",
+            "shift": 8,
+            "halt": true
+          },
+          {
+            "enum": "CAN_FLAG_RX_MODE",
+            "shift": 9,
+            "halt": true
+          },
+          {
+            "enum": "CAN_FLAG_LAST_SAMPLE_POINT",
+            "shift": 10,
+            "halt": true
+          },
+          {
+            "enum": "CAN_FLAG_RX_SIGNAL",
+            "shift": 11,
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "can_is_mailbox_flag_set",
+      "signature": "{periph}, {mailbox}, {flag}",
+      "reg": "TSR",
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "shift": 0
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "shift": 8
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "shift": 16
+          }
+        ],
+        "flag": [
+          {
+            "enum": "CAN_MAILBOX_FLAG_REQUEST_COMPLETED",
+            "shift": "+0"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_TRANSMISSION_OK",
+            "shift": "+1"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_ARBITRACTION_LOST",
+            "shift": "+2"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_TRANSMISSION_ERROR",
+            "shift": "+3"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_ABORT_REQUEST",
+            "shift": "+7"
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "can_mailbox_flag_clear",
+      "signature": "{periph}, {mailbox}, {flag}",
+      "reg": "TSR",
+      "clear_mode": "w1",
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "shift": 0
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "shift": 8
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "shift": 16
+          }
+        ],
+        "flag": [
+          {
+            "enum": "CAN_MAILBOX_FLAG_REQUEST_COMPLETED",
+            "shift": "+0"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_TRANSMISSION_OK",
+            "shift": "+1"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_ARBITRACTION_LOST",
+            "shift": "+2"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_TRANSMISSION_ERROR",
+            "shift": "+3"
+          },
+          {
+            "enum": "CAN_MAILBOX_FLAG_ABORT_REQUEST",
+            "shift": "+7",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_mailbox_code",
+      "reg": "TSR",
+      "shift": 24,
+      "mask": "0x3"
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_fifo_pending_messages_count",
+      "signature": "{periph}, {fifo}",
+      "reg": "RF0R",
+      "shift": 0,
+      "mask": "0x3",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "RF0R"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "RF1R"
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "can_is_fifo_flag_set",
+      "signature": "{periph}, {fifo}, {flag}",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "RF0R"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "RF1R"
+          }
+        ],
+        "flag": [
+          {
+            "enum": "CAN_FIFO_FLAG_FULL",
+            "shift": 3
+          },
+          {
+            "enum": "CAN_FIFO_FLAG_OVERRUN",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_clear",
+      "fn": "can_fifo_flag_clear",
+      "clear_mode": "w1",
+      "signature": "{periph}, {fifo}, {flag}",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "RF0R"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "RF1R"
+          }
+        ],
+        "flag": [
+          {
+            "enum": "CAN_FIFO_FLAG_FULL",
+            "shift": 3
+          },
+          {
+            "enum": "CAN_FIFO_FLAG_OVERRUN",
+            "shift": 4
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call",
+      "fn": "can_fifo_release",
+      "signature": "{periph}, {fifo}",
+      "shift": 5,
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "value": 1,
+            "reg": "RF0R"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "value": 1,
+            "reg": "RF1R"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_toggle",
+      "fn": "can_interrupt",
+      "test_fn": "{fn}_toggle",
+      "signature": "{periph}, {interrupt}",
+      "reg": "IER",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "CAN_INTERRUPT_TX_MAILBOX_EMPTY",
+            "shift": 0
+          },
+          {
+            "enum": "CAN_INTERRUPT_FIFO0_MESSAGE_PENDING",
+            "shift": 1
+          },
+          {
+            "enum": "CAN_INTERRUPT_FIFO0_FULL",
+            "shift": 2
+          },
+          {
+            "enum": "CAN_INTERRUPT_FIFO0_OVERRUN",
+            "shift": 3
+          },
+          {
+            "enum": "CAN_INTERRUPT_FIFO1_MESSAGE_PENDING",
+            "shift": 4
+          },
+          {
+            "enum": "CAN_INTERRUPT_FIFO1_FULL",
+            "shift": 5
+          },
+          {
+            "enum": "CAN_INTERRUPT_FIFO1_OVERRUN",
+            "shift": 6
+          },
+          {
+            "enum": "CAN_INTERRUPT_ERROR_WARNING",
+            "shift": 8
+          },
+          {
+            "enum": "CAN_INTERRUPT_ERROR_PASSIVE",
+            "shift": 9
+          },
+          {
+            "enum": "CAN_INTERRUPT_BUS_OFF",
+            "shift": 10
+          },
+          {
+            "enum": "CAN_INTERRUPT_LAST_ERROR_CODE",
+            "shift": 11
+          },
+          {
+            "enum": "CAN_INTERRUPT_ERROR",
+            "shift": 15
+          },
+          {
+            "enum": "CAN_INTERRUPT_WAKEUP",
+            "shift": 16
+          },
+          {
+            "enum": "CAN_INTERRUPT_SLEEP",
+            "shift": 17
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "can_is_error_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "ESR",
+      "args": {
+        "flag": [
+          {
+            "enum": "CAN_ERROR_FLAG_ERROR_WARNING",
+            "shift": 0
+          },
+          {
+            "enum": "CAN_ERROR_FLAG_ERROR_PASSIVE",
+            "shift": 1
+          },
+          {
+            "enum": "CAN_ERROR_FLAG_BUS_OFF",
+            "shift": 2
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_last_error_code",
+      "reg": "ESR",
+      "shift": 4,
+      "mask": "0x7"
+    },
+    {
+      "type": "fn_call",
+      "fn": "can_last_error_code_reset",
+      "reg": "ESR",
+      "shift": 4,
+      "args": {
+        "val": [
+          {
+            "enum": "foo (Should not be present)",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_transmit_error_counter",
+      "reg": "ESR",
+      "shift": 16,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_receive_error_counter",
+      "reg": "ESR",
+      "shift": 24,
+      "mask": "0xff"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_baudrate",
+      "signature": "{periph}, {val}",
+      "reg": "BTR",
+      "shift": 0,
+      "mask": "0x3ff",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3ff"
+          },
+          {
+            "value": "0x400",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_time_segment1",
+      "signature": "{periph}, {val}",
+      "reg": "BTR",
+      "shift": 16,
+      "mask": "0xf",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xf"
+          },
+          {
+            "value": "0x10",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_time_segment2",
+      "signature": "{periph}, {val}",
+      "reg": "BTR",
+      "shift": 20,
+      "mask": "0x7",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x7"
+          },
+          {
+            "value": "0x8",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_resync_jump_width",
+      "signature": "{periph}, {val}",
+      "reg": "BTR",
+      "shift": 24,
+      "mask": "0x3",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3"
+          },
+          {
+            "value": "0x4",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "can_loopback_mode",
+      "reg": "BTR",
+      "shift": 30
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "can_silent_mode",
+      "reg": "BTR",
+      "shift": 31
+    },
+    {
+      "type": "enum_set",
+      "fn": "can_mailbox_transmit_request",
+      "signature": "{periph}, {mailbox}",
+      "shift": 0,
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TIR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TIR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TIR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_tx_fifo_transmit",
+      "signature": "{periph}, {mailbox}, {request}",
+      "set": "CAN_REMOTE_TRANSMISSION_REQUEST_REMOTE",
+      "clear": "CAN_REMOTE_TRANSMISSION_REQUEST_DATA",
+      "shift": 1,
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TIR",
+            "ifdef": "bar"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TIR",
+            "ifdef": "buzz"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TIR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_tx_fifo_identifier_type",
+      "signature": "{periph}, {mailbox}, {type}",
+      "set": "CAN_IDENTIFIER_TYPE_EXTENDED",
+      "clear": "CAN_IDENTIFIER_TYPE_STANDARD",
+      "shift": 2,
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TIR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TIR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TIR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value (TODO)",
+      "fn": "can_set_tx_fifo_identifier",
+      "signature": "{periph}, {mailbox}, {type}, {val}",
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TIR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TIR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TIR"
+          }
+        ],
+        "type": [
+          {
+            "enum": "CAN_IDENTIFIER_TYPE_STANDARD",
+            "shift": 21,
+            "mask": "0x7ff"
+          },
+          {
+            "enum": "CAN_IDENTIFIER_TYPE_EXTENDED",
+            "shift": 3,
+            "mask": "0x1fffffff"
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3ffff"
+          },
+          {
+            "value": "0x40000"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_data_length",
+      "signature": "{periph}, {mailbox}, {val}",
+      "mask": "0xf",
+      "shift": 0,
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TDTR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TDTR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TDTR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "can_transmit_global_time",
+      "signature": "{periph}, {mailbox}",
+      "shift": "8",
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TDTR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TDTR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TDTR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_message_timestamp",
+      "signature": "{periph}, {mailbox}, {val}",
+      "shift": 16,
+      "mask": "0xffff",
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TDTR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TDTR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TDTR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_message_data_low",
+      "signature": "{periph}, {mailbox}, {val}",
+      "shift": 0,
+      "mask": "0xffffffff",
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TDLR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TDLR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TDLR"
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_message_data_high",
+      "signature": "{periph}, {mailbox}, {val}",
+      "shift": 0,
+      "mask": "0xffffffff",
+      "args": {
+        "mailbox": [
+          {
+            "enum": "CAN_MAILBOX0",
+            "reg": "mailboxes[0].TDHR"
+          },
+          {
+            "enum": "CAN_MAILBOX1",
+            "reg": "mailboxes[1].TDHR"
+          },
+          {
+            "enum": "CAN_MAILBOX2",
+            "reg": "mailboxes[2].TDHR"
+          }
+        ],
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xffffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_transmit",
+      "signature": "{periph}, {fifo}",
+      "shift": 1,
+      "mask": "0x1",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RIR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RIR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_identifier_type",
+      "signature": "{periph}, {fifo}",
+      "shift": 2,
+      "mask": "0x1",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RIR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RIR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_identifier",
+      "signature": "{periph}, {fifo}, {type}",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RIR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RIR"
+          }
+        ],
+        "type": [
+          {
+            "enum": "CAN_IDENTIFIER_TYPE_STANDARD",
+            "shift": 21,
+            "mask": "0x7ff"
+          },
+          {
+            "enum": "CAN_IDENTIFIER_TYPE_EXTENDED",
+            "shift": 3,
+            "mask": "0x1fffffff"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_data_length",
+      "signature": "{periph}, {fifo}",
+      "shift": 0,
+      "mask": "0xf",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RDTR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RDTR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_filter_match_index",
+      "signature": "{periph}, {fifo}",
+      "shift": 8,
+      "mask": "0xff",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RDTR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RDTR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_message_timestamp",
+      "signature": "{periph}, {fifo}",
+      "shift": 16,
+      "mask": "0xffff",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RDTR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RDTR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_message_data_low",
+      "signature": "{periph}, {fifo}",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RDLR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RDLR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_get",
+      "fn": "can_get_rx_fifo_message_data_high",
+      "signature": "{periph}, {fifo}",
+      "args": {
+        "fifo": [
+          {
+            "enum": "CAN_FIFO0",
+            "reg": "recv[0].RDHR"
+          },
+          {
+            "enum": "CAN_FIFO1",
+            "reg": "recv[1].RDHR"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "can_set_filter_banks_mode",
+      "signature": "{periph}, {mode}",
+      "set": "CAN_FILTER_BANKS_MODE_INIT",
+      "clear": "CAN_FILTER_BANKS_MODE_ACTIVE",
+      "shift": 0,
+      "reg": "FMR"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "can_set_start_bank",
+      "signature": "{periph}, {val}",
+      "reg": "FMR",
+      "shift": 8,
+      "mask": "0x3f",
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0x3f"
+          },
+          {
+            "value": "0x40",
+            "halt": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "bitmap",
+      "fn": "can_set_filter_mode",
+      "signature": "{periph}, {filter}, {mode}",
+      "reg": "FM1R",
+      "bits": {
+        "name": "filter",
+        "min": 0,
+        "max": 27
+      },
+      "set": "CAN_FILTER_MODE_IDENTIFIER_LIST",
+      "clear": "CAN_FILTER_MODE_IDENTIFIER_MASK"
+    },
+    {
+      "type": "bitmap",
+      "fn": "can_set_filter_scale",
+      "signature": "{periph}, {filter}, {scale}",
+      "reg": "FS1R",
+      "bits": {
+        "name": "filter",
+        "min": 0,
+        "max": 27
+      },
+      "set": "CAN_FILTER_SCALE_SINGLE_32BITS",
+      "clear": "CAN_FILTER_SCALE_DUAL_16BITS"
+    },
+    {
+      "type": "bitmap",
+      "fn": "can_set_fifo_filter_assignment",
+      "signature": "{periph}, {filter}, {assignment}",
+      "reg": "FFA1R",
+      "bits": {
+        "name": "filter",
+        "min": 0,
+        "max": 27
+      },
+      "set": "CAN_FIFO_FILTER_ASSIGNEMENT_FIFO1",
+      "clear": "CAN_FIFO_FILTER_ASSIGNEMENT_FIFO0"
+    },
+    {
+      "type": "bitmap",
+      "fn": "can_filter",
+      "test_fn": "{fn}_toggle",
+      "signature": "{periph}, {filter}",
+      "reg": "FA1R",
+      "bits": {
+        "name": "filter",
+        "min": 0,
+        "max": 27
+      },
+      "set": "CAN_FILTER_ACTIVE",
+      "clear": "CAN_FILTER_OFF",
+      "options": [
+        "toggle"
+      ]
+    }
+  ]
+}

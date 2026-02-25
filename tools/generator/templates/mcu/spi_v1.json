@@ -1,0 +1,450 @@
+{
+  "periph": "SPI1",
+  "path": "stm32/drivers/spi/spi_v1.h",
+  "struct": "spi_registers_map",
+  "functions": [
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_clock_phase",
+      "signature": "{periph}, {phase}",
+      "reg": "CR1",
+      "shift": 0,
+      "set": "SPI_CLOCK_PHASE_SECOND_TRANSITION",
+      "clear": "SPI_CLOCK_PHASE_FIRST_TRANSITION"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_clock_polarity",
+      "signature": "{periph}, {polarity}",
+      "reg": "CR1",
+      "shift": 1,
+      "set": "SPI_CLOCK_POLARITY_HIGH_ON_IDLE",
+      "clear": "SPI_CLOCK_POLARITY_LOW_ON_IDLE"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_role",
+      "signature": "{periph}, {role}",
+      "reg": "CR1",
+      "shift": 2,
+      "set": "SPI_ROLE_MASTER",
+      "clear": "SPI_ROLE_SLAVE"
+    },
+    {
+      "type": "enum_set",
+      "fn": "spi_set_baudrate_control",
+      "signature": "{periph}, {control}",
+      "reg": "CR1",
+      "shift": 3,
+      "mask": "0x7",
+      "args": {
+        "control": [
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV2",
+            "value": "0b000"
+          },
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV4",
+            "value": "0b001"
+          },
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV8",
+            "value": "0b010"
+          },
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV16",
+            "value": "0b011"
+          },
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV32",
+            "value": "0b100"
+          },
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV64",
+            "value": "0b101"
+          },
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV128",
+            "value": "0b110"
+          },
+          {
+            "enum": "SPI_BAUDRATE_CONTROL_DIV256",
+            "value": "0b111"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi",
+      "reg": "CR1",
+      "shift": 6
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_frame_format",
+      "signature": "{periph}, {format}",
+      "reg": "CR1",
+      "shift": 7,
+      "set": "SPI_FRAME_FORMAT_LSB_FIRST",
+      "clear": "SPI_FRAME_FORMAT_MSB_FIRST"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_internal_slave_select",
+      "signature": "{periph}",
+      "reg": "CR1",
+      "shift": 8
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_software_slave_management",
+      "signature": "{periph}",
+      "reg": "CR1",
+      "shift": 9
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_unidirectional_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 10,
+      "set": "SPI_UNIDIRECTIONAL_MODE_RX_ONLY",
+      "clear": "SPI_UNIDIRECTIONAL_MODE_TX_RX"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_data_frame_format",
+      "signature": "{periph}, {format}",
+      "reg": "CR1",
+      "shift": 11,
+      "set": "SPI_DATA_FRAME_FORMAT_16BITS",
+      "clear": "SPI_DATA_FRAME_FORMAT_8BITS"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_crc_transfer_next",
+      "signature": "{periph}",
+      "reg": "CR1",
+      "shift": 12
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_hardware_crc",
+      "signature": "{periph}",
+      "reg": "CR1",
+      "shift": 13
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_bidirectional_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 14,
+      "set": "SPI_BIDIRECTIONAL_MODE_TX_ONLY",
+      "clear": "SPI_BIDIRECTIONAL_MODE_RX_ONLY"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_communication_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "CR1",
+      "shift": 15,
+      "set": "SPI_COMMUNICATION_MODE_1LINE",
+      "clear": "SPI_COMMUNICATION_MODE_2LINES"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_dma_rx",
+      "signature": "{periph}",
+      "reg": "CR2",
+      "shift": 0
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_dma_tx",
+      "signature": "{periph}",
+      "reg": "CR2",
+      "shift": 1
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_slave_select",
+      "signature": "{periph}",
+      "reg": "CR2",
+      "shift": 2
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_frame_standard",
+      "signature": "{periph}, {standard}",
+      "reg": "CR2",
+      "shift": 4,
+      "set": "SPI_FRAME_STANDARD_TI",
+      "clear": "SPI_FRAME_STANDARD_MOTOROLA",
+      "ifdef": "STM32_SPI_FRAME_STANDARD"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_interrupt",
+      "signature": "{periph}, {interrupt}",
+      "reg": "CR2",
+      "args": {
+        "interrupt": [
+          {
+            "enum": "SPI_INTERRUPT_ERROR",
+            "shift": 5
+          },
+          {
+            "enum": "SPI_INTERRUPT_RX_BUF_NOT_EMPTY",
+            "shift": 6
+          },
+          {
+            "enum": "SPI_INTERRUPT_TX_BUF_EMPTY",
+            "shift": 7
+          }
+        ]
+      }
+    },
+    {
+      "type": "flag_is_set",
+      "fn": "spi_is_flag_set",
+      "signature": "{periph}, {flag}",
+      "reg": "SR",
+      "args": {
+        "flag": [
+          {
+            "enum": "SPI_FLAG_RX_BUF_NOT_EMPTY",
+            "shift": 0
+          },
+          {
+            "enum": "SPI_FLAG_TX_BUF_EMPTY",
+            "shift": 1
+          },
+          {
+            "enum": "SPI_FLAG_CHANNEL_RIGHT_TX",
+            "shift": 2
+          },
+          {
+            "enum": "SPI_FLAG_UNDERRUN",
+            "shift": 3
+          },
+          {
+            "enum": "SPI_FLAG_CRC_ERROR",
+            "shift": 4
+          },
+          {
+            "enum": "SPI_FLAG_MODE_FAULT",
+            "shift": 5
+          },
+          {
+            "enum": "SPI_FLAG_OVERRUN",
+            "shift": 6
+          },
+          {
+            "enum": "SPI_FLAG_BUSY",
+            "shift": 7
+          },
+          {
+            "enum": "SPI_FLAG_FRAME_ERROR",
+            "shift": 8,
+            "ifdef": "STM32_SPI_FRAME_STANDARD"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_call (TODO)",
+      "fn": "spi_crc_error_flag_clear",
+      "reg": "SR",
+      "shift": 4
+    },
+    {
+      "type": "fn_get",
+      "fn": "spi_data_read",
+      "reg": "DR"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "spi_data_write",
+      "signature": "{periph}, {val}",
+      "reg": "DR"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "spi_set_crc_polynomial",
+      "signature": "{periph}, {val}",
+      "reg": "CRCPR",
+      "shift": 0,
+      "mask": "0xffff",
+      "options": [
+        "ioreg"
+      ]
+    },
+    {
+      "type": "fn_get",
+      "fn": "spi_get_rx_crc",
+      "signature": "{periph}",
+      "reg": "RXCRCR"
+    },
+    {
+      "type": "fn_get",
+      "fn": "spi_get_tx_crc",
+      "signature": "{periph}",
+      "reg": "TXCRCR"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_channel_length",
+      "signature": "{periph}, {length}",
+      "reg": "I2SCFGR",
+      "shift": 0,
+      "set": "SPI_CHANNEL_LENGTH_32BITS",
+      "clear": "SPI_CHANNEL_LENGTH_16BITS"
+    },
+    {
+      "type": "enum_set",
+      "fn": "spi_set_data_length",
+      "signature": "{periph}, {length}",
+      "reg": "I2SCFGR",
+      "shift": 1,
+      "mask": "0x3",
+      "args": {
+        "length": [
+          {
+            "enum": "SPI_DATA_LENGTH_16BITS",
+            "value": "0b00"
+          },
+          {
+            "enum": "SPI_DATA_LENGTH_24BITS",
+            "value": "0b01"
+          },
+          {
+            "enum": "SPI_DATA_LENGTH_32BITS",
+            "value": "0b10"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_i2s_steady_clock_polarity",
+      "signature": "{periph}, {polarity}",
+      "reg": "I2SCFGR",
+      "shift": 3,
+      "set": "SPI_I2S_CLOCK_POLARITY_HIGH",
+      "clear": "SPI_I2S_CLOCK_POLARITY_LOW"
+    },
+    {
+      "type": "enum_set",
+      "fn": "spi_set_i2s_standard",
+      "signature": "{periph}, {standard}",
+      "reg": "I2SCFGR",
+      "shift": 4,
+      "mask": "0x3",
+      "args": {
+        "standard": [
+          {
+            "enum": "SPI_I2S_STANDARD_PHILIPS",
+            "value": "0b00"
+          },
+          {
+            "enum": "SPI_I2S_STANDARD_MSB_JUSTIFIED",
+            "value": "0b01"
+          },
+          {
+            "enum": "SPI_I2S_STANDARD_LSB_JUSTIFIED",
+            "value": "0b10"
+          },
+          {
+            "enum": "SPI_I2S_STANDARD_PCM",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_pcm_frame_sync",
+      "signature": "{periph}, {sync}",
+      "reg": "I2SCFGR",
+      "shift": 7,
+      "set": "SPI_PCM_FRAME_SYNC_LONG",
+      "clear": "SPI_PCM_FRAME_SYNC_SHORT"
+    },
+    {
+      "type": "enum_set",
+      "fn": "spi_set_i2s_configuration_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "I2SCFGR",
+      "shift": 8,
+      "mask": "0x3",
+      "args": {
+        "mode": [
+          {
+            "enum": "SPI_I2S_CONFIG_MODE_SLAVE_TX",
+            "value": "0b00"
+          },
+          {
+            "enum": "SPI_I2S_CONFIG_MODE_SLAVE_RX",
+            "value": "0b01"
+          },
+          {
+            "enum": "SPI_I2S_CONFIG_MODE_MASTER_TX",
+            "value": "0b10"
+          },
+          {
+            "enum": "SPI_I2S_CONFIG_MODE_MASTER_RX",
+            "value": "0b11"
+          }
+        ]
+      }
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_i2s",
+      "signature": "{periph}",
+      "reg": "I2SCFGR",
+      "shift": 10
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_mode",
+      "signature": "{periph}, {mode}",
+      "reg": "I2SCFGR",
+      "shift": 11,
+      "set": "SPI_MODE_I2S",
+      "clear": "SPI_MODE_SPI"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_async_start",
+      "reg": "I2SCFGR",
+      "shift": 12,
+      "ifdef": "STM32_SPI_ASYNC_START"
+    },
+    {
+      "type": "fn_set_value",
+      "fn": "spi_set_i2s_linear_prescaler",
+      "signature": "{periph}, {val}",
+      "reg": "I2SPR",
+      "shift": 0,
+      "mask": "0xff"
+    },
+    {
+      "type": "bienum_set",
+      "fn": "spi_set_i2s_prescaler_odd_factor",
+      "signature": "{periph}, {factor}",
+      "reg": "I2SPR",
+      "shift": 8,
+      "set": "SPI_PRESCALER_ODD_FACTOR_MUL2_PLUS1",
+      "clear": "SPI_PRESCALER_ODD_FACTOR_MUL2"
+    },
+    {
+      "type": "fn_toggle",
+      "fn": "spi_master_clock_output",
+      "reg": "I2SPR",
+      "shift": 9
+    }
+  ]
+}

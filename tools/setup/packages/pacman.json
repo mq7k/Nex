@@ -1,0 +1,6 @@
+[
+  "arm-none-eabi-gcc",
+  "ninja",
+  "cmake",
+  "doxygen"
+]
