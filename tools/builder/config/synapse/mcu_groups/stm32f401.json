@@ -20,6 +20,7 @@
   "missing": [
     "usb/usb_v1",
     "dbg/dbg_v1"
-  ]
+  ],
+  "arch": "cm4f"
 }
 

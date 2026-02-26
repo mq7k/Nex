@@ -29,6 +29,7 @@
     "lptim/lptim_v1",
     "aes/aes_v1",
     "dbg/dbg_v1"
-  ]
+  ],
+  "arch": "cm4f"
 }
 

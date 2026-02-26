@@ -16,5 +16,6 @@
     "iwdg/iwdg_v1",
     "wwdg/wwdg_v1",
     "dac/dac_v1"
-  ]
+  ],
+  "arch": "cm3"
 }
