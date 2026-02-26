@@ -960,1347 +960,1347 @@ test_afio_set_swj_remap(void)
 void
 test_afio_set_external_interrupt_source(void)
 {
-  // scope=self.reg='EXTICR1', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN0'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN0'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 0);
+  AFIO->EXTICR[0] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 0) | (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 0) | (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN1'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN1'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 4);
+  AFIO->EXTICR[0] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 4) | (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 4) | (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN2'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN2'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 8);
+  AFIO->EXTICR[0] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 8) | (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 8) | (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN3'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN3'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 12);
+  AFIO->EXTICR[0] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 12) | (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 12) | (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN4'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN4'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 0);
+  AFIO->EXTICR[1] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 0) | (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 0) | (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN5'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN5'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 4);
+  AFIO->EXTICR[1] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 4) | (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 4) | (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN6'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN6'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 8);
+  AFIO->EXTICR[1] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 8) | (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 8) | (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN7'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN7'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 12);
+  AFIO->EXTICR[1] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 12) | (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 12) | (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN8'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN8'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 0);
+  AFIO->EXTICR[2] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 0) | (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 0) | (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN9'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN9'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 4);
+  AFIO->EXTICR[2] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 4) | (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 4) | (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN10'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN10'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 8);
+  AFIO->EXTICR[2] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 8) | (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 8) | (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN11'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN11'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 12);
+  AFIO->EXTICR[2] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 12) | (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 12) | (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN12'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN12'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 0);
+  AFIO->EXTICR[3] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 0) | (0b0000u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 0) | (0b0000u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN13'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN13'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 4);
+  AFIO->EXTICR[3] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 4) | (0b0000u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 4) | (0b0000u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN14'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN14'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 8);
+  AFIO->EXTICR[3] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 8) | (0b0000u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 8) | (0b0000u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN15'}, self.value='0b0000', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTA', 'pin': 'AFIO_PIN15'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 12);
+  AFIO->EXTICR[3] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTA, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 12) | (0b0000u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 12) | (0b0000u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN0'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN0'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 0);
+  AFIO->EXTICR[0] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 0) | (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 0) | (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN1'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN1'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 4);
+  AFIO->EXTICR[0] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 4) | (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 4) | (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN2'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN2'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 8);
+  AFIO->EXTICR[0] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 8) | (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 8) | (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN3'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN3'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 12);
+  AFIO->EXTICR[0] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 12) | (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 12) | (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN4'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN4'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 0);
+  AFIO->EXTICR[1] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 0) | (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 0) | (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN5'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN5'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 4);
+  AFIO->EXTICR[1] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 4) | (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 4) | (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN6'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN6'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 8);
+  AFIO->EXTICR[1] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 8) | (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 8) | (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN7'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN7'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 12);
+  AFIO->EXTICR[1] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 12) | (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 12) | (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN8'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN8'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 0);
+  AFIO->EXTICR[2] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 0) | (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 0) | (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN9'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN9'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 4);
+  AFIO->EXTICR[2] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 4) | (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 4) | (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN10'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN10'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 8);
+  AFIO->EXTICR[2] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 8) | (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 8) | (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN11'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN11'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 12);
+  AFIO->EXTICR[2] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 12) | (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 12) | (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN12'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN12'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 0);
+  AFIO->EXTICR[3] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 0) | (0b0001u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 0) | (0b0001u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN13'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN13'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 4);
+  AFIO->EXTICR[3] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 4) | (0b0001u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 4) | (0b0001u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN14'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN14'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 8);
+  AFIO->EXTICR[3] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 8) | (0b0001u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 8) | (0b0001u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN15'}, self.value='0b0001', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTB', 'pin': 'AFIO_PIN15'}, self.value='0b0001', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 12);
+  AFIO->EXTICR[3] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTB, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 12) | (0b0001u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 12) | (0b0001u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN0'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN0'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 0);
+  AFIO->EXTICR[0] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 0) | (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 0) | (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN1'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN1'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 4);
+  AFIO->EXTICR[0] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 4) | (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 4) | (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN2'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN2'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 8);
+  AFIO->EXTICR[0] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 8) | (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 8) | (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN3'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN3'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 12);
+  AFIO->EXTICR[0] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 12) | (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 12) | (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN4'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN4'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 0);
+  AFIO->EXTICR[1] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 0) | (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 0) | (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN5'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN5'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 4);
+  AFIO->EXTICR[1] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 4) | (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 4) | (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN6'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN6'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 8);
+  AFIO->EXTICR[1] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 8) | (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 8) | (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN7'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN7'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 12);
+  AFIO->EXTICR[1] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 12) | (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 12) | (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN8'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN8'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 0);
+  AFIO->EXTICR[2] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 0) | (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 0) | (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN9'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN9'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 4);
+  AFIO->EXTICR[2] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 4) | (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 4) | (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN10'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN10'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 8);
+  AFIO->EXTICR[2] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 8) | (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 8) | (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN11'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN11'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 12);
+  AFIO->EXTICR[2] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 12) | (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 12) | (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN12'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN12'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 0);
+  AFIO->EXTICR[3] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 0) | (0b0010u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 0) | (0b0010u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN13'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN13'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 4);
+  AFIO->EXTICR[3] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 4) | (0b0010u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 4) | (0b0010u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN14'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN14'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 8);
+  AFIO->EXTICR[3] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 8) | (0b0010u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 8) | (0b0010u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN15'}, self.value='0b0010', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTC', 'pin': 'AFIO_PIN15'}, self.value='0b0010', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 12);
+  AFIO->EXTICR[3] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTC, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 12) | (0b0010u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 12) | (0b0010u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN0'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN0'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 0);
+  AFIO->EXTICR[0] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 0) | (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 0) | (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN1'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN1'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 4);
+  AFIO->EXTICR[0] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 4) | (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 4) | (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN2'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN2'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 8);
+  AFIO->EXTICR[0] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 8) | (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 8) | (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN3'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN3'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 12);
+  AFIO->EXTICR[0] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 12) | (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 12) | (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN4'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN4'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 0);
+  AFIO->EXTICR[1] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 0) | (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 0) | (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN5'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN5'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 4);
+  AFIO->EXTICR[1] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 4) | (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 4) | (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN6'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN6'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 8);
+  AFIO->EXTICR[1] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 8) | (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 8) | (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN7'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN7'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 12);
+  AFIO->EXTICR[1] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 12) | (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 12) | (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN8'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN8'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 0);
+  AFIO->EXTICR[2] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 0) | (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 0) | (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN9'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN9'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 4);
+  AFIO->EXTICR[2] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 4) | (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 4) | (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN10'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN10'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 8);
+  AFIO->EXTICR[2] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 8) | (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 8) | (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN11'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN11'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 12);
+  AFIO->EXTICR[2] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 12) | (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 12) | (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN12'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN12'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 0);
+  AFIO->EXTICR[3] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 0) | (0b0011u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 0) | (0b0011u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN13'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN13'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 4);
+  AFIO->EXTICR[3] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 4) | (0b0011u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 4) | (0b0011u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN14'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN14'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 8);
+  AFIO->EXTICR[3] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 8) | (0b0011u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 8) | (0b0011u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN15'}, self.value='0b0011', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTD', 'pin': 'AFIO_PIN15'}, self.value='0b0011', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 12);
+  AFIO->EXTICR[3] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTD, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 12) | (0b0011u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 12) | (0b0011u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN0'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN0'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 0);
+  AFIO->EXTICR[0] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 0) | (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 0) | (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN1'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN1'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 4);
+  AFIO->EXTICR[0] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 4) | (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 4) | (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN2'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN2'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 8);
+  AFIO->EXTICR[0] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 8) | (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 8) | (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN3'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN3'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 12);
+  AFIO->EXTICR[0] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 12) | (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 12) | (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN4'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN4'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 0);
+  AFIO->EXTICR[1] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 0) | (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 0) | (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN5'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN5'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 4);
+  AFIO->EXTICR[1] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 4) | (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 4) | (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN6'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN6'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 8);
+  AFIO->EXTICR[1] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 8) | (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 8) | (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN7'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN7'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 12);
+  AFIO->EXTICR[1] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 12) | (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 12) | (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN8'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN8'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 0);
+  AFIO->EXTICR[2] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 0) | (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 0) | (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN9'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN9'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 4);
+  AFIO->EXTICR[2] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 4) | (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 4) | (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN10'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN10'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 8);
+  AFIO->EXTICR[2] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 8) | (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 8) | (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN11'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN11'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 12);
+  AFIO->EXTICR[2] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 12) | (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 12) | (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN12'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN12'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 0);
+  AFIO->EXTICR[3] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 0) | (0b0100u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 0) | (0b0100u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN13'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN13'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 4);
+  AFIO->EXTICR[3] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 4) | (0b0100u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 4) | (0b0100u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN14'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN14'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 8);
+  AFIO->EXTICR[3] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 8) | (0b0100u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 8) | (0b0100u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN15'}, self.value='0b0100', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTE', 'pin': 'AFIO_PIN15'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 12);
+  AFIO->EXTICR[3] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTE, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 12) | (0b0100u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 12) | (0b0100u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN0'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN0'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 0);
+  AFIO->EXTICR[0] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 0) | (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 0) | (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN1'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN1'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 4);
+  AFIO->EXTICR[0] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 4) | (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 4) | (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN2'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN2'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 8);
+  AFIO->EXTICR[0] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 8) | (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 8) | (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN3'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN3'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 12);
+  AFIO->EXTICR[0] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 12) | (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 12) | (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN4'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN4'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 0);
+  AFIO->EXTICR[1] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 0) | (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 0) | (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN5'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN5'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 4);
+  AFIO->EXTICR[1] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 4) | (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 4) | (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN6'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN6'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 8);
+  AFIO->EXTICR[1] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 8) | (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 8) | (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN7'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN7'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 12);
+  AFIO->EXTICR[1] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 12) | (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 12) | (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN8'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN8'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 0);
+  AFIO->EXTICR[2] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 0) | (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 0) | (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN9'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN9'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 4);
+  AFIO->EXTICR[2] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 4) | (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 4) | (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN10'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN10'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 8);
+  AFIO->EXTICR[2] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 8) | (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 8) | (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN11'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN11'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 12);
+  AFIO->EXTICR[2] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 12) | (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 12) | (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN12'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN12'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 0);
+  AFIO->EXTICR[3] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 0) | (0b0101u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 0) | (0b0101u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN13'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN13'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 4);
+  AFIO->EXTICR[3] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 4) | (0b0101u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 4) | (0b0101u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN14'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN14'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 8);
+  AFIO->EXTICR[3] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 8) | (0b0101u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 8) | (0b0101u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN15'}, self.value='0b0101', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTF', 'pin': 'AFIO_PIN15'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 12);
+  AFIO->EXTICR[3] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTF, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 12) | (0b0101u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 12) | (0b0101u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN0'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN0'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 0);
+  AFIO->EXTICR[0] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN0);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 0) | (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 0) | (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN1'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN1'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 4);
+  AFIO->EXTICR[0] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN1);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 4) | (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 4) | (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN2'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN2'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 8);
+  AFIO->EXTICR[0] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN2);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 8) | (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 8) | (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR1', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN3'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR1 = 0;
+  // scope=self.reg='EXTICR[0]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN3'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[0] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR1 = ~(0u << 12);
+  AFIO->EXTICR[0] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN3);
-  ASSERT_EQ(AFIO->EXTICR1, ~(0u << 12) | (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[0], ~(0u << 12) | (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN4'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN4'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 0);
+  AFIO->EXTICR[1] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN4);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 0) | (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 0) | (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN5'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN5'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 4);
+  AFIO->EXTICR[1] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN5);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 4) | (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 4) | (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN6'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN6'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 8);
+  AFIO->EXTICR[1] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN6);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 8) | (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 8) | (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR2', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN7'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR2 = 0;
+  // scope=self.reg='EXTICR[1]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN7'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[1] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR2 = ~(0u << 12);
+  AFIO->EXTICR[1] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN7);
-  ASSERT_EQ(AFIO->EXTICR2, ~(0u << 12) | (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[1], ~(0u << 12) | (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN8'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN8'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 0);
+  AFIO->EXTICR[2] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN8);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 0) | (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 0) | (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN9'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN9'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 4);
+  AFIO->EXTICR[2] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN9);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 4) | (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 4) | (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN10'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN10'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 8);
+  AFIO->EXTICR[2] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN10);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 8) | (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 8) | (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR3', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN11'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR3 = 0;
+  // scope=self.reg='EXTICR[2]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN11'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[2] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR3 = ~(0u << 12);
+  AFIO->EXTICR[2] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN11);
-  ASSERT_EQ(AFIO->EXTICR3, ~(0u << 12) | (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[2], ~(0u << 12) | (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN12'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=0, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN12'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 0);
+  AFIO->EXTICR[3] = ~(0u << 0);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN12);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 0) | (0b0110u << 0));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 0) | (0b0110u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN13'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=4, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN13'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 4);
+  AFIO->EXTICR[3] = ~(0u << 4);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN13);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 4) | (0b0110u << 4));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 4) | (0b0110u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN14'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=8, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN14'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 8);
+  AFIO->EXTICR[3] = ~(0u << 8);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN14);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 8) | (0b0110u << 8));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 8) | (0b0110u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='EXTICR4', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN15'}, self.value='0b0110', self.ifdef=[], self.halt=False
-  AFIO->EXTICR4 = 0;
+  // scope=self.reg='EXTICR[3]', self.shift=12, self.mask=None, self.varsmap={'port': 'AFIO_PORTG', 'pin': 'AFIO_PIN15'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  AFIO->EXTICR[3] = 0;
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
-  AFIO->EXTICR4 = ~(0u << 12);
+  AFIO->EXTICR[3] = ~(0u << 12);
   afio_set_external_interrupt_source(AFIO_PORTG, AFIO_PIN15);
-  ASSERT_EQ(AFIO->EXTICR4, ~(0u << 12) | (0b0110u << 12));
+  ASSERT_EQ(AFIO->EXTICR[3], ~(0u << 12) | (0b0110u << 12));
   ASSERT_FALSE(execution_halted());
 
 

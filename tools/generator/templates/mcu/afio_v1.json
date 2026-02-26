@@ -404,82 +404,82 @@
         "pin": [
           {
             "enum": "AFIO_PIN0",
-            "reg": "EXTICR1",
+            "reg": "EXTICR[0]",
             "shift": 0
           },
           {
             "enum": "AFIO_PIN1",
-            "reg": "EXTICR1",
+            "reg": "EXTICR[0]",
             "shift": 4
           },
           {
             "enum": "AFIO_PIN2",
-            "reg": "EXTICR1",
+            "reg": "EXTICR[0]",
             "shift": 8
           },
           {
             "enum": "AFIO_PIN3",
-            "reg": "EXTICR1",
+            "reg": "EXTICR[0]",
             "shift": 12
           },
           {
             "enum": "AFIO_PIN4",
-            "reg": "EXTICR2",
+            "reg": "EXTICR[1]",
             "shift": 0
           },
           {
             "enum": "AFIO_PIN5",
-            "reg": "EXTICR2",
+            "reg": "EXTICR[1]",
             "shift": 4
           },
           {
             "enum": "AFIO_PIN6",
-            "reg": "EXTICR2",
+            "reg": "EXTICR[1]",
             "shift": 8
           },
           {
             "enum": "AFIO_PIN7",
-            "reg": "EXTICR2",
+            "reg": "EXTICR[1]",
             "shift": 12
           },
           {
             "enum": "AFIO_PIN8",
-            "reg": "EXTICR3",
+            "reg": "EXTICR[2]",
             "shift": 0
           },
           {
             "enum": "AFIO_PIN9",
-            "reg": "EXTICR3",
+            "reg": "EXTICR[2]",
             "shift": 4
           },
           {
             "enum": "AFIO_PIN10",
-            "reg": "EXTICR3",
+            "reg": "EXTICR[2]",
             "shift": 8
           },
           {
             "enum": "AFIO_PIN11",
-            "reg": "EXTICR3",
+            "reg": "EXTICR[2]",
             "shift": 12
           },
           {
             "enum": "AFIO_PIN12",
-            "reg": "EXTICR4",
+            "reg": "EXTICR[3]",
             "shift": 0
           },
           {
             "enum": "AFIO_PIN13",
-            "reg": "EXTICR4",
+            "reg": "EXTICR[3]",
             "shift": 4
           },
           {
             "enum": "AFIO_PIN14",
-            "reg": "EXTICR4",
+            "reg": "EXTICR[3]",
             "shift": 8
           },
           {
             "enum": "AFIO_PIN15",
-            "reg": "EXTICR4",
+            "reg": "EXTICR[3]",
             "shift": 12
           }
         ]

@@ -17,7 +17,7 @@
       "fn": "pwr_set_deepsleep_mode",
       "signature": "{mode}",
       "reg": "CR",
-      "shift": 0,
+      "shift": 1,
       "set": "PWR_DEEPSLEEP_MODE_STANDBY_MODE",
       "clear": "PWR_DEEPSLEEP_MODE_STOP_MODE"
     },
@@ -25,6 +25,7 @@
       "type": "flag_clear",
       "fn": "pwr_flag_clear",
       "signature": "{flag}",
+      "clear_mode": "w1",
       "reg": "CR",
       "args": {
         "flag": [
@@ -125,7 +126,8 @@
       "fn": "pwr_voltage_detector_level_compare",
       "signature": "",
       "reg": "CSR",
-      "shift": 2
+      "shift": 2,
+      "mask": "0x1"
     },
     {
       "type": "fn_toggle",

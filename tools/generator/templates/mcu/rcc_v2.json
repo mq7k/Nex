@@ -303,7 +303,7 @@
           {
             "enum": "RCC_SYSTEM_CLOCK_SOURCE_PLL",
             "value": "0b10",
-            "ifndef": "#STM32_RCC_PLLR_SW"
+            "ifndef": "STM32_RCC_PLLR_SW"
           }
         ]
       }

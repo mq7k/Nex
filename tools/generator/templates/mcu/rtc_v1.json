@@ -85,8 +85,7 @@
           },
           {
             "enum": "RTC_FLAG_CONFIGURATION",
-            "shift": 4,
-            "halt": true
+            "shift": 4
           },
           {
             "enum": "RTC_FLAG_WRITE_IDLE",

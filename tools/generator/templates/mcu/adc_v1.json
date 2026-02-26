@@ -329,6 +329,7 @@
       "reg": "CR1",
       "shift": "24",
       "mask": "0x3",
+      "ifdef": "STM32_ADC_RESOLUTION",
       "args": {
         "resolution": [
           {
@@ -377,6 +378,7 @@
       "fn": "adc_is_calibration_in_progress",
       "reg": "CR2",
       "shift": "2",
+      "mask": "0x1",
       "ifdef": "STM32_ADC_CALIBRATION"
     },
     {
@@ -583,7 +585,15 @@
       "type": "fn_call",
       "fn": "adc_inj_start",
       "reg": "CR2",
-      "shift": "22"
+      "shift": "22",
+      "ifdef": "STM32_ADC_CR2_LAYOUT2"
+    },
+    {
+      "type": "fn_call",
+      "fn": "adc_inj_start",
+      "reg": "CR2",
+      "shift": "21",
+      "ifdef": "STM32_ADC_CR2_LAYOUT1"
     },
     {
       "type": "enum_set",
@@ -596,67 +606,67 @@
       "args": {
         "event": [
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC1",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC1",
             "value": "0b000"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC2",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC2",
             "value": "0b001"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC3",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC3",
             "value": "0b010"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM2_CC2",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_TIM2_CC2",
             "value": "0b011"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM3_TRGO",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_TIM3_TRGO",
             "value": "0b100"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM4_CC4",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_TIM4_CC4",
             "value": "0b101"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_EXTI11",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTI11",
             "value": "0b110"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_SWSTART",
+            "enum": "ADC_REG_TRIGGER_EVENT_SWSTART",
             "value": "0b111"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM3_CC1",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_TIM3_CC1",
             "value": "0b000"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM2_CC3",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_TIM2_CC3",
             "value": "0b001"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM1_CC3",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_TIM1_CC3",
             "value": "0b010"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_CC1",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_TIM8_CC1",
             "value": "0b011"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_TRGO",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_TIM8_TRGO",
             "value": "0b100"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC1",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC1",
             "value": "0b101"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC3",
+            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC3",
             "value": "0b110"
           },
           {
-            "enum": "ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_SWSTART",
+            "enum": "ADC_REG_TRIGGER_EVENT_SWSTART",
             "value": "0b111"
           }
         ]
@@ -752,7 +762,15 @@
       "type": "fn_call",
       "fn": "adc_reg_start",
       "reg": "CR2",
-      "shift": "30"
+      "shift": "30",
+      "ifdef": "STM32_ADC_CR2_LAYOUT2"
+    },
+    {
+      "type": "fn_call",
+      "fn": "adc_reg_start",
+      "reg": "CR2",
+      "shift": "22",
+      "ifdef": "STM32_ADC_CR2_LAYOUT1"
     },
     {
       "type": "fn_toggle",

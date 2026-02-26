@@ -80,53 +80,55 @@ test_flash_half_cycle_access(void)
 
 #if defined(STM32_FLASH_PREFETCH_BUFFER)
 void
-test_flash_prefetch_buffer_enable(void)
+test_flash_prefetch_buffer(void)
 {
   FLASH->ACR = 0;
-  flash_prefetch_buffer_enable_enable();
+  flash_prefetch_buffer_enable();
   ASSERT_EQ(FLASH->ACR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
   FLASH->ACR = ~(1u << 4);
-  flash_prefetch_buffer_enable_enable();
+  flash_prefetch_buffer_enable();
   ASSERT_EQ(FLASH->ACR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   FLASH->ACR = (1u << 4);
-  flash_prefetch_buffer_enable_disable();
+  flash_prefetch_buffer_disable();
   ASSERT_EQ(FLASH->ACR, 0);
   ASSERT_FALSE(execution_halted());
 
   FLASH->ACR = 0xffffffff;
-  flash_prefetch_buffer_enable_disable();
+  flash_prefetch_buffer_disable();
   ASSERT_EQ(FLASH->ACR, ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 }
 #endif
 
+#if defined(STM32_FLASH_PREFETCH_BUFFER)
 void
 test_flash_get_prefetch_buffer_status(void)
 {
   u32 res;
 
-  // read_bits
+  // read_bit
   FLASH->ACR = 0;
   res = flash_get_prefetch_buffer_status();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  FLASH->ACR = ~(0u << 5);
+  FLASH->ACR = ~(0x1u << 5);
   res = flash_get_prefetch_buffer_status();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  FLASH->ACR = 0u << 5;
+  FLASH->ACR = 0x1u << 5;
   res = flash_get_prefetch_buffer_status();
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 5);
   ASSERT_FALSE(execution_halted());
 
 }
+#endif
 
 // └─Skipping type 'fn_call (TODO)' (flash_unlock)
 // └─Skipping type 'fn_call (TODO)' (flash_option_unlock)
@@ -927,9 +929,11 @@ main(void)
     TEST_FUNC(test_flash_half_cycle_access),
 #endif
 #if defined(STM32_FLASH_PREFETCH_BUFFER)
-    TEST_FUNC(test_flash_prefetch_buffer_enable),
+    TEST_FUNC(test_flash_prefetch_buffer),
 #endif
+#if defined(STM32_FLASH_PREFETCH_BUFFER)
     TEST_FUNC(test_flash_get_prefetch_buffer_status),
+#endif
 #if defined(STM32_FLASH_EXTENDED)
     TEST_FUNC(test_flash_is_flag_set),
 #endif

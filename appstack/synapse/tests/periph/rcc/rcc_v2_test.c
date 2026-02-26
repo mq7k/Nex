@@ -794,6 +794,7 @@ test_rcc_set_system_clock_source(void)
 
 #endif
 
+#if !defined(STM32_RCC_PLLR_SW)
   // scope=self.reg='CFGR', self.shift=0, self.mask='0x3', self.varsmap={'source': 'RCC_SYSTEM_CLOCK_SOURCE_PLL'}, self.value='0b10', self.ifdef=[], self.halt=False
   RCC->CFGR = 0;
   rcc_set_system_clock_source(RCC_SYSTEM_CLOCK_SOURCE_PLL);
@@ -805,6 +806,7 @@ test_rcc_set_system_clock_source(void)
   ASSERT_EQ(RCC->CFGR, ~(0x3u << 0) | (0b10u << 0));
   ASSERT_FALSE(execution_halted());
 
+#endif
 
 }
 
