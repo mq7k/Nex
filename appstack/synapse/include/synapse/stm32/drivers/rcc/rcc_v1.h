@@ -380,8 +380,13 @@ enum rcc_cfgr_pllmul : u32
 };
 
 /* Bits[26:24] */
+#if defined(STM32_RCC_CFGR_MCO_4BIT)
 #define RCC_CFGR_MCO_SHIFT (24)
 #define RCC_CFGR_MCO_MASK (0xfu)
+#elif defined(STM32_RCC_CFGR_MCO_3BIT)
+#define RCC_CFGR_MCO_SHIFT (24)
+#define RCC_CFGR_MCO_MASK (0x7u)
+#endif
 
 enum rcc_cfgr_mco : u32
 {
@@ -709,8 +714,8 @@ enum rcc_apb1rstr : u32
   RCC_APB1RSTR_DACRST = (1 << 29),
 #endif
 
-#if defined(STM32_CECRST)
-  RCC_APB1RSTR_CRCRST = (1 << 30)
+#if defined(STM32_CEC)
+  RCC_APB1RSTR_CECRST = (1 << 30)
 #endif
 };
 
@@ -1151,7 +1156,7 @@ enum rcc_cfgr2_prediv1 : u32
 
 #if defined(STM32_RCC_PREDIV2)
 /* Bits[7:4] */
-#define RCC_CFGR2_PREDIV2_SHIFT (0)
+#define RCC_CFGR2_PREDIV2_SHIFT (4)
 #define RCC_CFGR2_PREDIV2_MASK (0xfu)
 
 enum rcc_cfgr2_prediv2 : u32
@@ -1656,6 +1661,10 @@ enum rcc_periph
 
 #if defined(STM32_FSMC)
   RCC_PERIPH_FSMC,
+#endif
+
+#if defined(STM32_SDIO)
+  RCC_PERIPH_SDIO,
 #endif
 
 #if defined(STM32_RCC_OTGFS)
@@ -2319,103 +2328,7 @@ struct rcc_clock_config
   u32 sysclock_freq;
 };
 
-/**
- * @brief Sets of pre-defined clock configurations.
- *
- * @details Each configuration specifies a complete clock
- * setup for the Reset and Clock Control (RCC) system,
- * typically including settings for HSE, PLL,
- * and resulting bus frequencies.
- *
- * The configurations follow a naming convention:
- * - `RCC_CONFIGD_*`: For standard/density devices
- * - `RCC_CONFIGC_*`: For connectivity devices
- *
- * Each name encodes the input and output frequencies:
- * - `HSE8`: 8Mhz external oscillator input
- * - `PLL72`: PLL configured to produce 72Mhz
- *
- *
- * @warning The HSE value in the configuration MUST 
- * match your system's actual HSE frequency.
- * Using a mismatched configuration will result in
- * incorrect clock operation and potentially system malfunction.
- *
- * @see rcc_setup_config_type() to apply these configurations.
- * @see RCC_CR and RCC_CFGR registers for manual clock configuration.
- */
-enum rcc_config_type
-{
-  /**
-   * @brief Density devices
-   *
-   * HSE: 8Mhz
-   *
-   * Sysclock: PLL 72Mhz
-   */
-  RCC_CONFIGD_HSE8_PLL72,
-
-  /**
-   * @brief Density devices
-   *
-   * HSE: 8Mhz
-   *
-   * Sysclock: PLL 32Mhz
-   */
-  RCC_CONFIGD_HSE8_PLL32
-};
-
 extern volatile struct rcc_registers_map* RCC;
-extern struct rcc_clock_config rcc_configs[];
-
-/**
- * @brief Applies a pre-defined clock configuration.
- *
- * @details Configures the system clock using one of 
- * the pre-defined clock configuration from the
- * rcc_configs array. This function provides a convenient
- * way to set up common clock configurations without manually
- * creating a configuration structure.
- *
- * This is equivalent to:
- * @code
- * rcc_setup_clock_configuration(&rcc_configs[type]);
- * @endcode
- *
- * @param type The configuration type to apply.
- *
- * @see rcc_config_type for available configurations
- * @see rcc_setup_clock_configuration()
- */
-void
-rcc_setup_config_type(
-  enum rcc_config_type type
-);
-
-/**
- * @brief Applies a custom clock configuration to the system.
- *
- * @details Configures the system clock according
- * to the provided configuration structure.
- * This function handles all the necessary steps
- * to transition to the new clock configuration,
- * including enabling required oscillators, waiting for
- * their stabilization, and setting up PLL and bus dividers.
- *
- * @param config Pointer to a configuration structure 
- *               containing the desired clock settigns.
- *               Must not be NULL.
- *
- * @note This function does not validate the configuration.
- *       Providing an invalid configuration may result
- *       in system instability or failure.
- *
- * @see rcc_setup_config_type() for using pre-defined configurations
- */
-void
-rcc_setup_clock_configuration(
-  struct rcc_clock_config* config
-);
 
 /**
  * @brief Enables a specific oscillator.
@@ -2853,6 +2766,7 @@ rcc_set_pll_multiplication_factor(
   enum rcc_pll_multiplication_factor factor
 );
 
+#if defined(STM32_RCC_OTGFS)
 /**
  * @brief Sets the USB OTG FS clock prescaler.
  *
@@ -2877,6 +2791,7 @@ void
 rcc_set_usb_otg_fs_prescaler(
   enum rcc_usb_otg_fs_prescaler prescaler
 );
+#endif
 
 /**
  * @brief Sets the microcontroller clock output (MCO) source.
@@ -3309,7 +3224,7 @@ rcc_set_pll3_multiplication_factor(
  * @see rcc_set_prediv1_prescaler()
  */
 void
-rcc_set_i2s2_source(
+rcc_set_prediv1_source(
   enum rcc_prediv1_source source
 );
 #endif
