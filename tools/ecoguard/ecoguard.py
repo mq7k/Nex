@@ -26,8 +26,6 @@ def execute_cmake_cmd(cmd, timeout):
 
 def explore_family(path, family):
     print(f'>>> {family=}')
-    # if 'f1' in family:
-    #     return
 
     for mcu in os.listdir(f'{path}/{family}'):
         full_path = f'{path}/{family}/{mcu}'
