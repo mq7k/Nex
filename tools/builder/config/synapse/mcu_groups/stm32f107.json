@@ -26,5 +26,6 @@
     "eth/eth_v1",
     "fsmc/fsmc_v1",
     "usb/usbfs_v1"
-  ]
+  ],
+  "arch": "cm3"
 }
