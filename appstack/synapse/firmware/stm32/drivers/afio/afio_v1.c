@@ -27,12 +27,6 @@ convert_afio_port_api_to_exti_port(
     case AFIO_PORTE:
       return AFIO_EXTICR_EXTI_PE;
 
-    case AFIO_PORTF:
-      return AFIO_EXTICR_EXTI_PF;
-      
-    case AFIO_PORTG:
-      return AFIO_EXTICR_EXTI_PG;
-
     default:
       devmode_error_invalid_enum(enum afio_port, port);
       return 0;
@@ -50,31 +44,23 @@ afio_set_eventout_port(
   switch (port)
   {
     case AFIO_PORTA:
-      syn_set_register_bits(reg, AFIO_EVCR_PORT_PA << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PORT_PA << shift);
       break;
 
     case AFIO_PORTB:
-      syn_set_register_bits(reg, AFIO_EVCR_PORT_PB << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PORT_PB << shift);
       break;
 
     case AFIO_PORTC:
-      syn_set_register_bits(reg, AFIO_EVCR_PORT_PB << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PORT_PC << shift);
       break;
 
     case AFIO_PORTD:
-      syn_set_register_bits(reg, AFIO_EVCR_PORT_PB << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PORT_PD << shift);
       break;
 
     case AFIO_PORTE:
-      syn_set_register_bits(reg, AFIO_EVCR_PORT_PB << shift, mask);
-      break;
-
-    case AFIO_PORTF:
-      syn_set_register_bits(reg, AFIO_EVCR_PORT_PB << shift, mask);
-      break;
-
-    case AFIO_PORTG:
-      syn_set_register_bits(reg, AFIO_EVCR_PORT_PB << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PORT_PE << shift);
       break;
 
     default:
@@ -94,67 +80,67 @@ afio_set_eventout_pin(
   switch (pin)
   {
     case AFIO_PIN0:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px0 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px0 << shift);
       break;
 
     case AFIO_PIN1:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px1 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px1 << shift);
       break;
 
     case AFIO_PIN2:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px2 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px2 << shift);
       break;
 
     case AFIO_PIN3:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px3 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px3 << shift);
       break;
 
     case AFIO_PIN4:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px4 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px4 << shift);
       break;
 
     case AFIO_PIN5:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px5 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px5 << shift);
       break;
 
     case AFIO_PIN6:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px6 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px6 << shift);
       break;
 
     case AFIO_PIN7:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px7 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px7 << shift);
       break;
 
     case AFIO_PIN8:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px8 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px8 << shift);
       break;
 
     case AFIO_PIN9:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px9 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px9 << shift);
       break;
 
     case AFIO_PIN10:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px10 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px10 << shift);
       break;
 
     case AFIO_PIN11:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px11 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px11 << shift);
       break;
 
     case AFIO_PIN12:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px12 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px12 << shift);
       break;
 
     case AFIO_PIN13:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px13 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px13 << shift);
       break;
 
     case AFIO_PIN14:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px14 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px14 << shift);
       break;
 
     case AFIO_PIN15:
-      syn_set_register_bits(reg, AFIO_EVCR_PIN_Px15 << shift, mask);
+      syn_set_register_bits(reg, mask, AFIO_EVCR_PIN_Px15 << shift);
       break;
 
     default:

@@ -12,7 +12,8 @@ bkp_data_write(
   u32 value
 )
 {
-  devmode_assert_lower_or_eq(value, BKP_DR_MAX_IDX);
+  devmode_assert_lower(idx, BKP_DR_MAX_IDX);
+  devmode_assert_lower_or_eq(value, BKP_DR_MASK);
   volatile u32* reg = idx < 10 ? &BKP->DR0[idx] : &BKP->DR1[idx - 10];
   *reg = value;
 }
@@ -22,6 +23,7 @@ bkp_data_read(
   u32 idx
 )
 {
+  devmode_assert_lower(idx, BKP_DR_MAX_IDX);
   return idx < 10 ? BKP->DR0[idx] : BKP->DR1[idx - 10];
 }
 

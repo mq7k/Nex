@@ -233,9 +233,7 @@ enum afio_exticr_exti : u32
   AFIO_EXTICR_EXTI_PB = 0b0001,
   AFIO_EXTICR_EXTI_PC = 0b0010,
   AFIO_EXTICR_EXTI_PD = 0b0011,
-  AFIO_EXTICR_EXTI_PE = 0b0100,
-  AFIO_EXTICR_EXTI_PF = 0b0101,
-  AFIO_EXTICR_EXTI_PG = 0b0110
+  AFIO_EXTICR_EXTI_PE = 0b0100
 };
 
 // ┌──────────────────────────────────────────────────────┐
@@ -296,9 +294,7 @@ enum afio_port
   AFIO_PORTB,
   AFIO_PORTC,
   AFIO_PORTD,
-  AFIO_PORTE,
-  AFIO_PORTF,
-  AFIO_PORTG
+  AFIO_PORTE
 };
 
 /**

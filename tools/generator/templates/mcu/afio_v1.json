@@ -9,6 +9,7 @@
       "signature": "{port}",
       "reg": "EVCR",
       "shift": 4,
+      "mask": "0x7",
       "args": {
         "port": [
           {
@@ -30,16 +31,6 @@
           {
             "enum": "AFIO_PORTE",
             "value": "0b100"
-          },
-          {
-            "enum": "AFIO_PORTF",
-            "value": "0b101",
-            "halt": true
-          },
-          {
-            "enum": "AFIO_PORTG",
-            "value": "0b110",
-            "halt": true
           }
         ]
       }
@@ -50,6 +41,7 @@
       "signature": "{pin}",
       "reg": "EVCR",
       "shift": 0,
+      "mask": "0xf",
       "args": {
         "pin": [
           {
@@ -225,6 +217,7 @@
       "fn": "afio_set_usart3_remap",
       "signature": "{remap}",
       "shift": 4,
+      "mask": "0x3",
       "reg": "MAPR",
       "args": {
         "remap": [
@@ -249,6 +242,7 @@
       "signature": "{remap}",
       "shift": 6,
       "reg": "MAPR",
+      "mask": "0x3",
       "args": {
         "remap": [
           {
@@ -272,6 +266,7 @@
       "signature": "{remap}",
       "shift": 8,
       "reg": "MAPR",
+      "mask": "0x3",
       "args": {
         "remap": [
           {
@@ -299,6 +294,7 @@
       "signature": "{remap}",
       "shift": 10,
       "reg": "MAPR",
+      "mask": "0x3",
       "args": {
         "remap": [
           {
@@ -322,6 +318,7 @@
       "signature": "{remap}",
       "shift": 13,
       "reg": "MAPR",
+      "mask": "0x3",
       "args": {
         "remap": [
           {
@@ -345,6 +342,7 @@
       "signature": "{remap}",
       "reg": "MAPR",
       "shift": 24,
+      "mask": "0x7",
       "args": {
         "remap": [
           {
@@ -370,6 +368,7 @@
       "type": "enum_set",
       "fn": "afio_set_external_interrupt_source",
       "signature": "{port}, {pin}",
+      "mask": "0xf",
       "args": {
         "port": [
           {
@@ -391,14 +390,6 @@
           {
             "enum": "AFIO_PORTE",
             "value": "0b0100"
-          },
-          {
-            "enum": "AFIO_PORTF",
-            "value": "0b0101"
-          },
-          {
-            "enum": "AFIO_PORTG",
-            "value": "0b0110"
           }
         ],
         "pin": [

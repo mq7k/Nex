@@ -102,11 +102,11 @@ struct bkp_registers_map
 // └──────────────────────────────────────────────────────┘
 
 #define BKP_DR_MASK (0xffff)
-#define BKP_DR_MAX_IDX (41)
+#define BKP_DR_MAX_IDX (20)
 
 /* Bits[6:0] */
 #define BKP_RTCCR_CAL_SHIFT (0)
-#define BKP_RTCCR_CAL_MASK (0x3fu)
+#define BKP_RTCCR_CAL_MASK (0x7fu)
 
 enum bkp_rtccr : u32
 {
