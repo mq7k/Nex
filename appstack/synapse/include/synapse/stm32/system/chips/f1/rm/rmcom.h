@@ -1,0 +1,59 @@
+#ifndef STM32_RMCOM_H
+#define STM32_RMCOM_H
+
+#define STM32_RCC_CFGR_MCO_3BIT
+#define STM32_RCC_APB2_GPIO
+
+#define STM32_APB2_GPIO
+
+#define STM32_RCC_V1
+#define STM32_RCC_AFIO
+#define STM32_RCC_APB2_GPIO
+
+#define STM32_PWR_V1
+#define STM32_PWR_PVD
+
+#define STM32_DMA_V2
+
+#define STM32_TIM_V1
+
+#define STM32_DAC_V2
+
+#define STM32_AFIO_V1
+
+#define STM32_BKP_V1
+
+#define STM32_EXTI_V1
+
+#define STM32_SDIO_V1
+
+#define STM32_USB_V1
+
+#define STM32_CRC_V1
+
+#define STM32_GPIO_V1
+
+#define STM32_ADC_V1
+#define STM32_ADC_CALIBRATION
+#define STM32_ADC_CR2_LAYOUT1
+#define STM32_ADC_SMPR
+#define STM32_ADC_SMPR_LAYOUT1
+#define STM32_ADC_xEXTSEL_LAYOUT1
+
+#define STM32_FLASH_V1
+#define STM32_FLASH_ACR
+#define STM32_FLASH_HALF_CYCLE_ACCESS
+
+#define STM32_RTC_V1
+#define STM32_IWDG_V1
+#define STM32_WWDG_V1
+
+#define STM32_USART_V1
+
+#define STM32_SPI_V1
+
+#define STM32_I2C_V1
+
+#define ARCH_NVIC_IRQ_COUNT (68)
+
+#endif

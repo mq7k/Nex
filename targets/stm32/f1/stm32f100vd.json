@@ -1,0 +1,8 @@
+{
+  "mcu": "stm32f100vd",
+  "groups": [ 
+    "stm32f100xx",
+    "stm32f100xd"
+  ],
+  "ld": "fx/f1/stm32f100xd.ld"
+}

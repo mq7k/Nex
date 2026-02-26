@@ -23,7 +23,8 @@
   },
   "avb_periphs": [
     "systick/systick_v1",
-    "nvic/nvic_v1",
+    "nvic/nvic_v2",
+    "vtable/vtable_v2",
     "scb/scb_v1"
   ]
 }

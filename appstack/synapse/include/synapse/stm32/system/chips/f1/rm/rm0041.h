@@ -1,0 +1,11 @@
+#ifndef STM32_RM0041_H
+#define STM32_RM0041_H
+
+#define STM32_RCC_CFGR2
+#define STM32_RCC_PLLMUL_LAYOUT2
+
+#define STM32_EXTI_ALLOWED_LINES_BITMASK (0x3ffff)
+
+#define STM32_ADC_DUALMODE
+
+#endif
