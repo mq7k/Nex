@@ -923,148 +923,148 @@ test_dma_channel(void)
 {
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_enable(DMA1, DMA_CHANNEL1);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(1u << 0);
   dma_channel_enable(DMA1, DMA_CHANNEL1);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL1].CCR = (1u << 0);
   dma_channel_disable(DMA1, DMA_CHANNEL1);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL1].CCR = 0xffffffff;
   dma_channel_disable(DMA1, DMA_CHANNEL1);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_enable(DMA1, DMA_CHANNEL2);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(1u << 0);
   dma_channel_enable(DMA1, DMA_CHANNEL2);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL2].CCR = (1u << 0);
   dma_channel_disable(DMA1, DMA_CHANNEL2);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL2].CCR = 0xffffffff;
   dma_channel_disable(DMA1, DMA_CHANNEL2);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_enable(DMA1, DMA_CHANNEL3);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(1u << 0);
   dma_channel_enable(DMA1, DMA_CHANNEL3);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL3].CCR = (1u << 0);
   dma_channel_disable(DMA1, DMA_CHANNEL3);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL3].CCR = 0xffffffff;
   dma_channel_disable(DMA1, DMA_CHANNEL3);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_enable(DMA1, DMA_CHANNEL4);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(1u << 0);
   dma_channel_enable(DMA1, DMA_CHANNEL4);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL4].CCR = (1u << 0);
   dma_channel_disable(DMA1, DMA_CHANNEL4);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL4].CCR = 0xffffffff;
   dma_channel_disable(DMA1, DMA_CHANNEL4);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_enable(DMA1, DMA_CHANNEL5);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(1u << 0);
   dma_channel_enable(DMA1, DMA_CHANNEL5);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL5].CCR = (1u << 0);
   dma_channel_disable(DMA1, DMA_CHANNEL5);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL5].CCR = 0xffffffff;
   dma_channel_disable(DMA1, DMA_CHANNEL5);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_enable(DMA1, DMA_CHANNEL6);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(1u << 0);
   dma_channel_enable(DMA1, DMA_CHANNEL6);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL6].CCR = (1u << 0);
   dma_channel_disable(DMA1, DMA_CHANNEL6);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL6].CCR = 0xffffffff;
   dma_channel_disable(DMA1, DMA_CHANNEL6);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_enable(DMA1, DMA_CHANNEL7);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(1u << 0);
   dma_channel_enable(DMA1, DMA_CHANNEL7);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL7].CCR = (1u << 0);
   dma_channel_disable(DMA1, DMA_CHANNEL7);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL7].CCR = 0xffffffff;
   dma_channel_disable(DMA1, DMA_CHANNEL7);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
@@ -1521,148 +1521,148 @@ test_dma_channel_set_data_transfer_direction(void)
 {
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL1, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL1, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL1].CCR = (1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL1, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL1].CCR = 0xffffffff;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL1, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0xffffffff & ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0xffffffff & ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL2, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL2, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL2].CCR = (1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL2, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL2].CCR = 0xffffffff;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL2, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0xffffffff & ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0xffffffff & ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL3, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL3, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL3].CCR = (1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL3, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL3].CCR = 0xffffffff;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL3, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0xffffffff & ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0xffffffff & ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL4, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL4, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL4].CCR = (1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL4, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL4].CCR = 0xffffffff;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL4, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0xffffffff & ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0xffffffff & ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL5, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL5, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL5].CCR = (1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL5, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL5].CCR = 0xffffffff;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL5, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0xffffffff & ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0xffffffff & ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL6, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL6, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL6].CCR = (1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL6, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL6].CCR = 0xffffffff;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL6, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0xffffffff & ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0xffffffff & ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL7, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL7, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL7].CCR = (1u << 4);
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL7, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL7].CCR = 0xffffffff;
   dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL7, DMA_TRANSFER_DIRECTION_FROM_PERIPH);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0xffffffff & ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0xffffffff & ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
@@ -2127,255 +2127,255 @@ test_dma_channel_memory_increment_mode(void)
 void
 test_dma_channel_set_periph_size(void)
 {
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL1, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL1, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 8) | (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL1, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL1, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 8) | (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL1, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL1, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 8) | (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL2, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL2, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 8) | (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL2, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL2, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 8) | (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL2, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL2, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 8) | (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL3, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL3, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 8) | (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL3, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL3, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 8) | (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL3, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL3, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 8) | (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL4, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL4, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 8) | (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL4, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL4, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 8) | (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL4, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL4, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 8) | (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 8) | (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 8) | (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 8) | (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL6, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL6, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 8) | (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL6, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL6, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 8) | (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL6, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL6, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 8) | (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_PERIPH_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL7, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL7, DMA_PERIPH_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 8) | (0b00u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_PERIPH_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL7, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL7, DMA_PERIPH_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 8) | (0b01u << 8));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=8, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_PERIPH_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL7, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 8);
   dma_channel_set_periph_size(DMA1, DMA_CHANNEL7, DMA_PERIPH_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 8) | (0b10u << 8));
   ASSERT_FALSE(execution_halted());
 
 
@@ -2384,255 +2384,255 @@ test_dma_channel_set_periph_size(void)
 void
 test_dma_channel_set_memory_size(void)
 {
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL1, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL1, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 10) | (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL1, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL1, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 10) | (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL1, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL1, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 10) | (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL2, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL2, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 10) | (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL2, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL2, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 10) | (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL2, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL2, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 10) | (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL3, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL3, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 10) | (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL3, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL3, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 10) | (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL3, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL3, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 10) | (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL4, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL4, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 10) | (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL4, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL4, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 10) | (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL4, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL4, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 10) | (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 10) | (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 10) | (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 10) | (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL6, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL6, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 10) | (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL6, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL6, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 10) | (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL6, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL6, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 10) | (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_MEMORY_SIZE_8BITS'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL7, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL7, DMA_MEMORY_SIZE_8BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b00u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 10) | (0b00u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_MEMORY_SIZE_16BITS'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL7, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL7, DMA_MEMORY_SIZE_16BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b01u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 10) | (0b01u << 10));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=10, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_MEMORY_SIZE_32BITS'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL7, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 10);
   dma_channel_set_memory_size(DMA1, DMA_CHANNEL7, DMA_MEMORY_SIZE_32BITS);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b10u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 10) | (0b10u << 10));
   ASSERT_FALSE(execution_halted());
 
 
@@ -2641,339 +2641,339 @@ test_dma_channel_set_memory_size(void)
 void
 test_dma_channel_set_priority_level(void)
 {
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'level': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b00u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b00u << None));
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 12) | (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'level': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b01u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b01u << None));
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 12) | (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'level': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b10u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b10u << None));
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 12) | (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL1', 'size': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL1', 'level': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b11u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0u << 0) | (0b11u << None));
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL1, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(0x3u << 12) | (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'level': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b00u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b00u << None));
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 12) | (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'level': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b01u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b01u << None));
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 12) | (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'level': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b10u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b10u << None));
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 12) | (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL2', 'size': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL2', 'level': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b11u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0u << 0) | (0b11u << None));
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL2, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(0x3u << 12) | (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'level': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b00u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b00u << None));
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 12) | (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'level': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b01u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b01u << None));
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 12) | (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'level': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b10u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b10u << None));
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 12) | (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL3', 'size': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL3', 'level': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b11u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0u << 0) | (0b11u << None));
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL3, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(0x3u << 12) | (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'level': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b00u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b00u << None));
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 12) | (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'level': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b01u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b01u << None));
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 12) | (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'level': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b10u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b10u << None));
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 12) | (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL4', 'size': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL4', 'level': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b11u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0u << 0) | (0b11u << None));
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL4, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(0x3u << 12) | (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'level': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b00u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b00u << None));
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 12) | (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'level': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b01u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b01u << None));
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 12) | (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'level': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b10u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b10u << None));
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 12) | (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL5', 'size': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL5', 'level': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b11u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0u << 0) | (0b11u << None));
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(0x3u << 12) | (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'level': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b00u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b00u << None));
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 12) | (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'level': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b01u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b01u << None));
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 12) | (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'level': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b10u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b10u << None));
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 12) | (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL6', 'size': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL6', 'level': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b11u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0u << 0) | (0b11u << None));
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL6, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(0x3u << 12) | (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'level': 'DMA_CHANNEL_PRIORITY_LOW'}, self.value='0b00', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b00u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b00u << None));
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_LOW);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 12) | (0b00u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'level': 'DMA_CHANNEL_PRIORITY_MEDIUM'}, self.value='0b01', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b01u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b01u << None));
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_MEDIUM);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 12) | (0b01u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'level': 'DMA_CHANNEL_PRIORITY_HIGH'}, self.value='0b10', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b10u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b10u << None));
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 12) | (0b10u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='channels[{channel}].CCR', self.shift=None, self.mask=None, self.varsmap={'channel': 'DMA_CHANNEL7', 'size': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
+  // scope=self.reg='channels[{channel}].CCR', self.shift=12, self.mask='0x3', self.varsmap={'channel': 'DMA_CHANNEL7', 'level': 'DMA_CHANNEL_PRIORITY_VERY_HIGH'}, self.value='0b11', self.ifdef=[], self.halt=False
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b11u << None));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(0u << 0);
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, {level});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0u << 0) | (0b11u << None));
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(0x3u << 12);
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL7, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(0x3u << 12) | (0b11u << 12));
   ASSERT_FALSE(execution_halted());
 
 
@@ -2984,148 +2984,148 @@ test_dma_channel_mem2mem_mode(void)
 {
   DMA1->channels[DMA_CHANNEL1].CCR = 0;
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL1);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL1].CCR = ~(1u << 14);
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL1);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL1].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL1].CCR = (1u << 14);
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL1);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL1].CCR = 0xffffffff;
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL1);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CCR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL2].CCR = 0;
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL2);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL2].CCR = ~(1u << 14);
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL2);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL2].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL2].CCR = (1u << 14);
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL2);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL2].CCR = 0xffffffff;
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL2);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CCR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL3].CCR = 0;
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL3);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL3].CCR = ~(1u << 14);
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL3);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL3].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL3].CCR = (1u << 14);
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL3);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL3].CCR = 0xffffffff;
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL3);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CCR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL4].CCR = 0;
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL4);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL4].CCR = ~(1u << 14);
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL4);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL4].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL4].CCR = (1u << 14);
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL4);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL4].CCR = 0xffffffff;
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL4);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CCR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL5].CCR = 0;
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL5);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL5].CCR = ~(1u << 14);
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL5);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL5].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL5].CCR = (1u << 14);
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL5);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL5].CCR = 0xffffffff;
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL5);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CCR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL6].CCR = 0;
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL6);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL6].CCR = ~(1u << 14);
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL6);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL6].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL6].CCR = (1u << 14);
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL6);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL6].CCR = 0xffffffff;
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL6);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CCR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL7].CCR = 0;
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL7);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = ~(1u << None);
+  DMA1->channels[DMA_CHANNEL7].CCR = ~(1u << 14);
   dma_channel_mem2mem_mode_enable(DMA1, DMA_CHANNEL7);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  DMA1->channels[DMA_CHANNEL7].CCR = (1u << None);
+  DMA1->channels[DMA_CHANNEL7].CCR = (1u << 14);
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL7);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL7].CCR = 0xffffffff;
   dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL7);
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(1u << None));
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CCR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
@@ -3135,157 +3135,248 @@ void
 test_dma_set_channel_transfer_items_count(void)
 {
   DMA1->channels[DMA_CHANNEL1].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, {count});
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, 0);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL1].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, 0);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, ~(0xffffu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL1].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, 0xffffffffu << 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL1].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, 0xffffffff);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, ~(0xffffu << 0) | (0xffffu << 0));
   ASSERT_FALSE(execution_halted());
 
 
+  DMA1->channels[DMA_CHANNEL1].CNDTR = 0;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  DMA1->channels[DMA_CHANNEL1].CNDTR = 0xffffffff;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL1, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL1].CNDTR, ~(0xffffu << 0) | (0x10000u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
   DMA1->channels[DMA_CHANNEL2].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, {count});
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, 0);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL2].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, 0);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, ~(0xffffu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL2].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, 0xffffffffu << 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL2].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, 0xffffffff);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, ~(0xffffu << 0) | (0xffffu << 0));
   ASSERT_FALSE(execution_halted());
 
 
+  DMA1->channels[DMA_CHANNEL2].CNDTR = 0;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  DMA1->channels[DMA_CHANNEL2].CNDTR = 0xffffffff;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL2, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL2].CNDTR, ~(0xffffu << 0) | (0x10000u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
   DMA1->channels[DMA_CHANNEL3].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, {count});
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, 0);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL3].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, 0);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, ~(0xffffu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL3].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, 0xffffffffu << 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL3].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, 0xffffffff);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, ~(0xffffu << 0) | (0xffffu << 0));
   ASSERT_FALSE(execution_halted());
 
 
+  DMA1->channels[DMA_CHANNEL3].CNDTR = 0;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  DMA1->channels[DMA_CHANNEL3].CNDTR = 0xffffffff;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL3, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL3].CNDTR, ~(0xffffu << 0) | (0x10000u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
   DMA1->channels[DMA_CHANNEL4].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, {count});
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, 0);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL4].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, 0);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, ~(0xffffu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL4].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, 0xffffffffu << 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL4].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, 0xffffffff);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, ~(0xffffu << 0) | (0xffffu << 0));
   ASSERT_FALSE(execution_halted());
 
 
+  DMA1->channels[DMA_CHANNEL4].CNDTR = 0;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  DMA1->channels[DMA_CHANNEL4].CNDTR = 0xffffffff;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL4, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL4].CNDTR, ~(0xffffu << 0) | (0x10000u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
   DMA1->channels[DMA_CHANNEL5].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, {count});
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, 0);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL5].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, 0);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, ~(0xffffu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL5].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, 0xffffffffu << 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL5].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, 0xffffffff);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, ~(0xffffu << 0) | (0xffffu << 0));
   ASSERT_FALSE(execution_halted());
 
 
+  DMA1->channels[DMA_CHANNEL5].CNDTR = 0;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  DMA1->channels[DMA_CHANNEL5].CNDTR = 0xffffffff;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL5].CNDTR, ~(0xffffu << 0) | (0x10000u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
   DMA1->channels[DMA_CHANNEL6].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, {count});
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, 0);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL6].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, 0);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, ~(0xffffu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL6].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, 0xffffffffu << 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL6].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, 0xffffffff);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, ~(0xffffu << 0) | (0xffffu << 0));
   ASSERT_FALSE(execution_halted());
 
 
+  DMA1->channels[DMA_CHANNEL6].CNDTR = 0;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  DMA1->channels[DMA_CHANNEL6].CNDTR = 0xffffffff;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL6, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL6].CNDTR, ~(0xffffu << 0) | (0x10000u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
   DMA1->channels[DMA_CHANNEL7].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, {count});
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, 0);
   ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL7].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, 0);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, ~(0xffffu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   DMA1->channels[DMA_CHANNEL7].CNDTR = 0;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, 0xffffffffu << 0);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL7].CNDTR = 0xffffffff;
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, {count});
-  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, 0xffffffff);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, 0xffff);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, ~(0xffffu << 0) | (0xffffu << 0));
   ASSERT_FALSE(execution_halted());
+
+
+  DMA1->channels[DMA_CHANNEL7].CNDTR = 0;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  DMA1->channels[DMA_CHANNEL7].CNDTR = 0xffffffff;
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL7, 0x10000);
+  ASSERT_EQ(DMA1->channels[DMA_CHANNEL7].CNDTR, ~(0xffffu << 0) | (0x10000u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
 
 
 }
@@ -3297,84 +3388,84 @@ test_dma_get_channel_transfer_items_left(void)
 
   // read_reg
   DMA1->channels[DMA_CHANNEL1].CNDTR = 0;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL1);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL1].CNDTR = 0xffffffff;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL1);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
 
   // read_reg
   DMA1->channels[DMA_CHANNEL2].CNDTR = 0;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL2);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL2].CNDTR = 0xffffffff;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL2);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
 
   // read_reg
   DMA1->channels[DMA_CHANNEL3].CNDTR = 0;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL3);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL3].CNDTR = 0xffffffff;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL3);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
 
   // read_reg
   DMA1->channels[DMA_CHANNEL4].CNDTR = 0;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL4);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL4].CNDTR = 0xffffffff;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL4);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
 
   // read_reg
   DMA1->channels[DMA_CHANNEL5].CNDTR = 0;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL5);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL5].CNDTR = 0xffffffff;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL5);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
 
   // read_reg
   DMA1->channels[DMA_CHANNEL6].CNDTR = 0;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL6);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL6].CNDTR = 0xffffffff;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL6);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
 
   // read_reg
   DMA1->channels[DMA_CHANNEL7].CNDTR = 0;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL7);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   DMA1->channels[DMA_CHANNEL7].CNDTR = 0xffffffff;
-  res = dma_get_channel_transfer_items_left(DMA1);
+  res = dma_get_channel_transfer_items_left(DMA1, DMA_CHANNEL7);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 

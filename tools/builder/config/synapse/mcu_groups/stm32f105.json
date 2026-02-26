@@ -1,0 +1,31 @@
+{
+  "avb_periphs": [
+    "pwr/pwr_v1",
+    "bkp/bkp_v1",
+    "rcc/rcc_v1",
+    "gpio/gpio_v1",
+    "adc/adc_v1",
+    "dac/dac_v1",
+    "dma/dma_v2",
+    "tim/tim_v1",
+    "rtc/rtc_v1",
+    "iwdg/iwdg_v1",
+    "wwdg/wwdg_v1",
+    "sdio/sdio_v1",
+    "can/can_v1",
+    "spi/spi_v1",
+    "i2c/i2c_v1",
+    "usart/usart_v1",
+    "flash/flash_v1",
+    "crc/crc_v1",
+    "exti/exti_v1",
+    "afio/afio_v1"
+  ],
+  "missing": [
+    "usb/otgfs_v1",
+    "eth/eth_v1",
+    "usb/usbfs_v1",
+    "fsmc/fsmc_v1"
+  ],
+  "arch": "cm3"
+}

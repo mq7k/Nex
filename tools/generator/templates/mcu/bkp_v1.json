@@ -35,11 +35,11 @@
           },
           {
             "value": "BKP_DR_MAX_IDX-1",
-            "reg": "DR1[BKP_DR_MAX_IDX-1]"
+            "reg": "DR1[BKP_DR_MAX_IDX-11]"
           },
           {
             "value": "BKP_DR_MAX_IDX",
-            "reg": "DR1[BKP_DR_MAX_IDX]",
+            "reg": "DR1[BKP_DR_MAX_IDX-10]",
             "halt": true
           }
         ]
@@ -65,7 +65,7 @@
           },
           {
             "value": "BKP_DR_MAX_IDX-1",
-            "reg": "DR1[BKP_DR_MAX_IDX-1]"
+            "reg": "DR1[BKP_DR_MAX_IDX-11]"
           },
           {
             "value": "BKP_DR_MAX_IDX",
@@ -81,20 +81,7 @@
       "fn": "bkp_set_rtc_calibration_value",
       "signature": "{val}",
       "reg": "RTCCR",
-      "args": {
-        "val": [
-          {
-            "value": 0
-          },
-          {
-            "value": "0x1f"
-          },
-          {
-            "value": "0x20",
-            "halt": true
-          }
-        ]
-      }
+      "mask": "0x7f"
     },
     {
       "type": "fn_toggle",
@@ -111,7 +98,7 @@
       "fn": "bkp_rtc_signal_output",
       "signature": "",
       "reg": "RTCCR",
-      "shift": 9,
+      "shift": 8,
       "options": [
         "no_clear"
       ]

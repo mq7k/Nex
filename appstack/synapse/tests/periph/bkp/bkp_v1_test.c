@@ -46,26 +46,26 @@ test_bkp_data_write(void)
   ASSERT_FALSE(execution_halted());
 
 
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0;
   bkp_data_write(BKP_DR_MAX_IDX-1, 0);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-1], 0u << 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-11], 0u << 0);
   ASSERT_FALSE(execution_halted());
 
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0xffffffff;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0xffffffff;
   bkp_data_write(BKP_DR_MAX_IDX-1, 0);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-1], 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-11], 0);
   ASSERT_FALSE(execution_halted());
 
 
-  BKP->DR1[BKP_DR_MAX_IDX] = 0;
+  BKP->DR1[BKP_DR_MAX_IDX-10] = 0;
   bkp_data_write(BKP_DR_MAX_IDX, 0);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX], 0u << 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-10], 0u << 0);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
-  BKP->DR1[BKP_DR_MAX_IDX] = 0xffffffff;
+  BKP->DR1[BKP_DR_MAX_IDX-10] = 0xffffffff;
   bkp_data_write(BKP_DR_MAX_IDX, 0);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX], 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-10], 0);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -103,26 +103,26 @@ test_bkp_data_write(void)
   ASSERT_FALSE(execution_halted());
 
 
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0;
   bkp_data_write(BKP_DR_MAX_IDX-1, 0xffff);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-1], 0xffffu << 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-11], 0xffffu << 0);
   ASSERT_FALSE(execution_halted());
 
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0xffffffff;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0xffffffff;
   bkp_data_write(BKP_DR_MAX_IDX-1, 0xffff);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-1], 0xffff);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-11], 0xffff);
   ASSERT_FALSE(execution_halted());
 
 
-  BKP->DR1[BKP_DR_MAX_IDX] = 0;
+  BKP->DR1[BKP_DR_MAX_IDX-10] = 0;
   bkp_data_write(BKP_DR_MAX_IDX, 0xffff);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX], 0xffffu << 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-10], 0xffffu << 0);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
-  BKP->DR1[BKP_DR_MAX_IDX] = 0xffffffff;
+  BKP->DR1[BKP_DR_MAX_IDX-10] = 0xffffffff;
   bkp_data_write(BKP_DR_MAX_IDX, 0xffff);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX], 0xffff);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-10], 0xffff);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -166,28 +166,28 @@ test_bkp_data_write(void)
   execution_resume();
 
 
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0;
   bkp_data_write(BKP_DR_MAX_IDX-1, 0x10000);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-1], 0x10000u << 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-11], 0x10000u << 0);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0xffffffff;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0xffffffff;
   bkp_data_write(BKP_DR_MAX_IDX-1, 0x10000);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-1], 0x10000);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-11], 0x10000);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
 
-  BKP->DR1[BKP_DR_MAX_IDX] = 0;
+  BKP->DR1[BKP_DR_MAX_IDX-10] = 0;
   bkp_data_write(BKP_DR_MAX_IDX, 0x10000);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX], 0x10000u << 0);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-10], 0x10000u << 0);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
-  BKP->DR1[BKP_DR_MAX_IDX] = 0xffffffff;
+  BKP->DR1[BKP_DR_MAX_IDX-10] = 0xffffffff;
   bkp_data_write(BKP_DR_MAX_IDX, 0x10000);
-  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX], 0x10000);
+  ASSERT_EQ(BKP->DR1[BKP_DR_MAX_IDX-10], 0x10000);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -236,12 +236,12 @@ test_bkp_data_read(void)
 
 
   // read_reg
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0;
   res = bkp_data_read(BKP_DR_MAX_IDX-1);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  BKP->DR1[BKP_DR_MAX_IDX-1] = 0xffffffff;
+  BKP->DR1[BKP_DR_MAX_IDX-11] = 0xffffffff;
   res = bkp_data_read(BKP_DR_MAX_IDX-1);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
@@ -267,30 +267,30 @@ test_bkp_set_rtc_calibration_value(void)
 
   BKP->RTCCR = 0xffffffff;
   bkp_set_rtc_calibration_value(0);
-  ASSERT_EQ(BKP->RTCCR, 0);
+  ASSERT_EQ(BKP->RTCCR, ~(0x7fu << 0) | (0u << 0));
   ASSERT_FALSE(execution_halted());
 
 
   BKP->RTCCR = 0;
-  bkp_set_rtc_calibration_value(0x1f);
-  ASSERT_EQ(BKP->RTCCR, 0x1fu << 0);
+  bkp_set_rtc_calibration_value(0x7f);
+  ASSERT_EQ(BKP->RTCCR, 0x7fu << 0);
   ASSERT_FALSE(execution_halted());
 
   BKP->RTCCR = 0xffffffff;
-  bkp_set_rtc_calibration_value(0x1f);
-  ASSERT_EQ(BKP->RTCCR, 0x1f);
+  bkp_set_rtc_calibration_value(0x7f);
+  ASSERT_EQ(BKP->RTCCR, ~(0x7fu << 0) | (0x7fu << 0));
   ASSERT_FALSE(execution_halted());
 
 
   BKP->RTCCR = 0;
-  bkp_set_rtc_calibration_value(0x20);
-  ASSERT_EQ(BKP->RTCCR, 0x20u << 0);
+  bkp_set_rtc_calibration_value(0x80);
+  ASSERT_EQ(BKP->RTCCR, 0x80u << 0);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
   BKP->RTCCR = 0xffffffff;
-  bkp_set_rtc_calibration_value(0x20);
-  ASSERT_EQ(BKP->RTCCR, 0x20);
+  bkp_set_rtc_calibration_value(0x80);
+  ASSERT_EQ(BKP->RTCCR, ~(0x7fu << 0) | (0x80u << 0));
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -317,10 +317,10 @@ test_bkp_rtc_signal_output(void)
 {
   BKP->RTCCR = 0;
   bkp_rtc_signal_output_enable();
-  ASSERT_EQ(BKP->RTCCR, (1u << 9));
+  ASSERT_EQ(BKP->RTCCR, (1u << 8));
   ASSERT_FALSE(execution_halted());
 
-  BKP->RTCCR = ~(1u << 9);
+  BKP->RTCCR = ~(1u << 8);
   bkp_rtc_signal_output_enable();
   ASSERT_EQ(BKP->RTCCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());

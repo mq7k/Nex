@@ -16,7 +16,7 @@ def get_cpuid_from_stm32_id(cpu):
         '1': ('cortex', 'cortex_m3', 'cm3'),
         '2': ('cortex', 'cortex_m3', 'cm3'),
         '3': ('cortex', 'cortex_m4', 'cm4'),
-        '4': ('cortex', 'cortex_m4', 'cm4'),
+        '4': ('cortex', 'cortex_m4', 'cm4f'),
         '7': ('cortex', 'cortex_m7', 'cm7')
     }
 
@@ -54,6 +54,7 @@ def generate_cmake_command(*, generator, toolchain, output_dir,
                             libcom_tests, system_tests, syn_sources, nocstd=False
                            ):
     mcu_specs = parse_mcu_specs(target)
+    has_fpu = mcu_specs['cpu_model_short'] in [ 'cm4f', 'cm7' ]
 
     cmd = [
         'cmake', '-B', output_dir,
@@ -71,6 +72,7 @@ def generate_cmake_command(*, generator, toolchain, output_dir,
         f'-DNEX_MCU_FAMILY_LINE={mcu_specs["mcu_family_line"].upper()}',
         f'-DNEX_MCU_FULLNAME={mcu_specs["mcu_fullname"]}',
         f'-DNEX_LD_SCRIPT={mcu_specs["ld_script_path"]}',
+        f'-DNEX_CPU_HAS_FPU={to_cmake_bool(has_fpu)}',
 
         # Always enable devmode when building tests.
         f'-DNEX_INCLUDE_DEVMODE={to_cmake_bool(devmode or build_tests)}', 

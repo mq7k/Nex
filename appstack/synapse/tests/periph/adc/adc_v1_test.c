@@ -888,6 +888,7 @@ test_adc_watchdog_reg(void)
 
 }
 
+#if defined(STM32_ADC_RESOLUTION)
 void
 test_adc_set_resolution(void)
 {
@@ -940,6 +941,7 @@ test_adc_set_resolution(void)
 
 
 }
+#endif
 
 void
 test_adc(void)
@@ -1014,20 +1016,20 @@ test_adc_is_calibration_in_progress(void)
 {
   u32 res;
 
-  // read_bits
+  // read_bit
   ADC1->CR2 = 0;
   res = adc_is_calibration_in_progress(ADC1);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  ADC1->CR2 = ~(0u << 2);
+  ADC1->CR2 = ~(0x1u << 2);
   res = adc_is_calibration_in_progress(ADC1);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  ADC1->CR2 = 0u << 2;
+  ADC1->CR2 = 0x1u << 2;
   res = adc_is_calibration_in_progress(ADC1);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 2);
   ASSERT_FALSE(execution_halted());
 
 }
@@ -1562,6 +1564,7 @@ test_adc_set_inj_external_event(void)
 }
 #endif
 
+#if defined(STM32_ADC_CR2_LAYOUT2)
 void
 test_adc_inj_start(void)
 {
@@ -1576,199 +1579,217 @@ test_adc_inj_start(void)
   ASSERT_FALSE(execution_halted());
 
 }
+#endif
+
+#if defined(STM32_ADC_CR2_LAYOUT1)
+void
+test_adc_inj_start(void)
+{
+  ADC1->CR2 = 0;
+  adc_inj_start(ADC1);
+  ASSERT_EQ(ADC1->CR2, (1u << 21));
+  ASSERT_FALSE(execution_halted());
+
+  ADC1->CR2 = ~(1u << 21);
+  adc_inj_start(ADC1);
+  ASSERT_EQ(ADC1->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+}
+#endif
 
 #if defined(STM32_ADC_xEXTSEL_LAYOUT1)
 void
 test_adc_set_reg_external_event(void)
 {
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC1'}, self.value='0b000', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC1'}, self.value='0b000', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC1);
   ASSERT_EQ(ADC1->CR2, (0b000u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC1);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b000u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC2'}, self.value='0b001', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC2'}, self.value='0b001', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC2);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC2);
   ASSERT_EQ(ADC1->CR2, (0b001u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC2);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC2);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b001u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC3'}, self.value='0b010', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC3'}, self.value='0b010', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC3);
   ASSERT_EQ(ADC1->CR2, (0b010u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM1_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM1_CC3);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b010u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM2_CC2'}, self.value='0b011', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_TIM2_CC2'}, self.value='0b011', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM2_CC2);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM2_CC2);
   ASSERT_EQ(ADC1->CR2, (0b011u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM2_CC2);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM2_CC2);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b011u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM3_TRGO'}, self.value='0b100', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_TIM3_TRGO'}, self.value='0b100', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM3_TRGO);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM3_TRGO);
   ASSERT_EQ(ADC1->CR2, (0b100u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM3_TRGO);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM3_TRGO);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b100u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM4_CC4'}, self.value='0b101', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_TIM4_CC4'}, self.value='0b101', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM4_CC4);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM4_CC4);
   ASSERT_EQ(ADC1->CR2, (0b101u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_TIM4_CC4);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_TIM4_CC4);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b101u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_EXTI11'}, self.value='0b110', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTI11'}, self.value='0b110', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_EXTI11);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTI11);
   ASSERT_EQ(ADC1->CR2, (0b110u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_EXTI11);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTI11);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b110u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_SWSTART'}, self.value='0b111', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_SWSTART'}, self.value='0b111', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_SWSTART);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_SWSTART);
   ASSERT_EQ(ADC1->CR2, (0b111u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC12_EXTSEL_SWSTART);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_SWSTART);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b111u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM3_CC1'}, self.value='0b000', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_TIM3_CC1'}, self.value='0b000', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM3_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM3_CC1);
   ASSERT_EQ(ADC1->CR2, (0b000u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM3_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM3_CC1);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b000u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM2_CC3'}, self.value='0b001', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_TIM2_CC3'}, self.value='0b001', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM2_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM2_CC3);
   ASSERT_EQ(ADC1->CR2, (0b001u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM2_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM2_CC3);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b001u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM1_CC3'}, self.value='0b010', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_TIM1_CC3'}, self.value='0b010', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM1_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM1_CC3);
   ASSERT_EQ(ADC1->CR2, (0b010u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM1_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM1_CC3);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b010u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_CC1'}, self.value='0b011', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_TIM8_CC1'}, self.value='0b011', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM8_CC1);
   ASSERT_EQ(ADC1->CR2, (0b011u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM8_CC1);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b011u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_TRGO'}, self.value='0b100', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_TIM8_TRGO'}, self.value='0b100', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_TRGO);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM8_TRGO);
   ASSERT_EQ(ADC1->CR2, (0b100u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM8_TRGO);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM8_TRGO);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b100u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC1'}, self.value='0b101', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC1'}, self.value='0b101', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC1);
   ASSERT_EQ(ADC1->CR2, (0b101u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC1);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC1);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b101u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC3'}, self.value='0b110', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC3'}, self.value='0b110', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC3);
   ASSERT_EQ(ADC1->CR2, (0b110u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_TIM5_CC3);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_TIM5_CC3);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b110u << 17));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_SWSTART'}, self.value='0b111', self.ifdef=[], self.halt=False
+  // scope=self.reg='CR2', self.shift='17', self.mask='0x7', self.varsmap={'event': 'ADC_REG_TRIGGER_EVENT_SWSTART'}, self.value='0b111', self.ifdef=[], self.halt=False
   ADC1->CR2 = 0;
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_SWSTART);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_SWSTART);
   ASSERT_EQ(ADC1->CR2, (0b111u << 17));
   ASSERT_FALSE(execution_halted());
 
   ADC1->CR2 = ~(0x7u << 17);
-  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_ADC3_EXTSEL_SWSTART);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_SWSTART);
   ASSERT_EQ(ADC1->CR2, ~(0x7u << 17) | (0b111u << 17));
   ASSERT_FALSE(execution_halted());
 
@@ -1993,6 +2014,7 @@ test_adc_set_reg_external_event(void)
 }
 #endif
 
+#if defined(STM32_ADC_CR2_LAYOUT2)
 void
 test_adc_reg_start(void)
 {
@@ -2007,6 +2029,24 @@ test_adc_reg_start(void)
   ASSERT_FALSE(execution_halted());
 
 }
+#endif
+
+#if defined(STM32_ADC_CR2_LAYOUT1)
+void
+test_adc_reg_start(void)
+{
+  ADC1->CR2 = 0;
+  adc_reg_start(ADC1);
+  ASSERT_EQ(ADC1->CR2, (1u << 22));
+  ASSERT_FALSE(execution_halted());
+
+  ADC1->CR2 = ~(1u << 22);
+  adc_reg_start(ADC1);
+  ASSERT_EQ(ADC1->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+}
+#endif
 
 #if defined(STM32_ADC_CR2_LAYOUT1)
 void
@@ -2250,7 +2290,9 @@ main(void)
 #endif
     TEST_FUNC(test_adc_watchdog_inj),
     TEST_FUNC(test_adc_watchdog_reg),
+#if defined(STM32_ADC_RESOLUTION)
     TEST_FUNC(test_adc_set_resolution),
+#endif
     TEST_FUNC(test_adc),
     TEST_FUNC(test_adc_set_conversion_method),
 #if defined(STM32_ADC_CALIBRATION)
@@ -2276,14 +2318,24 @@ main(void)
 #if defined(STM32_ADC_xEXTSEL_LAYOUT2)
     TEST_FUNC(test_adc_set_inj_external_event),
 #endif
+#if defined(STM32_ADC_CR2_LAYOUT2)
     TEST_FUNC(test_adc_inj_start),
+#endif
+#if defined(STM32_ADC_CR2_LAYOUT1)
+    TEST_FUNC(test_adc_inj_start),
+#endif
 #if defined(STM32_ADC_xEXTSEL_LAYOUT1)
     TEST_FUNC(test_adc_set_reg_external_event),
 #endif
 #if defined(STM32_ADC_xEXTSEL_LAYOUT2)
     TEST_FUNC(test_adc_set_reg_external_event),
 #endif
+#if defined(STM32_ADC_CR2_LAYOUT2)
     TEST_FUNC(test_adc_reg_start),
+#endif
+#if defined(STM32_ADC_CR2_LAYOUT1)
+    TEST_FUNC(test_adc_reg_start),
+#endif
 #if defined(STM32_ADC_CR2_LAYOUT1)
     TEST_FUNC(test_adc_temperature_sensor),
 #endif

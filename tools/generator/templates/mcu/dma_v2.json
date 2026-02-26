@@ -121,6 +121,7 @@
       "fn": "dma_channel",
       "signature": "{periph}, {channel}",
       "reg": "channels[{channel}].CCR",
+      "shift": 0,
       "args": {
         "channel": [
           "DMA_CHANNEL1",
@@ -171,6 +172,7 @@
       "reg": "channels[{channel}].CCR",
       "set": "DMA_TRANSFER_DIRECTION_FROM_MEMORY",
       "clear": "DMA_TRANSFER_DIRECTION_FROM_PERIPH",
+      "shift": 4,
       "args": {
         "channel": [
           "DMA_CHANNEL1",
@@ -242,6 +244,8 @@
       "fn": "dma_channel_set_periph_size",
       "signature": "{periph}, {channel}, {size}",
       "reg": "channels[{channel}].CCR",
+      "shift": 8,
+      "mask": "0x3",
       "args": {
         "channel": [
           "DMA_CHANNEL1",
@@ -273,6 +277,8 @@
       "fn": "dma_channel_set_memory_size",
       "signature": "{periph}, {channel}, {size}",
       "reg": "channels[{channel}].CCR",
+      "shift": 10,
+      "mask": "0x3",
       "args": {
         "channel": [
           "DMA_CHANNEL1",
@@ -304,6 +310,8 @@
       "fn": "dma_channel_set_priority_level",
       "signature": "{periph}, {channel}, {level}",
       "reg": "channels[{channel}].CCR",
+      "shift": 12,
+      "mask": "0x3",
       "args": {
         "channel": [
           "DMA_CHANNEL1",
@@ -314,7 +322,7 @@
           "DMA_CHANNEL6",
           "DMA_CHANNEL7"
         ],
-        "size": [
+        "level": [
           {
             "enum": "DMA_CHANNEL_PRIORITY_LOW",
             "value": "0b00"
@@ -339,6 +347,7 @@
       "fn": "dma_channel_mem2mem_mode",
       "signature": "{periph}, {channel}",
       "reg": "channels[{channel}].CCR",
+      "shift": 14,
       "args": {
         "channel": [
           "DMA_CHANNEL1",
@@ -354,8 +363,10 @@
     {
       "type": "fn_set_value",
       "fn": "dma_set_channel_transfer_items_count",
-      "signature": "{periph}, {channel}, {count}",
+      "signature": "{periph}, {channel}, {val}",
       "reg": "channels[{channel}].CNDTR",
+      "shift": 0,
+      "mask": "0xffff",
       "args": {
         "channel": [
           "DMA_CHANNEL1",
@@ -371,7 +382,11 @@
             "value": 0
           },
           {
-            "value": "0xffffffff"
+            "value": "0xffff"
+          },
+          {
+            "value": "0x10000",
+            "halt": true
           }
         ]
       }
@@ -379,6 +394,7 @@
     {
       "type": "fn_get",
       "fn": "dma_get_channel_transfer_items_left",
+      "signature": "{periph}, {channel}",
       "reg": "channels[{channel}].CNDTR",
       "args": {
         "channel": [

@@ -5,7 +5,9 @@
 
 BEGIN_DECLARATIONS
 
-#if defined(STM32F4)
+#if defined(STM32F1)
+#include "synapse/stm32/system/chips/f1/f1.h"
+#elif defined(STM32F4)
 #include "synapse/stm32/system/chips/f4/f4.h"
 #else
 #error "No STM32 family specified."

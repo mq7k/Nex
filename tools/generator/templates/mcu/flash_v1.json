@@ -37,7 +37,7 @@
     },
     {
       "type": "fn_toggle",
-      "fn": "flash_prefetch_buffer_enable",
+      "fn": "flash_prefetch_buffer",
       "signature": "",
       "reg": "ACR",
       "shift": 4,
@@ -48,7 +48,9 @@
       "fn": "flash_get_prefetch_buffer_status",
       "signature": "",
       "reg": "ACR",
-      "shift": 5
+      "shift": 5,
+      "mask": "0x1",
+      "ifdef": "STM32_FLASH_PREFETCH_BUFFER"
     },
     {
       "type": "fn_call (TODO)",

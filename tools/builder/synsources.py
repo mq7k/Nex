@@ -28,7 +28,7 @@ def get_config_doc(project, group, group_type):
     return doc
 
 class SynapseSources:
-    def __init__(self, mcu_group, arch_group, mcu_example_file, arch_example_file):
+    def __init__(self, mcu_group, mcu_example_file, arch_example_file):
         self.mcu = SourceFiles(
             project='synapse',
             group=mcu_group,
@@ -36,6 +36,7 @@ class SynapseSources:
             examples_file=mcu_example_file
         )
 
+        arch_group = self.mcu.arch
         self.arch = SourceFiles(
             project='synapse',
             group=arch_group,
@@ -50,6 +51,7 @@ class SourceFiles:
         self.compiler_flags = BuildFlags(doc.get('compiler_flags', {}))
         self.linker_flags = BuildFlags(doc.get('linker_flags', {}))
 
+        self.arch = doc.get('arch')
         self.drivers = doc['avb_periphs']
         self.tests = doc['avb_periphs']
         self.examples = get_examples_list(project, group, examples_file)

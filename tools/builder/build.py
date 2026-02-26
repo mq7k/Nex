@@ -39,11 +39,9 @@ def main():
 
     # mcu_periph_group = args.target['mcu_periph_group']
     mcu_periph_group = args.target['mcu'][:9]
-    arch_periph_group = args.target.get('arch_periph_group', 'cm4')
 
     synapse_sources = SynapseSources(
         mcu_group=mcu_periph_group,
-        arch_group=arch_periph_group,
         mcu_example_file='mcu_examples.json',
         arch_example_file='arch_examples.json'
     )

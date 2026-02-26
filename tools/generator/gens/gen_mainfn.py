@@ -17,9 +17,15 @@ def gen_mainfn(writer, functions):
                 macros = function['ifdef']
                 writer.ifdef(macros)
 
+            if 'ifndef' in function:
+                macros = function['ifndef']
+                writer.ifndef(macros)
+
             test_fn = get_test_fn_name(function)
             writer.write(f'TEST_FUNC({test_fn}),')
             if 'ifdef' in function:
+                writer.endif()
+            if 'ifndef' in function:
                 writer.endif()
 
         writer.close_bracket(newline=False)

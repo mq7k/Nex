@@ -260,15 +260,13 @@ test_rtc_flag_clear(void)
 
   RTC->CRL = (1u << 4);
   rtc_flag_clear(RTC_FLAG_CONFIGURATION);
-  ASSERT_EQ(RTC->CRL, (1u << 4));
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
+  ASSERT_EQ(RTC->CRL, 0);
+  ASSERT_FALSE(execution_halted());
 
   RTC->CRL = 0xffffffff;
   rtc_flag_clear(RTC_FLAG_CONFIGURATION);
-  ASSERT_EQ(RTC->CRL, 0xffffffff);
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
+  ASSERT_EQ(RTC->CRL, ~(1u << 4));
+  ASSERT_FALSE(execution_halted());
 
 
   RTC->CRL = (1u << 5);

@@ -14,6 +14,7 @@ def generate_decorator(writer, function, callback_fn, variables=None):
     btm_scope.mask = function.get('mask')
     btm_scope.reg = reg
     btm_scope.ifdef = function.get('ifdef', [])
+    btm_scope.ifndef = function.get('ifndef', [])
     btm_scope.value = function.get('value', 1)
 
     if isinstance(btm_scope.ifdef, str):

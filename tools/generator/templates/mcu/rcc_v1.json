@@ -132,8 +132,8 @@
       "fn": "rcc_get_hsi_cal",
       "signature": "",
       "reg": "CR",
-      "shift": 3,
-      "mask": "0x1f"
+      "shift": 8,
+      "mask": "0xff"
     },
     {
       "type": "fn_toggle",
@@ -147,7 +147,8 @@
       "fn": "rcc_hse_bypass_is_enabled",
       "signature": "",
       "reg": "CR",
-      "shift": 18
+      "shift": 18,
+      "mask": "0x1"
     },
     {
       "type": "fn_toggle",
@@ -161,13 +162,14 @@
       "fn": "rcc_clock_security_system_is_enabled",
       "signature": "",
       "reg": "CR",
-      "shift": 19
+      "shift": 19,
+      "mask": "0x1"
     },
     {
       "type": "enum_set",
       "fn": "rcc_set_sysclock_source",
       "signature": "{clock}",
-      "shift": 1,
+      "shift": 0,
       "mask": "0x3",
       "reg": "CFGR",
       "args": {
@@ -345,6 +347,7 @@
       "reg": "CFGR",
       "shift": 15,
       "mask": "0x3",
+      "ifdef": "STM32_RCC_PLLSRC_2BIT",
       "args": {
         "source": [
           {
@@ -478,7 +481,8 @@
       "shift": 22,
       "reg": "CFGR",
       "set": "RCC_USB_OTG_FS_PRESCALER_2",
-      "clear": "RCC_USB_OTG_FS_PRESCALER_3"
+      "clear": "RCC_USB_OTG_FS_PRESCALER_3",
+      "ifdef": "STM32_RCC_OTGFS"
     },
     {
       "type": "enum_set",
@@ -487,6 +491,80 @@
       "shift": 24,
       "mask": "0x7",
       "reg": "CFGR",
+      "ifdef": "STM32_RCC_CFGR_MCO_3BIT",
+      "args": {
+        "output": [
+          {
+            "enum": "RCC_MCO_NO_OUTPUT",
+            "value": "0b0000"
+          },
+          {
+            "enum": "RCC_MCO_HSI14",
+            "value": "0b0001",
+            "ifdef": "STM32_RCC_OSC_HSI14"
+          },
+          {
+            "enum": "RCC_MCO_LSI",
+            "value": "0b0010",
+            "ifdef": "STM32_RCC_OSC_HSI12"
+          },
+          {
+            "enum": "RCC_MCO_LSE",
+            "value": "0b0011",
+            "ifdef": "STM32_RCC_OSC_HSI14"
+          },
+          {
+            "enum": "RCC_MCO_SYSCLOCK",
+            "value": "0b0100"
+          },
+          {
+            "enum": "RCC_MCO_HSI",
+            "value": "0b0101"
+          },
+          {
+            "enum": "RCC_MCO_HSE",
+            "value": "0b0110"
+          },
+          {
+            "enum": "RCC_MCO_PLL",
+            "value": "0b0111"
+          },
+          {
+            "enum": "RCC_MCO_PLL2",
+            "value": "0b1000",
+            "ifdef": "STM32_RCC_OSC_PLL2"
+          },
+          {
+            "enum": "RCC_MCO_PLL3_DIV2",
+            "value": "0b1001",
+            "ifdef": "STM32_RCC_OSC_PLL3"
+          },
+          {
+            "enum": "RCC_MCO_XT1",
+            "value": "0b1010",
+            "ifdef": "STM32_MCO_XT1"
+          },
+          {
+            "enum": "RCC_MCO_PLL3",
+            "value": "0b0110",
+            "ifdef": "STM32_RCC_OSC_PLL3"
+          },
+          {
+            "enum": "RCC_MCO_HSI48",
+            "value": "0b1000",
+            "ifdef": "STM32_RCC_OSC_HSI48"
+          }
+        ]
+      }
+    },
+    {
+      "type": "enum_set",
+      "fn": "rcc_set_microcontroller_clock_output",
+      "signature": "{output}",
+      "shift": 24,
+      "mask": "0xf",
+      "reg": "CFGR",
+      "ifdef": "STM32_RCC_CFGR_MCO_4BIT",
       "args": {
         "output": [
           {
@@ -603,7 +681,8 @@
       "shift": 31,
       "reg": "CFGR",
       "set": "MCO_PLL_PRESCALER_NODIV",
-      "clear": "MCO_PLL_PRESCALER_DIV2"
+      "clear": "MCO_PLL_PRESCALER_DIV2",
+      "ifdef": "STM32_RCC_PLLNODIV"
     },
     {
       "type": "flag_is_set",
@@ -661,7 +740,7 @@
     },
     {
       "type": "fn_toggle",
-      "fn": "rcc_interrupt_enable",
+      "fn": "rcc_interrupt",
       "signature": "{interrupt}",
       "reg": "CIR",
       "args": {
@@ -708,7 +787,8 @@
           },
           {
             "enum": "RCC_INTERRUPT_CSS",
-            "shift": 15
+            "shift": 15,
+            "halt": true
           }
         ]
       }
@@ -982,19 +1062,19 @@
           },
           {
             "enum": "RCC_PERIPH_USART3",
-            "shift": 15,
+            "shift": 18,
             "reg": "APB1RSTR",
             "ifdef": "STM32_USART3"
           },
           {
             "enum": "RCC_PERIPH_UART4",
-            "shift": 16,
+            "shift": 19,
             "reg": "APB1RSTR",
             "ifdef": "STM32_UART4"
           },
           {
             "enum": "RCC_PERIPH_UART5",
-            "shift": 16,
+            "shift": 20,
             "reg": "APB1RSTR",
             "ifdef": "STM32_UART5"
           },
@@ -1063,398 +1143,404 @@
           {
             "enum": "RCC_PERIPH_DMA1",
             "shift": 0,
-            "reg": "RCC_AHBENR"
+            "reg": "AHBENR"
           },
           {
             "enum": "RCC_PERIPH_DMA2",
             "shift": 1,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_DMA2"
           },
           {
             "enum": "RCC_PERIPH_SRAM",
             "shift": 2,
-            "reg": "RCC_AHBENR"
+            "reg": "AHBENR"
           },
           {
             "enum": "RCC_PERIPH_FLITF",
             "shift": 4,
-            "reg": "RCC_AHBENR"
+            "reg": "AHBENR"
           },
           {
             "enum": "RCC_PERIPH_CRC",
             "shift": 6,
-            "reg": "RCC_AHBENR"
+            "reg": "AHBENR"
           },
           {
             "enum": "RCC_PERIPH_OTGFS",
             "shift": 8,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_RCC_OTGFS"
           },
           {
             "enum": "RCC_PERIPH_FSMC",
             "shift": 8,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_FSMC"
+          },
+          {
+            "enum": "RCC_PERIPH_SDIO",
+            "shift": 10,
+            "reg": "AHBENR",
+            "ifdef": "STM32_SDIO"
           },
           {
             "enum": "RCC_PERIPH_ETHMAC",
             "shift": 14,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_ETH"
           },
           {
             "enum": "RCC_PERIPH_ETHMACTX",
             "shift": 15,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_ETH"
           },
           {
             "enum": "RCC_PERIPH_ETHMACRX",
             "shift": 16,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_ETH"
           },
           {
             "enum": "RCC_PERIPH_GPIOA",
             "shift": 17,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_GPIOA",
-            "ifndef": "#STM32_RCC_APB2_GPIO"
+            "ifndef": "STM32_APB2_GPIO"
           },
           {
             "enum": "RCC_PERIPH_GPIOB",
             "shift": 18,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_GPIOB",
-            "ifndef": "#STM32_RCC_APB2_GPIO"
+            "ifndef": "STM32_APB2_GPIO"
           },
           {
             "enum": "RCC_PERIPH_GPIOC",
             "shift": 19,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_GPIOC",
-            "ifndef": "#STM32_RCC_APB2_GPIO"
+            "ifndef": "STM32_APB2_GPIO"
           },
           {
             "enum": "RCC_PERIPH_GPIOD",
             "shift": 20,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_GPIOD",
-            "ifndef": "#STM32_RCC_APB2_GPIO"
+            "ifndef": "STM32_APB2_GPIO"
           },
           {
             "enum": "RCC_PERIPH_GPIOE",
             "shift": 21,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_GPIOE",
-            "ifndef": "#STM32_RCC_APB2_GPIO"
+            "ifndef": "STM32_APB2_GPIO"
           },
           {
             "enum": "RCC_PERIPH_GPIOF",
             "shift": 22,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_GPIOF",
-            "ifndef": "#STM32_RCC_APB2_GPIO"
+            "ifndef": "STM32_APB2_GPIO"
           },
           {
             "enum": "RCC_PERIPH_GPIOG",
             "shift": 23,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_GPIOG",
-            "ifndef": "#STM32_RCC_APB2_GPIO"
+            "ifndef": "STM32_APB2_GPIO"
           },
           {
             "enum": "RCC_PERIPH_TSC",
             "shift": 24,
-            "reg": "RCC_AHBENR",
+            "reg": "AHBENR",
             "ifdef": "STM32_TSC"
           },
           {
             "enum": "RCC_PERIPH_SYSCFG",
             "shift": 0,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_RCC_SYSCFG"
           },
           {
             "enum": "RCC_PERIPH_AFIO",
             "shift": 0,
-            "reg": "RCC_APB2ENR",
-            "ifdef": "STM32_RCC_AFIO"
+            "reg": "APB2ENR",
+            "ifdef": "STM32_AFIO"
           },
           {
             "enum": "RCC_PERIPH_GPIOA",
             "shift": 2,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": [
               "STM32_GPIOA",
-              "STM32_RCC_APB2_GPIO"
+              "STM32_APB2_GPIO"
             ]
           },
           {
             "enum": "RCC_PERIPH_GPIOB",
             "shift": 3,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": [
               "STM32_GPIOB",
-              "STM32_RCC_APB2_GPIO"
+              "STM32_APB2_GPIO"
             ]
           },
           {
             "enum": "RCC_PERIPH_GPIOC",
             "shift": 4,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": [
               "STM32_GPIOC",
-              "STM32_RCC_APB2_GPIO"
+              "STM32_APB2_GPIO"
             ]
           },
           {
             "enum": "RCC_PERIPH_GPIOD",
             "shift": 5,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": [
               "STM32_GPIOD",
-              "STM32_RCC_APB2_GPIO"
+              "STM32_APB2_GPIO"
             ]
           },
           {
             "enum": "RCC_PERIPH_GPIOE",
             "shift": 6,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": [
               "STM32_GPIOE",
-              "STM32_RCC_APB2_GPIO"
+              "STM32_APB2_GPIO"
             ]
           },
           {
             "enum": "RCC_PERIPH_GPIOF",
             "shift": 7,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": [
               "STM32_GPIOF",
-              "STM32_RCC_APB2_GPIO"
+              "STM32_APB2_GPIO"
             ]
           },
           {
             "enum": "RCC_PERIPH_GPIOG",
             "shift": 8,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": [
               "STM32_GPIOG",
-              "STM32_RCC_APB2_GPIO"
+              "STM32_APB2_GPIO"
             ]
           },
           {
             "enum": "RCC_PERIPH_USART7",
             "shift": 6,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_USART7"
           },
           {
             "enum": "RCC_PERIPH_USART8",
             "shift": 7,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_USART8"
           },
           {
             "enum": "RCC_PERIPH_ADC1",
             "shift": 9,
-            "reg": "RCC_APB2ENR"
+            "reg": "APB2ENR"
           },
           {
             "enum": "RCC_PERIPH_ADC2",
             "shift": 10,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_ADC2"
           },
           {
             "enum": "RCC_PERIPH_TIM1",
             "shift": 11,
-            "reg": "RCC_APB2ENR"
+            "reg": "APB2ENR"
           },
           {
             "enum": "RCC_PERIPH_SPI1",
             "shift": 12,
-            "reg": "RCC_APB2ENR"
+            "reg": "APB2ENR"
           },
           {
             "enum": "RCC_PERIPH_USART1",
             "shift": 14,
-            "reg": "RCC_APB2ENR"
+            "reg": "APB2ENR"
           },
           {
             "enum": "RCC_PERIPH_TIM15",
             "shift": 16,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_TIM15"
           },
           {
             "enum": "RCC_PERIPH_TIM16",
             "shift": 17,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_TIM16"
           },
           {
             "enum": "RCC_PERIPH_TIM17",
             "shift": 18,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_TIM17"
           },
           {
             "enum": "RCC_PERIPH_DBGMCU",
             "shift": 22,
-            "reg": "RCC_APB2ENR",
+            "reg": "APB2ENR",
             "ifdef": "STM32_DBGMCU"
           },
           {
             "enum": "RCC_PERIPH_TIM2",
             "shift": 0,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM2"
           },
           {
             "enum": "RCC_PERIPH_TIM3",
             "shift": 1,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM3"
           },
           {
             "enum": "RCC_PERIPH_TIM4",
             "shift": 2,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM4"
           },
           {
             "enum": "RCC_PERIPH_TIM5",
             "shift": 3,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM5"
           },
           {
             "enum": "RCC_PERIPH_TIM6",
             "shift": 4,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM6"
           },
           {
             "enum": "RCC_PERIPH_TIM7",
             "shift": 5,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM7"
           },
           {
             "enum": "RCC_PERIPH_TIM12",
             "shift": 6,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM12"
           },
           {
             "enum": "RCC_PERIPH_TIM13",
             "shift": 7,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM13"
           },
           {
             "enum": "RCC_PERIPH_TIM14",
             "shift": 8,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_TIM14"
           },
           {
             "enum": "RCC_PERIPH_WWDG",
             "shift": 11,
-            "reg": "RCC_APB1ENR"
+            "reg": "APB1ENR"
           },
           {
             "enum": "RCC_PERIPH_SPI2",
             "shift": 14,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_SPI2"
           },
           {
             "enum": "RCC_PERIPH_SPI3",
             "shift": 15,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_SPI3"
           },
           {
             "enum": "RCC_PERIPH_USART2",
             "shift": 17,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_USART2"
           },
           {
             "enum": "RCC_PERIPH_USART3",
             "shift": 18,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_USART3"
           },
           {
             "enum": "RCC_PERIPH_UART4",
             "shift": 19,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_UART4"
           },
           {
             "enum": "RCC_PERIPH_UART5",
             "shift": 20,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_UART5"
           },
           {
             "enum": "RCC_PERIPH_I2C1",
             "shift": 21,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_I2C1"
           },
           {
             "enum": "RCC_PERIPH_I2C2",
             "shift": 22,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_I2C2"
           },
           {
             "enum": "RCC_PERIPH_USB",
             "shift": 23,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_USB"
           },
           {
             "enum": "RCC_PERIPH_CAN1",
             "shift": 25,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_CAN1"
           },
           {
             "enum": "RCC_PERIPH_CAN2",
             "shift": 26,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_CAN2"
           },
           {
             "enum": "RCC_PERIPH_BKP",
             "shift": 27,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_BKP"
           },
           {
             "enum": "RCC_PERIPH_PWR",
             "shift": 28,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_PWR"
           },
           {
             "enum": "RCC_PERIPH_DAC",
             "shift": 29,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_DAC"
           },
           {
             "enum": "RCC_PERIPH_CEC",
             "shift": 30,
-            "reg": "RCC_APB1ENR",
+            "reg": "APB1ENR",
             "ifdef": "STM32_CEC"
           }
         ]
@@ -1507,13 +1593,15 @@
       "fn": "rcc_lse_bypass_is_enabled",
       "signature": "",
       "reg": "BDCR",
-      "shift": 2
+      "shift": 2,
+      "mask": "0x1"
     },
     {
       "type": "fn_get",
       "fn": "rcc_reset_is_flag_set",
       "signature": "{flag}",
       "reg": "CSR",
+      "mask": "0x1",
       "args": {
         "flag": [
           {
@@ -1645,7 +1733,6 @@
       "shift": 4,
       "mask": "0xf",
       "ifdef": [
-        "STM32_RCC_CFGR2",
         "STM32_RCC_PREDIV2"
       ],
       "args": {
@@ -1853,8 +1940,8 @@
       "signature": "{source}",
       "reg": "CFGR2",
       "shift": 18,
-      "set": "RCC_I2S2_SOURCE_PLL3",
-      "clear": "RCC_I2S2_SOURCE_SYSCLOCK",
+      "set": "RCC_I2S3_SOURCE_PLL3",
+      "clear": "RCC_I2S3_SOURCE_SYSCLOCK",
       "ifdef": [
         "STM32_RCC_CFGR2",
         "STM32_I2S3"

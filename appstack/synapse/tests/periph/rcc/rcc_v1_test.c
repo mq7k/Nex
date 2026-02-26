@@ -467,14 +467,14 @@ test_rcc_get_hsi_cal(void)
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CR = ~(0x1fu << 3);
+  RCC->CR = ~(0xffu << 8);
   res = rcc_get_hsi_cal();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CR = 0x1fu << 3;
+  RCC->CR = 0xffu << 8;
   res = rcc_get_hsi_cal();
-  ASSERT_EQ(res, 0x1f);
+  ASSERT_EQ(res, 0xff);
   ASSERT_FALSE(execution_halted());
 
 }
@@ -509,20 +509,20 @@ test_rcc_hse_bypass_is_enabled(void)
 {
   u32 res;
 
-  // read_bits
+  // read_bit
   RCC->CR = 0;
   res = rcc_hse_bypass_is_enabled();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CR = ~(0u << 18);
+  RCC->CR = ~(0x1u << 18);
   res = rcc_hse_bypass_is_enabled();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CR = 0u << 18;
+  RCC->CR = 0x1u << 18;
   res = rcc_hse_bypass_is_enabled();
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 18);
   ASSERT_FALSE(execution_halted());
 
 }
@@ -557,20 +557,20 @@ test_rcc_clock_security_system_is_enabled(void)
 {
   u32 res;
 
-  // read_bits
+  // read_bit
   RCC->CR = 0;
   res = rcc_clock_security_system_is_enabled();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CR = ~(0u << 19);
+  RCC->CR = ~(0x1u << 19);
   res = rcc_clock_security_system_is_enabled();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CR = 0u << 19;
+  RCC->CR = 0x1u << 19;
   res = rcc_clock_security_system_is_enabled();
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 19);
   ASSERT_FALSE(execution_halted());
 
 }
@@ -578,52 +578,52 @@ test_rcc_clock_security_system_is_enabled(void)
 void
 test_rcc_set_sysclock_source(void)
 {
-  // scope=self.reg='CFGR', self.shift=1, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_HSI'}, self.value='0b00', self.ifdef=[], self.halt=False
+  // scope=self.reg='CFGR', self.shift=0, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_HSI'}, self.value='0b00', self.ifdef=[], self.halt=False
   RCC->CFGR = 0;
   rcc_set_sysclock_source(RCC_SYSCLOCK_HSI);
-  ASSERT_EQ(RCC->CFGR, (0b00u << 1));
+  ASSERT_EQ(RCC->CFGR, (0b00u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->CFGR = ~(0x3u << 1);
+  RCC->CFGR = ~(0x3u << 0);
   rcc_set_sysclock_source(RCC_SYSCLOCK_HSI);
-  ASSERT_EQ(RCC->CFGR, ~(0x3u << 1) | (0b00u << 1));
+  ASSERT_EQ(RCC->CFGR, ~(0x3u << 0) | (0b00u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CFGR', self.shift=1, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_HSE'}, self.value='0b01', self.ifdef=[], self.halt=False
+  // scope=self.reg='CFGR', self.shift=0, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_HSE'}, self.value='0b01', self.ifdef=[], self.halt=False
   RCC->CFGR = 0;
   rcc_set_sysclock_source(RCC_SYSCLOCK_HSE);
-  ASSERT_EQ(RCC->CFGR, (0b01u << 1));
+  ASSERT_EQ(RCC->CFGR, (0b01u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->CFGR = ~(0x3u << 1);
+  RCC->CFGR = ~(0x3u << 0);
   rcc_set_sysclock_source(RCC_SYSCLOCK_HSE);
-  ASSERT_EQ(RCC->CFGR, ~(0x3u << 1) | (0b01u << 1));
+  ASSERT_EQ(RCC->CFGR, ~(0x3u << 0) | (0b01u << 0));
   ASSERT_FALSE(execution_halted());
 
 
-  // scope=self.reg='CFGR', self.shift=1, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_PLL'}, self.value='0b10', self.ifdef=[], self.halt=False
+  // scope=self.reg='CFGR', self.shift=0, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_PLL'}, self.value='0b10', self.ifdef=[], self.halt=False
   RCC->CFGR = 0;
   rcc_set_sysclock_source(RCC_SYSCLOCK_PLL);
-  ASSERT_EQ(RCC->CFGR, (0b10u << 1));
+  ASSERT_EQ(RCC->CFGR, (0b10u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->CFGR = ~(0x3u << 1);
+  RCC->CFGR = ~(0x3u << 0);
   rcc_set_sysclock_source(RCC_SYSCLOCK_PLL);
-  ASSERT_EQ(RCC->CFGR, ~(0x3u << 1) | (0b10u << 1));
+  ASSERT_EQ(RCC->CFGR, ~(0x3u << 0) | (0b10u << 0));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_RCC_OSC_HSI48)
-  // scope=self.reg='CFGR', self.shift=1, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_HSI48'}, self.value='0b11', self.ifdef=['STM32_RCC_OSC_HSI48'], self.halt=False
+  // scope=self.reg='CFGR', self.shift=0, self.mask='0x3', self.varsmap={'clock': 'RCC_SYSCLOCK_HSI48'}, self.value='0b11', self.ifdef=['STM32_RCC_OSC_HSI48'], self.halt=False
   RCC->CFGR = 0;
   rcc_set_sysclock_source(RCC_SYSCLOCK_HSI48);
-  ASSERT_EQ(RCC->CFGR, (0b11u << 1));
+  ASSERT_EQ(RCC->CFGR, (0b11u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->CFGR = ~(0x3u << 1);
+  RCC->CFGR = ~(0x3u << 0);
   rcc_set_sysclock_source(RCC_SYSCLOCK_HSI48);
-  ASSERT_EQ(RCC->CFGR, ~(0x3u << 1) | (0b11u << 1));
+  ASSERT_EQ(RCC->CFGR, ~(0x3u << 0) | (0b11u << 0));
   ASSERT_FALSE(execution_halted());
 
 #endif
@@ -941,6 +941,7 @@ test_rcc_set_adc_prescaler(void)
 }
 #endif
 
+#if defined(STM32_RCC_PLLSRC_2BIT)
 void
 test_rcc_set_pll_source(void)
 {
@@ -993,7 +994,9 @@ test_rcc_set_pll_source(void)
 
 
 }
+#endif
 
+#if !defined(STM32_RCC_PLLSRC_2BIT)
 void
 test_rcc_set_pll_source(void)
 {
@@ -1018,6 +1021,7 @@ test_rcc_set_pll_source(void)
   ASSERT_FALSE(execution_halted());
 
 }
+#endif
 
 void
 test_rcc_set_pll_hse_prescaler(void)
@@ -1261,6 +1265,7 @@ test_rcc_set_pll_multiplication_factor(void)
 
 }
 
+#if defined(STM32_RCC_OTGFS)
 void
 test_rcc_set_usb_otg_fs_prescaler(void)
 {
@@ -1285,7 +1290,9 @@ test_rcc_set_usb_otg_fs_prescaler(void)
   ASSERT_FALSE(execution_halted());
 
 }
+#endif
 
+#if defined(STM32_RCC_CFGR_MCO_3BIT)
 void
 test_rcc_set_microcontroller_clock_output(void)
 {
@@ -1419,7 +1426,8 @@ test_rcc_set_microcontroller_clock_output(void)
 
 #endif
 
-  // scope=self.reg='CFGR', self.shift=24, self.mask='0x7', self.varsmap={'output': 'RCC_MCO_XT1'}, self.value='0b1010', self.ifdef=[], self.halt=False
+#if defined(STM32_MCO_XT1)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0x7', self.varsmap={'output': 'RCC_MCO_XT1'}, self.value='0b1010', self.ifdef=['STM32_MCO_XT1'], self.halt=False
   RCC->CFGR = 0;
   rcc_set_microcontroller_clock_output(RCC_MCO_XT1);
   ASSERT_EQ(RCC->CFGR, (0b1010u << 24));
@@ -1430,6 +1438,7 @@ test_rcc_set_microcontroller_clock_output(void)
   ASSERT_EQ(RCC->CFGR, ~(0x7u << 24) | (0b1010u << 24));
   ASSERT_FALSE(execution_halted());
 
+#endif
 
 #if defined(STM32_RCC_OSC_PLL3)
   // scope=self.reg='CFGR', self.shift=24, self.mask='0x7', self.varsmap={'output': 'RCC_MCO_PLL3'}, self.value='0b0110', self.ifdef=['STM32_RCC_OSC_PLL3'], self.halt=False
@@ -1460,6 +1469,184 @@ test_rcc_set_microcontroller_clock_output(void)
 #endif
 
 }
+#endif
+
+#if defined(STM32_RCC_CFGR_MCO_4BIT)
+void
+test_rcc_set_microcontroller_clock_output(void)
+{
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_NO_OUTPUT'}, self.value='0b0000', self.ifdef=[], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_NO_OUTPUT);
+  ASSERT_EQ(RCC->CFGR, (0b0000u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_NO_OUTPUT);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0000u << 24));
+  ASSERT_FALSE(execution_halted());
+
+
+#if defined(STM32_RCC_OSC_HSI14)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_HSI14'}, self.value='0b0001', self.ifdef=['STM32_RCC_OSC_HSI14'], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSI14);
+  ASSERT_EQ(RCC->CFGR, (0b0001u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSI14);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0001u << 24));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+#if defined(STM32_RCC_OSC_HSI12)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_LSI'}, self.value='0b0010', self.ifdef=['STM32_RCC_OSC_HSI12'], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_LSI);
+  ASSERT_EQ(RCC->CFGR, (0b0010u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_LSI);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0010u << 24));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+#if defined(STM32_RCC_OSC_HSI14)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_LSE'}, self.value='0b0011', self.ifdef=['STM32_RCC_OSC_HSI14'], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_LSE);
+  ASSERT_EQ(RCC->CFGR, (0b0011u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_LSE);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0011u << 24));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_SYSCLOCK'}, self.value='0b0100', self.ifdef=[], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_SYSCLOCK);
+  ASSERT_EQ(RCC->CFGR, (0b0100u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_SYSCLOCK);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0100u << 24));
+  ASSERT_FALSE(execution_halted());
+
+
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_HSI'}, self.value='0b0101', self.ifdef=[], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSI);
+  ASSERT_EQ(RCC->CFGR, (0b0101u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSI);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0101u << 24));
+  ASSERT_FALSE(execution_halted());
+
+
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_HSE'}, self.value='0b0110', self.ifdef=[], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSE);
+  ASSERT_EQ(RCC->CFGR, (0b0110u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSE);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0110u << 24));
+  ASSERT_FALSE(execution_halted());
+
+
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_PLL'}, self.value='0b0111', self.ifdef=[], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL);
+  ASSERT_EQ(RCC->CFGR, (0b0111u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0111u << 24));
+  ASSERT_FALSE(execution_halted());
+
+
+#if defined(STM32_RCC_OSC_PLL2)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_PLL2'}, self.value='0b1000', self.ifdef=['STM32_RCC_OSC_PLL2'], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL2);
+  ASSERT_EQ(RCC->CFGR, (0b1000u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL2);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b1000u << 24));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+#if defined(STM32_RCC_OSC_PLL3)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_PLL3_DIV2'}, self.value='0b1001', self.ifdef=['STM32_RCC_OSC_PLL3'], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL3_DIV2);
+  ASSERT_EQ(RCC->CFGR, (0b1001u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL3_DIV2);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b1001u << 24));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_XT1'}, self.value='0b1010', self.ifdef=[], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_XT1);
+  ASSERT_EQ(RCC->CFGR, (0b1010u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_XT1);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b1010u << 24));
+  ASSERT_FALSE(execution_halted());
+
+
+#if defined(STM32_RCC_OSC_PLL3)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_PLL3'}, self.value='0b0110', self.ifdef=['STM32_RCC_OSC_PLL3'], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL3);
+  ASSERT_EQ(RCC->CFGR, (0b0110u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_PLL3);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b0110u << 24));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+#if defined(STM32_RCC_OSC_HSI48)
+  // scope=self.reg='CFGR', self.shift=24, self.mask='0xf', self.varsmap={'output': 'RCC_MCO_HSI48'}, self.value='0b1000', self.ifdef=['STM32_RCC_OSC_HSI48'], self.halt=False
+  RCC->CFGR = 0;
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSI48);
+  ASSERT_EQ(RCC->CFGR, (0b1000u << 24));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->CFGR = ~(0xfu << 24);
+  rcc_set_microcontroller_clock_output(RCC_MCO_HSI48);
+  ASSERT_EQ(RCC->CFGR, ~(0xfu << 24) | (0b1000u << 24));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+}
+#endif
 
 #if defined(STM32_RCC_MCOPRE)
 void
@@ -1564,6 +1751,7 @@ test_rcc_set_mco_prescaler(void)
 }
 #endif
 
+#if defined(STM32_RCC_PLLNODIV)
 void
 test_rcc_set_mco_pll_prescaler(void)
 {
@@ -1588,6 +1776,7 @@ test_rcc_set_mco_pll_prescaler(void)
   ASSERT_FALSE(execution_halted());
 
 }
+#endif
 
 void
 test_rcc_is_interrupt_flag_set(void)
@@ -1815,131 +2004,131 @@ test_rcc_is_interrupt_flag_set(void)
 }
 
 void
-test_rcc_interrupt_enable(void)
+test_rcc_interrupt(void)
 {
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_LSI);
+  rcc_interrupt_enable(RCC_INTERRUPT_LSI);
   ASSERT_EQ(RCC->CIR, (1u << 8));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 8);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_LSI);
+  rcc_interrupt_enable(RCC_INTERRUPT_LSI);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 8);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_LSI);
+  rcc_interrupt_disable(RCC_INTERRUPT_LSI);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_LSI);
+  rcc_interrupt_disable(RCC_INTERRUPT_LSI);
   ASSERT_EQ(RCC->CIR, ~(1u << 8));
   ASSERT_FALSE(execution_halted());
 
 
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_LSE);
+  rcc_interrupt_enable(RCC_INTERRUPT_LSE);
   ASSERT_EQ(RCC->CIR, (1u << 9));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 9);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_LSE);
+  rcc_interrupt_enable(RCC_INTERRUPT_LSE);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 9);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_LSE);
+  rcc_interrupt_disable(RCC_INTERRUPT_LSE);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_LSE);
+  rcc_interrupt_disable(RCC_INTERRUPT_LSE);
   ASSERT_EQ(RCC->CIR, ~(1u << 9));
   ASSERT_FALSE(execution_halted());
 
 
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_HSI);
+  rcc_interrupt_enable(RCC_INTERRUPT_HSI);
   ASSERT_EQ(RCC->CIR, (1u << 10));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 10);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_HSI);
+  rcc_interrupt_enable(RCC_INTERRUPT_HSI);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 10);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_HSI);
+  rcc_interrupt_disable(RCC_INTERRUPT_HSI);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_HSI);
+  rcc_interrupt_disable(RCC_INTERRUPT_HSI);
   ASSERT_EQ(RCC->CIR, ~(1u << 10));
   ASSERT_FALSE(execution_halted());
 
 
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_HSE);
+  rcc_interrupt_enable(RCC_INTERRUPT_HSE);
   ASSERT_EQ(RCC->CIR, (1u << 11));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 11);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_HSE);
+  rcc_interrupt_enable(RCC_INTERRUPT_HSE);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 11);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_HSE);
+  rcc_interrupt_disable(RCC_INTERRUPT_HSE);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_HSE);
+  rcc_interrupt_disable(RCC_INTERRUPT_HSE);
   ASSERT_EQ(RCC->CIR, ~(1u << 11));
   ASSERT_FALSE(execution_halted());
 
 
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_PLL);
+  rcc_interrupt_enable(RCC_INTERRUPT_PLL);
   ASSERT_EQ(RCC->CIR, (1u << 12));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 12);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_PLL);
+  rcc_interrupt_enable(RCC_INTERRUPT_PLL);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 12);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_PLL);
+  rcc_interrupt_disable(RCC_INTERRUPT_PLL);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_PLL);
+  rcc_interrupt_disable(RCC_INTERRUPT_PLL);
   ASSERT_EQ(RCC->CIR, ~(1u << 12));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_RCC_OSC_PLL2)
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_PLL2);
+  rcc_interrupt_enable(RCC_INTERRUPT_PLL2);
   ASSERT_EQ(RCC->CIR, (1u << 13));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 13);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_PLL2);
+  rcc_interrupt_enable(RCC_INTERRUPT_PLL2);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 13);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_PLL2);
+  rcc_interrupt_disable(RCC_INTERRUPT_PLL2);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_PLL2);
+  rcc_interrupt_disable(RCC_INTERRUPT_PLL2);
   ASSERT_EQ(RCC->CIR, ~(1u << 13));
   ASSERT_FALSE(execution_halted());
 
@@ -1947,22 +2136,22 @@ test_rcc_interrupt_enable(void)
 
 #if defined(RCC_INTERRUPT_HSI14)
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(STM32_RCC_OSC_HSI14);
+  rcc_interrupt_enable(STM32_RCC_OSC_HSI14);
   ASSERT_EQ(RCC->CIR, (1u << 13));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 13);
-  rcc_interrupt_enable_enable(STM32_RCC_OSC_HSI14);
+  rcc_interrupt_enable(STM32_RCC_OSC_HSI14);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 13);
-  rcc_interrupt_enable_disable(STM32_RCC_OSC_HSI14);
+  rcc_interrupt_disable(STM32_RCC_OSC_HSI14);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(STM32_RCC_OSC_HSI14);
+  rcc_interrupt_disable(STM32_RCC_OSC_HSI14);
   ASSERT_EQ(RCC->CIR, ~(1u << 13));
   ASSERT_FALSE(execution_halted());
 
@@ -1970,22 +2159,22 @@ test_rcc_interrupt_enable(void)
 
 #if defined(STM32_RCC_OSC_PLL3)
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_PLL3);
+  rcc_interrupt_enable(RCC_INTERRUPT_PLL3);
   ASSERT_EQ(RCC->CIR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 14);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_PLL3);
+  rcc_interrupt_enable(RCC_INTERRUPT_PLL3);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 14);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_PLL3);
+  rcc_interrupt_disable(RCC_INTERRUPT_PLL3);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_PLL3);
+  rcc_interrupt_disable(RCC_INTERRUPT_PLL3);
   ASSERT_EQ(RCC->CIR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
@@ -1993,46 +2182,50 @@ test_rcc_interrupt_enable(void)
 
 #if defined(STM32_RCC_OSC_HSI48)
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_HSI48);
+  rcc_interrupt_enable(RCC_INTERRUPT_HSI48);
   ASSERT_EQ(RCC->CIR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = ~(1u << 14);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_HSI48);
+  rcc_interrupt_enable(RCC_INTERRUPT_HSI48);
   ASSERT_EQ(RCC->CIR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = (1u << 14);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_HSI48);
+  rcc_interrupt_disable(RCC_INTERRUPT_HSI48);
   ASSERT_EQ(RCC->CIR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_HSI48);
+  rcc_interrupt_disable(RCC_INTERRUPT_HSI48);
   ASSERT_EQ(RCC->CIR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
   RCC->CIR = 0;
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_CSS);
-  ASSERT_EQ(RCC->CIR, (1u << 15));
-  ASSERT_FALSE(execution_halted());
+  rcc_interrupt_enable(RCC_INTERRUPT_CSS);
+  ASSERT_EQ(RCC->CIR, 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
 
   RCC->CIR = ~(1u << 15);
-  rcc_interrupt_enable_enable(RCC_INTERRUPT_CSS);
-  ASSERT_EQ(RCC->CIR, 0xffffffff);
-  ASSERT_FALSE(execution_halted());
+  rcc_interrupt_enable(RCC_INTERRUPT_CSS);
+  ASSERT_EQ(RCC->CIR, ~(1u << 15));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
 
   RCC->CIR = (1u << 15);
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_CSS);
-  ASSERT_EQ(RCC->CIR, 0);
-  ASSERT_FALSE(execution_halted());
+  rcc_interrupt_disable(RCC_INTERRUPT_CSS);
+  ASSERT_EQ(RCC->CIR, (1u << 15));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
 
   RCC->CIR = 0xffffffff;
-  rcc_interrupt_enable_disable(RCC_INTERRUPT_CSS);
-  ASSERT_EQ(RCC->CIR, ~(1u << 15));
-  ASSERT_FALSE(execution_halted());
+  rcc_interrupt_disable(RCC_INTERRUPT_CSS);
+  ASSERT_EQ(RCC->CIR, 0xffffffff);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
 
 
 }
@@ -2338,6 +2531,7 @@ test_rcc_periph_reset(void)
 #endif
 
 #if defined(STM32_GPIOA)
+#if !defined(STM32_GPIO_RST_AHB)
   RCC->APB2RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_GPIOA);
   ASSERT_EQ(RCC->APB2RSTR, (1u << 2));
@@ -2349,8 +2543,10 @@ test_rcc_periph_reset(void)
   ASSERT_FALSE(execution_halted());
 
 #endif
+#endif
 
 #if defined(STM32_GPIOB)
+#if !defined(STM32_GPIO_RST_AHB)
   RCC->APB2RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_GPIOB);
   ASSERT_EQ(RCC->APB2RSTR, (1u << 3));
@@ -2362,8 +2558,10 @@ test_rcc_periph_reset(void)
   ASSERT_FALSE(execution_halted());
 
 #endif
+#endif
 
 #if defined(STM32_GPIOC)
+#if !defined(STM32_GPIO_RST_AHB)
   RCC->APB2RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_GPIOC);
   ASSERT_EQ(RCC->APB2RSTR, (1u << 4));
@@ -2375,8 +2573,10 @@ test_rcc_periph_reset(void)
   ASSERT_FALSE(execution_halted());
 
 #endif
+#endif
 
 #if defined(STM32_GPIOD)
+#if !defined(STM32_GPIO_RST_AHB)
   RCC->APB2RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_GPIOD);
   ASSERT_EQ(RCC->APB2RSTR, (1u << 5));
@@ -2388,8 +2588,10 @@ test_rcc_periph_reset(void)
   ASSERT_FALSE(execution_halted());
 
 #endif
+#endif
 
 #if defined(STM32_GPIOE)
+#if !defined(STM32_GPIO_RST_AHB)
   RCC->APB2RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_GPIOE);
   ASSERT_EQ(RCC->APB2RSTR, (1u << 6));
@@ -2401,8 +2603,10 @@ test_rcc_periph_reset(void)
   ASSERT_FALSE(execution_halted());
 
 #endif
+#endif
 
 #if defined(STM32_GPIOF)
+#if !defined(STM32_GPIO_RST_AHB)
   RCC->APB2RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_GPIOF);
   ASSERT_EQ(RCC->APB2RSTR, (1u << 7));
@@ -2414,8 +2618,10 @@ test_rcc_periph_reset(void)
   ASSERT_FALSE(execution_halted());
 
 #endif
+#endif
 
 #if defined(STM32_GPIOG)
+#if !defined(STM32_GPIO_RST_AHB)
   RCC->APB2RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_GPIOG);
   ASSERT_EQ(RCC->APB2RSTR, (1u << 8));
@@ -2426,6 +2632,7 @@ test_rcc_periph_reset(void)
   ASSERT_EQ(RCC->APB2RSTR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
+#endif
 #endif
 
 #if defined(STM32_TIM2)
@@ -2598,10 +2805,10 @@ test_rcc_periph_reset(void)
 #if defined(STM32_USART3)
   RCC->APB1RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_USART3);
-  ASSERT_EQ(RCC->APB1RSTR, (1u << 15));
+  ASSERT_EQ(RCC->APB1RSTR, (1u << 18));
   ASSERT_FALSE(execution_halted());
 
-  RCC->APB1RSTR = ~(1u << 15);
+  RCC->APB1RSTR = ~(1u << 18);
   rcc_periph_reset(RCC_PERIPH_USART3);
   ASSERT_EQ(RCC->APB1RSTR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
@@ -2611,10 +2818,10 @@ test_rcc_periph_reset(void)
 #if defined(STM32_UART4)
   RCC->APB1RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_UART4);
-  ASSERT_EQ(RCC->APB1RSTR, (1u << 16));
+  ASSERT_EQ(RCC->APB1RSTR, (1u << 19));
   ASSERT_FALSE(execution_halted());
 
-  RCC->APB1RSTR = ~(1u << 16);
+  RCC->APB1RSTR = ~(1u << 19);
   rcc_periph_reset(RCC_PERIPH_UART4);
   ASSERT_EQ(RCC->APB1RSTR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
@@ -2624,10 +2831,10 @@ test_rcc_periph_reset(void)
 #if defined(STM32_UART5)
   RCC->APB1RSTR = 0;
   rcc_periph_reset(RCC_PERIPH_UART5);
-  ASSERT_EQ(RCC->APB1RSTR, (1u << 16));
+  ASSERT_EQ(RCC->APB1RSTR, (1u << 20));
   ASSERT_FALSE(execution_halted());
 
-  RCC->APB1RSTR = ~(1u << 16);
+  RCC->APB1RSTR = ~(1u << 20);
   rcc_periph_reset(RCC_PERIPH_UART5);
   ASSERT_EQ(RCC->APB1RSTR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
@@ -2754,1433 +2961,1470 @@ test_rcc_periph_reset(void)
 void
 test_rcc_periph_clock(void)
 {
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_DMA1);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 0));
+  ASSERT_EQ(RCC->AHBENR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 0);
+  RCC->AHBENR = ~(1u << 0);
   rcc_periph_clock_enable(RCC_PERIPH_DMA1);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 0);
+  RCC->AHBENR = (1u << 0);
   rcc_periph_clock_disable(RCC_PERIPH_DMA1);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_DMA1);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 0));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_DMA2)
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_DMA2);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 1));
+  ASSERT_EQ(RCC->AHBENR, (1u << 1));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 1);
+  RCC->AHBENR = ~(1u << 1);
   rcc_periph_clock_enable(RCC_PERIPH_DMA2);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 1);
+  RCC->AHBENR = (1u << 1);
   rcc_periph_clock_disable(RCC_PERIPH_DMA2);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_DMA2);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 1));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 1));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_SRAM);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 2));
+  ASSERT_EQ(RCC->AHBENR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 2);
+  RCC->AHBENR = ~(1u << 2);
   rcc_periph_clock_enable(RCC_PERIPH_SRAM);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 2);
+  RCC->AHBENR = (1u << 2);
   rcc_periph_clock_disable(RCC_PERIPH_SRAM);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_SRAM);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 2));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_FLITF);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 4));
+  ASSERT_EQ(RCC->AHBENR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 4);
+  RCC->AHBENR = ~(1u << 4);
   rcc_periph_clock_enable(RCC_PERIPH_FLITF);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 4);
+  RCC->AHBENR = (1u << 4);
   rcc_periph_clock_disable(RCC_PERIPH_FLITF);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_FLITF);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 4));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_CRC);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 6));
+  ASSERT_EQ(RCC->AHBENR, (1u << 6));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 6);
+  RCC->AHBENR = ~(1u << 6);
   rcc_periph_clock_enable(RCC_PERIPH_CRC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 6);
+  RCC->AHBENR = (1u << 6);
   rcc_periph_clock_disable(RCC_PERIPH_CRC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_CRC);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 6));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 6));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_RCC_OTGFS)
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_OTGFS);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 8));
+  ASSERT_EQ(RCC->AHBENR, (1u << 8));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 8);
+  RCC->AHBENR = ~(1u << 8);
   rcc_periph_clock_enable(RCC_PERIPH_OTGFS);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 8);
+  RCC->AHBENR = (1u << 8);
   rcc_periph_clock_disable(RCC_PERIPH_OTGFS);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_OTGFS);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 8));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 8));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_FSMC)
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_FSMC);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 8));
+  ASSERT_EQ(RCC->AHBENR, (1u << 8));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 8);
+  RCC->AHBENR = ~(1u << 8);
   rcc_periph_clock_enable(RCC_PERIPH_FSMC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 8);
+  RCC->AHBENR = (1u << 8);
   rcc_periph_clock_disable(RCC_PERIPH_FSMC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_FSMC);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 8));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+#endif
+
+#if defined(STM32_SDIO)
+  RCC->AHBENR = 0;
+  rcc_periph_clock_enable(RCC_PERIPH_SDIO);
+  ASSERT_EQ(RCC->AHBENR, (1u << 10));
+  ASSERT_FALSE(execution_halted());
+
+  RCC->AHBENR = ~(1u << 10);
+  rcc_periph_clock_enable(RCC_PERIPH_SDIO);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  RCC->AHBENR = (1u << 10);
+  rcc_periph_clock_disable(RCC_PERIPH_SDIO);
+  ASSERT_EQ(RCC->AHBENR, 0);
+  ASSERT_FALSE(execution_halted());
+
+  RCC->AHBENR = 0xffffffff;
+  rcc_periph_clock_disable(RCC_PERIPH_SDIO);
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 10));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_ETH)
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_ETHMAC);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 14));
+  ASSERT_EQ(RCC->AHBENR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 14);
+  RCC->AHBENR = ~(1u << 14);
   rcc_periph_clock_enable(RCC_PERIPH_ETHMAC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 14);
+  RCC->AHBENR = (1u << 14);
   rcc_periph_clock_disable(RCC_PERIPH_ETHMAC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_ETHMAC);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 14));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_ETH)
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_ETHMACTX);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 15));
+  ASSERT_EQ(RCC->AHBENR, (1u << 15));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 15);
+  RCC->AHBENR = ~(1u << 15);
   rcc_periph_clock_enable(RCC_PERIPH_ETHMACTX);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 15);
+  RCC->AHBENR = (1u << 15);
   rcc_periph_clock_disable(RCC_PERIPH_ETHMACTX);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_ETHMACTX);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 15));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 15));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_ETH)
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_ETHMACRX);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 16));
+  ASSERT_EQ(RCC->AHBENR, (1u << 16));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 16);
+  RCC->AHBENR = ~(1u << 16);
   rcc_periph_clock_enable(RCC_PERIPH_ETHMACRX);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 16);
+  RCC->AHBENR = (1u << 16);
   rcc_periph_clock_disable(RCC_PERIPH_ETHMACRX);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_ETHMACRX);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 16));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 16));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_GPIOA)
-  RCC->RCC_AHBENR = 0;
+#if !defined(STM32_APB2_GPIO)
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 17));
+  ASSERT_EQ(RCC->AHBENR, (1u << 17));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 17);
+  RCC->AHBENR = ~(1u << 17);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 17);
+  RCC->AHBENR = (1u << 17);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 17));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 17));
   ASSERT_FALSE(execution_halted());
 
+#endif
 #endif
 
 #if defined(STM32_GPIOB)
-  RCC->RCC_AHBENR = 0;
+#if !defined(STM32_APB2_GPIO)
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 18));
+  ASSERT_EQ(RCC->AHBENR, (1u << 18));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 18);
+  RCC->AHBENR = ~(1u << 18);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 18);
+  RCC->AHBENR = (1u << 18);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 18));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 18));
   ASSERT_FALSE(execution_halted());
 
+#endif
 #endif
 
 #if defined(STM32_GPIOC)
-  RCC->RCC_AHBENR = 0;
+#if !defined(STM32_APB2_GPIO)
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 19));
+  ASSERT_EQ(RCC->AHBENR, (1u << 19));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 19);
+  RCC->AHBENR = ~(1u << 19);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 19);
+  RCC->AHBENR = (1u << 19);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 19));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 19));
   ASSERT_FALSE(execution_halted());
 
+#endif
 #endif
 
 #if defined(STM32_GPIOD)
-  RCC->RCC_AHBENR = 0;
+#if !defined(STM32_APB2_GPIO)
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 20));
+  ASSERT_EQ(RCC->AHBENR, (1u << 20));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 20);
+  RCC->AHBENR = ~(1u << 20);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 20);
+  RCC->AHBENR = (1u << 20);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 20));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 20));
   ASSERT_FALSE(execution_halted());
 
+#endif
 #endif
 
 #if defined(STM32_GPIOE)
-  RCC->RCC_AHBENR = 0;
+#if !defined(STM32_APB2_GPIO)
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 21));
+  ASSERT_EQ(RCC->AHBENR, (1u << 21));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 21);
+  RCC->AHBENR = ~(1u << 21);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 21);
+  RCC->AHBENR = (1u << 21);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 21));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 21));
   ASSERT_FALSE(execution_halted());
 
+#endif
 #endif
 
 #if defined(STM32_GPIOF)
-  RCC->RCC_AHBENR = 0;
+#if !defined(STM32_APB2_GPIO)
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 22));
+  ASSERT_EQ(RCC->AHBENR, (1u << 22));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 22);
+  RCC->AHBENR = ~(1u << 22);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 22);
+  RCC->AHBENR = (1u << 22);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 22));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 22));
   ASSERT_FALSE(execution_halted());
 
+#endif
 #endif
 
 #if defined(STM32_GPIOG)
-  RCC->RCC_AHBENR = 0;
+#if !defined(STM32_APB2_GPIO)
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 23));
+  ASSERT_EQ(RCC->AHBENR, (1u << 23));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 23);
+  RCC->AHBENR = ~(1u << 23);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 23);
+  RCC->AHBENR = (1u << 23);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 23));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 23));
   ASSERT_FALSE(execution_halted());
 
 #endif
+#endif
 
 #if defined(STM32_TSC)
-  RCC->RCC_AHBENR = 0;
+  RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TSC);
-  ASSERT_EQ(RCC->RCC_AHBENR, (1u << 24));
+  ASSERT_EQ(RCC->AHBENR, (1u << 24));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = ~(1u << 24);
+  RCC->AHBENR = ~(1u << 24);
   rcc_periph_clock_enable(RCC_PERIPH_TSC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0xffffffff);
+  ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = (1u << 24);
+  RCC->AHBENR = (1u << 24);
   rcc_periph_clock_disable(RCC_PERIPH_TSC);
-  ASSERT_EQ(RCC->RCC_AHBENR, 0);
+  ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_AHBENR = 0xffffffff;
+  RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TSC);
-  ASSERT_EQ(RCC->RCC_AHBENR, ~(1u << 24));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 24));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_RCC_SYSCFG)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_SYSCFG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 0));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 0);
+  RCC->APB2ENR = ~(1u << 0);
   rcc_periph_clock_enable(RCC_PERIPH_SYSCFG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 0);
+  RCC->APB2ENR = (1u << 0);
   rcc_periph_clock_disable(RCC_PERIPH_SYSCFG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_SYSCFG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 0));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_RCC_AFIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_AFIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_AFIO);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 0));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 0);
+  RCC->APB2ENR = ~(1u << 0);
   rcc_periph_clock_enable(RCC_PERIPH_AFIO);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 0);
+  RCC->APB2ENR = (1u << 0);
   rcc_periph_clock_disable(RCC_PERIPH_AFIO);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_AFIO);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 0));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_GPIOA) && defined(STM32_RCC_APB2_GPIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_GPIOA) && defined(STM32_APB2_GPIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 2));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 2);
+  RCC->APB2ENR = ~(1u << 2);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 2);
+  RCC->APB2ENR = (1u << 2);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOA);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 2));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_GPIOB) && defined(STM32_RCC_APB2_GPIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_GPIOB) && defined(STM32_APB2_GPIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 3));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 3));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 3);
+  RCC->APB2ENR = ~(1u << 3);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 3);
+  RCC->APB2ENR = (1u << 3);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOB);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 3));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 3));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_GPIOC) && defined(STM32_RCC_APB2_GPIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_GPIOC) && defined(STM32_APB2_GPIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 4));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 4);
+  RCC->APB2ENR = ~(1u << 4);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 4);
+  RCC->APB2ENR = (1u << 4);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOC);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 4));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_GPIOD) && defined(STM32_RCC_APB2_GPIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_GPIOD) && defined(STM32_APB2_GPIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 5));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 5));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 5);
+  RCC->APB2ENR = ~(1u << 5);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 5);
+  RCC->APB2ENR = (1u << 5);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOD);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 5));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 5));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_GPIOE) && defined(STM32_RCC_APB2_GPIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_GPIOE) && defined(STM32_APB2_GPIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 6));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 6));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 6);
+  RCC->APB2ENR = ~(1u << 6);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 6);
+  RCC->APB2ENR = (1u << 6);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOE);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 6));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 6));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_GPIOF) && defined(STM32_RCC_APB2_GPIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_GPIOF) && defined(STM32_APB2_GPIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 7));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 7));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 7);
+  RCC->APB2ENR = ~(1u << 7);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 7);
+  RCC->APB2ENR = (1u << 7);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOF);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 7));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 7));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-#if defined(STM32_GPIOG) && defined(STM32_RCC_APB2_GPIO)
-  RCC->RCC_APB2ENR = 0;
+#if defined(STM32_GPIOG) && defined(STM32_APB2_GPIO)
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 8));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 8));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 8);
+  RCC->APB2ENR = ~(1u << 8);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 8);
+  RCC->APB2ENR = (1u << 8);
   rcc_periph_clock_disable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_GPIOG);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 8));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 8));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_USART7)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_USART7);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 6));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 6));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 6);
+  RCC->APB2ENR = ~(1u << 6);
   rcc_periph_clock_enable(RCC_PERIPH_USART7);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 6);
+  RCC->APB2ENR = (1u << 6);
   rcc_periph_clock_disable(RCC_PERIPH_USART7);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_USART7);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 6));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 6));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_USART8)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_USART8);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 7));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 7));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 7);
+  RCC->APB2ENR = ~(1u << 7);
   rcc_periph_clock_enable(RCC_PERIPH_USART8);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 7);
+  RCC->APB2ENR = (1u << 7);
   rcc_periph_clock_disable(RCC_PERIPH_USART8);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_USART8);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 7));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 7));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_ADC1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 9));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 9));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 9);
+  RCC->APB2ENR = ~(1u << 9);
   rcc_periph_clock_enable(RCC_PERIPH_ADC1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 9);
+  RCC->APB2ENR = (1u << 9);
   rcc_periph_clock_disable(RCC_PERIPH_ADC1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_ADC1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 9));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 9));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_ADC2)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_ADC2);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 10));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 10));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 10);
+  RCC->APB2ENR = ~(1u << 10);
   rcc_periph_clock_enable(RCC_PERIPH_ADC2);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 10);
+  RCC->APB2ENR = (1u << 10);
   rcc_periph_clock_disable(RCC_PERIPH_ADC2);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_ADC2);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 10));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 10));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 11));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 11));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 11);
+  RCC->APB2ENR = ~(1u << 11);
   rcc_periph_clock_enable(RCC_PERIPH_TIM1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 11);
+  RCC->APB2ENR = (1u << 11);
   rcc_periph_clock_disable(RCC_PERIPH_TIM1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 11));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 11));
   ASSERT_FALSE(execution_halted());
 
 
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_SPI1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 12));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 12));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 12);
+  RCC->APB2ENR = ~(1u << 12);
   rcc_periph_clock_enable(RCC_PERIPH_SPI1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 12);
+  RCC->APB2ENR = (1u << 12);
   rcc_periph_clock_disable(RCC_PERIPH_SPI1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_SPI1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 12));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 12));
   ASSERT_FALSE(execution_halted());
 
 
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 14));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 14);
+  RCC->APB2ENR = ~(1u << 14);
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 14);
+  RCC->APB2ENR = (1u << 14);
   rcc_periph_clock_disable(RCC_PERIPH_USART1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_USART1);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 14));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_TIM15)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM15);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 16));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 16));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 16);
+  RCC->APB2ENR = ~(1u << 16);
   rcc_periph_clock_enable(RCC_PERIPH_TIM15);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 16);
+  RCC->APB2ENR = (1u << 16);
   rcc_periph_clock_disable(RCC_PERIPH_TIM15);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM15);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 16));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 16));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM16)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM16);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 17));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 17));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 17);
+  RCC->APB2ENR = ~(1u << 17);
   rcc_periph_clock_enable(RCC_PERIPH_TIM16);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 17);
+  RCC->APB2ENR = (1u << 17);
   rcc_periph_clock_disable(RCC_PERIPH_TIM16);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM16);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 17));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 17));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM17)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM17);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 18));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 18));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 18);
+  RCC->APB2ENR = ~(1u << 18);
   rcc_periph_clock_enable(RCC_PERIPH_TIM17);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 18);
+  RCC->APB2ENR = (1u << 18);
   rcc_periph_clock_disable(RCC_PERIPH_TIM17);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM17);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 18));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 18));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_DBGMCU)
-  RCC->RCC_APB2ENR = 0;
+  RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_DBGMCU);
-  ASSERT_EQ(RCC->RCC_APB2ENR, (1u << 22));
+  ASSERT_EQ(RCC->APB2ENR, (1u << 22));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = ~(1u << 22);
+  RCC->APB2ENR = ~(1u << 22);
   rcc_periph_clock_enable(RCC_PERIPH_DBGMCU);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB2ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = (1u << 22);
+  RCC->APB2ENR = (1u << 22);
   rcc_periph_clock_disable(RCC_PERIPH_DBGMCU);
-  ASSERT_EQ(RCC->RCC_APB2ENR, 0);
+  ASSERT_EQ(RCC->APB2ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB2ENR = 0xffffffff;
+  RCC->APB2ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_DBGMCU);
-  ASSERT_EQ(RCC->RCC_APB2ENR, ~(1u << 22));
+  ASSERT_EQ(RCC->APB2ENR, ~(1u << 22));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM2)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 0));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 0);
+  RCC->APB1ENR = ~(1u << 0);
   rcc_periph_clock_enable(RCC_PERIPH_TIM2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 0);
+  RCC->APB1ENR = (1u << 0);
   rcc_periph_clock_disable(RCC_PERIPH_TIM2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 0));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM3)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 1));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 1));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 1);
+  RCC->APB1ENR = ~(1u << 1);
   rcc_periph_clock_enable(RCC_PERIPH_TIM3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 1);
+  RCC->APB1ENR = (1u << 1);
   rcc_periph_clock_disable(RCC_PERIPH_TIM3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 1));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 1));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM4)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 2));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 2);
+  RCC->APB1ENR = ~(1u << 2);
   rcc_periph_clock_enable(RCC_PERIPH_TIM4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 2);
+  RCC->APB1ENR = (1u << 2);
   rcc_periph_clock_disable(RCC_PERIPH_TIM4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 2));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM5)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 3));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 3));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 3);
+  RCC->APB1ENR = ~(1u << 3);
   rcc_periph_clock_enable(RCC_PERIPH_TIM5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 3);
+  RCC->APB1ENR = (1u << 3);
   rcc_periph_clock_disable(RCC_PERIPH_TIM5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 3));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 3));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM6)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM6);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 4));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 4));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 4);
+  RCC->APB1ENR = ~(1u << 4);
   rcc_periph_clock_enable(RCC_PERIPH_TIM6);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 4);
+  RCC->APB1ENR = (1u << 4);
   rcc_periph_clock_disable(RCC_PERIPH_TIM6);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM6);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 4));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 4));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM7)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM7);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 5));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 5));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 5);
+  RCC->APB1ENR = ~(1u << 5);
   rcc_periph_clock_enable(RCC_PERIPH_TIM7);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 5);
+  RCC->APB1ENR = (1u << 5);
   rcc_periph_clock_disable(RCC_PERIPH_TIM7);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM7);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 5));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 5));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM12)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM12);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 6));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 6));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 6);
+  RCC->APB1ENR = ~(1u << 6);
   rcc_periph_clock_enable(RCC_PERIPH_TIM12);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 6);
+  RCC->APB1ENR = (1u << 6);
   rcc_periph_clock_disable(RCC_PERIPH_TIM12);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM12);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 6));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 6));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM13)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM13);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 7));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 7));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 7);
+  RCC->APB1ENR = ~(1u << 7);
   rcc_periph_clock_enable(RCC_PERIPH_TIM13);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 7);
+  RCC->APB1ENR = (1u << 7);
   rcc_periph_clock_disable(RCC_PERIPH_TIM13);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM13);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 7));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 7));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_TIM14)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM14);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 8));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 8));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 8);
+  RCC->APB1ENR = ~(1u << 8);
   rcc_periph_clock_enable(RCC_PERIPH_TIM14);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 8);
+  RCC->APB1ENR = (1u << 8);
   rcc_periph_clock_disable(RCC_PERIPH_TIM14);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_TIM14);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 8));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 8));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_WWDG);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 11));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 11));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 11);
+  RCC->APB1ENR = ~(1u << 11);
   rcc_periph_clock_enable(RCC_PERIPH_WWDG);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 11);
+  RCC->APB1ENR = (1u << 11);
   rcc_periph_clock_disable(RCC_PERIPH_WWDG);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_WWDG);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 11));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 11));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_SPI2)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_SPI2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 14));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 14));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 14);
+  RCC->APB1ENR = ~(1u << 14);
   rcc_periph_clock_enable(RCC_PERIPH_SPI2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 14);
+  RCC->APB1ENR = (1u << 14);
   rcc_periph_clock_disable(RCC_PERIPH_SPI2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_SPI2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 14));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 14));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_SPI3)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_SPI3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 15));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 15));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 15);
+  RCC->APB1ENR = ~(1u << 15);
   rcc_periph_clock_enable(RCC_PERIPH_SPI3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 15);
+  RCC->APB1ENR = (1u << 15);
   rcc_periph_clock_disable(RCC_PERIPH_SPI3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_SPI3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 15));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 15));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_USART2)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_USART2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 17));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 17));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 17);
+  RCC->APB1ENR = ~(1u << 17);
   rcc_periph_clock_enable(RCC_PERIPH_USART2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 17);
+  RCC->APB1ENR = (1u << 17);
   rcc_periph_clock_disable(RCC_PERIPH_USART2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_USART2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 17));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 17));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_USART3)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_USART3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 18));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 18));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 18);
+  RCC->APB1ENR = ~(1u << 18);
   rcc_periph_clock_enable(RCC_PERIPH_USART3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 18);
+  RCC->APB1ENR = (1u << 18);
   rcc_periph_clock_disable(RCC_PERIPH_USART3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_USART3);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 18));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 18));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_UART4)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_UART4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 19));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 19));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 19);
+  RCC->APB1ENR = ~(1u << 19);
   rcc_periph_clock_enable(RCC_PERIPH_UART4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 19);
+  RCC->APB1ENR = (1u << 19);
   rcc_periph_clock_disable(RCC_PERIPH_UART4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_UART4);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 19));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 19));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_UART5)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_UART5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 20));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 20));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 20);
+  RCC->APB1ENR = ~(1u << 20);
   rcc_periph_clock_enable(RCC_PERIPH_UART5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 20);
+  RCC->APB1ENR = (1u << 20);
   rcc_periph_clock_disable(RCC_PERIPH_UART5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_UART5);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 20));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 20));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_I2C1)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_I2C1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 21));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 21));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 21);
+  RCC->APB1ENR = ~(1u << 21);
   rcc_periph_clock_enable(RCC_PERIPH_I2C1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 21);
+  RCC->APB1ENR = (1u << 21);
   rcc_periph_clock_disable(RCC_PERIPH_I2C1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_I2C1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 21));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 21));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_I2C2)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_I2C2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 22));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 22));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 22);
+  RCC->APB1ENR = ~(1u << 22);
   rcc_periph_clock_enable(RCC_PERIPH_I2C2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 22);
+  RCC->APB1ENR = (1u << 22);
   rcc_periph_clock_disable(RCC_PERIPH_I2C2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_I2C2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 22));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 22));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_USB)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_USB);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 23));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 23));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 23);
+  RCC->APB1ENR = ~(1u << 23);
   rcc_periph_clock_enable(RCC_PERIPH_USB);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 23);
+  RCC->APB1ENR = (1u << 23);
   rcc_periph_clock_disable(RCC_PERIPH_USB);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_USB);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 23));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 23));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_CAN1)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_CAN1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 25));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 25));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 25);
+  RCC->APB1ENR = ~(1u << 25);
   rcc_periph_clock_enable(RCC_PERIPH_CAN1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 25);
+  RCC->APB1ENR = (1u << 25);
   rcc_periph_clock_disable(RCC_PERIPH_CAN1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_CAN1);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 25));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 25));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_CAN2)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_CAN2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 26));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 26));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 26);
+  RCC->APB1ENR = ~(1u << 26);
   rcc_periph_clock_enable(RCC_PERIPH_CAN2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 26);
+  RCC->APB1ENR = (1u << 26);
   rcc_periph_clock_disable(RCC_PERIPH_CAN2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_CAN2);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 26));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 26));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_BKP)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_BKP);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 27));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 27));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 27);
+  RCC->APB1ENR = ~(1u << 27);
   rcc_periph_clock_enable(RCC_PERIPH_BKP);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 27);
+  RCC->APB1ENR = (1u << 27);
   rcc_periph_clock_disable(RCC_PERIPH_BKP);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_BKP);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 27));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 27));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_PWR)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_PWR);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 28));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 28));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 28);
+  RCC->APB1ENR = ~(1u << 28);
   rcc_periph_clock_enable(RCC_PERIPH_PWR);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 28);
+  RCC->APB1ENR = (1u << 28);
   rcc_periph_clock_disable(RCC_PERIPH_PWR);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_PWR);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 28));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 28));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_DAC)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_DAC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 29));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 29));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 29);
+  RCC->APB1ENR = ~(1u << 29);
   rcc_periph_clock_enable(RCC_PERIPH_DAC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 29);
+  RCC->APB1ENR = (1u << 29);
   rcc_periph_clock_disable(RCC_PERIPH_DAC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_DAC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 29));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 29));
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_CEC)
-  RCC->RCC_APB1ENR = 0;
+  RCC->APB1ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_CEC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, (1u << 30));
+  ASSERT_EQ(RCC->APB1ENR, (1u << 30));
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = ~(1u << 30);
+  RCC->APB1ENR = ~(1u << 30);
   rcc_periph_clock_enable(RCC_PERIPH_CEC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0xffffffff);
+  ASSERT_EQ(RCC->APB1ENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = (1u << 30);
+  RCC->APB1ENR = (1u << 30);
   rcc_periph_clock_disable(RCC_PERIPH_CEC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, 0);
+  ASSERT_EQ(RCC->APB1ENR, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->RCC_APB1ENR = 0xffffffff;
+  RCC->APB1ENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_CEC);
-  ASSERT_EQ(RCC->RCC_APB1ENR, ~(1u << 30));
+  ASSERT_EQ(RCC->APB1ENR, ~(1u << 30));
   ASSERT_FALSE(execution_halted());
 
 #endif
@@ -4271,20 +4515,20 @@ test_rcc_lse_bypass_is_enabled(void)
 {
   u32 res;
 
-  // read_bits
+  // read_bit
   RCC->BDCR = 0;
   res = rcc_lse_bypass_is_enabled();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->BDCR = ~(0u << 2);
+  RCC->BDCR = ~(0x1u << 2);
   res = rcc_lse_bypass_is_enabled();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->BDCR = 0u << 2;
+  RCC->BDCR = 0x1u << 2;
   res = rcc_lse_bypass_is_enabled();
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 2);
   ASSERT_FALSE(execution_halted());
 
 }
@@ -4295,142 +4539,142 @@ test_rcc_reset_is_flag_set(void)
   u32 res;
 
 #if defined(STM32_RCC_V1dot8V)
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_V1dot8);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 23);
+  RCC->CSR = ~(0x1u << 23);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_V1dot8);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 23;
+  RCC->CSR = 0x1u << 23;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_V1dot8);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 23);
   ASSERT_FALSE(execution_halted());
 
 #endif
 
 #if defined(STM32_OPTION_BYTE_LOADER)
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_OPTION_BYTE_LOADER);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 25);
+  RCC->CSR = ~(0x1u << 25);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_OPTION_BYTE_LOADER);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 25;
+  RCC->CSR = 0x1u << 25;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_OPTION_BYTE_LOADER);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 25);
   ASSERT_FALSE(execution_halted());
 
 #endif
 
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_PIN);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 26);
+  RCC->CSR = ~(0x1u << 26);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_PIN);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 26;
+  RCC->CSR = 0x1u << 26;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_PIN);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 26);
   ASSERT_FALSE(execution_halted());
 
 
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_POR_PDR);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 27);
+  RCC->CSR = ~(0x1u << 27);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_POR_PDR);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 27;
+  RCC->CSR = 0x1u << 27;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_POR_PDR);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 27);
   ASSERT_FALSE(execution_halted());
 
 
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_SOFTWARE);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 28);
+  RCC->CSR = ~(0x1u << 28);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_SOFTWARE);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 28;
+  RCC->CSR = 0x1u << 28;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_SOFTWARE);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 28);
   ASSERT_FALSE(execution_halted());
 
 
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_INDEPENDENT_WATCHDOG);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 29);
+  RCC->CSR = ~(0x1u << 29);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_INDEPENDENT_WATCHDOG);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 29;
+  RCC->CSR = 0x1u << 29;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_INDEPENDENT_WATCHDOG);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 29);
   ASSERT_FALSE(execution_halted());
 
 
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_WINDOW_WATCHDOG);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 30);
+  RCC->CSR = ~(0x1u << 30);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_WINDOW_WATCHDOG);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 30;
+  RCC->CSR = 0x1u << 30;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_WINDOW_WATCHDOG);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 30);
   ASSERT_FALSE(execution_halted());
 
 
-  // read_bits
+  // read_bit
   RCC->CSR = 0;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_LOW_POWER);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = ~(0u << 31);
+  RCC->CSR = ~(0x1u << 31);
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_LOW_POWER);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  RCC->CSR = 0u << 31;
+  RCC->CSR = 0x1u << 31;
   res = rcc_reset_is_flag_set(RCC_RESET_FLAG_LOW_POWER);
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 31);
   ASSERT_FALSE(execution_halted());
 
 
@@ -4650,7 +4894,7 @@ test_rcc_set_prediv1_prescaler(void)
 }
 #endif
 
-#if defined(STM32_RCC_CFGR2) && defined(STM32_RCC_PREDIV2)
+#if defined(STM32_RCC_PREDIV2)
 void
 test_rcc_set_prediv2_prescaler(void)
 {
@@ -5138,22 +5382,22 @@ void
 test_rcc_set_i2s3_source(void)
 {
   RCC->CFGR2 = 0;
-  rcc_set_i2s3_source(RCC_I2S2_SOURCE_PLL3);
+  rcc_set_i2s3_source(RCC_I2S3_SOURCE_PLL3);
   ASSERT_EQ(RCC->CFGR2, (1u << 18));
   ASSERT_FALSE(execution_halted());
 
   RCC->CFGR2 = ~(1u << 18);
-  rcc_set_i2s3_source(RCC_I2S2_SOURCE_PLL3);
+  rcc_set_i2s3_source(RCC_I2S3_SOURCE_PLL3);
   ASSERT_EQ(RCC->CFGR2, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   RCC->CFGR2 = (1u << 18);
-  rcc_set_i2s3_source(RCC_I2S2_SOURCE_SYSCLOCK);
+  rcc_set_i2s3_source(RCC_I2S3_SOURCE_SYSCLOCK);
   ASSERT_EQ(RCC->CFGR2, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->CFGR2 = 0xffffffff;
-  rcc_set_i2s3_source(RCC_I2S2_SOURCE_SYSCLOCK);
+  rcc_set_i2s3_source(RCC_I2S3_SOURCE_SYSCLOCK);
   ASSERT_EQ(RCC->CFGR2, 0xffffffff & ~(1u << 18));
   ASSERT_FALSE(execution_halted());
 
@@ -5521,18 +5765,31 @@ main(void)
 #if defined(STM32_RCC_ADCPRE)
     TEST_FUNC(test_rcc_set_adc_prescaler),
 #endif
+#if defined(STM32_RCC_PLLSRC_2BIT)
     TEST_FUNC(test_rcc_set_pll_source),
+#endif
+#if !defined(STM32_RCC_PLLSRC_2BIT)
     TEST_FUNC(test_rcc_set_pll_source),
+#endif
     TEST_FUNC(test_rcc_set_pll_hse_prescaler),
     TEST_FUNC(test_rcc_set_pll_multiplication_factor),
+#if defined(STM32_RCC_OTGFS)
     TEST_FUNC(test_rcc_set_usb_otg_fs_prescaler),
+#endif
+#if defined(STM32_RCC_CFGR_MCO_3BIT)
     TEST_FUNC(test_rcc_set_microcontroller_clock_output),
+#endif
+#if defined(STM32_RCC_CFGR_MCO_4BIT)
+    TEST_FUNC(test_rcc_set_microcontroller_clock_output),
+#endif
 #if defined(STM32_RCC_MCOPRE)
     TEST_FUNC(test_rcc_set_mco_prescaler),
 #endif
+#if defined(STM32_RCC_PLLNODIV)
     TEST_FUNC(test_rcc_set_mco_pll_prescaler),
+#endif
     TEST_FUNC(test_rcc_is_interrupt_flag_set),
-    TEST_FUNC(test_rcc_interrupt_enable),
+    TEST_FUNC(test_rcc_interrupt),
     TEST_FUNC(test_rcc_interrupt_flag_clear),
     TEST_FUNC(test_rcc_periph_reset),
     TEST_FUNC(test_rcc_periph_clock),
@@ -5544,7 +5801,7 @@ main(void)
 #if defined(STM32_RCC_CFGR2)
     TEST_FUNC(test_rcc_set_prediv1_prescaler),
 #endif
-#if defined(STM32_RCC_CFGR2) && defined(STM32_RCC_PREDIV2)
+#if defined(STM32_RCC_PREDIV2)
     TEST_FUNC(test_rcc_set_prediv2_prescaler),
 #endif
 #if defined(STM32_RCC_CFGR2) && defined(STM32_RCC_OSC_PLL2)

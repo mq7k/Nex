@@ -1,6 +1,8 @@
 #ifndef STM32_RMCOM_H
 #define STM32_RMCOM_H
 
+#define STM32_RCC_CFGR_MCO_3BIT
+
 #define ARCH_FPU_V1
 
 #define STM32_ADC_V1

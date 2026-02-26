@@ -40,22 +40,22 @@ test_pwr_set_deepsleep_mode(void)
 {
   PWR->CR = 0;
   pwr_set_deepsleep_mode(PWR_DEEPSLEEP_MODE_STANDBY_MODE);
-  ASSERT_EQ(PWR->CR, (1u << 0));
+  ASSERT_EQ(PWR->CR, (1u << 1));
   ASSERT_FALSE(execution_halted());
 
-  PWR->CR = ~(1u << 0);
+  PWR->CR = ~(1u << 1);
   pwr_set_deepsleep_mode(PWR_DEEPSLEEP_MODE_STANDBY_MODE);
   ASSERT_EQ(PWR->CR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  PWR->CR = (1u << 0);
+  PWR->CR = (1u << 1);
   pwr_set_deepsleep_mode(PWR_DEEPSLEEP_MODE_STOP_MODE);
   ASSERT_EQ(PWR->CR, 0);
   ASSERT_FALSE(execution_halted());
 
   PWR->CR = 0xffffffff;
   pwr_set_deepsleep_mode(PWR_DEEPSLEEP_MODE_STOP_MODE);
-  ASSERT_EQ(PWR->CR, 0xffffffff & ~(1u << 0));
+  ASSERT_EQ(PWR->CR, 0xffffffff & ~(1u << 1));
   ASSERT_FALSE(execution_halted());
 
 }
@@ -63,11 +63,27 @@ test_pwr_set_deepsleep_mode(void)
 void
 test_pwr_flag_clear(void)
 {
-  Missing 'clear_mode' properties
-  Source: pwr_flag_clear
+  PWR->CR = 0;
+  pwr_flag_clear(PWR_FLAG_STANDBY);
+  ASSERT_EQ(PWR->CR, (1u << 3));
+  ASSERT_FALSE(execution_halted());
 
-  Missing 'clear_mode' properties
-  Source: pwr_flag_clear
+  PWR->CR = ~(1u << 3);
+  pwr_flag_clear(PWR_FLAG_STANDBY);
+  ASSERT_EQ(PWR->CR, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+
+  PWR->CR = 0;
+  pwr_flag_clear(PWR_FLAG_WAKEUP);
+  ASSERT_EQ(PWR->CR, (1u << 2));
+  ASSERT_FALSE(execution_halted());
+
+  PWR->CR = ~(1u << 2);
+  pwr_flag_clear(PWR_FLAG_WAKEUP);
+  ASSERT_EQ(PWR->CR, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
 
 }
 
@@ -280,20 +296,20 @@ test_pwr_voltage_detector_level_compare(void)
 {
   u32 res;
 
-  // read_bits
+  // read_bit
   PWR->CSR = 0;
   res = pwr_voltage_detector_level_compare();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  PWR->CSR = ~(0u << 2);
+  PWR->CSR = ~(0x1u << 2);
   res = pwr_voltage_detector_level_compare();
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  PWR->CSR = 0u << 2;
+  PWR->CSR = 0x1u << 2;
   res = pwr_voltage_detector_level_compare();
-  ASSERT_EQ(res, 0);
+  ASSERT_EQ(res, 0x1u << 2);
   ASSERT_FALSE(execution_halted());
 
 }

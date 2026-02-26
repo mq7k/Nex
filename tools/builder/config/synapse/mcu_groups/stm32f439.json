@@ -32,6 +32,7 @@
     "usb/usb_v1",
     "eth/eth_v1",
     "dbg/dbg_v1"
-  ]
+  ],
+  "arch": "cm4f"
 }
 

@@ -16,5 +16,6 @@
     "i2c/i2c_v1",
     "iwdg/iwdg_v1",
     "wwdg/wwdg_v1"
-  ]
+  ],
+  "arch": "cm4f"
 }

@@ -1,0 +1,30 @@
+#ifndef STM32_RM0008_H
+#define STM32_RM0008_H
+
+#define STM32_EXTI_ALLOWED_LINES_BITMASK (0x7ffff)
+
+#define STM32_ADC_DUALMODE
+
+#define STM32_FLASH_PREFETCH_BUFFER
+
+// Connectivity devices.
+#if defined(STM32F105xx) || defined(STM32F107xx)
+
+#define STM32_RCC_OSC_PLL2
+#define STM32_RCC_OSC_PLL3
+#define STM32_RCC_OTGFS
+#define STM32_RCC_PLLMUL_LAYOUT1
+#define STM32_RCC_AHBRSTR
+#define STM32_RCC_CFGR2
+#define STM32_RCC_PREDIV1SRC
+#define STM32_RCC_PREDIV2
+#define STM32_MCO_XT1
+#define STM32_RCC_CFGR2_REG
+
+#else
+
+#define STM32_RCC_PLLMUL_LAYOUT2
+
+#endif
+
+#endif

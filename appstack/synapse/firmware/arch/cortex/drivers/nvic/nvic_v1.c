@@ -280,8 +280,8 @@ void dcmi_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
 void cryp_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
 #endif
 
-#if defined(STM32_HASH)
-void hash_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
+#if defined(STM32_HASH) || defined(STM32_RNG)
+void hash_rng_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
 #endif
 
 void fpu_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
