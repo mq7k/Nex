@@ -113,7 +113,7 @@ rtc_flag_clear(
       RTC->CRL &= ~RTC_CRL_RSF;
       break;
 
-    case RTC_FLAG_WRITE_IDLE:
+    case RTC_FLAG_CONFIGURATION:
       RTC->CRL &= ~RTC_CRL_CNF;
       break;
 

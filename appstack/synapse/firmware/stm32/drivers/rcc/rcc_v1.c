@@ -1,4 +1,3 @@
-#include "synapse/stm32/periph/flash.h"
 #include "synapse/stm32/drivers/rcc/rcc_v1.h"
 #include "synapse/common/util/common.h"
 #include "libcom/sys/devmode.h"
@@ -10,205 +9,6 @@ static u32 apb2_clock = RCC_CLOCK_UNKNOWN;
 static u32 apb1_clock = RCC_CLOCK_UNKNOWN;
 static u32 ahb_clock = RCC_CLOCK_UNKNOWN;
 static u32 sysclock = RCC_CLOCK_UNKNOWN;
-
-struct rcc_clock_config rcc_configs[] = {
-  /**
-   * Device specs:
-   *  - Type: density
-   *  - HSE: 8Mhz
-   *
-   * Configuration:
-   *  - HSE: 8Mhz
-   *  - AHB: 72Mhz
-   *  - APB1: 36Mhz
-   *  - APB2: 72Mhz
-   *  - ADC: 12Mhz
-   *  - Tim2,3,4: 72Mhz
-   *  - Tim1: 72Mhz
-   */
-  {
-    .osc = RCC_OSC_HSE,
-    .pllxtpre = RCC_PLL_HSE_PRESCALER_1,
-    .sysclock = RCC_SYSCLOCK_PLL,
-    .pll_source = RCC_PLL_SOURCE_HSE,
-    .pllmul = RCC_PLL_MULTIPLICATION_FACTOR_9,
-    .ahb_prescaler = RCC_AHB_PRESCALER_1,
-
-#if defined(STM32_RCC_PPRE2)
-    .apb2_prescaler = RCC_APB2_PRESCALER_1,
-#endif
-
-    .apb1_prescaler = RCC_APB1_PRESCALER_2,
-
-#if defined(STM32_RCC_ADCPRE)
-    .adc_prescaler = RCC_ADC_PRESCALER_6,
-#endif
-
-    .usb_prescaler = RCC_USB_OTG_FS_PRESCALER_3,
-    .mco = RCC_MCO_NO_OUTPUT,
-    .flash_wait_state = FLASH_WAIT_STATE2,
-    .apb1_clock_freq = 36000000,
-    .apb2_clock_freq = 72000000,
-    .ahb_clock_freq = 72000000,
-    .sysclock_freq = 72000000
-  },
-
-  /**
-   * Device specs:
-   *  - Type: density
-   *  - HSE: 8Mhz
-   *
-   * Configuration:
-   *  - HSE: 8Mhz
-   *  - AHB: 32Mhz
-   *  - APB1: 16Mhz
-   *  - APB2: 32Mhz
-   *  - ADC: 8Mhz
-   *  - Tim2,3,4: 32Mhz
-   *  - Tim1: 32Mhz
-   */
-  {
-    .osc = RCC_OSC_HSE,
-    .pllxtpre = RCC_PLL_HSE_PRESCALER_1,
-    .sysclock = RCC_SYSCLOCK_PLL,
-    .pll_source = RCC_PLL_SOURCE_HSE,
-    .pllmul = RCC_PLL_MULTIPLICATION_FACTOR_4,
-    .ahb_prescaler = RCC_AHB_PRESCALER_1,
-
-#if defined(STM32_RCC_PPRE2)
-    .apb2_prescaler = RCC_APB2_PRESCALER_1,
-#endif
-
-    .apb1_prescaler = RCC_APB1_PRESCALER_2,
-
-#if defined(STM32_RCC_ADCPRE)
-    .adc_prescaler = RCC_ADC_PRESCALER_4,
-#endif
-
-    .usb_prescaler = RCC_USB_OTG_FS_PRESCALER_3,
-    .mco = RCC_MCO_NO_OUTPUT,
-    .flash_wait_state = FLASH_WAIT_STATE1
-  },
-};
-
-void
-rcc_setup_config_type(
-  enum rcc_config_type type
-)
-{
-  rcc_setup_clock_configuration(&rcc_configs[type]);
-}
-
-void
-rcc_setup_clock_configuration(
-  struct rcc_clock_config* config
-)
-{
-  // Enable the desired oscillator
-  // Wait for it to be ready
-  // Set flash wait state (TODO)
-  // Enable the prefetch buffer (TODO)
-  // Configure AHB prescaler
-  // Configure APB1 prescaler
-  // Configure APB2 prescaler
-  // Configure ADC prescaler
-  // Configure PLL (If used)
-  // Enable PLL (If used)
-  // Set SysClock source (HSI, HSE, PLL)
-  // Configure Microcontroller clock output
-
-  rcc_osc_enable(config->osc);
-
-  rcc_osc_ready_wait(config->osc);
-
-#if defined(STM32_RCC_PREDIV1)
-  if (config->is_connectivity_device)
-  {
-    rcc_set_prediv1_source(config->prediv1_source);
-    rcc_set_prediv1_prescaler(config->prediv1_prescaler);
-
-#if defined(STM32_RCC_OSC_PLL2)
-    rcc_set_pll2_multiplication_factor(config->pll2mul);
-    rcc_osc_enable(RCC_OSC_PLL2);
-    rcc_osc_ready_wait(RCC_OSC_PLL2);
-#endif
-
-#if defined(STM32_RCC_OSC_PLL3)
-    rcc_set_pll3_multiplication_factor(config->pll3mul);
-    rcc_osc_enable(RCC_OSC_PLL3);
-    rcc_osc_ready_wait(RCC_OSC_PLL3);
-#endif
-  }
-#endif
-
-  /*
-   * The pretch buffer must be kept on when using a prescaler
-   * different from 1 on the AHB clock.
-   */
-  if (config->ahb_prescaler > RCC_AHB_PRESCALER_1)
-  {
-    // flash_prefetch_buffer_enable();
-  }
-
-  rcc_set_ahb_prescaler(config->ahb_prescaler);
-  rcc_set_apb1_prescaler(config->apb1_prescaler);
-
-#if defined(STM32_RCC_PPRE2)
-  rcc_set_apb2_prescaler(config->apb2_prescaler);
-#endif
-
-#if defined(STM32_RCC_ADCPRE)
-  rcc_set_adc_prescaler(config->adc_prescaler);
-#endif
-
-  flash_set_wait_state(config->flash_wait_state);
-
-  switch (config->sysclock)
-  {
-    case RCC_SYSCLOCK_HSI:
-      rcc_set_sysclock_source(config->sysclock);
-      while (rcc_get_sysclock_status_raw() != RCC_CFGR_SWS_HSI);
-      break;
-
-    case RCC_SYSCLOCK_HSE:
-      rcc_set_sysclock_source(config->sysclock);
-      while (rcc_get_sysclock_status_raw() != RCC_CFGR_SWS_HSE);
-      break;
-
-    case RCC_SYSCLOCK_PLL:
-      rcc_set_pll_source(config->pll_source);
-
-      rcc_set_pll_multiplication_factor(config->pllmul);
-
-      if (config->is_connectivity_device)
-      {
-#if defined(STM32_RCC_PREDIV1)
-        rcc_set_prediv1_prescaler(config->prediv1_prescaler);
-#endif
-      }
-      else
-      {
-        rcc_set_pll_hse_prescaler(config->pllxtpre);
-      }
-
-      rcc_osc_enable(RCC_OSC_PLL);
-      rcc_osc_ready_wait(RCC_OSC_PLL);
-      rcc_set_sysclock_source(config->sysclock);
-
-      // Would be stuck forever when running tests.
-      #ifndef NEX_BUILD_TESTS
-      while (rcc_get_sysclock_status_raw() != RCC_CFGR_SWS_PLL);
-      #endif
-      break;
-  }
-
-  rcc_set_microcontroller_clock_output(config->mco);
-
-  apb2_clock = config->apb2_clock_freq;
-  apb1_clock = config->apb1_clock_freq;
-  ahb_clock = config->ahb_prescaler;
-  sysclock = config->sysclock_freq;
-}
 
 void
 rcc_osc_enable(
@@ -1524,7 +1324,7 @@ rcc_periph_reset(
 
 #if defined(STM32_USB)
     case RCC_PERIPH_USB:
-      RCC->APB2RSTR |= RCC_APB1RSTR_USBRST;
+      RCC->APB1RSTR |= RCC_APB1RSTR_USBRST;
       break;
 #endif
 
@@ -2316,7 +2116,7 @@ rcc_periph_clock_disable(
 
 #if defined(STM32_CEC)
     case RCC_PERIPH_CEC:
-      RCC->APB1ENR &= ~RCC_PERIPH_CECEN;
+      RCC->APB1ENR &= ~RCC_APB1ENR_CECEN;
       break;
 #endif
 
@@ -2594,7 +2394,7 @@ enum rcc_prediv2_prescaler prescaler
       break;
 
     case RCC_PREDIV2_PRESCALER_16:
-      *reg |= (RCC_CFGR_PREDIV2_DIV16 << shift);
+      *reg |= (RCC_CFGR2_PREDIV2_DIV16 << shift);
       break;
 
     default:

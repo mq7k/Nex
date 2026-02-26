@@ -381,7 +381,7 @@ dma_set_channel_transfer_items_count(
   constexpr u32 mask = DMA_CNDTR_NDT_MASK << shift;
   volatile u32* reg = &dma->channels[channel].CNDTR;
 
-  syn_set_register_bits(reg, mask, bytes_count & mask);
+  syn_set_register_bits(reg, mask, bytes_count);
 }
 
 u32
@@ -391,7 +391,6 @@ dma_get_channel_transfer_items_left(
 )
 {
   devmode_assert_lower_or_eq(channel, DMA_CHANNEL7);
-  devmode_assert_lower_or_eq(bytes_count, DMA_CNDTR_NDT_MASK);
   return dma->channels[channel].CNDTR;
 }
 

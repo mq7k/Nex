@@ -1,38 +1,9 @@
 #include "synapse/stm32/drivers/afio/afio_v1.h"
-#include "libtest/libtest.h"
 #include "synapse/common/util/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct afio_registers_map afio_periph;
 afio_periph* AFIO = (afio_periph*) (AFIO_ADDR);
-
-static enum afio_evcr_port
-convert_afio_port_api_to_evcr_port(
-  enum afio_port port
-)
-{
-  switch (port)
-  {
-    case AFIO_PORTA:
-      return AFIO_EVCR_PORT_PA;
-
-    case AFIO_PORTB:
-      return AFIO_EVCR_PORT_PB;
-
-    case AFIO_PORTC:
-      return AFIO_EVCR_PORT_PC;
-
-    case AFIO_PORTD:
-      return AFIO_EVCR_PORT_PD;
-
-    case AFIO_PORTE:
-      return AFIO_EVCR_PORT_PE;
-
-    default:
-      devmode_error_invalid_enum(enum afio_port, port);
-      return 0;
-  }
-}
 
 static enum afio_exticr_exti
 convert_afio_port_api_to_exti_port(
@@ -64,67 +35,6 @@ convert_afio_port_api_to_exti_port(
 
     default:
       devmode_error_invalid_enum(enum afio_port, port);
-      return 0;
-  }
-}
-
-static enum afio_evcr_pin
-convert_afio_pin_api_to_evcr_pin(
-  enum afio_pin pin
-)
-{
-  switch (pin)
-  {
-    case AFIO_PIN0:
-      return AFIO_EVCR_PIN_Px0;
-
-    case AFIO_PIN1:
-      return AFIO_EVCR_PIN_Px1;
-
-    case AFIO_PIN2:
-      return AFIO_EVCR_PIN_Px2;
-
-    case AFIO_PIN3:
-      return AFIO_EVCR_PIN_Px3;
-
-    case AFIO_PIN4:
-      return AFIO_EVCR_PIN_Px4;
-
-    case AFIO_PIN5:
-      return AFIO_EVCR_PIN_Px5;
-
-    case AFIO_PIN6:
-      return AFIO_EVCR_PIN_Px6;
-
-    case AFIO_PIN7:
-      return AFIO_EVCR_PIN_Px7;
-
-    case AFIO_PIN8:
-      return AFIO_EVCR_PIN_Px8;
-
-    case AFIO_PIN9:
-      return AFIO_EVCR_PIN_Px9;
-
-    case AFIO_PIN10:
-      return AFIO_EVCR_PIN_Px10;
-
-    case AFIO_PIN11:
-      return AFIO_EVCR_PIN_Px11;
-
-    case AFIO_PIN12:
-      return AFIO_EVCR_PIN_Px12;
-
-    case AFIO_PIN13:
-      return AFIO_EVCR_PIN_Px13;
-
-    case AFIO_PIN14:
-      return AFIO_EVCR_PIN_Px14;
-
-    case AFIO_PIN15:
-      return AFIO_EVCR_PIN_Px15;
-
-    default:
-      devmode_error_invalid_enum(enum afio_pin, pin);
       return 0;
   }
 }
