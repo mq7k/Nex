@@ -6,6 +6,7 @@ class Scope:
         self.value = 1
         self.varsmap = {}
         self.ifdef = []
+        self.ifndef = []
         self.halt = False
 
     def apply(self, name, var):
@@ -38,6 +39,12 @@ class Scope:
             else:
                 self.ifdef.extend(var['ifdef'])
 
+        if 'ifndef' in var:
+            if isinstance(var['ifndef'], str):
+                self.ifndef.append(var['ifndef'])
+            else:
+                self.ifndef.extend(var['ifndef'])
+
         if 'halt' in var:
             self.halt = self.halt or var['halt']
 
@@ -53,6 +60,7 @@ class Scope:
 def inherit_fields(src, dst):
     dst.__dict__.update(src.__dict__)
     dst.ifdef = [ name for name in src.ifdef ]
+    dst.ifndef = [ name for name in src.ifndef ]
 
 class ScopeStack:
     def __init__(self):
@@ -66,6 +74,7 @@ class ScopeStack:
         # Do not inherit function's entry ifdef macros.
         if len(self.stack) == 2:
             scope.ifdef = []
+            scope.ifndef = []
 
         self.stack.append(scope)
         self.scope = scope

@@ -74,6 +74,14 @@ class TestWriter:
         fmt_str = ' && '.join(macros)
         self.write(f'#if {fmt_str}')
 
+    def ifndef(self, macros):
+        if isinstance(macros, str):
+            macros = [ macros ]
+
+        macros = [ f'!defined({item})' for item in macros ]
+        fmt_str = ' && '.join(macros)
+        self.write(f'#if {fmt_str}')
+
     def endif(self):
         self.write('#endif')
 
