@@ -10,6 +10,12 @@ if (NEX_PLATFORM_ARM)
     init.c
     cm.S
   )
+
+  if (NEX_CPU_HAS_FPU)
+  syn_add_arch_com_file(
+    fpu.S
+  )
+  endif()
 elseif (NEX_PLATFORM_DESKTOP)
   syn_add_arch_com_file(
     cmd.S
