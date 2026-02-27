@@ -8,7 +8,26 @@ def _assert_file_exists(path, message):
     if not os.path.exists(path):
         raise argparse.ArgumentTypeError(message)
 
+def _resolve_stm32_path(arg):
+    family = arg[5]
+    series = arg[6]
+    fullname = arg if arg.endswith('.json') else f'{arg}.json'
+    return f'targets/stm32/{family}{series}/{fullname}'
+
+def _try_resolve_target_path(arg):
+    if arg.startswith('stm32'):
+        return _resolve_stm32_path(arg)
+
+    return None
+
 def target(arg):
+    # Let's first see if arg is already a valid path.
+    if not os.path.exists(arg):
+        path = _try_resolve_target_path(arg)
+        if path is None:
+            return argparse.ArgumentTypeError(f'Cannot resolve target: \'{path}\'')
+        arg = path
+
     _assert_file_exists(arg, f'Target file not found: \'{arg}\'')
     with open(arg, 'r') as file:
         config = json.load(file)

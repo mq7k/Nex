@@ -12,16 +12,14 @@ The framework is organized in modular layers:
 ## Building
 ### Build Examples 
 ```sh
-tools/builder/build.py --target=targets/{family}/{series}/{fullname}.json --build-type=Release --examples
+tools/builder/build.py --target={target} --build-type=Release --examples
 ``` 
 ### Build and Run Tests 
 ```sh
-tools/builder/build.py --target=targets/{family}/{series}/{fullname}.json --build-type=Release --tests
+tools/builder/build.py --target={target} --build-type=Release --tests
 ```
 Where:
-- `{family}` -> The microcontroller family. Currently supported: `stm32`.
-- `{series}` -> The microcontroller series. Currently supported: `f4`, `f1`.
-- `{fullname}` -> The full microcontroller name. Examples: `stm32f411ce`, `stm32f446re`, `stm32f429bg`.
+- `{target}` -> The target microcontroller to build for. Examples: `stm32f411ce`, `stm32f446re`, `stm32f429bg`.
 
 ## Project Goals
 Building a fully functional drone from scratch: hardware, firmware, and flight control algorithms. This framework serves as the embedded software foundation for that goal.
