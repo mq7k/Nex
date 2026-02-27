@@ -1,4 +1,4 @@
-INCLUDE "stm32f1.ld"
+INCLUDE "fx/f1/stm32f1.ld"
 
 MEMORY
 {
