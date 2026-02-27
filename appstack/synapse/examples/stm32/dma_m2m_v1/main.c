@@ -14,7 +14,6 @@ char buf[512];
 void
 rcc_setup(void)
 {
-  rcc_setup_config_type(RCC_CONFIGD_HSE8_PLL72);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_AFIO);
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
@@ -25,7 +24,7 @@ void
 usart_setup(void)
 {
   constexpr u32 baudrate = 115200;
-  const u32 apb2_clock = syn_convert_freq_unit(72, NEX_FREQ_UNIT_MHz, NEX_FREQ_UNIT_Hz);
+  const u32 apb2_clock = nex_convert_freq_unit(72, NEX_FREQ_UNIT_MHz, NEX_FREQ_UNIT_Hz);
   usart_set_baudrate(USART1, apb2_clock, baudrate);
   usart_set_word_length(USART1, USART_WORD_LENGTH_8BITS);
   usart_set_stop_bits(USART1, USART_STOP_BITS_1BIT);

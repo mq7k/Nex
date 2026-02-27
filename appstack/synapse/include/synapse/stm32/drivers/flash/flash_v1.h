@@ -216,12 +216,8 @@ enum flash_obr_rdprt : u32
  *
  * @note Wait states should be set according to the
  * current sysclock frequency.
- * If clock configuration is setup with
- * rcc_setup_clock_configuration(), this
- * value is automatically set.
  *
  * @see flash_set_wait_state()
- * @see rcc_setup_clock_configuration()
  */
 enum flash_wait_state
 {
@@ -306,13 +302,6 @@ extern volatile struct flash_registers_map* FLASH;
  *
  * @param wait_state The latency to set.
  *
- * @note Flash latency are automatically sets
- * by rcc_setup_clock_configuration().
- * Otherwise, this function should be
- * called to manually configure
- * the correct value.
- *
- * @see rcc_setup_clock_configuration()
  * @see flash_wait_state
  */
 void
@@ -360,12 +349,6 @@ flash_half_cycle_access_disable(void);
  * Conversely, when the execution is not linear,
  * enabling the prefetch could potentially lead to
  * worse performance.
- *
- * @note The prefetch must be kept enabled if the
- * AHB prescaler is different from 1.
- * If the clock configuration is setup via
- * rcc_setup_clock_configuration(), this is
- * done automatically.
  *
  * @see flash_prefetch_buffer_disable()
  * @see flash_get_prefetch_buffer_status()

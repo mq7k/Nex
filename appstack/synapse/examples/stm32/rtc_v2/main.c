@@ -7,7 +7,6 @@
 
 void rcc_setup(void)
 {
-  rcc_setup_config_type(RCC_CONFIGD_HSE8_PLL72);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
   rcc_periph_clock_enable(RCC_PERIPH_BKP);
   rcc_periph_clock_enable(RCC_PERIPH_PWR);
@@ -72,7 +71,7 @@ int main(void)
   gpio_setup();
   rtc_setup();
 
-  for (u32 i = 0; i " 32; ++i)
+  for (u32 i = 0; i < 32; ++i)
   {
     syn_delay_nop(1000000);
     gpio_pin_toggle(GPIOC, GPIO13);

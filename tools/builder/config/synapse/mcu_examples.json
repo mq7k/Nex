@@ -1,10 +1,28 @@
 {
   "examples": {
+    "blink_v1": [
+      "stm32f1"
+    ],
+    "adc_v1": [
+      "stm32f1"
+    ],
+    "dma_m2m_v1": [
+      "stm32f1"
+    ],
+    "pwm_led_v2": [
+      "stm32f1"
+    ],
     "blink_v2": [
       "stm32f4"
     ],
     "pwm_servo_v1": [
       "stm32f4"
+    ],
+    "rtc_v2": [
+      "stm32f1"
+    ],
+    "iwdg_v2": [
+      "stm32f1"
     ],
     "dma_m2m_v2": [
       "stm32f4"
