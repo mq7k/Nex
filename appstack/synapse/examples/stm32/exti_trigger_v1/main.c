@@ -2,13 +2,11 @@
 #include "synapse/stm32/periph/exti.h"
 #include "synapse/stm32/periph/gpio.h"
 #include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/afblio.h"
+#include "synapse/stm32/periph/afio.h"
 
 void
 rcc_setup(void)
 {
-  // Uncomment this line to setup a different clock configuration.
-  rcc_setup_config_type(RCC_CONFIGD_HSE8_PLL72);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
   rcc_periph_clock_enable(RCC_PERIPH_AFIO);

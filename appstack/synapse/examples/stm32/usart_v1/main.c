@@ -10,7 +10,6 @@
 void
 rcc_setup(void)
 {
-  rcc_setup_config_type(RCC_CONFIGD_HSE8_PLL72);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_AFIO);
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
