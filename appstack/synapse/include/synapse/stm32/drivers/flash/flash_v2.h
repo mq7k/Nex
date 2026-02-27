@@ -254,14 +254,7 @@ enum flash_optcr_rdp : u32
  *  - 24Mhz < sysclock <= 48Mhz -> One wait state
  *  - 48Mhz < sysclock <= 72Mhz -> Two wait states
  *
- * @note Wait states should be set according to the
- * current sysclock frequency.
- * If clock configuration is setup with
- * rcc_setup_clock_configuration(), this
- * value is automatically set.
- *
  * @see flash_set_wait_state()
- * @see rcc_setup_clock_configuration()
  */
 enum flash_wait_state
 {
