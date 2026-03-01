@@ -48,6 +48,11 @@ set(
   ${NEX_APPSTACK_BASE_DIR}/system
 )
 
+set(
+  NEX_DRIVERS_BASE_DIR
+  ${NEX_APPSTACK_BASE_DIR}/drivers
+)
+
 if (NOT EXISTS ${NEX_LD_SCRIPT_PATH})
   eco_log(FATAL_ERROR "Linker script file '${NEX_LD_SCRIPT_PATH}' doesn't exist.")
 endif()

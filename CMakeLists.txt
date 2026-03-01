@@ -45,6 +45,7 @@ eco_log(STATUS "Examples: ${NEX_BUILD_EXAMPLES}")
 add_subdirectory(appstack/libcom)
 add_subdirectory(appstack/synapse)
 add_subdirectory(appstack/system)
+add_subdirectory(appstack/drivers)
 # add_subdirectory(autonomy)
 
 if (NEX_BUILD_TESTS)
