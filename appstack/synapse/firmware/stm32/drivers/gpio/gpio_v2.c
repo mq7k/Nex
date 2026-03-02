@@ -1,5 +1,7 @@
 #include "synapse/stm32/drivers/gpio/gpio_v2.h"
 #include "libcom/sys/devmode.h"
+#include "libcom/util.h"
+#include "synapse/stm32/drivers/gpio/gpioif.h"
 
 typedef volatile struct gpio_registers_map gpio_periph;
 
@@ -399,4 +401,181 @@ gpio_set_pin_alternate_function(
 
   gpio->AFRL = afrl_reg;
   gpio->AFRH = afrh_reg;
+}
+
+/*
+ * Driver interface.
+ */
+static u32
+_map_modeif(
+  enum gpioif_mode modeif,
+  enum gpio_mode* mode
+)
+{
+  switch (modeif)
+  {
+    case GPIOIF_MODE_INPUT:
+      *mode = GPIO_MODE_INPUT;
+      break;
+
+    case GPIOIF_MODE_OUTPUT:
+      *mode = GPIO_MODE_OUTPUT;
+      break;
+
+    case GPIOIF_MODE_ALTFN:
+      *mode = GPIO_MODE_ALTFN;
+      break;
+
+    case GPIOIF_MODE_ANALOG:
+      *mode = GPIO_MODE_ANALOG;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_typeif(
+  enum gpioif_type typeif,
+  enum gpio_output_type* type
+)
+{
+  switch (typeif)
+  {
+    case GPIOIF_TYPE_PUSHPULL:
+      *type = GPIO_OUTPUT_TYPE_PUSHPULL;
+      break;
+
+    case GPIOIF_TYPE_OPEN_DRAIN:
+      *type = GPIO_OUTPUT_TYPE_OPEN_DRAIN;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_speedif(
+  enum gpioif_speed speedif,
+  enum gpio_speed* speed
+)
+{
+  switch (speedif)
+  {
+    case GPIOIF_SPEED_LOW:
+      *speed = GPIO_SPEED_LOW;
+      break;
+
+    case GPIOIF_SPEED_MEDIUM:
+      *speed = GPIO_SPEED_MEDIUM;
+      break;
+
+    case GPIOIF_SPEED_FAST:
+      *speed = GPIO_SPEED_FAST;
+      break;
+
+    case GPIOIF_SPEED_HIGH:
+      *speed = GPIO_SPEED_HIGH;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_pupd(
+  enum gpioif_pupd pupdif,
+  enum gpio_io_resistor* pupd
+)
+{
+  switch (pupdif)
+  {
+    case GPIOIF_PUPD_FLOATING:
+      *pupd = GPIO_IO_RESISTOR_NO_PULLUPDOWN;
+      break;
+
+    case GPIOIF_PUPD_PULLUP:
+      *pupd = GPIO_IO_RESISTOR_PULLUP;
+      break;
+
+    case GPIOIF_PUPD_PULLDOWN:
+      *pupd = GPIO_IO_RESISTOR_PULLDOWN;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+enum gpioif_code
+gpioif_configure(
+  struct gpioif_config* config
+)
+{
+  enum gpio_mode mode;
+  if (_map_modeif(config->mode, &mode) != NEX_SUCCESS)
+  {
+    return GPIOIF_CODE_INVALID_MODE;
+  }
+
+  enum gpio_output_type type;
+  if (_map_typeif(config->type, &type) != NEX_SUCCESS)
+  {
+    return GPIOIF_CODE_INVALID_TYPE;
+  }
+
+  enum gpio_speed speed;
+  if (_map_speedif(config->type, &speed) != NEX_SUCCESS)
+  {
+    return GPIOIF_CODE_INVALID_SPEED;
+  }
+
+  enum gpio_io_resistor pupd;
+  if (_map_pupd(config->pupd, &pupd) != NEX_SUCCESS)
+  {
+    return GPIOIF_CODE_INVALID_PUPD;
+  }
+
+  gpio_setup_port_pins(config->gpio, config->pins, mode, speed);
+  gpio_set_port_pins_output_type(config->gpio, config->pins, type);
+  gpio_set_port_pins_io_resistor(config->gpio, config->pins, config->pupd);
+  return NEX_SUCCESS;
+}
+
+void
+gpioif_pin_toggle(
+  volatile void* gpio,
+  u32 pins
+)
+{
+  gpio_pin_toggle(gpio, pins);
+}
+
+void
+gpioif_pin_set_low(
+  volatile void* gpio,
+  u32 pins
+)
+{
+  gpio_set_pin_low(gpio, pins);
+}
+
+void
+gpioif_pin_set_high(
+  volatile void* gpio,
+  u32 pins
+)
+{
+  gpio_set_pin_high(gpio, pins);
 }
