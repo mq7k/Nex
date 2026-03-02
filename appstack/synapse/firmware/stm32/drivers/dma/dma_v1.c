@@ -2,6 +2,7 @@
 #include "libcom/util.h"
 #include "synapse/common/util/common.h"
 #include "libcom/sys/devmode.h"
+#include "synapse/stm32/drivers/dma/dmaif.h"
 
 typedef volatile struct dma_registers_map dma_periph;
 dma_periph* DMA1 = (dma_periph*) (DMA1_ADDR);
@@ -815,5 +816,563 @@ dma_stream_get_fifo_status(
   constexpr u32 mask = DMA_SFCR_FS_MASK;
   volatile u32* reg = &dma_stream->SFCR;
   return (*reg >> shift) & mask;
+}
+
+ /*
+ * Driver interface implementation.
+ */
+u32
+dmaif_get_capabilities(void)
+{
+  u32 caps = 0;
+  caps |= DMAIF_CAP_DB;
+  caps |= DMAIF_CAP_DB_HW_SWAP;
+  caps |= DMAIF_CAP_CIRCULAR;
+  caps |= DMAIF_CAP_MEM_INC_MODE;
+  caps |= DMAIF_CAP_PERIPH_INC_MODE;
+  caps |= DMAIF_CAP_INC_OFFSET_32bit;
+  caps |= DMAIF_CAP_EXT_FLOW_CONTROLLER;
+
+  caps |= DMAIF_CAP_MEM_16bit_WIDE;
+  caps |= DMAIF_CAP_MEM_32bit_WIDE;
+
+  caps |= DMAIF_CAP_PERIPH_16bit_WIDE;
+  caps |= DMAIF_CAP_PERIPH_32bit_WIDE;
+
+  caps |= DMAIF_CAP_MEM_BURST16;
+  caps |= DMAIF_CAP_MEM_BURST8;
+  caps |= DMAIF_CAP_MEM_BURST4;
+  caps |= DMAIF_CAP_MEM_BURST1;
+
+  caps |= DMAIF_CAP_PERIPH_BURST16;
+  caps |= DMAIF_CAP_PERIPH_BURST8;
+  caps |= DMAIF_CAP_PERIPH_BURST4;
+  caps |= DMAIF_CAP_PERIPH_BURST1;
+
+  caps |= DMAIF_CAP_FIFO;
+  caps |= DMAIF_CAP_FIFO_THRS_1over4;
+  caps |= DMAIF_CAP_FIFO_THRS_1over2;
+  caps |= DMAIF_CAP_FIFO_THRS_3over4;
+  caps |= DMAIF_CAP_FIFO_THRS_FULL;
+
+  caps |= DMAIF_CAP_PRIORITY;
+
+  return caps;
+}
+
+u32
+dmaif_is_capability_supported(
+  enum dmaif_capability cap
+)
+{
+  return dmaif_get_capabilities() & cap;
+}
+
+static u32
+_map_mburstif(
+  enum dmaif_mem_burst burstif,
+  enum dma_stream_memory_burst* burst
+)
+{
+  switch (burstif)
+  {
+    case DMAIF_MEM_BURST1:
+      *burst = DMA_STREAM_MEMORY_BURST_SINGLE_TRANSFER;
+      break;
+
+    case DMAIF_MEM_BURST4:
+      *burst = DMA_STREAM_MEMORY_BURST_INCR4;
+      break;
+
+    case DMAIF_MEM_BURST8:
+      *burst = DMA_STREAM_MEMORY_BURST_INCR8;
+      break;
+
+    case DMAIF_MEM_BURST16:
+      *burst = DMA_STREAM_MEMORY_BURST_INCR16;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_pburstif(
+  enum dmaif_periph_burst burstif,
+  enum dma_stream_periph_burst* burst
+)
+{
+  switch (burstif)
+  {
+    case DMAIF_PERIPH_BURST1:
+      *burst = DMA_STREAM_PERIPH_BURST_SINGLE_TRANSFER;
+      break;
+
+    case DMAIF_PERIPH_BURST4:
+      *burst = DMA_STREAM_PERIPH_BURST_INCR4;
+      break;
+
+    case DMAIF_PERIPH_BURST8:
+      *burst = DMA_STREAM_PERIPH_BURST_INCR8;
+      break;
+
+    case DMAIF_PERIPH_BURST16:
+      *burst = DMA_STREAM_PERIPH_BURST_INCR16;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_priorityif(
+  enum dmaif_priority priorityif,
+  enum dma_stream_priority* priority
+)
+{
+  switch (priorityif)
+  {
+    case DMAIF_PRIORITY_LOW:
+      *priority = DMA_STREAM_PRIORITY_LOW;
+      break;
+
+    case DMAIF_PRIORITY_MEDIUM:
+      *priority = DMA_STREAM_PRIORITY_MEDIUM;
+      break;
+
+    case DMAIF_PRIORITY_HIGH:
+      *priority = DMA_STREAM_PRIORITY_HIGH;
+      break;
+
+    case DMAIF_PRIORITY_VERY_HIGH:
+      *priority = DMA_STREAM_PRIORITY_VERY_HIGH;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_msizeif(
+  enum dmaif_data data,
+  enum dma_stream_memory_data_size* msize
+)
+{
+  switch (data)
+  {
+    case DMAIF_DATA_8bit:
+      *msize = DMA_STREAM_MEMORY_SIZE_BYTE;
+      break;
+
+    case DMAIF_DATA_16bit:
+      *msize = DMA_STREAM_MEMORY_SIZE_HALF_WORD;
+      break;
+
+    case DMAIF_DATA_32bit:
+      *msize = DMA_STREAM_MEMORY_SIZE_WORD;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_psizeif(
+  enum dmaif_data data,
+  enum dma_stream_periph_data_size* psize
+)
+{
+  switch (data)
+  {
+    case DMAIF_DATA_8bit:
+      *psize = DMA_STREAM_PERIPH_SIZE_BYTE;
+      break;
+
+    case DMAIF_DATA_16bit:
+      *psize = DMA_STREAM_PERIPH_SIZE_HALF_WORD;
+      break;
+
+    case DMAIF_DATA_32bit:
+      *psize = DMA_STREAM_PERIPH_SIZE_WORD;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_directionif(
+  enum dmaif_dir dirif,
+  enum dma_stream_direction* direction
+)
+{
+  switch (dirif)
+  {
+    case DMAIF_DIR_MEM2PERIPH:
+      *direction = DMA_STREAM_DIRECTION_MEMORY_TO_PERIPH;
+      break;
+
+    case DMAIF_DIR_PERIPH2MEM:
+      *direction = DMA_STREAM_DIRECTION_PERIPH_TO_MEMORY;
+      break;
+
+    case DMAIF_DIR_MEM2MEM:
+      *direction = DMA_STREAM_DIRECTION_MEMORY_TO_MEMORY;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+enum dmaif_code
+dmaif_configure(
+  struct dmaif_config* config
+)
+{
+  // TODO: Proper fields validation.
+
+  if (!config->dma)
+  {
+    return DMAIF_CODE_INVALID_HW;
+  }
+
+  // TODO: 0 is valid.
+  // if (!config->stream)
+  // {
+  //   return DMAIF_CODE_INVALID_STREAM;
+  // }
+
+  // TODO: 0 is valid.
+  // if (!config->channel)
+  // {
+  //   return DMAIF_CODE_INVALID_CHANNEL;
+  // }
+
+  // TODO: Perform periph reset.
+
+  dma_stream_set_channel(config->dma, config->stream, config->channel);
+
+  enum dma_stream_memory_burst mburst;
+  if (_map_mburstif(config->mem_burst, &mburst) != NEX_SUCCESS) 
+  {
+    return DMAIF_CODE_INVALID_MEM_BURST;
+  }
+
+  dma_stream_set_memory_burst_transfer(
+    config->dma,
+    config->stream,
+    mburst
+  );
+
+  enum dma_stream_periph_burst pburst;
+  if (_map_pburstif(config->periph_burst, &pburst) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_PERIPH_BURST;
+  }
+
+  dma_stream_set_periph_burst_transfer(
+    config->dma,
+    config->stream,
+    pburst
+  );
+
+  if (config->options & DMAIF_CAP_DB)
+  {
+    if (!config->sbuf)
+    {
+      return DMAIF_CODE_INVALID_SBUF;
+    }
+
+    dma_stream_set_memory_address(
+      config->dma,
+      config->stream,
+      DMA_STREAM_MEMORY1,
+      (uptr) config->sbuf
+    );
+
+    if (config->options & DMAIF_CAP_DB_HW_SWAP)
+    {
+      dma_stream_set_double_buffer_mode(
+        config->dma,
+        config->stream,
+        DMA_STREAM_DOUBLE_BUFFER_MODE_SWITCH
+      );
+    }
+    else
+    {
+      dma_stream_set_double_buffer_mode(
+        config->dma,
+        config->stream,
+        DMA_STREAM_DOUBLE_BUFFER_MODE_NOSWITCH
+      );
+    }
+  }
+
+  // TODO: 0 is valid.
+  // if (!config->_priority)
+  // {
+  //   return DMAIF_CODE_INVALID_PRIORITY;
+  // }
+
+  enum dma_stream_priority priority;
+  if (_map_priorityif(config->priority, &priority) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_PRIORITY;
+  }
+
+  dma_stream_set_priority(config->dma, config->stream, priority);
+
+  // if (!config->inc_offset)
+  // {
+  //   return DMAIF_CODE_INVALID_INC_OFFSET;
+  // }
+
+  if (config->options & DMAIF_CAP_INC_OFFSET_32bit)
+  {
+    dma_stream_set_periph_inc_offset(
+      config->dma,
+      config->stream,
+      DMA_STREAM_PERIPH_INC_OFFSET_32BIT
+    );
+  }
+  else
+  {
+    dma_stream_set_periph_inc_offset(
+      config->dma,
+      config->stream,
+      DMA_STREAM_PERIPH_INC_OFFSET_FIXED
+    );
+  }
+
+  // TODO: 0 is valid.
+  // if (!config->_msize)
+  // {
+  //   return DMAIF_CODE_INVALID_MEM_DATA_SIZE;
+  // }
+
+  enum dma_stream_memory_data_size msize;
+  if (_map_msizeif(config->msize, &msize) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_MEM_DATA_SIZE;
+  }
+
+  dma_stream_set_memory_data_size(
+    config->dma,
+    config->stream,
+    msize
+  );
+
+  // TODO: 0 is valid.
+  // if (!config->_psize)
+  // {
+  //   return DMAIF_CODE_INVALID_PERIPH_MEM_DATA_SIZE;
+  // }
+
+  enum dma_stream_periph_data_size psize;
+  if (_map_psizeif(config->psize, &psize) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_PERIPH_MEM_DATA_SIZE;
+  }
+
+  dma_stream_set_periph_data_size(
+    config->dma,
+    config->stream,
+    psize
+  );
+
+  if (config->options & DMAIF_CAP_MEM_INC_MODE)
+  {
+    dma_stream_memory_increment_mode_enable(config->dma, config->stream);
+  }
+  else
+  {
+    dma_stream_memory_increment_mode_disable(config->dma, config->stream);
+  }
+
+  if (config->options & DMAIF_CAP_PERIPH_INC_MODE)
+  {
+    dma_stream_periph_increment_mode_enable(config->dma, config->stream);
+  }
+  else
+  {
+    dma_stream_periph_increment_mode_disable(config->dma, config->stream);
+  }
+
+  if (config->options & DMAIF_CAP_CIRCULAR)
+  {
+    dma_stream_circular_mode_enable(config->dma, config->stream);
+  }
+  else
+  {
+    dma_stream_circular_mode_disable(config->dma, config->stream);
+  }
+
+  // TODO: 0 is valid.
+  // if (!config->_direction)
+  // {
+  //   return DMAIF_CODE_INVALID_DIR;
+  // }
+
+  enum dma_stream_direction direction;
+  if (_map_directionif(config->direction, &direction) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_DIR;
+  }
+
+  dma_stream_set_data_transfer_direction(
+    config->dma,
+    config->stream,
+    direction
+  );
+
+  // if (!config->flow_controller)
+  // {
+  //   return DMAIF_CODE_INVALID_FC;
+  // }
+
+  if (config->options & DMAIF_CAP_EXT_FLOW_CONTROLLER)
+  {
+    dma_stream_set_flow_controller(
+      config->dma,
+      config->stream,
+      DMA_STREAM_FLOW_CONTROLLER_PERIPH
+    );
+  }
+  else
+  {
+    dma_stream_set_flow_controller(
+      config->dma,
+      config->stream,
+      DMA_STREAM_FLOW_CONTROLLER_DMA
+    );
+  }
+
+  // TODO: Possible defer initialization?
+  // if (!config->_items_count)
+  // {
+  //   return DMAIF_CODE_INVALID_ITEMS_COUNT;
+  // }
+
+  dma_stream_set_items_transfer_count(
+    config->dma,
+    config->stream,
+    config->items_count
+  );
+
+  if (!config->periph_addr)
+  {
+    return DMAIF_CODE_INVALID_PERIPH_ADDR;
+  }
+
+  dma_stream_set_periph_address(
+    config->dma,
+    config->stream,
+    config->periph_addr
+  );
+
+  if (!config->pbuf)
+  {
+    return DMAIF_CODE_INVALID_PBUF;
+  }
+
+  dma_stream_set_memory_address(
+    config->dma,
+    config->stream,
+    DMA_STREAM_MEMORY0,
+    (uptr) config->pbuf
+  );
+
+  return DMAIF_CODE_OK;
+}
+
+void
+dmaif_set_mem_addr(
+  struct dmaif_config* config,
+  enum dmaif_memory mem,
+  uptr addr
+)
+{
+  switch (mem)
+  {
+    case DMAIF_MEMORY0:
+      dma_stream_set_memory_address(
+        config->dma,
+        config->stream,
+        DMA_STREAM_MEMORY0,
+        addr
+      );
+      break;
+
+    case DMAIF_MEMORY1:
+      dma_stream_set_memory_address(
+        config->dma,
+        config->stream,
+        DMA_STREAM_MEMORY1,
+        addr
+      );
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum dmaif_memory, mem);
+      break;
+  }
+}
+
+void
+dmaif_set_items_count(
+  struct dmaif_config* config,
+  u32 count
+)
+{
+  dma_stream_set_items_transfer_count(
+    config->dma,
+    config->stream,
+    count
+  );
+}
+
+u32
+dmaif_get_items_count(
+  struct dmaif_config* config
+)
+{
+  return dma_stream_get_items_transfer_count(config->dma, config->stream);
+}
+
+void
+dmaif_start_transfer(
+  struct dmaif_config* config
+)
+{
+  dma_stream_enable(
+    config->dma,
+    config->stream
+  );
+}
+
+u32
+dmaif_get_current_db_target(
+  struct dmaif_config* config
+)
+{
+  return dma_stream_get_current_target(config->dma, config->stream);
 }
 
