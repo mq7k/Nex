@@ -2,6 +2,7 @@
 #include "synapse/common/util/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
+#include "synapse/stm32/drivers/spi/spiif.h"
 
 typedef volatile struct spi_registers_map spi_periph;
 
@@ -925,4 +926,86 @@ spi_master_clock_output_disable(
 )
 {
   spi->I2SPR &= ~SPI_I2SPR_MCKOE;
+}
+
+/*
+ * Driver interface.
+ */
+u32
+spiif_get_capabilities(void)
+{
+  u32 cap = 0;
+
+  cap |= SPIIF_CAP_CLK_PHASE_OFF;
+  cap |= SPIIF_CAP_IDLE_CLK_POLARITY;
+  cap |= SPIIF_CAP_MASTER;
+  cap |= SPIIF_CAP_SLAVE;
+  cap |= SPIIF_CAP_MSB;
+  cap |= SPIIF_CAP_LSB;
+  cap |= SPIIF_CAP_8BIT_FRAME;
+  cap |= SPIIF_CAP_16BIT_FRAME;
+  cap |= SPIIF_CAP_HWCRC;
+  cap |= SPIIF_CAP_BIMODE;
+  cap |= SPIIF_CAP_RXDMA;
+  cap |= SPIIF_CAP_TXDMA;
+  cap |= SPIIF_CAP_FRAME_TI;
+
+  return cap;
+}
+
+enum spiif_code
+spiif_configure(
+  struct spiif_config* config
+)
+{
+  if (!config)
+  {
+    return SPIIF_CODE_INVALID_CFG;
+  }
+
+  spi_set_clock_phase(config->spi, config->clk_phase);
+  spi_set_clock_polarity(config->spi, config->clk_polarity);
+  spi_set_role(config->spi, config->role);
+  spi_set_baudrate_control(config->spi, config->baudrate);
+  spi_set_frame_format(config->spi, config->frame_fmt);
+  spi_set_data_frame_format(config->spi, config->frame_len);
+  spi_set_frame_standard(config->spi, config->frame_type);
+
+  if (config->options & SPIIF_CAP_HWCRC)
+  {
+    spi_hardware_crc_enable(config->spi);
+  }
+  else
+  {
+    spi_hardware_crc_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_RXDMA)
+  {
+    spi_dma_rx_enable(config->spi);
+  }
+  else
+  {
+    spi_dma_rx_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_TXDMA)
+  {
+    spi_dma_tx_enable(config->spi);
+  }
+  else
+  {
+    spi_dma_tx_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_SSA)
+  {
+    spi_software_slave_management_disable(config->spi);
+  }
+  else
+  {
+    spi_software_slave_management_enable(config->spi);
+  }
+
+  return SPIIF_CODE_OK;
 }
