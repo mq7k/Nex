@@ -969,7 +969,10 @@ spiif_configure(
   spi_set_baudrate_control(config->spi, config->baudrate);
   spi_set_frame_format(config->spi, config->frame_fmt);
   spi_set_data_frame_format(config->spi, config->frame_len);
+
+#if defined(STM32_SPI_FRAME_STANDARD)
   spi_set_frame_standard(config->spi, config->frame_type);
+#endif
 
   if (config->options & SPIIF_CAP_HWCRC)
   {
