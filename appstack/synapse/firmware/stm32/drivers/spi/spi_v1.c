@@ -1,7 +1,10 @@
 #include "synapse/stm32/drivers/spi/spi_v1.h"
+#include "libcom/format.h"
+#include "libcom/util.h"
 #include "synapse/common/util/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
+#include "synapse/stm32/drivers/spi/spiif.h"
 
 typedef volatile struct spi_registers_map spi_periph;
 
@@ -925,4 +928,314 @@ spi_master_clock_output_disable(
 )
 {
   spi->I2SPR &= ~SPI_I2SPR_MCKOE;
+}
+
+/*
+ * Driver interface.
+ */
+u32
+spiif_get_capabilities(void)
+{
+  u32 cap = 0;
+
+  cap |= SPIIF_CAP_CLK_PHASE_OFF;
+  cap |= SPIIF_CAP_IDLE_CLK_POLARITY;
+  cap |= SPIIF_CAP_MASTER;
+  cap |= SPIIF_CAP_SLAVE;
+  cap |= SPIIF_CAP_MSB;
+  cap |= SPIIF_CAP_LSB;
+  cap |= SPIIF_CAP_8BIT_FRAME;
+  cap |= SPIIF_CAP_16BIT_FRAME;
+  cap |= SPIIF_CAP_HWCRC;
+  cap |= SPIIF_CAP_BIMODE;
+  cap |= SPIIF_CAP_RXDMA;
+  cap |= SPIIF_CAP_TXDMA;
+  cap |= SPIIF_CAP_FRAME_TI;
+
+  return cap;
+}
+
+static u32
+_map_phaseif(
+  enum spiif_clk_phase phaseif,
+  enum spi_clock_phase* phase
+)
+{
+  switch (phaseif)
+  {
+    case SPIIF_CLK_PHASE_FIRST:
+      *phase = SPI_CLOCK_PHASE_FIRST_TRANSITION;
+      break;
+      
+    case SPIIF_CLK_PHASE_SECOND:
+      *phase = SPI_CLOCK_PHASE_SECOND_TRANSITION;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_polarityif(
+  enum spiif_clk_polarity polarityif,
+  enum spi_clock_polarity* polarity
+)
+{
+  switch (polarityif)
+  {
+    case SPIIF_CLK_POLARITY_CLK_IDLE0:
+      *polarity = SPI_CLOCK_POLARITY_LOW_ON_IDLE;
+      break;
+
+    case SPIIF_CLK_POLARITY_CLK_IDLE1:
+      *polarity = SPI_CLOCK_POLARITY_HIGH_ON_IDLE;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_roleif(
+  enum spiif_role roleif,
+  enum spi_role* role
+)
+{
+  switch (roleif)
+  {
+    case SPIIF_ROLE_MASTER:
+      *role = SPI_ROLE_MASTER;
+      break;
+
+    case SPIIF_ROLE_SLAVE:
+      *role = SPI_ROLE_SLAVE;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_baudrateif(
+  enum spiif_baudrate baudrateif,
+  enum spi_baudrate_control* baudrate
+)
+{
+  switch (baudrateif)
+  {
+    case SPIIF_BAUDRATE_CLK_DIV2:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV2;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV4:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV4;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV8:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV8;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV16:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV16;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV64:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV64;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV128:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV128;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV256:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV256;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_formatif(
+  enum spiif_frame_fmt formatif,
+  enum spi_frame_format* format
+)
+{
+  switch (formatif)
+  {
+    case SPIIF_FRAME_FMT_MSB_FIRST:
+      *format = SPI_FRAME_FORMAT_MSB_FIRST;
+      break;
+
+    case SPIIF_FRAME_FMT_LSB_FIRST:
+      *format = SPI_FRAME_FORMAT_LSB_FIRST;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_format_lenif(
+  enum spiif_frame_len frame_lenif,
+  enum spi_data_frame_format* frame_len
+)
+{
+  switch (frame_lenif)
+  {
+    case SPIIF_FRAME_LEN_8BIT:
+      *frame_len = SPI_DATA_FRAME_FORMAT_8BITS;
+      break;
+
+    case SPIIF_FRAME_LEN_16BIT:
+      *frame_len = SPI_DATA_FRAME_FORMAT_16BITS;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+#if defined(STM32_SPI_FRAME_STANDARD)
+static u32
+_map_standardif(
+  enum spiif_frame_type typeif,
+  enum spi_frame_standard* standard
+)
+{
+  switch (typeif)
+  {
+    case SPIIF_FRAME_TYPE_MOTOROLA:
+      *standard = SPI_FRAME_STANDARD_MOTOROLA;
+      break;
+
+    case SPIIF_FRAME_TYPE_TI:
+      *standard = SPI_FRAME_STANDARD_TI;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+#endif
+
+enum spiif_code
+spiif_configure(
+  struct spiif_config* config
+)
+{
+  if (!config)
+  {
+    return SPIIF_CODE_INVALID_CFG;
+  }
+
+  enum spi_clock_phase phase;
+  if (_map_phaseif(config->clk_phase, &phase) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_CLK_PHASE;
+  }
+
+  enum spi_clock_polarity polarity;
+  if (_map_polarityif(config->clk_polarity, &polarity) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_CLK_POLARITY;
+  }
+
+  enum spi_role role;
+  if (_map_roleif(config->role, &role) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_ROLE;
+  }
+
+  enum spi_baudrate_control baudrate;
+  if (_map_baudrateif(config->baudrate, &baudrate) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_BAUDRATE;
+  }
+
+  enum spi_frame_format format;
+  if (_map_formatif(config->frame_fmt, &format) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_FRAME_FMT;
+  }
+
+  enum spi_data_frame_format frame_len;
+  if (_map_format_lenif(config->frame_len, &frame_len) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_FRAME_LEN;
+  }
+
+  spi_set_clock_phase(config->spi, phase);
+  spi_set_clock_polarity(config->spi, polarity);
+  spi_set_role(config->spi, role);
+  spi_set_baudrate_control(config->spi, baudrate);
+  spi_set_frame_format(config->spi, format);
+  spi_set_data_frame_format(config->spi, frame_len);
+
+#if defined(STM32_SPI_FRAME_STANDARD)
+  enum spi_frame_standard standard;
+  if (_map_standardif(config->frame_type, &standard) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_FRAME_TYPE;
+  }
+
+  spi_set_frame_standard(config->spi, standard);
+#endif
+
+  if (config->options & SPIIF_CAP_HWCRC)
+  {
+    spi_hardware_crc_enable(config->spi);
+  }
+  else
+  {
+    spi_hardware_crc_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_RXDMA)
+  {
+    spi_dma_rx_enable(config->spi);
+  }
+  else
+  {
+    spi_dma_rx_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_TXDMA)
+  {
+    spi_dma_tx_enable(config->spi);
+  }
+  else
+  {
+    spi_dma_tx_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_SSA)
+  {
+    spi_software_slave_management_disable(config->spi);
+  }
+  else
+  {
+    spi_software_slave_management_enable(config->spi);
+  }
+
+  return SPIIF_CODE_OK;
 }

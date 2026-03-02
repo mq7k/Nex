@@ -27,6 +27,14 @@ def get_config_doc(project, group, group_type):
 
     return doc
 
+def get_interfaces_doc(project, group_type):
+    path = f'tools/builder/config/{project}/{group_type}/interfaces.json'
+    
+    with open(path, 'r') as file:
+        doc = json.load(file)
+
+    return doc
+
 class SynapseSources:
     def __init__(self, mcu_group, mcu_example_file, arch_example_file):
         self.mcu = SourceFiles(
@@ -47,13 +55,24 @@ class SynapseSources:
 class SourceFiles:
     def __init__(self, project, group, group_type, examples_file):
         doc = get_config_doc(project, group, group_type)
+        ifs = get_interfaces_doc(project, group_type)
 
         self.compiler_flags = BuildFlags(doc.get('compiler_flags', {}))
         self.linker_flags = BuildFlags(doc.get('linker_flags', {}))
 
         self.arch = doc.get('arch')
-        self.drivers = doc['avb_periphs']
+        drivers = doc['avb_periphs']
         self.tests = doc['avb_periphs']
+
+        self.drivers = []
+        self.drivers.extend(drivers)
+        interfaces = ifs.get('interfaces', [])
+        for driver in drivers:
+            name = driver.split('/')[0]
+            interface_file = f'{name}/{name}if'
+            if interface_file in interfaces:
+                self.drivers.append(interface_file)
+
         self.examples = get_examples_list(project, group, examples_file)
 
 class BuildFlags:
