@@ -1113,6 +1113,7 @@ _map_format_lenif(
   return NEX_SUCCESS;
 }
 
+#if defined(STM32_SPI_FRAME_STANDARD)
 static u32
 _map_standardif(
   enum spiif_frame_type typeif,
@@ -1135,6 +1136,7 @@ _map_standardif(
 
   return NEX_SUCCESS;
 }
+#endif
 
 enum spiif_code
 spiif_configure(
