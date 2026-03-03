@@ -543,6 +543,14 @@ spi_receive_bytes(
   u32 count
 );
 
+void
+spi_receive_bytes_after(
+  volatile struct spi_registers_map* spi,
+  u8* buf,
+  u32 count,
+  u8 dummy
+);
+
 u16
 spi_read_16bit(
   volatile struct spi_registers_map* spi
