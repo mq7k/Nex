@@ -530,6 +530,12 @@ spi_receive_byte(
   volatile struct spi_registers_map* spi
 );
 
+u8
+spi_receive_byte_after(
+  volatile struct spi_registers_map* spi,
+  u8 dummy
+);
+
 void
 spi_receive_bytes(
   volatile struct spi_registers_map* spi,
@@ -580,11 +586,25 @@ spi_receive_16bit(
   volatile struct spi_registers_map* spi
 );
 
+u16
+spi_receive_16bit_after(
+  volatile struct spi_registers_map* spi,
+  u16 dummy
+);
+
 void
 spi_receive_16bits(
   volatile struct spi_registers_map* spi,
   u16* buf,
   u32 count
+);
+
+void
+spi_receive_16bits_after(
+  volatile struct spi_registers_map* spi,
+  u16* buf,
+  u32 count,
+  u16 dummy
 );
 
 void

@@ -548,12 +548,10 @@ spi_transceive_byte(
   u8 byte
 )
 {
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
   spi_write_byte(spi, byte);
 
-  WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_BUSY) == 0);
-
-  WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  while (spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
   u8 data = spi_read_byte(SPI1);
   return data;
 }
@@ -578,12 +576,10 @@ spi_transfer_byte(
   u8 byte
 )
 {
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  while (spi_is_flag_set(SPI1, SPI_FLAG_TX_BUF_EMPTY) == 0);
   spi_write_byte(spi, byte);
 
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
-
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  while (spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
   (void) spi_read_byte(spi);
 }
 
@@ -605,13 +601,22 @@ spi_receive_byte(
   volatile struct spi_registers_map* spi
 )
 {
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
   spi_write_byte(spi, 0xff);
 
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
-
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
   return spi_read_byte(spi);
+}
+
+u8
+spi_receive_byte_after(
+  volatile struct spi_registers_map* spi,
+  u8 dummy
+)
+{
+  u8 byte;
+  while ((byte = spi_receive_byte(spi)) == dummy);
+  return byte;
 }
 
 void
@@ -622,6 +627,24 @@ spi_receive_bytes(
 )
 {
   for (u32 i = 0; i < count; ++i)
+  {
+    buf[i] = spi_receive_byte(spi);
+  }
+}
+
+void
+spi_receive_bytes_after(
+  volatile struct spi_registers_map* spi,
+  u8* buf,
+  u32 count,
+  u8 dummy
+)
+{
+  u8 byte;
+  while ((byte = spi_receive_byte(spi)) == dummy);
+  buf[0] = byte;
+  
+  for (u32 i = 1; i < count; ++i)
   {
     buf[i] = spi_receive_byte(spi);
   }
@@ -650,12 +673,10 @@ spi_transceive_16bit(
   u16 value
 )
 {
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
   spi_write_16bit(spi, value);
 
-  WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_BUSY) == 0);
-
-  WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  while (spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
   u16 data = spi_read_16bit(SPI1);
   return data;
 }
@@ -680,12 +701,10 @@ spi_transfer_16bit(
   u16 value
 )
 {
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
   spi_write_16bit(spi, value);
 
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
-
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
   (void) spi_read_16bit(spi);
 }
 
@@ -707,13 +726,22 @@ spi_receive_16bit(
   volatile struct spi_registers_map* spi
 )
 {
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
   spi_write_16bit(spi, 0xffff);
 
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
-
-  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  while (spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
   return spi_read_16bit(spi);
+}
+
+u16
+spi_receive_16bit_after(
+  volatile struct spi_registers_map* spi,
+  u16 dummy
+)
+{
+  u16 value;
+  while ((value = spi_receive_16bit(spi)) == dummy);
+  return value;
 }
 
 void
@@ -724,6 +752,24 @@ spi_receive_16bits(
 )
 {
   for (u32 i = 0; i < count; ++i)
+  {
+    buf[i] = spi_receive_16bit(spi);
+  }
+}
+
+void
+spi_receive_16bits_after(
+  volatile struct spi_registers_map* spi,
+  u16* buf,
+  u32 count,
+  u16 dummy
+)
+{
+  u16 value;
+  while ((value = spi_receive_16bit(spi)) == dummy);
+  buf[0] = value;
+
+  for (u32 i = 1; i < count; ++i)
   {
     buf[i] = spi_receive_16bit(spi);
   }
