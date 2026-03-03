@@ -487,35 +487,35 @@ spi_crc_error_flag_clear(
   volatile struct spi_registers_map* spi
 );
 
-u32
-spi_data_read(
+u8
+spi_read_byte(
   volatile struct spi_registers_map* spi
 );
 
 void
-spi_data_write(
+spi_write_byte(
   volatile struct spi_registers_map* spi,
-  u32 data
+  u8 data
 );
 
-u32
+u8
 spi_transceive_byte(
   volatile struct spi_registers_map* spi,
-  u32 byte
+  u8 byte
 );
 
 void
 spi_transceive_bytes(
   volatile struct spi_registers_map* spi,
-  u32* bytes,
-  u32 count,
-  u32* buf
+  u8* out,
+  u8* in,
+  u32 count
 );
 
 void
 spi_transfer_byte(
   volatile struct spi_registers_map* spi,
-  u32 byte
+  u8 byte
 );
 
 void
@@ -525,7 +525,7 @@ spi_transfer_bytes(
   u32 count
 );
 
-u32
+u8
 spi_receive_byte(
   volatile struct spi_registers_map* spi
 );
@@ -534,6 +534,56 @@ void
 spi_receive_bytes(
   volatile struct spi_registers_map* spi,
   u8* buf,
+  u32 count
+);
+
+u16
+spi_read_16bit(
+  volatile struct spi_registers_map* spi
+);
+
+void
+spi_write_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 value
+);
+
+u16
+spi_transceive_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 byte
+);
+
+void
+spi_transceive_16bits(
+  volatile struct spi_registers_map* spi,
+  u16* out,
+  u16* in,
+  u32 count
+);
+
+void
+spi_transfer_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 byte
+);
+
+void
+spi_transfer_16bits(
+  volatile struct spi_registers_map* spi,
+  const u16* bytes,
+  u32 count
+);
+
+u16
+spi_receive_16bit(
+  volatile struct spi_registers_map* spi
+);
+
+void
+spi_receive_16bits(
+  volatile struct spi_registers_map* spi,
+  u16* buf,
   u32 count
 );
 

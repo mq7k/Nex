@@ -525,66 +525,66 @@ spi_crc_error_flag_clear(
   spi->SR &= ~SPI_SR_CRCERR;
 }
 
-u32
-spi_data_read(
+u8
+spi_read_byte(
   volatile struct spi_registers_map* spi
 )
 {
-  return spi->DR;
+  return (u8) spi->DR;
 }
 
 void
-spi_data_write(
+spi_write_byte(
   volatile struct spi_registers_map* spi,
-  u32 data
+  u8 data
 )
 {
   spi->DR = data;
 }
 
-u32
+u8
 spi_transceive_byte(
   volatile struct spi_registers_map* spi,
-  u32 byte
+  u8 byte
 )
 {
   WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
-  spi_data_write(spi, byte);
+  spi_write_byte(spi, byte);
 
   WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_BUSY) == 0);
 
   WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY));
-  u32 data = spi_data_read(SPI1);
+  u8 data = spi_read_byte(SPI1);
   return data;
 }
 
 void
 spi_transceive_bytes(
   volatile struct spi_registers_map* spi,
-  u32* bytes,
-  u32 count,
-  u32* buf
+  u8* out,
+  u8* in,
+  u32 count
 )
 {
   for (u32 i = 0; i < count; ++i)
   {
-    buf[i] = spi_transceive_byte(spi, bytes[i]);
+    in[i] = spi_transceive_byte(spi, out[i]);
   }
 }
 
 void
 spi_transfer_byte(
   volatile struct spi_registers_map* spi,
-  u32 byte
+  u8 byte
 )
 {
   WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
-  spi_data_write(spi, byte);
+  spi_write_byte(spi, byte);
 
   WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
 
   WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
-  (void) spi_data_read(spi);
+  (void) spi_read_byte(spi);
 }
 
 void
@@ -600,18 +600,18 @@ spi_transfer_bytes(
   }
 }
 
-u32
+u8
 spi_receive_byte(
   volatile struct spi_registers_map* spi
 )
 {
   WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
-  spi_data_write(spi, 0xff);
+  spi_write_byte(spi, 0xff);
 
   WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
 
   WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
-  return spi_data_read(spi);
+  return spi_read_byte(spi);
 }
 
 void
@@ -623,7 +623,109 @@ spi_receive_bytes(
 {
   for (u32 i = 0; i < count; ++i)
   {
-    buf[i] = (u8) spi_receive_byte(spi);
+    buf[i] = spi_receive_byte(spi);
+  }
+}
+
+u16
+spi_read_16bit(
+  volatile struct spi_registers_map* spi
+)
+{
+  return (u16) spi->DR;
+}
+
+void
+spi_write_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 value
+)
+{
+  spi->DR = value;
+}
+
+u16
+spi_transceive_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 value
+)
+{
+  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  spi_write_16bit(spi, value);
+
+  WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_BUSY) == 0);
+
+  WAIT_UNTIL(spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  u16 data = spi_read_16bit(SPI1);
+  return data;
+}
+
+void
+spi_transceive_16bits(
+  volatile struct spi_registers_map* spi,
+  u16* out,
+  u16* in,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    in[i] = spi_transceive_16bit(spi, out[i]);
+  }
+}
+
+void
+spi_transfer_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 value
+)
+{
+  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  spi_write_16bit(spi, value);
+
+  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
+
+  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  (void) spi_read_16bit(spi);
+}
+
+void
+spi_transfer_16bits(
+  volatile struct spi_registers_map* spi,
+  const u16* values,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    spi_transfer_16bit(spi, values[i]);
+  }
+}
+
+u16
+spi_receive_16bit(
+  volatile struct spi_registers_map* spi
+)
+{
+  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY));
+  spi_write_16bit(spi, 0xffff);
+
+  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_BUSY) == 0);
+
+  WAIT_UNTIL(spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY));
+  return spi_read_16bit(spi);
+}
+
+void
+spi_receive_16bits(
+  volatile struct spi_registers_map* spi,
+  u16* buf,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    buf[i] = spi_receive_16bit(spi);
   }
 }
 
@@ -1238,4 +1340,66 @@ spiif_configure(
   }
 
   return SPIIF_CODE_OK;
+}
+
+void
+spiif_transmit_bytes(
+  struct spiif_config* config,
+  u8* buf,
+  u32 len
+)
+{
+  spi_transfer_bytes(config->spi, buf, len);
+}
+
+void
+spiif_receive_bytes(
+  struct spiif_config* config,
+  u8* buf,
+  u32 len
+)
+{
+  spi_receive_bytes(config->spi, buf, len);
+}
+
+void
+spiif_transceive_bytes(
+  struct spiif_config* config,
+  u8* out,
+  u8* in,
+  u32 len
+)
+{
+  spi_transceive_bytes(config->spi, out, in, len);
+}
+
+void
+spiif_transmit_16bit(
+  struct spiif_config* config,
+  u16* buf,
+  u32 len
+)
+{
+  spi_transfer_16bits(config->spi, buf, len);
+}
+
+void
+spiif_receive_16bit(
+  struct spiif_config* config,
+  u16* buf,
+  u32 len
+)
+{
+  spi_receive_16bits(config->spi, buf, len);
+}
+
+void
+spiif_transceive_16bit(
+  struct spiif_config* config,
+  u16* out,
+  u16* in,
+  u32 len
+)
+{
+  spi_transceive_16bits(config->spi, out, in, len);
 }
