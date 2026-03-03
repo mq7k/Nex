@@ -23,7 +23,7 @@ struct spiif_config
   u32 options;
 };
 
-enum spiif_cap
+enum spiif_cap : u32
 {
   SPIIF_CAP_CLK_PHASE_OFF = BIT(0),
   SPIIF_CAP_IDLE_CLK_POLARITY = BIT(1),

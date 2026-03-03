@@ -39,7 +39,7 @@ struct dmaif_config
   u32 supported_pburst;
 };
 
-enum dmaif_capability
+enum dmaif_capability : u32
 {
   DMAIF_CAP_DB = BIT(0),
   DMAIF_CAP_DB_HW_SWAP = BIT(1),
