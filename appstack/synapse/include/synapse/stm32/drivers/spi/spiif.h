@@ -122,6 +122,50 @@ spiif_configure(
   struct spiif_config* config
 );
 
+void
+spiif_transmit_bytes(
+  struct spiif_config* config,
+  u8* buf,
+  u32 len
+);
+
+void
+spiif_receive_bytes(
+  struct spiif_config* config,
+  u8* buf,
+  u32 len
+);
+
+void
+spiif_transceive_bytes(
+  struct spiif_config* config,
+  u8* out,
+  u8* in,
+  u32 len
+);
+
+void
+spiif_transmit_16bit(
+  struct spiif_config* config,
+  u16* buf,
+  u32 len
+);
+
+void
+spiif_receive_16bit(
+  struct spiif_config* config,
+  u16* buf,
+  u32 len
+);
+
+void
+spiif_transceive_16bit(
+  struct spiif_config* config,
+  u16* out,
+  u16* in,
+  u32 len
+);
+
 END_DECLARATIONS
 
 #endif
