@@ -231,6 +231,32 @@ function(syn_add_common)
   endforeach()
 endfunction()
 
+function(syn_add_util)
+  set(UTIL_SOURCES_FILES ${ARGN})
+  set(UTIL_HEADERS_FILES ${ARGN})
+  set(ORIGINAL_LIST ${ARGN})
+
+  list(TRANSFORM UTIL_SOURCES_FILES PREPEND "${SYN_UTIL_SOURCES_DIR}/")
+  list(TRANSFORM UTIL_SOURCES_FILES APPEND ".c")
+
+  list(TRANSFORM UTIL_HEADERS_FILES PREPEND "${SYN_UTIL_HEADERS_DIR}/")
+  list(TRANSFORM UTIL_HEADERS_FILES APPEND ".h")
+
+  target_sources(syn_util PUBLIC
+    ${UTIL_SOURCES_FILES}
+  )
+
+  target_sources(syn_util PUBLIC 
+    FILE_SET HEADERS
+    BASE_DIRS ${SYN_INCLUDE_DIR}
+    FILES ${UTIL_HEADERS_FILES}
+  )
+
+  foreach (file IN LISTS ORIGINAL_LIST)
+    syn_log(STATUS "Adding util file: ${file}.c")
+  endforeach()
+endfunction()
+
 function(syn_create_example name)
   set(SOURCE_FILES ${ARGN})
   add_executable(${name} main.c ${SOURCE_FILES})

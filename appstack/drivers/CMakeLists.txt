@@ -4,6 +4,7 @@ target_link_libraries(drivers PUBLIC eco_libcom)
 target_link_libraries(drivers INTERFACE eco_buildtype)
 target_link_libraries(drivers INTERFACE syn_chip)
 target_link_libraries(drivers INTERFACE syn_arch)
+target_link_libraries(drivers INTERFACE syn_util)
 
 set(DRIVERSL_SOURCES
   mpu9250
