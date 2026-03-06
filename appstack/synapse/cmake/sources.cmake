@@ -30,6 +30,8 @@ syn_add_arch_com_header(
 syn_add_util(
   io/io_spi
   io/ioif
+
+  drivers/mpu9250
 )
 
 if (NEX_BUILD_TESTS)

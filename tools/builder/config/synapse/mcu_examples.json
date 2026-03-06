@@ -51,6 +51,9 @@
     "mpu9250_spi_v1": [
       "stm32f4"
     ],
+    "mpu9250_spi_driver_v1": [
+      "stm32f4"
+    ],
     "sdcard": [
       "stm32f4 (TODO: Re-enabled this)"
     ],
