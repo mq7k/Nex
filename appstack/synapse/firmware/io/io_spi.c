@@ -181,7 +181,7 @@ _stop_stream(
   spi->sflags &= ~BEIO_SPI_SFLAG_STREAM;
 }
 
-struct ioops spi_ioops = {
+struct ioops ioops_spi = {
   .init = _init,
   .read = _read,
   .read_async = _read_async,
