@@ -45,7 +45,13 @@
     "dshot": [
       "stm32f4"
     ],
-    "mpu6500_9250_v1": [
+    "mpu9250_i2c_v1": [
+      "stm32f4"
+    ],
+    "mpu9250_spi_v1": [
+      "stm32f4"
+    ],
+    "mpu9250_spi_driver_v1": [
       "stm32f4"
     ],
     "sdcard": [

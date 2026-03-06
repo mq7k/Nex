@@ -4,6 +4,7 @@ add_library(systeml)
 target_link_libraries(systeml INTERFACE eco_buildtype)
 target_link_libraries(systeml PUBLIC eco_libcom)
 target_link_libraries(systeml PUBLIC syn_chip)
+target_link_libraries(systeml PUBLIC syn_util)
 target_link_libraries(systeml PUBLIC syn_arch)
 # target_link_libraries(systeml PUBLIC eco_contracts)
 

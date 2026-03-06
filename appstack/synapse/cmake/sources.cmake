@@ -27,6 +27,13 @@ syn_add_arch_com_header(
   sys
 )
 
+syn_add_util(
+  io/io_spi
+  io/ioif
+
+  drivers/mpu9250
+)
+
 if (NEX_BUILD_TESTS)
   enable_testing()
   syn_add_tests(${SYN_MCU_DRIVER_TESTS_DIR} ${NEX_MCU_TESTS})

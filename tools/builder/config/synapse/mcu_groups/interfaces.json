@@ -1,0 +1,7 @@
+{
+  "interfaces": [
+    "dma/dmaif",
+    "spi/spiif",
+    "gpio/gpioif"
+  ]
+}

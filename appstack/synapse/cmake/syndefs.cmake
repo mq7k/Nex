@@ -4,8 +4,18 @@ set(
 )
 
 set(
+  SYN_UTIL_SOURCES_DIR
+  ${SYN_BASE_DIR}/firmware
+)
+
+set(
   SYN_COMMON_HEADERS_DIR
   ${SYN_BASE_DIR}/include/synapse/common
+)
+
+set(
+  SYN_UTIL_HEADERS_DIR
+  ${SYN_BASE_DIR}/include/synapse
 )
 
 set(

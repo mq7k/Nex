@@ -15,17 +15,22 @@ add_library(syn_chip)
 # Contains architecture specific implementation files.
 add_library(syn_arch)
 
+add_library(syn_util)
+
 include(cmake/sources)
 
 target_link_libraries(syn_chip PRIVATE eco_buildtype)
 target_link_libraries(syn_arch PRIVATE eco_buildtype)
+target_link_libraries(syn_util PRIVATE eco_buildtype)
 target_link_libraries(syn_chip PRIVATE eco_libcom)
 target_link_libraries(syn_arch PRIVATE eco_libcom)
+target_link_libraries(syn_util PRIVATE eco_libcom)
 
 # `synapse` is the final project library
 # created by merging all the other targets.
 target_link_libraries(synapse PUBLIC syn_chip)
 target_link_libraries(synapse PUBLIC syn_arch)
+target_link_libraries(synapse PUBLIC syn_util)
 target_link_libraries(synapse PUBLIC eco_buildtype)
 target_link_libraries(synapse PUBLIC eco_libcom)
 target_link_libraries(synapse PUBLIC gcc)
