@@ -6,6 +6,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
+message(STATUS "Toolchain: ${CMAKE_TOOLCHAIN_FILE}")
 option(NEX_BUILD_TESTS "Toggles tests build. (Def=ON)" ON)
 option(NEX_BUILD_EXAMPLES "Toggles examples build. (Def=OFF)" OFF)
 
@@ -25,12 +26,7 @@ include(cmake/nexfn)
 include(cmake/nexdefs)
 include(cmake/build_config)
 
-nex_log(STATUS "Target: ${MCU_FULLNAME}")
 nex_log(STATUS "Root directory: ${PROJECT_SOURCE_DIR}")
-nex_log(STATUS "LD script: ${NEX_MCU_LD_SCRIPT}")
-nex_log(STATUS "LD path: ${SYN_LD_SCRIPT_PATH}")
-nex_log(STATUS "LD family dir: ${SYN_LD_SCRIPTS_MCU_DIR}")
-
 nex_log(STATUS "Using compiler: ${CMAKE_C_COMPILER}")
 nex_log(STATUS "Using objcopy: ${CMAKE_OBJCOPY}")
 nex_log(STATUS "Using C standard: ${CMAKE_C_STANDARD}")
