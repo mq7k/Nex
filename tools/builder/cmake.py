@@ -29,6 +29,8 @@ def parse_arch_family(args):
         case 'stm32':
             return 'cortex'
 
+    return 'Unknown'
+
 def parse_platform(args):
     if args.tests:
         return 'desktop'

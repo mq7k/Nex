@@ -123,10 +123,13 @@ def get_cli_args():
 
     args = parser.parse_args()
 
-    if args.tests or args.platform is None:
-        args.platform = 'desktop'
-    elif args.examples:
+    # The order matters.
+    # Swapping these two checks leads to
+    # '--example' trying to compile on desktop platform.
+    if args.examples:
         args.platform = 'arm'
+    elif args.tests or args.platform is None:
+        args.platform = 'desktop'
 
     if args.build_dir is None:
         # Same name for the directory.
