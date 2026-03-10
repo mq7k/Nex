@@ -1281,7 +1281,7 @@ mpu9250_set_slave_dst(
       break;
 
     default:
-      devmode_error_invalid_enum(enum mpu9250_transfer, dir);
+      devmode_error_invalid_enum(enum mpu9250_transfer, transfer);
       return NEX_FAILURE;
   }
 
