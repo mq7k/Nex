@@ -1,115 +1,72 @@
 #!/usr/bin/python
 
-from typing import List
-from cli.cliargs import get_cli_args 
-from cli.cmakeutil import generate_cmake_command, generate_cmake_build_command
-from synsources import SynapseSources
-from libcomsources import get_libcom_tests
-from systemsources import get_system_tests
-
 import subprocess
-import fs
-import os
+import cliargs
+import cmake
 import sys
+import fs
 
-def execute_cmake_cmd(cmd, timeout):
+def get_options(args):
+    build_dir = f"build/{args.build_dir}/{args.build_type}"
+    return {
+            'build_dir': build_dir,
+            'build_type': args.build_type.lower(),
+            'generator': args.generator
+    }
+
+def run_tests(path):
+    cmd = cmake.generate_cmake_tests_command(path)
+    return execute_cmd(cmd)
+
+def execute_cmd(cmd):
     try:
-        return subprocess.run(cmd, shell=False)
-    except subprocess.TimeoutExpired as te:
-        return None
-
-def execute_tests(path):
-    print(f'Executing tests at {path}')
-    cmd = [
-        'ctest',
-        '--test-dir',
-        # f'{path}/appstack/synapse',
-        f'{path}',
-        '--output-on-failure'
-    ]
-
-    return execute_cmake_cmd(cmd, timeout=5)
+        p = subprocess.run(cmd, shell=False)
+        return p.returncode == 0
+    except subprocess.TimeoutExpired:
+        return False
 
 def main():
-    args = get_cli_args()
-    output_dir = f'build/{args.build_dir}/{args.build_type.lower()}'
+    args = cliargs.get_cli_args()
 
-    if args.reset:
-        fs.unlink(output_dir)
+    try:
+        build_config = cmake.parse_cmake_vars(args)
+    except ValueError as ve:
+        print(f'Error parsing args: {ve}')
+        return
 
-    # mcu_periph_group = args.target['mcu_periph_group']
-    mcu_periph_group = args.target['mcu'][:9]
+    # These options are not used inside any *.cmake file,
+    # but they are still necessary to build the project.
+    options = get_options(args)
 
-    synapse_sources = SynapseSources(
-        mcu_group=mcu_periph_group,
-        mcu_example_file='mcu_examples.json',
-        arch_example_file='arch_examples.json'
-    )
+    # Generates build files (Makefile, Ninja, Visual Studio, ...)
+    cmd = cmake.generate_cmake_gen_command(options, build_config)
+    if not execute_cmd(cmd):
+        print('Failed to generate build files.')
+        print('CMake exited with non-zero code or the subprocess timed out')
+        sys.exit(1)
 
-    libcom_tests: List[str] = get_libcom_tests()
-    system_tests: List[str] = get_system_tests()
+    # Uses those generated files to compile the project.
+    cmd = cmake.generate_cmake_build_command(options['build_dir'])
+    if not execute_cmd(cmd):
+        print('Failed to build the project.')
+        print('CMake exited with non-zero code or the subprocess timed out')
+        sys.exit(1)
 
-    toolchain = None
-    if args.toolchain:
-        toolchain = args.toolchain
-    elif args.platform == 'arm':
-        # Use default toolchain file.
-        toolchain = 'cmake/arm_toolchain.cmake'
-
-    cmake_cmd = generate_cmake_command(
-        generator=args.generator,
-        toolchain=toolchain,
-        output_dir=output_dir,
-        build_type=args.build_type,
-        platform=args.platform,
-        target=args.target,
-        build_tests=args.tests,
-        build_examples=args.examples,
-        devmode=args.devmode,
-
-        libcom_tests=libcom_tests,
-        system_tests=system_tests,
-        syn_sources=synapse_sources,
-
-        nocstd=args.nocstd
-    )
-    print(f'Executing CMake command: {" ".join(cmake_cmd)}')
-
-    timeout = 5
-    res = execute_cmake_cmd(cmake_cmd, timeout)
-    if not res:
-        print(f'Timeout reached after {timeout}s', file=sys.stderr)
-        exit(1)
-
-    if res.returncode != 0:
-        print(f'Failed to generate build files.')
-        sys.exit(res.returncode)
-
+    # Creates a symlink in `build/compile_commands.json`
+    # to allow tools to easily find it.
     fs.create_symlink(
         f'{args.build_dir}/{args.build_type.lower()}/compile_commands.json',
         f'build/compile_commands.json'
     )
 
-    cmake_build_cmd = generate_cmake_build_command(output_dir, args.parallel)
-
-    res = execute_cmake_cmd(cmake_build_cmd, timeout)
-    if not res:
-        print(f'Timeout reached after {timeout}s', file=sys.stderr)
-        exit(1)
-
-    if res.returncode != 0:
-        print(f'Failed to compile project.')
-        sys.exit(res.returncode)
-
     if args.tests:
-        # mcu_tests_dir = f'{output_dir}/tests'
-        mcu_tests_dir = output_dir
-        if os.path.exists(mcu_tests_dir):
-            execute_tests(f'{output_dir}/appstack/synapse')
-            execute_tests(f'{output_dir}/appstack/system')
-        else:
-            print(f'{mcu_tests_dir} does not exists.')
+        build_dir = options['build_dir']
+
+        if not run_tests(f'{build_dir}/appstack/synapse'):
+            print('Error while executing synapse tests: non-zero exit code or timed out')
+
+        if not run_tests(f'{build_dir}/appstack/system'):
+            print('Error while executing system tests: non-zero exit code or timed out')
 
 if __name__ == '__main__':
     main()
-

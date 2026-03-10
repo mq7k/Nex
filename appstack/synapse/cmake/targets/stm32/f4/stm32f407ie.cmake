@@ -1,0 +1,7 @@
+set(NEX_MCU_FULLNAME "stm32f407ie")
+set(NEX_MCU_GROUPS
+  stm32f407xx
+)
+set(NEX_MCU_LD_SCRIPT "fx/f4/stm32f407xe.ld")
+set(NEX_MCU_DRIVERS_GROUP "stm32f407")
+set(NEX_ARCH_DRIVERS_GROUP "cm4f")

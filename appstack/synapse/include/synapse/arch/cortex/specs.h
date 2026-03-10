@@ -5,11 +5,11 @@
 
 BEGIN_DECLARATIONS
 
-#if defined(CORTEX_M3)
+#if defined(CPU_CM3)
 #include "synapse/arch/cortex/cm3/cm3.h"
-#elif defined(CORTEX_M4)
+#elif defined(CPU_CM4)
 #include "synapse/arch/cortex/cm4/cm4.h"
-#elif defined(CORTEX_M4F)
+#elif defined(CPU_CM4F)
 #include "synapse/arch/cortex/cm4f/cm4f.h"
 #else
 #error "No Cortex family specified."

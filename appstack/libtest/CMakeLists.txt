@@ -1,15 +1,16 @@
-add_library(eco_libtest
+add_library(nex_libtest
   src/libtest.c
 )
 
-set_property(TARGET eco_libtest PROPERTY C_STANDARD 23)
-target_link_libraries(eco_libtest PUBLIC eco_buildtype)
-target_link_libraries(eco_libtest PUBLIC eco_libcom)
+set_property(TARGET nex_libtest PROPERTY C_STANDARD 23)
+target_link_libraries(nex_libtest PUBLIC nex_buildcfg)
+target_link_libraries(nex_libtest PUBLIC nex_libcom)
 
-target_sources(eco_libtest PUBLIC
+target_sources(nex_libtest PUBLIC
   FILE_SET HEADERS
-  BASE_DIRS ${NEX_LIBTEST_BASE_DIR}/include
+  # BASE_DIRS ${NEX_LIBTEST_BASE_DIR}/include
+  BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
   FILES
-    ${NEX_LIBTEST_BASE_DIR}/include/libtest/libtest.h
+    include/libtest/libtest.h
 )
 

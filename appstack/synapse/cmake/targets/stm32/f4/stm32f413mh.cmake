@@ -1,0 +1,8 @@
+set(NEX_MCU_FULLNAME "stm32f413mh")
+set(NEX_MCU_GROUPS
+  stm32f413xx
+  stm32f413xh
+)
+set(NEX_MCU_LD_SCRIPT "fx/f4/stm32f413xh.ld")
+set(NEX_MCU_DRIVERS_GROUP "stm32f413")
+set(NEX_ARCH_DRIVERS_GROUP "cm4f")

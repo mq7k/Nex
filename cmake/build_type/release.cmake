@@ -1,4 +1,4 @@
-target_compile_options(eco_buildtype INTERFACE
+target_compile_options(nex_buildcfg INTERFACE
   -ffunction-sections
   -fdata-sections
   -fno-common
@@ -8,7 +8,7 @@ target_compile_options(eco_buildtype INTERFACE
   -g0
 )
 
-target_link_options(eco_buildtype INTERFACE
+target_link_options(nex_buildcfg INTERFACE
   -Wl,--gc-sections
   -Wl,--strip-debug
   -s
@@ -18,6 +18,6 @@ target_link_options(eco_buildtype INTERFACE
   -g0
 )
 
-target_compile_definitions(eco_buildtype INTERFACE
+target_compile_definitions(nex_buildcfg INTERFACE
   RELEASE_BUILD
 )
