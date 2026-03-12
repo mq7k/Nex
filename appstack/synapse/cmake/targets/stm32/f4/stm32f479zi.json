@@ -1,7 +1,0 @@
-{
-  "mcu": "stm32f479zi",
-  "groups": [ 
-    "stm32f479xx"
-  ],
-  "ld": "fx/f4/stm32f479xi.ld"
-}
