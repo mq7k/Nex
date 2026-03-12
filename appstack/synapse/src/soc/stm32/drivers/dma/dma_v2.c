@@ -1,7 +1,9 @@
 #include "synapse/soc/stm32/drivers/dma/dma_v2.h"
+#include "libcom/util.h"
 #include "synapse/common/util/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
+#include "synapse/soc/stm32/drivers/dma/dmaif.h"
 
 typedef volatile struct dma_registers_map dma_periph;
 
@@ -398,20 +400,313 @@ void
 dma_channel_set_periph_address(
   volatile struct dma_registers_map* dma,
   enum dma_channel channel,
-  u32 periph_address
+  uptr periph_address
 )
 {
   devmode_assert_lower_or_eq(channel, DMA_CHANNEL7);
-  dma->channels[channel].CPAR = periph_address;
+  dma->channels[channel].CPAR = (u32) periph_address;
 }
 
 void
 dma_channel_set_memory_address(
   volatile struct dma_registers_map* dma,
   enum dma_channel channel,
-  u32 memory_address
+  uptr memory_address
 )
 {
   devmode_assert_lower_or_eq(channel, DMA_CHANNEL7);
-  dma->channels[channel].CMAR = memory_address;
+  dma->channels[channel].CMAR = (u32) memory_address;
+}
+
+ /*
+ * Driver interface implementation.
+ */
+
+u32
+dmaif_get_capabilities(void)
+{
+  u32 caps = 0;
+  caps |= DMAIF_CAP_CIRCULAR;
+  caps |= DMAIF_CAP_MEM_INC_MODE;
+  caps |= DMAIF_CAP_PERIPH_INC_MODE;
+
+  caps |= DMAIF_CAP_MEM_16bit_WIDE;
+  caps |= DMAIF_CAP_MEM_32bit_WIDE;
+
+  caps |= DMAIF_CAP_PERIPH_16bit_WIDE;
+  caps |= DMAIF_CAP_PERIPH_32bit_WIDE;
+  
+  caps |= DMAIF_CAP_MEM_BURST1;
+  caps |= DMAIF_CAP_PERIPH_BURST1;
+
+  caps |= DMAIF_CAP_PRIORITY;
+  return caps;
+}
+
+u32
+dmaif_is_capability_supported(
+  enum dmaif_capability cap
+)
+{
+  return dmaif_get_capabilities() & cap;
+} 
+
+static u32
+_map_priorityif(
+  enum dmaif_priority priorityif,
+  enum dma_channel_priority* priority
+)
+{
+  switch (priorityif)
+  {
+    case DMAIF_PRIORITY_LOW:
+      *priority = DMA_CHANNEL_PRIORITY_LOW;
+      break;
+
+    case DMAIF_PRIORITY_MEDIUM:
+      *priority = DMA_CHANNEL_PRIORITY_MEDIUM;
+      break;
+
+    case DMAIF_PRIORITY_HIGH:
+      *priority = DMA_CHANNEL_PRIORITY_HIGH;
+      break;
+
+    case DMAIF_PRIORITY_VERY_HIGH:
+      *priority = DMA_CHANNEL_PRIORITY_VERY_HIGH;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_msizeif(
+  enum dmaif_data dataif,
+  enum dma_memory_size* msize
+)
+{
+  switch (dataif)
+  {
+    case DMAIF_DATA_8bit:
+      *msize = DMA_MEMORY_SIZE_8BITS;
+      break;
+
+    case DMAIF_DATA_16bit:
+      *msize = DMA_MEMORY_SIZE_16BITS;
+      break;
+
+    case DMAIF_DATA_32bit:
+      *msize = DMA_MEMORY_SIZE_32BITS;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_psizeif(
+  enum dmaif_data dataif,
+  enum dma_periph_size* psize
+)
+{
+  switch (dataif)
+  {
+    case DMAIF_DATA_8bit:
+      *psize = DMA_PERIPH_SIZE_8BITS;
+      break;
+
+    case DMAIF_DATA_16bit:
+      *psize = DMA_PERIPH_SIZE_16BITS;
+      break;
+
+    case DMAIF_DATA_32bit:
+      *psize = DMA_PERIPH_SIZE_32BITS;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+
+enum dmaif_code
+dmaif_configure(
+  struct dmaif_config* config
+)
+{
+  if (!config->dma)
+  {
+    return DMAIF_CODE_INVALID_HW;
+  }
+
+  enum dma_channel_priority priority;
+  if (_map_priorityif(config->priority, &priority) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_PRIORITY;
+  }
+
+  dma_channel_set_priority_level(config->dma, config->channel, priority);
+
+  enum dma_memory_size msize;
+  if (_map_msizeif(config->msize, &msize) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_MEM_DATA_SIZE;
+  }
+
+  dma_channel_set_memory_size(config->dma, config->channel, msize);
+
+  enum dma_periph_size psize;
+  if (_map_psizeif(config->psize, &psize) != NEX_SUCCESS)
+  {
+    return DMAIF_CODE_INVALID_PERIPH_MEM_DATA_SIZE;
+  }
+
+  dma_channel_set_periph_size(config->dma, config->channel, psize);
+
+  if (config->options & DMAIF_CAP_MEM_INC_MODE)
+  {
+    dma_channel_memory_increment_mode_enable(config->dma, config->channel);
+  }
+  else
+  {
+    dma_channel_memory_increment_mode_disable(config->dma, config->channel);
+  }
+
+  if (config->options & DMAIF_CAP_PERIPH_INC_MODE)
+  {
+    dma_channel_periph_increment_mode_enable(config->dma, config->channel);
+  }
+  else
+  {
+    dma_channel_periph_increment_mode_disable(config->dma, config->channel);
+  }
+
+  if (config->options & DMAIF_CAP_CIRCULAR)
+  {
+    dma_channel_circular_mode_enable(config->dma, config->channel);
+  }
+  else
+  {
+    dma_channel_circular_mode_disable(config->dma, config->channel);
+  }
+
+  switch (config->direction)
+  {
+    case DMAIF_DIR_MEM2PERIPH:
+      dma_channel_set_data_transfer_direction(
+        config->dma,
+        config->channel,
+        DMA_TRANSFER_DIRECTION_FROM_MEMORY
+      );
+      dma_channel_mem2mem_mode_disable(config->dma, config->channel);
+      break;
+
+    case DMAIF_DIR_PERIPH2MEM:
+      dma_channel_set_data_transfer_direction(
+        config->dma,
+        config->channel,
+        DMA_TRANSFER_DIRECTION_FROM_PERIPH
+      );
+      dma_channel_mem2mem_mode_disable(config->dma, config->channel);
+      break;
+
+    case DMAIF_DIR_MEM2MEM:
+      dma_channel_set_data_transfer_direction(
+        config->dma,
+        config->channel,
+        DMA_TRANSFER_DIRECTION_FROM_MEMORY
+      );
+      dma_channel_mem2mem_mode_enable(config->dma, config->channel);
+      break;
+
+    default:
+      return DMAIF_CODE_INVALID_DIR;
+  }
+
+  dma_set_channel_transfer_items_count(
+    config->dma,
+    config->channel,
+    config->items_count
+  );
+
+  if (!config->periph_addr)
+  {
+    return DMAIF_CODE_INVALID_PERIPH_ADDR;
+  }
+
+  dma_channel_set_periph_address(
+    config->dma,
+    config->channel,
+    config->periph_addr
+  );
+
+  if (!config->pbuf)
+  {
+    return DMAIF_CODE_INVALID_PBUF;
+  }
+
+  dma_channel_set_memory_address(
+    config->dma,
+    config->channel,
+    (uptr) config->pbuf
+  );
+
+  return DMAIF_CODE_OK;
+}
+
+void
+dmaif_set_mem_addr(
+  struct dmaif_config* config,
+  enum dmaif_memory mem,
+  uptr addr
+)
+{
+  if (mem != DMAIF_MEMORY0)
+  {
+    devmode_error_invalid_enum(enum dmaif_memory, mem);
+    return;
+  }
+
+  dma_channel_set_memory_address(config->dma, config->channel, addr);
+}
+
+void
+dmaif_set_items_count(
+  struct dmaif_config* config,
+  u32 count
+)
+{
+  dma_set_channel_transfer_items_count(config->dma, config->channel, count);
+}
+
+u32
+dmaif_get_items_count(
+  struct dmaif_config* config
+)
+{
+  return dma_get_channel_transfer_items_left(config->dma, config->channel);
+}
+
+void
+dmaif_start_transfer(
+  struct dmaif_config* config
+)
+{
+  dma_channel_enable(config->dma, config->channel);
+}
+
+u32
+dmaif_get_current_db_target(
+  struct dmaif_config*
+)
+{
+  return 0;
 }

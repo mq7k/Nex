@@ -307,14 +307,14 @@ void
 dma_channel_set_periph_address(
   volatile struct dma_registers_map* dma,
   enum dma_channel channel,
-  u32 periph_address
+  uptr periph_address
 );
 
 void
 dma_channel_set_memory_address(
   volatile struct dma_registers_map* dma,
   enum dma_channel channel,
-  u32 memory_address
+  uptr memory_address
 );
 
 END_DECLARATIONS
