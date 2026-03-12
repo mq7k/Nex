@@ -44,8 +44,8 @@ nex_bytebuf_deserialize_u16(
   u8 byte1 = buf[1];
 
   u16 var = 0;
-  var |= (byte0 << 0);
-  var |= (byte1 << 8);
+  var |= (u16) (byte0 << 0);
+  var |= (u16) (byte1 << 8);
   return var;
 }
 

@@ -20,7 +20,7 @@ nex_define_macros_iraw(nex_buildcfg ${NEX_MCU_FORMATTED_GROUPS})
 target_link_libraries(nex_synapse PUBLIC nex_synapse_soc)
 target_link_libraries(nex_synapse PUBLIC nex_buildcfg)
 target_link_libraries(nex_synapse PUBLIC nex_libcom)
-# target_link_libraries(nex_synapse PUBLIC gcc)
+target_link_libraries(nex_synapse PUBLIC gcc)
 
 # if (NEX_BUILD_EXAMPLES)
 #   include(appstack/nex_synapse/cmake/post/examples)

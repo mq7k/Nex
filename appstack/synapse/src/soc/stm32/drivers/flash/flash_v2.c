@@ -634,7 +634,7 @@ flash_write_protection_enable(
 #else
     devmode_assert_lower_or_eq(sector, FLASH_OPTCR_WRP_SECTOR_MAX);
     constexpr u32 shift = FLASH_OPTCR_WRP_SHIFT;
-    FLASH->OPTCR |= (1 << (sector + shift));
+    FLASH->OPTCR |= (1u << (sector + shift));
 #endif
 }
 
