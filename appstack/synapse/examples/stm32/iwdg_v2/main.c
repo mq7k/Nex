@@ -1,7 +1,7 @@
 #include "synapse/common/util/common.h"
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/iwdg.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/iwdg.h"
 
 void
 rcc_setup(void)

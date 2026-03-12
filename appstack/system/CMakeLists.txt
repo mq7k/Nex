@@ -1,66 +1,78 @@
-include(appstack/system/sysdefs)
-add_library(systeml)
+add_library(nex_system)
 
-target_link_libraries(systeml INTERFACE eco_buildtype)
-target_link_libraries(systeml PUBLIC eco_libcom)
-target_link_libraries(systeml PUBLIC syn_chip)
-target_link_libraries(systeml PUBLIC syn_util)
-target_link_libraries(systeml PUBLIC syn_arch)
-# target_link_libraries(systeml PUBLIC eco_contracts)
+list(APPEND CMAKE_MODULE_PATH ${NEX_SYSTEM_BASE_DIR})
+include(${CMAKE_CURRENT_SOURCE_DIR}/sysdefs.cmake)
 
-set(SYSL_SOURCES
-  profiler/profiler
+# target_sources(nex_system PUBLIC
+#   src/profiler/profiler.c
+#
+#   src/scheduler/backend/arch/arm.c
+#   src/scheduler/backend/ts/stm32_tim.c
+#   src/scheduler/scheduler.c
+#   src/scheduler/task_history.c
+#
+#   src/time/backend/stm32_tim.c
+#   src/time/time.c
+# )
 
-  scheduler/backend/ts/stm32_tim
-  scheduler/wiring/dispatcher
-  scheduler/task_history
-  scheduler/scheduler
+nex_add_sources(
+  TARGET nex_system
+  PATH ${NEX_SYSTEM_BASE_DIR}
+  SOURCES
+    src/profiler/profiler.c
 
-  time/backend/stm32_tim
-  time/wiring/dispatcher
-  time/time
+    src/scheduler/backend/arch/arm.c
+    src/scheduler/backend/ts/stm32_tim.c
+    src/scheduler/scheduler.c
+    src/scheduler/task_history.c
+
+    src/time/backend/stm32_tim.c
+    src/time/time.c
+
+  MSG "Adding system file: "
 )
 
-set(LIST_HEADERS "${SYSL_SOURCES}") 
-set(LIST_SOURCES "${SYSL_SOURCES}")
+nex_add_headers(
+  TARGET nex_system
+  PATH ${NEX_SYSTEM_INCLUDE_DIR}
+  HEADERS
+    include/system/backends/crc/becrc.h
 
-list(APPEND LIST_SOURCES
-  scheduler/backend/arch/arm
+    include/system/profiler/profiler.h
+
+    include/system/scheduler/backend/ts/stm32_tim.h
+    include/system/scheduler/backend/sif.h
+    include/system/scheduler/scheduler.h
+    include/system/scheduler/task_history.h
+
+    include/system/time/backend/stm32_tim.h
+    include/system/time/backend/timeif.h
+    include/system/time/time.h
 )
 
-list(APPEND LIST_HEADERS
-  time/backend/timeif
-)
+# target_sources(nex_system PUBLIC
+#   FILE_SET HEADERS
+#   BASE_DIRS ${NEX_SYSTEM_INCLUDE_DIR}
+#   FILES
+#     include/system/backends/crc/becrc.h
+#
+#     include/system/profiler/profiler.h
+#
+#     include/system/scheduler/backend/ts/stm32_tim.h
+#     include/system/scheduler/backend/sif.h
+#     include/system/scheduler/scheduler.h
+#     include/system/scheduler/task_history.h
+#
+#     include/system/time/backend/stm32_tim.h
+#     include/system/time/backend/timeif.h
+#     include/system/time/time.h
+# )
 
-list(TRANSFORM LIST_HEADERS PREPEND "${NEX_SYSTEM_BASE_DIR}/include/system/")
-list(TRANSFORM LIST_HEADERS APPEND ".h")
-
-list(TRANSFORM LIST_SOURCES PREPEND "${NEX_SYSTEM_BASE_DIR}/src/")
-list(TRANSFORM LIST_SOURCES APPEND ".c")
-
-target_sources(systeml PUBLIC
-  ${LIST_SOURCES}
-)
-
-target_sources(systeml PUBLIC 
-  FILE_SET HEADERS
-  BASE_DIRS ${NEX_SYSTEM_BASE_DIR}
-  FILES ${LIST_HEADERS}
-)
-
-set(
-  NEX_SYSTEM_TESTS_DIR
-  ${NEX_SYSTEM_BASE_DIR}/tests
-)
+target_link_libraries(nex_system PUBLIC nex_libcom)
+target_link_libraries(nex_system PUBLIC nex_synapse)
+target_include_directories(nex_system PUBLIC ${NEX_SYSTEM_INCLUDE_DIR})
 
 if (NEX_BUILD_TESTS)
   enable_testing()
-  eco_log(STATUS "System tests in: ${NEX_SYSTEM_TESTS_DIR}")
-  eco_log(STATUS "System tests: ${NEX_SYSTEM_TESTS}")
-  sys_add_tests(${NEX_SYSTEM_TESTS_DIR} ${NEX_SYSTEM_TESTS})
+  sys_register_tests(foo/bar.c)
 endif()
-
-target_include_directories(systeml PUBLIC ${NEX_SYSTEM_BASE_DIR}/include)
-
-# TODO: Fix this.
-target_include_directories(systeml PUBLIC ${PROJECT_SOURCE_DIR}/appstack/contracts/include)

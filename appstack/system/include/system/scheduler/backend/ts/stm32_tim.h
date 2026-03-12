@@ -2,7 +2,7 @@
 #define SYSTEM_SCHEDULER_STM32_TIM_BACKEND_H
 
 #include "libcom/util.h"
-#include "synapse/stm32/periph/tim.h"
+#include "synapse/soc/stm32/periph/tim.h"
 
 BEGIN_DECLARATIONS
 

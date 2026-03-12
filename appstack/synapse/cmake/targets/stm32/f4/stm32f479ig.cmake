@@ -1,0 +1,7 @@
+set(NEX_MCU_FULLNAME "stm32f479ig")
+set(NEX_MCU_GROUPS
+  stm32f479xx
+)
+set(NEX_MCU_LD_SCRIPT "fx/f4/stm32f479xg.ld")
+set(NEX_MCU_DRIVERS_GROUP "stm32f479")
+set(NEX_ARCH_DRIVERS_GROUP "cm4f")

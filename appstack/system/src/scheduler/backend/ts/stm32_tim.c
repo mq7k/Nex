@@ -1,4 +1,4 @@
-#include "synapse/stm32/periph/tim.h"
+#include "synapse/soc/stm32/periph/tim.h"
 #include "system/scheduler/backend/sif.h"
 #include "system/scheduler/backend/ts/stm32_tim.h"
 

@@ -1,0 +1,30 @@
+nex_add_sources_property(
+  TARGET nex_synapse_soc
+  SOURCES
+    rcc/rcc_v2.c
+    adc/adc_v1.c
+    rtc/rtc_v2.c
+    gpio/gpio_v2.c
+    tim/tim_v1.c
+    flash/flash_v2.c
+    pwr/pwr_v2.c
+    crc/crc_v1.c
+    syscfg/syscfg_v1.c
+    exti/exti_v1.c
+    dma/dma_v1.c
+    dma2d/dma2d_v1.c
+    usart/usart_v1.c
+    i2c/i2c_v1.c
+    spi/spi_v1.c
+    iwdg/iwdg_v1.c
+    wwdg/wwdg_v1.c
+    dac/dac_v1.c
+    rng/rng_v1.c
+    cryp/cryp_v1.c
+    hash/hash_v1.c
+    sai/sai_v1.c
+    can/can_v1.c
+    sdio/sdio_v1.c
+    dcmi/dcmi_v1.c
+    ltdc/ltdc_v1
+)

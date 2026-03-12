@@ -3,9 +3,9 @@
 #include "libcom/types.h"
 #include "libcom/unit.h"
 
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/usart.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/usart.h"
 
 #include "stdarg.h"
 

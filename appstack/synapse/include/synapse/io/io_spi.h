@@ -2,8 +2,8 @@
 #define BEIO_SPI_H
 
 #include "libcom/util.h"
-#include "synapse/stm32/drivers/dma/dmaif.h"
-#include "synapse/stm32/drivers/spi/spiif.h"
+#include "synapse/soc/stm32/drivers/dma/dmaif.h"
+#include "synapse/soc/stm32/drivers/spi/spiif.h"
 
 BEGIN_DECLARATIONS
 

@@ -1,8 +1,8 @@
-#include "synapse/arch/cortex/periph/nvic.h"
-#include "synapse/stm32/periph/exti.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/afio.h"
+#include "synapse/cpu/cortex/periph/nvic.h"
+#include "synapse/soc/stm32/periph/exti.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/afio.h"
 
 void
 rcc_setup(void)

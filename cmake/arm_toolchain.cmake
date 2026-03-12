@@ -1,6 +1,11 @@
 # Configures the cross-compiler toolchain.
 
-message(STATUS "Setting arm cross-compiler")
+# Just a simple include guard.
+if (NOT TOOLCHAIN_INITIALIZED)
+  set(TOOLCHAIN_INITIALIZED TRUE)
+  message(STATUS "Setting arm cross-compiler")
+endif()
+
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 

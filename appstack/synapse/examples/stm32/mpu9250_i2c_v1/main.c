@@ -1,9 +1,9 @@
 #include "synapse/common/util/common.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/i2c.h"
-#include "synapse/stm32/periph/usart.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/i2c.h"
+#include "synapse/soc/stm32/periph/usart.h"
 #include "libcom/unit.h"
-#include "synapse/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/rcc.h"
 
 constexpr u32 mpu9250_addr = 0x68;
 constexpr u32 write_bit = 0;

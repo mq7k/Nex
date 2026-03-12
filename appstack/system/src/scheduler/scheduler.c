@@ -2,7 +2,7 @@
 #include "libcom/util.h"
 #include "system/scheduler/task_history.h"
 #include "system/time/time.h"
-#include "synapse/arch/cortex/common/sys.h"
+#include "synapse/cpu/cortex/common/sys.h"
 
 #include <string.h>
 
