@@ -761,7 +761,7 @@ mpu9250_set_low_power_accel_clksrc(
   constexpr u32 mask = MPU9250_LPACCEL_ODR_LPOSC_CLKSEL_MASK;
 
   config &= (u8) ~(mask << shift);
-  config |= (clksel << shift);
+  config |= (u8) (clksel << shift);
 
   return _write_reg_sync(mpu, MPU9250_REG_LP_ACCEL_ODR, config);
 }
@@ -1388,7 +1388,7 @@ mpu9250_set_slave_bytes_count(
       }
 
       reg &= (u8) ~(mask << shift);
-      reg |= (count << shift);
+      reg |= (u8) (count << shift);
       return _write_reg_sync(mpu, MPU9250_REG_I2C_SLV0_CTRL, reg);
 
     case MPU9250_SLAVE1:
@@ -1399,7 +1399,7 @@ mpu9250_set_slave_bytes_count(
       }
 
       reg &= (u8) ~(mask << shift);
-      reg |= (count << shift);
+      reg |= (u8) (count << shift);
       return _write_reg_sync(mpu, MPU9250_REG_I2C_SLV1_CTRL, reg);
 
     case MPU9250_SLAVE2:
@@ -1410,7 +1410,7 @@ mpu9250_set_slave_bytes_count(
       }
 
       reg &= (u8) ~(mask << shift);
-      reg |= (count << shift);
+      reg |= (u8) (count << shift);
       return _write_reg_sync(mpu, MPU9250_REG_I2C_SLV2_CTRL, reg);
 
     case MPU9250_SLAVE3:
@@ -1421,7 +1421,7 @@ mpu9250_set_slave_bytes_count(
       }
 
       reg &= (u8) ~(mask << shift);
-      reg |= (count << shift);
+      reg |= (u8) (count << shift);
       return _write_reg_sync(mpu, MPU9250_REG_I2C_SLV3_CTRL, reg);
 
     default:
@@ -1885,7 +1885,7 @@ mpu9250_set_slave4_delay(
   constexpr u32 mask = MPU9250_I2C_SLV4_DI_MASK;
 
   reg &= (u8) ~(mask << shift);
-  reg |= (delay << shift);
+  reg |= (u8) (delay << shift);
 
   return _write_reg_sync(mpu, MPU9250_REG_I2C_SLV4_CTRL, reg);
 }
@@ -2994,7 +2994,7 @@ mpu9250_set_gyro_disabled_axis(
 
   constexpr u32 shift = 0;
   reg &= (u8) (~(MPU9250_AXIS_MASK << shift));
-  reg |= ((u8) disabled_axis << shift);
+  reg |= (u8) (disabled_axis << shift);
 
   return _write_reg_sync(mpu, MPU9250_REG_PWR_MGMT_2, reg);
 }
@@ -3014,7 +3014,7 @@ mpu9250_set_accel_disabled_axis(
 
   constexpr u32 shift = 3;
   reg &= (u8) (~(MPU9250_AXIS_MASK << shift));
-  reg |= ((u8) disabled_axis << shift);
+  reg |= (u8) (disabled_axis << shift);
 
   return _write_reg_sync(mpu, MPU9250_REG_PWR_MGMT_2, reg);
 }

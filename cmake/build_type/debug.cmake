@@ -20,6 +20,7 @@ if (NEX_BUILD_TESTS)
   )
 
   target_link_options(nex_buildcfg INTERFACE
+    -fsanitize=address,undefined,leak
     -rdynamic
     -fno-inline
   )
