@@ -1,103 +1,48 @@
-# add_library(eco_libcom)
-#
-# target_link_libraries(eco_libcom INTERFACE eco_buildtype)
-#
-# set(LIBCOM_SOURCES
-#   data/queue
-#   data/ring_buffer
-#
-#   sys/devmode
-#
-#   bytebuf
-#   format
-#   semver
-#   util
-#   unit
-# )
-#
-# if (NEX_PLATFORM_ARM)
-#   list(APPEND LIBCOM_SOURCES
-#     sys/runtime
-#   )
-# endif()
-#
-# if (NEX_INCLUDE_DEVMODE)
-#   eco_log(STATUS "Included: devmode")
-#   target_compile_definitions(eco_buildtype INTERFACE
-#     NEX_INCLUDE_DEVMODE
-#   )
-# endif()
-#
-# set(LIST_HEADERS "${LIBCOM_SOURCES}") 
-# set(LIST_SOURCES "${LIBCOM_SOURCES}")
-#
-# list(TRANSFORM LIST_HEADERS PREPEND "${NEX_LIBCOM_BASE_DIR}/include/libcom/")
-# list(TRANSFORM LIST_HEADERS APPEND ".h")
-#
-# list(TRANSFORM LIST_SOURCES PREPEND "${NEX_LIBCOM_BASE_DIR}/src/")
-# list(TRANSFORM LIST_SOURCES APPEND ".c")
-#
-# target_sources(eco_libcom PUBLIC
-#   ${LIST_SOURCES}
-# )
-#
-# target_sources(eco_libcom PUBLIC 
-#   FILE_SET HEADERS
-#   BASE_DIRS ${NEX_LIBCOM_BASE_DIR}
-#   FILES ${LIST_HEADERS}
-# )
-#
-# set(
-#   NEX_LIBCOM_TESTS_DIR
-#   ${NEX_LIBCOM_BASE_DIR}/tests
-# )
-#
-# if (NEX_BUILD_TESTS)
-#   eco_log(STATUS "Libcom tests: ${LIBCOM_TESTS}")
-# endif()
-#
-# target_include_directories(eco_libcom PUBLIC ${NEX_LIBCOM_BASE_DIR}/include)
-
-# New
+include(${CMAKE_CURRENT_SOURCE_DIR}/libcomdefs.cmake)
 add_library(nex_libcom)
 
-target_sources(nex_libcom PUBLIC
-  src/data/queue.c
-  src/data/ring_buffer.c
+nex_add_sources(
+  TARGET nex_libcom
+  PATH ${NEX_LIBCOM_SRC_DIR}
+  SOURCES
+    data/queue.c
+    data/ring_buffer.c
 
-  src/sys/devmode.c
-  src/sys/runtime.c
+    sys/devmode.c
 
-  src/bytebuf.c
-  src/format.c
-  src/semver.c
-  src/unit.c
-  src/util.c
+    bytebuf.c
+    format.c
+    semver.c
+    unit.c
+    util.c
+  MSG "Adding common file: "
 )
 
-# target_sources(systeml PUBLIC 
-#   FILE_SET HEADERS
-#   BASE_DIRS ${NEX_SYSTEM_BASE_DIR}
-#   FILES ${LIST_HEADERS}
-# )
+if (NEX_PLATFORM_ARM)
+  nex_add_sources(
+    TARGET nex_libcom
+    PATH ${NEX_LIBCOM_SRC_DIR}
+    SOURCES sys/runtime.c
+    MSG "Adding common file: "
+  )
+endif()
 
-target_sources(nex_libcom PUBLIC
-  FILE_SET HEADERS
-  # BASE_DIRS ${NEX_SYNAPSE_BASE_DIR}
-  BASE_DIRS ${PROJECT_SOURCE_DIR}/appstack/libcom/include
-  FILES
-    include/libcom/data/queue.h
-    include/libcom/data/ring_buffer.h
+nex_add_headers(
+  TARGET nex_libcom
+  PATH ${NEX_LIBCOM_INC_DIR}
+  SOURCES
+    libcom/data/queue.h
+    libcom/data/ring_buffer.h
 
-    include/libcom/sys/devmode.h
-    include/libcom/sys/runtime.h
+    libcom/sys/devmode.h
+    libcom/sys/runtime.h
 
-    include/libcom/bytebuf.h
-    include/libcom/format.h
-    include/libcom/semver.h
-    include/libcom/types.h
-    include/libcom/unit.h
-    include/libcom/util.h
+    libcom/bytebuf.h
+    libcom/format.h
+    libcom/semver.h
+    libcom/types.h
+    libcom/unit.h
+    libcom/util.h
 )
 
 target_link_libraries(nex_libcom PUBLIC nex_buildcfg)

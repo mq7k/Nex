@@ -1,0 +1,1451 @@
+#include "synapse/soc/stm32/drivers/spi/spi_v1.h"
+#include "libcom/format.h"
+#include "libcom/util.h"
+#include "synapse/common/util/common.h"
+#include "libcom/sys/devmode.h"
+#include "libcom/types.h"
+#include "synapse/soc/stm32/drivers/spi/spiif.h"
+
+typedef volatile struct spi_registers_map spi_periph;
+
+#if defined(STM32_SPI1)
+spi_periph* SPI1 = (spi_periph*) (SPI1_ADDR);
+#endif
+
+#if defined(STM32_SPI2)
+spi_periph* SPI2 = (spi_periph*) (SPI2_ADDR);
+#endif
+
+#if defined(STM32_SPI3)
+spi_periph* SPI3 = (spi_periph*) (SPI3_ADDR);
+#endif
+
+#if defined(STM32_SPI4)
+spi_periph* SPI4 = (spi_periph*) (SPI4_ADDR);
+#endif
+
+#if defined(STM32_SPI5)
+spi_periph* SPI5 = (spi_periph*) (SPI5_ADDR);
+#endif
+
+#if defined(STM32_SPI6)
+spi_periph* SPI6 = (spi_periph*) (SPI6_ADDR);
+#endif
+
+void
+spi_set_clock_phase(
+  volatile struct spi_registers_map* spi,
+  enum spi_clock_phase phase
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (phase)
+  {
+    case SPI_CLOCK_PHASE_FIRST_TRANSITION:
+      *reg &= ~SPI_CR1_CPHA;
+      break;
+
+    case SPI_CLOCK_PHASE_SECOND_TRANSITION:
+      *reg |= SPI_CR1_CPHA;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_clock_phase, phase);
+      break;
+  }
+}
+
+void
+spi_set_clock_polarity(
+  volatile struct spi_registers_map* spi,
+  enum spi_clock_polarity polarity
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (polarity)
+  {
+    case SPI_CLOCK_POLARITY_LOW_ON_IDLE:
+      *reg &= ~SPI_CR1_CPOL;
+      break;
+
+    case SPI_CLOCK_POLARITY_HIGH_ON_IDLE:
+      *reg |= SPI_CR1_CPOL;
+      break;
+      
+    default:
+      devmode_error_invalid_enum(enum spi_clock_polarity, polarity);
+      break;
+  }
+}
+
+void
+spi_set_role(
+  volatile struct spi_registers_map* spi,
+  enum spi_role role
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (role)
+  {
+    case SPI_ROLE_SLAVE:
+      *reg &= ~SPI_CR1_MSTR;
+      break;
+
+    case SPI_ROLE_MASTER:
+      *reg |= SPI_CR1_MSTR;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_role, role);
+      break;
+  }
+}
+
+void
+spi_set_baudrate_control(
+  volatile struct spi_registers_map* spi,
+  enum spi_baudrate_control control
+)
+{
+  constexpr u32 shift = SPI_CR1_BR_SHIFT;
+  constexpr u32 mask = SPI_CR1_BR_MASK << shift;
+  volatile u32* reg = &spi->CR1;
+
+  switch (control)
+  {
+    case SPI_BAUDRATE_CONTROL_DIV2:
+      *reg &= ~mask;
+      break;
+
+    case SPI_BAUDRATE_CONTROL_DIV4:
+      syn_set_register_bits(reg, mask, SPI_CR1_BR_DIV4 << shift);
+      break;
+
+    case SPI_BAUDRATE_CONTROL_DIV8:
+      syn_set_register_bits(reg, mask, SPI_CR1_BR_DIV8 << shift);
+      break;
+
+    case SPI_BAUDRATE_CONTROL_DIV16:
+      syn_set_register_bits(reg, mask, SPI_CR1_BR_DIV16 << shift);
+      break;
+
+    case SPI_BAUDRATE_CONTROL_DIV32:
+      syn_set_register_bits(reg, mask, SPI_CR1_BR_DIV32 << shift);
+      break;
+
+    case SPI_BAUDRATE_CONTROL_DIV64:
+      syn_set_register_bits(reg, mask, SPI_CR1_BR_DIV64 << shift);
+      break;
+
+    case SPI_BAUDRATE_CONTROL_DIV128:
+      syn_set_register_bits(reg, mask, SPI_CR1_BR_DIV128 << shift);
+      break;
+
+    case SPI_BAUDRATE_CONTROL_DIV256:
+      syn_set_register_bits(reg, mask, SPI_CR1_BR_DIV256 << shift);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_baudrate_control, control);
+      break;
+  }
+}
+
+void
+spi_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 |= SPI_CR1_SPE;
+}
+
+void
+spi_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 &= ~SPI_CR1_SPE;
+}
+
+void
+spi_set_frame_format(
+  volatile struct spi_registers_map* spi,
+  enum spi_frame_format format
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (format)
+  {
+    case SPI_FRAME_FORMAT_MSB_FIRST:
+      *reg &= ~SPI_CR1_LSBFIRST;
+      break;
+
+    case SPI_FRAME_FORMAT_LSB_FIRST:
+      *reg |= SPI_CR1_LSBFIRST;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_frame_format, format);
+      break;
+  }
+}
+
+void
+spi_internal_slave_select_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 |= SPI_CR1_SSI;
+}
+
+void
+spi_internal_slave_select_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 &= ~SPI_CR1_SSI;
+}
+
+void
+spi_software_slave_management_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 |= SPI_CR1_SSM;
+}
+
+void
+spi_software_slave_management_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 &= ~SPI_CR1_SSM;
+}
+
+void
+spi_set_unidirectional_mode(
+  volatile struct spi_registers_map* spi,
+  enum spi_unidirectional_mode mode
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (mode)
+  {
+    case SPI_UNIDIRECTIONAL_MODE_TX_RX:
+      *reg &= ~SPI_CR1_RXONLY;
+      break;
+
+    case SPI_UNIDIRECTIONAL_MODE_RX_ONLY:
+      *reg |= SPI_CR1_RXONLY;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_unidirectional_mode, mode);
+      break;
+  }
+}
+
+void
+spi_set_data_frame_format(
+  volatile struct spi_registers_map* spi,
+  enum spi_data_frame_format format
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (format)
+  {
+    case SPI_DATA_FRAME_FORMAT_8BITS:
+      *reg &= ~SPI_CR1_DFF;
+      break;
+
+    case SPI_DATA_FRAME_FORMAT_16BITS:
+      *reg |= SPI_CR1_DFF;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_data_frame_format, format);
+      break;
+  }
+}
+
+void
+spi_crc_transfer_next_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 |= SPI_CR1_CRCNEXT;
+}
+
+void
+spi_crc_transfer_next_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 &= ~SPI_CR1_CRCNEXT;
+}
+
+void
+spi_hardware_crc_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 |= SPI_CR1_CRCEN;
+}
+
+void
+spi_hardware_crc_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR1 &= ~SPI_CR1_CRCEN;
+}
+
+void
+spi_set_bidirectional_mode(
+  volatile struct spi_registers_map* spi,
+  enum spi_bidirectional_mode mode
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (mode)
+  {
+    case SPI_BIDIRECTIONAL_MODE_RX_ONLY:
+      *reg &= ~SPI_CR1_BIDIOE;
+      break;
+
+    case SPI_BIDIRECTIONAL_MODE_TX_ONLY:
+      *reg |= SPI_CR1_BIDIOE;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_bidirectional_mode, mode);
+      break;
+  }
+}
+
+void
+spi_set_communication_mode(
+  volatile struct spi_registers_map* spi,
+  enum spi_communication_mode mode
+)
+{
+  volatile u32* reg = &spi->CR1;
+  switch (mode)
+  {
+    case SPI_COMMUNICATION_MODE_2LINES:
+      *reg &= ~SPI_CR1_BIDIMODE;
+      break;
+
+    case SPI_COMMUNICATION_MODE_1LINE:
+      *reg |= SPI_CR1_BIDIMODE;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_communication_mode, mode);
+      break;
+  }
+}
+
+void
+spi_dma_rx_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR2 |= SPI_CR2_RXDMAEN;
+}
+
+void
+spi_dma_rx_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR2 &= ~SPI_CR2_RXDMAEN;
+}
+
+void
+spi_dma_tx_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR2 |= SPI_CR2_TXDMAEN;
+}
+
+void
+spi_dma_tx_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR2 &= ~SPI_CR2_TXDMAEN;
+}
+
+void
+spi_slave_select_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR2 |= SPI_CR2_SSOE;
+}
+
+void
+spi_slave_select_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->CR2 &= ~SPI_CR2_SSOE;
+}
+
+#if defined(STM32_SPI_FRAME_STANDARD)
+void
+spi_set_frame_standard(
+  volatile struct spi_registers_map* spi,
+  enum spi_frame_standard standard
+)
+{
+  volatile u32* reg = &spi->CR2;
+  switch (standard)
+  {
+    case SPI_FRAME_STANDARD_MOTOROLA:
+      *reg &= ~SPI_CR2_FRF;
+      break;
+
+    case SPI_FRAME_STANDARD_TI:
+      *reg |= SPI_CR2_FRF;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_frame_format, standard);
+      break;
+  }
+}
+#endif
+
+void
+spi_interrupt_enable(
+  volatile struct spi_registers_map* spi,
+  enum spi_interrupt interrupt
+)
+{
+  volatile u32* reg = &spi->CR2;
+  switch (interrupt)
+  {
+    case SPI_INTERRUPT_ERROR:
+      *reg |= SPI_CR2_ERRIE;
+      break;
+
+    case SPI_INTERRUPT_RX_BUF_NOT_EMPTY:
+      *reg |= SPI_CR2_RXNEIE;
+      break;
+
+    case SPI_INTERRUPT_TX_BUF_EMPTY:
+      *reg |= SPI_CR2_TXEIE;  
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_interrupt, interrupt);
+      break;
+  }
+}
+
+void
+spi_interrupt_disable(
+  volatile struct spi_registers_map* spi,
+  enum spi_interrupt interrupt
+)
+{
+  volatile u32* reg = &spi->CR2;
+  switch (interrupt)
+  {
+    case SPI_INTERRUPT_ERROR:
+      *reg &= ~SPI_CR2_ERRIE;
+      break;
+
+    case SPI_INTERRUPT_RX_BUF_NOT_EMPTY:
+      *reg &= ~SPI_CR2_RXNEIE;
+      break;
+
+    case SPI_INTERRUPT_TX_BUF_EMPTY:
+      *reg &= ~SPI_CR2_TXEIE;  
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_interrupt, interrupt);
+      break;
+  }
+}
+
+u32
+spi_is_flag_set(
+  volatile struct spi_registers_map* spi,
+  enum spi_flag flag
+)
+{
+  volatile u32* reg = &spi->SR;
+  switch (flag)
+  {
+    case SPI_FLAG_RX_BUF_NOT_EMPTY:
+      return *reg & SPI_SR_RXNE;
+
+    case SPI_FLAG_TX_BUF_EMPTY:
+      return *reg & SPI_SR_TXE;
+
+    case SPI_FLAG_CHANNEL_RIGHT_TX:
+      return *reg & SPI_SR_CHSIDE;
+
+    case SPI_FLAG_UNDERRUN:
+      return *reg & SPI_SR_UDR;
+
+    case SPI_FLAG_CRC_ERROR:
+      return *reg & SPI_SR_CRCERR;
+
+    case SPI_FLAG_MODE_FAULT:
+      return *reg & SPI_SR_MODF;
+
+    case SPI_FLAG_OVERRUN:
+      return *reg & SPI_SR_OVR;
+
+    case SPI_FLAG_BUSY:
+      return *reg & SPI_SR_BSY;
+
+#if defined(STM32_SPI_FRAME_STANDARD)
+    case SPI_FLAG_FRAME_ERROR:
+      return *reg & SPI_SR_FRE;
+#endif
+
+    default:
+      devmode_error_invalid_enum(enum spi_flag, flag);
+      return 0;
+  }
+}
+
+void
+spi_crc_error_flag_clear(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->SR &= ~SPI_SR_CRCERR;
+}
+
+u8
+spi_read_byte(
+  volatile struct spi_registers_map* spi
+)
+{
+  return (u8) spi->DR;
+}
+
+void
+spi_write_byte(
+  volatile struct spi_registers_map* spi,
+  u8 data
+)
+{
+  spi->DR = data;
+}
+
+u8
+spi_transceive_byte(
+  volatile struct spi_registers_map* spi,
+  u8 byte
+)
+{
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
+  spi_write_byte(spi, byte);
+
+  while (spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
+  u8 data = spi_read_byte(SPI1);
+  return data;
+}
+
+void
+spi_transceive_bytes(
+  volatile struct spi_registers_map* spi,
+  u8* out,
+  u8* in,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    in[i] = spi_transceive_byte(spi, out[i]);
+  }
+}
+
+void
+spi_transfer_byte(
+  volatile struct spi_registers_map* spi,
+  u8 byte
+)
+{
+  while (spi_is_flag_set(SPI1, SPI_FLAG_TX_BUF_EMPTY) == 0);
+  spi_write_byte(spi, byte);
+
+  while (spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
+  (void) spi_read_byte(spi);
+}
+
+void
+spi_transfer_bytes(
+  volatile struct spi_registers_map* spi,
+  const u8* bytes,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    spi_transfer_byte(spi, bytes[i]);
+  }
+}
+
+u8
+spi_receive_byte(
+  volatile struct spi_registers_map* spi
+)
+{
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
+  spi_write_byte(spi, 0xff);
+
+  while (spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
+  return spi_read_byte(spi);
+}
+
+u8
+spi_receive_byte_after(
+  volatile struct spi_registers_map* spi,
+  u8 dummy
+)
+{
+  u8 byte;
+  while ((byte = spi_receive_byte(spi)) == dummy);
+  return byte;
+}
+
+void
+spi_receive_bytes(
+  volatile struct spi_registers_map* spi,
+  u8* buf,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    buf[i] = spi_receive_byte(spi);
+  }
+}
+
+void
+spi_receive_bytes_after(
+  volatile struct spi_registers_map* spi,
+  u8* buf,
+  u32 count,
+  u8 dummy
+)
+{
+  u8 byte;
+  while ((byte = spi_receive_byte(spi)) == dummy);
+  buf[0] = byte;
+  
+  for (u32 i = 1; i < count; ++i)
+  {
+    buf[i] = spi_receive_byte(spi);
+  }
+}
+
+u16
+spi_read_16bit(
+  volatile struct spi_registers_map* spi
+)
+{
+  return (u16) spi->DR;
+}
+
+void
+spi_write_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 value
+)
+{
+  spi->DR = value;
+}
+
+u16
+spi_transceive_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 value
+)
+{
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
+  spi_write_16bit(spi, value);
+
+  while (spi_is_flag_set(SPI1, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
+  u16 data = spi_read_16bit(SPI1);
+  return data;
+}
+
+void
+spi_transceive_16bits(
+  volatile struct spi_registers_map* spi,
+  u16* out,
+  u16* in,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    in[i] = spi_transceive_16bit(spi, out[i]);
+  }
+}
+
+void
+spi_transfer_16bit(
+  volatile struct spi_registers_map* spi,
+  u16 value
+)
+{
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
+  spi_write_16bit(spi, value);
+
+  while (spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
+  (void) spi_read_16bit(spi);
+}
+
+void
+spi_transfer_16bits(
+  volatile struct spi_registers_map* spi,
+  const u16* values,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    spi_transfer_16bit(spi, values[i]);
+  }
+}
+
+u16
+spi_receive_16bit(
+  volatile struct spi_registers_map* spi
+)
+{
+  while (spi_is_flag_set(spi, SPI_FLAG_TX_BUF_EMPTY) == 0);
+  spi_write_16bit(spi, 0xffff);
+
+  while (spi_is_flag_set(spi, SPI_FLAG_RX_BUF_NOT_EMPTY) == 0);
+  return spi_read_16bit(spi);
+}
+
+u16
+spi_receive_16bit_after(
+  volatile struct spi_registers_map* spi,
+  u16 dummy
+)
+{
+  u16 value;
+  while ((value = spi_receive_16bit(spi)) == dummy);
+  return value;
+}
+
+void
+spi_receive_16bits(
+  volatile struct spi_registers_map* spi,
+  u16* buf,
+  u32 count
+)
+{
+  for (u32 i = 0; i < count; ++i)
+  {
+    buf[i] = spi_receive_16bit(spi);
+  }
+}
+
+void
+spi_receive_16bits_after(
+  volatile struct spi_registers_map* spi,
+  u16* buf,
+  u32 count,
+  u16 dummy
+)
+{
+  u16 value;
+  while ((value = spi_receive_16bit(spi)) == dummy);
+  buf[0] = value;
+
+  for (u32 i = 1; i < count; ++i)
+  {
+    buf[i] = spi_receive_16bit(spi);
+  }
+}
+
+void
+spi_set_crc_polynomial(
+  volatile struct spi_registers_map* spi,
+  u32 polynomial
+)
+{
+  devmode_assert_lower_or_eq(polynomial, SPI_CRCPR_MASK);
+  spi->CRCPR = polynomial;
+}
+
+u32
+spi_get_rx_crc(
+  volatile struct spi_registers_map* spi
+)
+{
+  return spi->RXCRCR;
+}
+
+u32
+spi_get_tx_crc(
+  volatile struct spi_registers_map* spi
+)
+{
+  return spi->TXCRCR;
+}
+
+void
+spi_set_channel_length(
+  volatile struct spi_registers_map* spi,
+  enum spi_channel_length length
+)
+{
+  volatile u32* reg = &spi->I2SCFGR;
+  switch (length)
+  {
+    case SPI_CHANNEL_LENGTH_16BITS:
+      *reg &= ~SPI_I2SCFGR_CHLEN;
+      break;
+
+    case SPI_CHANNEL_LENGTH_32BITS:
+      *reg |= SPI_I2SCFGR_CHLEN;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_channel_length, length);
+      break;
+  }
+}
+
+void
+spi_set_data_length(
+  volatile struct spi_registers_map* spi,
+  enum spi_data_length length
+)
+{
+  constexpr u32 shift = SPI_I2SCFGR_DATLEN_SHIFT;
+  constexpr u32 mask = SPI_I2SCFGR_DATLEN_MASK << shift;
+  volatile u32* reg = &spi->I2SCFGR;
+
+  switch (length)
+  {
+    case SPI_DATA_LENGTH_16BITS:
+      *reg &= ~mask;
+      break;
+
+    case SPI_DATA_LENGTH_24BITS:
+      syn_set_register_bits(reg, mask, SPI_I2SCFGR_DATLEN_24BITS << shift);
+      break;
+
+    case SPI_DATA_LENGTH_32BITS:
+      syn_set_register_bits(reg, mask, SPI_I2SCFGR_DATLEN_32BITS << shift);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_data_length, length);
+      break;
+  }
+}
+
+void
+spi_set_i2s_steady_clock_polarity(
+  volatile struct spi_registers_map* spi,
+  enum spi_i2s_clock_polarity polarity
+)
+{
+  volatile u32* reg = &spi->I2SCFGR;
+  switch (polarity)
+  {
+    case SPI_I2S_CLOCK_POLARITY_LOW:
+      *reg &= ~SPI_I2SCFGR_CKPOL;
+      break;
+
+    case SPI_I2S_CLOCK_POLARITY_HIGH:
+      *reg |= SPI_I2SCFGR_CKPOL;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_i2s_clock_polarity, polarity);
+      break;
+  }
+}
+
+void
+spi_set_i2s_standard(
+  volatile struct spi_registers_map* spi,
+  enum spi_i2s_standard std
+)
+{
+  constexpr u32 shift = SPI_I2SCFGR_I2SSTD_SHIFT;
+  constexpr u32 mask = SPI_I2SCFGR_I2SSTD_MASK << shift;
+  volatile u32* reg = &spi->I2SCFGR;
+
+  switch (std)
+  {
+    case SPI_I2S_STANDARD_PHILIPS:
+      *reg &= ~mask;
+      break;
+
+    case SPI_I2S_STANDARD_MSB_JUSTIFIED:
+      syn_set_register_bits(reg, mask, SPI_I2SCFGR_I2SSTD_MSB_JUSTIFIED << shift);
+      break;
+
+    case SPI_I2S_STANDARD_LSB_JUSTIFIED:
+      syn_set_register_bits(reg, mask, SPI_I2SCFGR_I2SSTD_LSB_JUSTIFIED << shift);
+      break;
+
+    case SPI_I2S_STANDARD_PCM:
+      *reg |= (SPI_I2SCFGR_I2SSTD_PCM << shift);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_i2s_standard, std);
+      break;
+  }
+}
+
+void
+spi_set_pcm_frame_sync(
+  volatile struct spi_registers_map* spi,
+  enum spi_pcm_frame_sync sync
+)
+{
+  volatile u32* reg = &spi->I2SCFGR;
+  switch (sync)
+  {
+    case SPI_PCM_FRAME_SYNC_SHORT:
+      *reg &= ~SPI_I2SCFGR_PCMSYNC;
+      break;
+
+    case SPI_PCM_FRAME_SYNC_LONG:
+      *reg |= SPI_I2SCFGR_PCMSYNC;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_pcm_frame_sync, sync);
+      break;
+  }
+}
+
+void
+spi_set_i2s_configuration_mode(
+  volatile struct spi_registers_map* spi,
+  enum spi_i2s_config_mode mode
+)
+{
+  constexpr u32 shift = SPI_I2SCFGR_I2SCFG_SHIFT;
+  constexpr u32 mask = SPI_I2SCFGR_I2SCFG_MASK << shift;
+  volatile u32* reg = &spi->I2SCFGR;
+
+  switch (mode)
+  {
+    case SPI_I2S_CONFIG_MODE_SLAVE_TX:
+      *reg &= ~mask;
+      break;
+
+    case SPI_I2S_CONFIG_MODE_SLAVE_RX:
+      syn_set_register_bits(reg, mask, SPI_I2SCFGR_I2SCFG_SLAVE_RX << shift);
+      break;
+
+    case SPI_I2S_CONFIG_MODE_MASTER_TX:
+      syn_set_register_bits(reg, mask, SPI_I2SCFGR_I2SCFG_MASTER_TX << shift);
+      break;
+
+    case SPI_I2S_CONFIG_MODE_MASTER_RX:
+      *reg |= (SPI_I2SCFGR_I2SCFG_MASTER_RX << shift);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_i2s_config_mode, mode);
+      break;
+  }
+}
+
+void
+spi_i2s_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->I2SCFGR |= SPI_I2SCFGR_I2SE;
+}
+
+void
+spi_i2s_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->I2SCFGR &= ~SPI_I2SCFGR_I2SE;
+}
+
+void
+spi_set_mode(
+  volatile struct spi_registers_map* spi,
+  enum spi_mode mode
+)
+{
+  volatile u32* reg = &spi->I2SCFGR;
+  switch (mode)
+  {
+    case SPI_MODE_SPI:
+      *reg &= ~SPI_I2SCFGR_I2SMOD;
+      break;
+
+    case SPI_MODE_I2S:
+      *reg |= SPI_I2SCFGR_I2SMOD;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_mode, mode);
+      break;
+  }
+}
+
+#if defined(STM32_SPI_ASYNC_START)
+void
+spi_async_start_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->I2SCFGR |= SPI_I2SCFGR_ASTREN;
+}
+
+void
+spi_async_start_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->I2SCFGR &= ~SPI_I2SCFGR_ASTREN;
+}
+#endif
+
+void
+spi_set_i2s_linear_prescaler(
+  volatile struct spi_registers_map* spi,
+  u32 prescaler
+)
+{
+  devmode_assert_lower_or_eq(prescaler, SPI_I2SPR_I2SDIV_MASK);
+
+  constexpr u32 shift = SPI_I2SPR_I2SDIV_SHIFT;
+  constexpr u32 mask = SPI_I2SPR_I2SDIV_MASK << shift;
+  volatile u32* reg = &spi->I2SPR;
+  syn_set_register_bits(reg, mask, prescaler);
+}
+
+void
+spi_set_i2s_prescaler_odd_factor(
+  volatile struct spi_registers_map* spi,
+  enum spi_prescaler_odd_factor factor
+)
+{
+  volatile u32* reg = &spi->I2SPR;
+  switch (factor)
+  {
+    case SPI_PRESCALER_ODD_FACTOR_MUL2:
+      *reg &= ~SPI_I2SPR_ODD;
+      break;
+
+    case SPI_PRESCALER_ODD_FACTOR_MUL2_PLUS1:
+      *reg |= SPI_I2SPR_ODD;
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum spi_prescaler_odd_factor, factor);
+      break;
+  }
+}
+
+void
+spi_master_clock_output_enable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->I2SPR |= SPI_I2SPR_MCKOE;
+}
+
+void
+spi_master_clock_output_disable(
+  volatile struct spi_registers_map* spi
+)
+{
+  spi->I2SPR &= ~SPI_I2SPR_MCKOE;
+}
+
+/*
+ * Driver interface.
+ */
+u32
+spiif_get_capabilities(void)
+{
+  u32 cap = 0;
+
+  cap |= SPIIF_CAP_CLK_PHASE_OFF;
+  cap |= SPIIF_CAP_IDLE_CLK_POLARITY;
+  cap |= SPIIF_CAP_MASTER;
+  cap |= SPIIF_CAP_SLAVE;
+  cap |= SPIIF_CAP_MSB;
+  cap |= SPIIF_CAP_LSB;
+  cap |= SPIIF_CAP_8BIT_FRAME;
+  cap |= SPIIF_CAP_16BIT_FRAME;
+  cap |= SPIIF_CAP_HWCRC;
+  cap |= SPIIF_CAP_BIMODE;
+  cap |= SPIIF_CAP_RXDMA;
+  cap |= SPIIF_CAP_TXDMA;
+  cap |= SPIIF_CAP_FRAME_TI;
+
+  return cap;
+}
+
+static u32
+_map_phaseif(
+  enum spiif_clk_phase phaseif,
+  enum spi_clock_phase* phase
+)
+{
+  switch (phaseif)
+  {
+    case SPIIF_CLK_PHASE_FIRST:
+      *phase = SPI_CLOCK_PHASE_FIRST_TRANSITION;
+      break;
+      
+    case SPIIF_CLK_PHASE_SECOND:
+      *phase = SPI_CLOCK_PHASE_SECOND_TRANSITION;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_polarityif(
+  enum spiif_clk_polarity polarityif,
+  enum spi_clock_polarity* polarity
+)
+{
+  switch (polarityif)
+  {
+    case SPIIF_CLK_POLARITY_CLK_IDLE0:
+      *polarity = SPI_CLOCK_POLARITY_LOW_ON_IDLE;
+      break;
+
+    case SPIIF_CLK_POLARITY_CLK_IDLE1:
+      *polarity = SPI_CLOCK_POLARITY_HIGH_ON_IDLE;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_roleif(
+  enum spiif_role roleif,
+  enum spi_role* role
+)
+{
+  switch (roleif)
+  {
+    case SPIIF_ROLE_MASTER:
+      *role = SPI_ROLE_MASTER;
+      break;
+
+    case SPIIF_ROLE_SLAVE:
+      *role = SPI_ROLE_SLAVE;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_baudrateif(
+  enum spiif_baudrate baudrateif,
+  enum spi_baudrate_control* baudrate
+)
+{
+  switch (baudrateif)
+  {
+    case SPIIF_BAUDRATE_CLK_DIV2:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV2;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV4:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV4;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV8:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV8;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV16:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV16;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV64:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV64;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV128:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV128;
+      break;
+
+    case SPIIF_BAUDRATE_CLK_DIV256:
+      *baudrate = SPI_BAUDRATE_CONTROL_DIV256;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_formatif(
+  enum spiif_frame_fmt formatif,
+  enum spi_frame_format* format
+)
+{
+  switch (formatif)
+  {
+    case SPIIF_FRAME_FMT_MSB_FIRST:
+      *format = SPI_FRAME_FORMAT_MSB_FIRST;
+      break;
+
+    case SPIIF_FRAME_FMT_LSB_FIRST:
+      *format = SPI_FRAME_FORMAT_LSB_FIRST;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_format_lenif(
+  enum spiif_frame_len frame_lenif,
+  enum spi_data_frame_format* frame_len
+)
+{
+  switch (frame_lenif)
+  {
+    case SPIIF_FRAME_LEN_8BIT:
+      *frame_len = SPI_DATA_FRAME_FORMAT_8BITS;
+      break;
+
+    case SPIIF_FRAME_LEN_16BIT:
+      *frame_len = SPI_DATA_FRAME_FORMAT_16BITS;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+#if defined(STM32_SPI_FRAME_STANDARD)
+static u32
+_map_standardif(
+  enum spiif_frame_type typeif,
+  enum spi_frame_standard* standard
+)
+{
+  switch (typeif)
+  {
+    case SPIIF_FRAME_TYPE_MOTOROLA:
+      *standard = SPI_FRAME_STANDARD_MOTOROLA;
+      break;
+
+    case SPIIF_FRAME_TYPE_TI:
+      *standard = SPI_FRAME_STANDARD_TI;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+#endif
+
+enum spiif_code
+spiif_configure(
+  struct spiif_config* config
+)
+{
+  if (!config)
+  {
+    return SPIIF_CODE_INVALID_CFG;
+  }
+
+  enum spi_clock_phase phase;
+  if (_map_phaseif(config->clk_phase, &phase) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_CLK_PHASE;
+  }
+
+  enum spi_clock_polarity polarity;
+  if (_map_polarityif(config->clk_polarity, &polarity) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_CLK_POLARITY;
+  }
+
+  enum spi_role role;
+  if (_map_roleif(config->role, &role) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_ROLE;
+  }
+
+  enum spi_baudrate_control baudrate;
+  if (_map_baudrateif(config->baudrate, &baudrate) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_BAUDRATE;
+  }
+
+  enum spi_frame_format format;
+  if (_map_formatif(config->frame_fmt, &format) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_FRAME_FMT;
+  }
+
+  enum spi_data_frame_format frame_len;
+  if (_map_format_lenif(config->frame_len, &frame_len) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_FRAME_LEN;
+  }
+
+  spi_set_clock_phase(config->spi, phase);
+  spi_set_clock_polarity(config->spi, polarity);
+  spi_set_role(config->spi, role);
+  spi_set_baudrate_control(config->spi, baudrate);
+  spi_set_frame_format(config->spi, format);
+  spi_set_data_frame_format(config->spi, frame_len);
+
+#if defined(STM32_SPI_FRAME_STANDARD)
+  enum spi_frame_standard standard;
+  if (_map_standardif(config->frame_type, &standard) != NEX_SUCCESS)
+  {
+    return SPIIF_CODE_INVALID_FRAME_TYPE;
+  }
+
+  spi_set_frame_standard(config->spi, standard);
+#endif
+
+  if (config->options & SPIIF_CAP_HWCRC)
+  {
+    spi_hardware_crc_enable(config->spi);
+  }
+  else
+  {
+    spi_hardware_crc_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_RXDMA)
+  {
+    spi_dma_rx_enable(config->spi);
+  }
+  else
+  {
+    spi_dma_rx_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_TXDMA)
+  {
+    spi_dma_tx_enable(config->spi);
+  }
+  else
+  {
+    spi_dma_tx_disable(config->spi);
+  }
+
+  if (config->options & SPIIF_CAP_SSA)
+  {
+    spi_software_slave_management_disable(config->spi);
+  }
+  else
+  {
+    spi_software_slave_management_enable(config->spi);
+  }
+
+  return SPIIF_CODE_OK;
+}
+
+void
+spiif_transmit_bytes(
+  struct spiif_config* config,
+  u8* buf,
+  u32 len
+)
+{
+  spi_transfer_bytes(config->spi, buf, len);
+}
+
+void
+spiif_receive_bytes(
+  struct spiif_config* config,
+  u8* buf,
+  u32 len
+)
+{
+  spi_receive_bytes(config->spi, buf, len);
+}
+
+void
+spiif_transceive_bytes(
+  struct spiif_config* config,
+  u8* out,
+  u8* in,
+  u32 len
+)
+{
+  spi_transceive_bytes(config->spi, out, in, len);
+}
+
+void
+spiif_transmit_16bit(
+  struct spiif_config* config,
+  u16* buf,
+  u32 len
+)
+{
+  spi_transfer_16bits(config->spi, buf, len);
+}
+
+void
+spiif_receive_16bit(
+  struct spiif_config* config,
+  u16* buf,
+  u32 len
+)
+{
+  spi_receive_16bits(config->spi, buf, len);
+}
+
+void
+spiif_transceive_16bit(
+  struct spiif_config* config,
+  u16* out,
+  u16* in,
+  u32 len
+)
+{
+  spi_transceive_16bits(config->spi, out, in, len);
+}

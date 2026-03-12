@@ -5,7 +5,6 @@ target_compile_options(nex_buildcfg INTERFACE
   -Os
   -O3
   -flto=auto
-  -g0
 )
 
 target_link_options(nex_buildcfg INTERFACE
@@ -15,9 +14,6 @@ target_link_options(nex_buildcfg INTERFACE
   -Os
   -O3
   -flto=auto
-  -g0
 )
 
-target_compile_definitions(nex_buildcfg INTERFACE
-  RELEASE_BUILD
-)
+nex_define_macros_i(nex_buildcfg RELEASE_BUILD)

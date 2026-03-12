@@ -23,7 +23,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 # include(cmake/build_config)
 
 include(cmake/nexfn)
-include(cmake/nexdefs)
+include(cmake/properties)
 include(cmake/build_config)
 
 nex_log(STATUS "Root directory: ${PROJECT_SOURCE_DIR}")

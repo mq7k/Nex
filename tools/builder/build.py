@@ -38,8 +38,12 @@ def main():
     # but they are still necessary to build the project.
     options = get_options(args)
 
+    if args.reset:
+        fs.unlink(options['build_dir'])
+
     # Generates build files (Makefile, Ninja, Visual Studio, ...)
     cmd = cmake.generate_cmake_gen_command(options, build_config)
+    print(f'{cmd=}')
     if not execute_cmd(cmd):
         print('Failed to generate build files.')
         print('CMake exited with non-zero code or the subprocess timed out')

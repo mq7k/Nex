@@ -63,10 +63,6 @@ if (NEX_PLATFORM_ARM)
   )
 
   target_compile_options(nex_buildcfg INTERFACE
-    # ARM CPU uses Thumb, but (for examples) RISC-V does not.
-    # Might be necessary to move this into `cortex.cmake` or
-    # similar in the future.
-    -mthumb
     -ffreestanding
   )
 endif()

@@ -3,7 +3,7 @@
 
 #include "libcom/types.h"
 #include "libcom/util.h"
-#include "synapse/stm32/periph/tim.h"
+#include "synapse/soc/stm32/periph/tim.h"
 
 BEGIN_DECLARATIONS
 

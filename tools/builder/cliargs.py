@@ -75,6 +75,13 @@ def get_cli_args():
         help='Clean build directory before building (Default: %(default)s).'
     )
 
+    parser.add_argument(
+        '--verbose',
+        action='store_true',
+        default=False,
+        help='Enables extra debug log.'
+    )
+
     # Specifies the build directory.
     # By default, generated files are placed in:
     # 'build/desktop' -> If building 'tests' to run a desktop;
@@ -97,6 +104,20 @@ def get_cli_args():
         '--devmode',
         action='store_true',
         help='Include devmode in the final build (Not recommended in production builds).'
+    )
+
+    # Forces the use of software floats,
+    # even if an FPU is available.
+    # If not specified, the build system
+    # will use the best option available:
+    # - Hardware float if FPU available;
+    # - Fallback to software float otherwise.
+    parser.add_argument(
+        '--float',
+        choices=['hard', 'softfp', 'soft'],
+        default='hard',
+        type=str,
+        help='Select how floating point operations are handled. Only used in "arm" builds.'
     )
 
     group = parser.add_mutually_exclusive_group()

@@ -1,12 +1,12 @@
 #include "libcom/util.h"
-#include "synapse/arch/cortex/drivers/fpu/fpu_v1.h"
+#include "synapse/cpu/cortex/drivers/fpu/fpu_v1.h"
 #include "synapse/common/util/common.h"
-#include "synapse/stm32/drivers/spi/spi_v1.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/spi.h"
-#include "synapse/stm32/periph/usart.h"
+#include "synapse/soc/stm32/drivers/spi/spi_v1.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/spi.h"
+#include "synapse/soc/stm32/periph/usart.h"
 #include "libcom/unit.h"
-#include "synapse/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/rcc.h"
 
 void
 rcc_setup(void)

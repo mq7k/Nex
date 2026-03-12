@@ -1,9 +1,9 @@
 #include "synapse/common/util/common.h"
 #include "libcom/types.h"
 
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/usart.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/usart.h"
 
 #include "stdarg.h"
 

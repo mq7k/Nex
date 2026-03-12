@@ -1,6 +1,6 @@
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/wwdg.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/wwdg.h"
 
 void
 rcc_setup(void)

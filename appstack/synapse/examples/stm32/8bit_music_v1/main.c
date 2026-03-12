@@ -1,14 +1,14 @@
 #include "synapse/common/util/common.h"
 #include "libcom/types.h"
 #include "libcom/unit.h"
-#include "synapse/stm32/periph/dma.h"
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/tim.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/usart.h"
-#include "synapse/arch/cortex/periph/nvic.h"
-#include "synapse/arch/cortex/common/sys.h"
-#include "synapse/arch/cortex/periph/systick.h"
+#include "synapse/soc/stm32/periph/dma.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/tim.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/usart.h"
+#include "synapse/cpu/cortex/periph/nvic.h"
+#include "synapse/cpu/cortex/common/sys.h"
+#include "synapse/cpu/cortex/periph/systick.h"
 
 struct note
 {

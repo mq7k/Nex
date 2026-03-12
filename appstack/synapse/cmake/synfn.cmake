@@ -1,29 +1,3 @@
-function (syn_add_sources target)
-  set(DRIVERS ${ARGN})
-
-  # Adds .c files.
-  target_sources(${target} PUBLIC ${DRIVERS})
-
-  # Add .h files.
-  # target_sources(${target})
-endfunction()
-
-# Takes in a list of peripheral drivers
-# and create a new list with their test file. 
-# Example: 
-# DRIVERS = dma/dma_v2.c;spi/spi_v1.c
-# Output = dma/dma_v2_test.c;spi/spi_v1_test.c
-function (syn_format_tests_from_periph_drivers output)
-  set(drivers ${ARGN})
-  set(TESTS_LIST "")
-  foreach (driver IN LISTS drivers)
-    string(REPLACE ".c" "_test.c" DRIVER_TEST ${driver})
-    string(PREPEND DRIVER_TEST ${NEX_SYN_TESTS_DIR}/mcu/)
-    list(APPEND TESTS_LIST ${DRIVER_TEST})
-  endforeach()
-  set(${output} ${TESTS_LIST} PARENT_SCOPE)
-endfunction()
-
 function (syn_register_tests)
   set(TESTS_LIST ${ARGN})
   foreach (test IN LISTS TESTS_LIST)
@@ -41,7 +15,7 @@ endfunction()
 
 function (syn_register_test test name)
   if (NOT EXISTS ${test})
-    nex_log(STATUS "Test not found: ${test}")
+    nex_log(WARNING "Test not found: ${test}")
     return()
   endif()
 
@@ -57,5 +31,29 @@ function (syn_register_test test name)
     "${CMAKE_CURRENT_BINARY_DIR}/tests"
   )
 
-  nex_log(STATUS "Registering test: ${name}")
+  if (NEX_VERBOSE)
+    nex_log(STATUS "Registering test: ${name}")
+  endif()
+endfunction()
+
+function (syn_add_interfaces_from_property)
+  cmake_parse_arguments(ARG "" "TARGET;PATH;MSG" "" ${ARGN})
+  get_target_property(SRC_LIST ${ARG_TARGET} NEX_SRC_FILES)
+  foreach (source IN LISTS SRC_LIST)
+    string(FIND ${source} "/" POS REVERSE)
+    string(SUBSTRING ${source} 0 ${POS} PERIPH_NAME)
+    set(INTERFACE "${PERIPH_NAME}/${PERIPH_NAME}if.c")
+
+    if (EXISTS ${ARG_PATH}/${INTERFACE})
+      nex_add_sources(
+        TARGET ${ARG_TARGET}
+        PATH ${ARG_PATH}
+        SOURCES ${INTERFACE}
+      )
+
+      if (NEX_VERBOSE)
+        nex_log(STATUS "${ARG_MSG}${INTERFACE}")
+      endif()
+    endif()
+  endforeach()
 endfunction()

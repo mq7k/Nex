@@ -6,13 +6,13 @@
 BEGIN_DECLARATIONS
 
 #if defined(STM32)
-#include "synapse/stm32/system/specs.h"
+#include "synapse/soc/stm32/system/specs.h"
 #else
 #error "No vendor family specified."
 #endif
 
 #if defined(CORTEX)
-#include "synapse/arch/cortex/specs.h"
+#include "synapse/cpu/cortex/specs.h"
 #else
 #error "No CPU family specified."
 #endif

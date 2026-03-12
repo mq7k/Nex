@@ -1,5 +1,5 @@
 #include "system/scheduler/backend/sif.h"
-#include "synapse/arch/cortex/common/sys.h"
+#include "synapse/cpu/cortex/common/sys.h"
 
 static void
 _irq_disable(void)

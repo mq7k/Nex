@@ -1,9 +1,9 @@
 #include "synapse/common/util/common.h"
-#include "synapse/arch/cortex/periph/nvic.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/pwr.h"
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/rtc.h"
+#include "synapse/cpu/cortex/periph/nvic.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/pwr.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/rtc.h"
 
 void rcc_setup(void)
 {

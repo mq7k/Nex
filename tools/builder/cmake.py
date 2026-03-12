@@ -58,6 +58,7 @@ def parse_cmake_vars(args):
     vars_table = {
             'CMAKE_TOOLCHAIN_FILE': parse_toolchain,
             'CMAKE_BUILD_TYPE': args.build_type,
+            'NEX_VERBOSE': args.verbose,
             'NEX_TARGET_PATH': parse_target_path,
             'NEX_MCU_FULLNAME': parse_mcu_fullname,
             'NEX_MCU_FAMILY': parse_mcu_family,
@@ -66,6 +67,7 @@ def parse_cmake_vars(args):
             'NEX_PLATFORM': parse_platform,
             'NEX_BUILD_EXAMPLES': args.examples,
             'NEX_BUILD_TESTS': args.tests,
+            'NEX_FLOAT': args.float,
             'NEX_INCLUDE_DEVMODE': to_cmake_bool(args.devmode or args.tests)
     }
 
