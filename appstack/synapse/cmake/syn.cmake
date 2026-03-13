@@ -50,6 +50,12 @@ if (NEX_PLATFORM_ARM)
     MSG "Adding startup file: "
   )
 
+  # Not the most aesthetic piece of code, I know.
+  target_link_options(nex_synapse PUBLIC 
+    -T${NEX_SYN_LD_SCRIPTS_DIR}/${NEX_MCU_FAMILY}/${NEX_MCU_LD_SCRIPT}
+    -L${NEX_SYN_LD_SCRIPTS_DIR}/${NEX_MCU_FAMILY}
+  )
+
   # Now we can select the FPU implementation.
   # CPUs files (cm4f.cmake, cm3.cmake, ...) sets
   # this property, if available.
