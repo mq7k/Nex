@@ -13,9 +13,3 @@ def unlink(path, *, raise_error_on_failure=False):
 def create_symlink(target, link_name):
     unlink(link_name)
     os.symlink(src = target, dst = link_name)
-
-def foo(x: int):
-    """Just a test function"""
-    pass
-
-

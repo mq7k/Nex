@@ -2,9 +2,9 @@
 #include "libcom/types.h"
 
 #include "libcom/unit.h"
-#include "synapse/stm32/periph/gpio.h"
-#include "synapse/stm32/periph/rcc.h"
-#include "synapse/stm32/periph/usart.h"
+#include "synapse/soc/stm32/periph/gpio.h"
+#include "synapse/soc/stm32/periph/rcc.h"
+#include "synapse/soc/stm32/periph/usart.h"
 
 #define FOO_ARRAY_ELEMENTS_COUNT (2048)
 volatile u32 foo[FOO_ARRAY_ELEMENTS_COUNT];

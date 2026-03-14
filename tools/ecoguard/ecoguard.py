@@ -10,48 +10,87 @@ import os
 import subprocess
 import sys
 
-def execute_cmake_cmd(cmd, timeout):
+ERR_LOG_FILE_NAME = 'guard.log'
+
+def execute_cmd(cmd, timeout=None):
     try:
-        with open('guard.log', 'w') as file:
-            res = subprocess.run(cmd, shell=False, cwd=os.getcwd(), stdout=file, stderr=file)
+        with open(ERR_LOG_FILE_NAME, 'w') as file:
+            res = subprocess.run(
+                cmd,
+                shell=False,
+                timeout=timeout,
+                cwd=os.getcwd(),
+                stdout=file,
+                stderr=file
+            )
             print(f'Return code: {res.returncode}')
 
-        if res.returncode != 0:
-            with open('guard.log', 'r') as file:
-                print(file.read())
-            sys.exit(0)
-        return True
-    except subprocess.TimeoutExpired as te:
+            return res.returncode == 0
+        # if res.returncode != 0:
+        #     with open('guard.log', 'r') as file:
+        #         print(file.read())
+        #     sys.exit(0)
+        # return True
+    except subprocess.TimeoutExpired:
         return False
 
-def explore_family(path, family):
-    print(f'>>> {family=}')
+# def explore_family(path, family):
+#     print(f'>>> {family=}')
+#
+#     for mcu in os.listdir(f'{path}/{family}'):
+#         full_path = f'{path}/{family}/{mcu}'
+#         print(f'Compiling "{full_path}"')
+#         cmd = [
+#             'tools/builder/build.py',
+#             f'--target={full_path}',
+#             '--build-type=Release',
+#             '--tests'
+#         ]
+#         execute_cmake_cmd(cmd, 5)
 
-    for mcu in os.listdir(f'{path}/{family}'):
-        full_path = f'{path}/{family}/{mcu}'
-        print(f'Compiling "{full_path}"')
-        cmd = [
+# def explore_target(target):
+#     path = f'targets/{target}'
+#     for family in os.listdir(path):
+#         explore_family(path, family)
+
+def print_err_log():
+    with open(ERR_LOG_FILE_NAME, 'r') as file:
+        print(file.read())
+
+def try_compile(file):
+    print(f'Try compiling target {file}... ', end='')
+    cmd = [
             'tools/builder/build.py',
-            f'--target={full_path}',
+            f'--target={file}',
             '--build-type=Release',
             '--tests'
-        ]
-        execute_cmake_cmd(cmd, 5)
-        # time.sleep(3)
+    ]
 
-def explore_target(target):
-    path = f'targets/{target}'
-    for family in os.listdir(path):
-        explore_family(path, family)
+    if not execute_cmd(cmd):
+        print('Error while trying to compile')
+        print_err_log()
+        sys.exit(1)
+    print('Success')
+
+def open_dir(path):
+    print(f'Opening dir: {path}')
+    for file in os.listdir(path):
+        fullpath = f'{path}/{file}'
+        if os.path.isdir(fullpath):
+            open_dir(fullpath)
+        elif file.endswith('.cmake'):
+            try_compile(file)
 
 def main():
     # Execute this once.
     # Clear tests/periph content if necessary.
     # tools/generator/gen.py --output-dir tests/periph --path tools/generator/templates/drivers
     
-    targets = os.listdir('targets')
-    for target in targets:
-        explore_target(target)
+    path = 'appstack/synapse/cmake/targets'
+    open_dir(path)
+    # targets = os.listdir('targets')
+    # for target in targets:
+    #     explore_target(target)
 
 if __name__ == '__main__':
     main()

@@ -1,8 +1,9 @@
 #include "system/scheduler/scheduler.h"
 #include "libcom/util.h"
+#include "synapse/backends/arch/cpu_instrinsic.h"
 #include "system/scheduler/task_history.h"
 #include "system/time/time.h"
-#include "synapse/arch/cortex/common/sys.h"
+#include "synapse/cpu/cortex/common/sys.h"
 
 #include <string.h>
 
@@ -25,22 +26,6 @@ system_scheduler_init(
     struct scheduler_task* task = &scheduler->allocated_tasks[i];
     task_history_init(&task->history);
   }
-}
-
-void
-system_scheduler_start(
-  struct system_scheduler* scheduler
-)
-{
-  scheduler->backend.ts_vtable->start(scheduler->backend.ts_ctx);
-}
-
-void
-system_scheduler_stop(
-  struct system_scheduler* scheduler
-)
-{
-  scheduler->backend.ts_vtable->stop(scheduler->backend.ts_ctx);
 }
 
 struct scheduler_task*
@@ -222,21 +207,18 @@ _wait_until_next_tick(
   struct system_scheduler* scheduler
 )
 {
-  struct scheduler_arch_backend_vtable* arch_vtable;
-  arch_vtable = scheduler->backend.arch_vtable;
-
   while (1)
   {
-    arch_vtable->irq_disable();
+    syn_irq_disable();
     if (scheduler->tick_ready)
     {
       scheduler->tick_ready = 0;
-      arch_vtable->irq_enable();
+      syn_irq_enable();
       return;
     }
 
-    arch_vtable->irq_enable();
-    arch_vtable->sleep();
+    syn_irq_enable();
+    syn_wait_for_interrupt();
   }
 }
 
@@ -245,8 +227,6 @@ system_scheduler_loop(
   struct system_scheduler* scheduler
 )
 {
-  system_scheduler_start(scheduler);
-
   while (1)
   {
     _wait_until_next_tick(scheduler);

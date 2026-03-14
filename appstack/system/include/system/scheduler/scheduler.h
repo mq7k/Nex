@@ -1,10 +1,8 @@
 #ifndef SYSL_SCHEDULER_H
 #define SYSL_SCHEDULER_H
 
-#include "libcom/data/queue.h"
 #include "libcom/types.h"
 #include "libcom/util.h"
-#include "system/scheduler/backend/sif.h"
 #include "system/scheduler/task_history.h"
 
 BEGIN_DECLARATIONS
@@ -41,8 +39,6 @@ struct scheduler_backend
 {
   struct scheduler_ts_backend_vtable* ts_vtable;
   void* ts_ctx;
-
-  struct scheduler_arch_backend_vtable* arch_vtable;
 };
 
 struct system_scheduler
@@ -59,22 +55,10 @@ struct system_scheduler
   u32 max_tick_time_us;
   u32 max_tick_time_tt;
   u64 acc;
-
-  struct scheduler_backend backend;
 };
 
 void
 system_scheduler_init(
-  struct system_scheduler* scheduler
-);
-
-void
-system_scheduler_start(
-  struct system_scheduler* scheduler
-);
-
-void
-system_scheduler_stop(
   struct system_scheduler* scheduler
 );
 
