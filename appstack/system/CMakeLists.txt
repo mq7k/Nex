@@ -21,7 +21,6 @@ nex_add_sources(
   SOURCES
     src/profiler/profiler.c
 
-    src/scheduler/backend/arch/arm.c
     src/scheduler/backend/ts/stm32_tim.c
     src/scheduler/scheduler.c
     src/scheduler/task_history.c

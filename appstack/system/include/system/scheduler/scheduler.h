@@ -41,8 +41,6 @@ struct scheduler_backend
 {
   struct scheduler_ts_backend_vtable* ts_vtable;
   void* ts_ctx;
-
-  struct scheduler_arch_backend_vtable* arch_vtable;
 };
 
 struct system_scheduler
