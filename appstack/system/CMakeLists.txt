@@ -21,7 +21,6 @@ nex_add_sources(
   SOURCES
     src/profiler/profiler.c
 
-    src/scheduler/backend/ts/stm32_tim.c
     src/scheduler/scheduler.c
     src/scheduler/task_history.c
 
@@ -39,8 +38,6 @@ nex_add_headers(
 
     include/system/profiler/profiler.h
 
-    include/system/scheduler/backend/ts/stm32_tim.h
-    include/system/scheduler/backend/sif.h
     include/system/scheduler/scheduler.h
     include/system/scheduler/task_history.h
 

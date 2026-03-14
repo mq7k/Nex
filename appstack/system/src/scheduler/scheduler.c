@@ -28,22 +28,6 @@ system_scheduler_init(
   }
 }
 
-void
-system_scheduler_start(
-  struct system_scheduler* scheduler
-)
-{
-  scheduler->backend.ts_vtable->start(scheduler->backend.ts_ctx);
-}
-
-void
-system_scheduler_stop(
-  struct system_scheduler* scheduler
-)
-{
-  scheduler->backend.ts_vtable->stop(scheduler->backend.ts_ctx);
-}
-
 struct scheduler_task*
 system_scheduler_task_alloc(
   struct system_scheduler* scheduler
@@ -243,8 +227,6 @@ system_scheduler_loop(
   struct system_scheduler* scheduler
 )
 {
-  system_scheduler_start(scheduler);
-
   while (1)
   {
     _wait_until_next_tick(scheduler);
