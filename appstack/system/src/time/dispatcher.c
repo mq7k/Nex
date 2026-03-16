@@ -1,10 +1,9 @@
-#include "system/time/wiring/dispatcher.h"
+#include "system/time/dispatcher.h"
+#include "system/time/backend/stm32_tim.h"
 #include <stddef.h>
 
-extern struct sys_time_vtable stm32_tim_backend;
-
 struct sys_time_vtable*
-system_get_time_backend_vtable(
+system_get_time_backend(
   enum system_time_backend backend
 )
 {

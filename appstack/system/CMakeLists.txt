@@ -25,6 +25,7 @@ nex_add_sources(
     src/scheduler/task_history.c
 
     src/time/backend/stm32_tim.c
+    src/time/dispatcher.c
     src/time/time.c
 
   MSG "Adding system file: "

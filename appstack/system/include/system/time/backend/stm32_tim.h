@@ -11,7 +11,10 @@ struct system_stm32_timer_backend_ctx
 {
   volatile struct tim_registers_map* tim;
   u32 value_width_bits;
+  u32 ofcount;
 };
+
+extern struct sys_time_vtable stm32_tim_backend;
 
 END_DECLARATIONS
 

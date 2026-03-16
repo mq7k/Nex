@@ -11,7 +11,7 @@ enum system_time_backend
 };
 
 struct sys_time_vtable*
-system_get_time_backend_vtable(
+system_get_time_backend(
   enum system_time_backend backend
 );
 
