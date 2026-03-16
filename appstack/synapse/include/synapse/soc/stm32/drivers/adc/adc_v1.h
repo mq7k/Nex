@@ -1018,6 +1018,11 @@ void
 adc_calibration_reset(
   volatile struct adc_registers_map* adc
 );
+
+u32
+adc_is_calibration_init_complete(
+  volatile struct adc_registers_map* adc
+);
 #endif
 
 void
@@ -1063,7 +1068,12 @@ adc_set_inj_external_event(
 #endif
 
 void
-adc_inj_start(
+adc_external_trigger_inj_enable(
+  volatile struct adc_registers_map* adc
+);
+
+void
+adc_external_trigger_inj_disable(
   volatile struct adc_registers_map* adc
 );
 
@@ -1074,6 +1084,21 @@ adc_set_reg_external_event(
   enum adc_reg_trigger_event event
 );
 #endif
+
+void
+adc_external_trigger_reg_enable(
+  volatile struct adc_registers_map* adc
+);
+
+void
+adc_external_trigger_reg_disable(
+  volatile struct adc_registers_map* adc
+);
+
+void
+adc_inj_start(
+  volatile struct adc_registers_map* adc
+);
 
 void
 adc_reg_start(
@@ -1088,6 +1113,26 @@ adc_temperature_sensor_enable(
 
 void
 adc_temperature_sensor_disable(
+  volatile struct adc_registers_map* adc
+);
+
+void
+adc_external_trigger_reg_enable(
+  volatile struct adc_registers_map* adc
+);
+
+void
+adc_external_trigger_reg_disable(
+  volatile struct adc_registers_map* adc
+);
+
+void
+adc_external_trigger_inj_enable(
+  volatile struct adc_registers_map* adc
+);
+
+void
+adc_external_trigger_inj_disable(
   volatile struct adc_registers_map* adc
 );
 #endif
