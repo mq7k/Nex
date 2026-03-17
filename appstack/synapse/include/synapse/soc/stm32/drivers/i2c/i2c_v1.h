@@ -286,13 +286,11 @@ i2c_send_nack(
   volatile struct i2c_registers_map* i2c
 );
 
-// Might need a better name.
 void
 i2c_nack_on_next_byte(
   volatile struct i2c_registers_map* i2c
 );
 
-// Might need a better name.
 void
 i2c_nack_on_current_byte(
   volatile struct i2c_registers_map* i2c
