@@ -93,10 +93,6 @@ target_link_libraries(nex_synapse PUBLIC nex_synapse_soc)
 target_link_libraries(nex_synapse PUBLIC nex_synapse_cpu)
 target_link_libraries(nex_synapse PUBLIC nex_synapse_util)
 
-if (NEX_BUILD_EXAMPLES AND NEX_PLATFORM_ARM)
-  add_subdirectory(examples)
-endif()
-
 get_target_property(NEX_COMPILER_FLAGS nex_buildcfg INTERFACE_COMPILE_OPTIONS)
 get_target_property(NEX_LINKER_FLAGS nex_buildcfg INTERFACE_LINK_OPTIONS)
 

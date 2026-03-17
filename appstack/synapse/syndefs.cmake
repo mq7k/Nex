@@ -25,11 +25,6 @@ set(
   ${NEX_SYN_BASE_DIR}/include/synapse/soc/${NEX_MCU_FAMILY}/drivers
 )
 
-set(
-  NEX_SYN_SOC_EXAMPLES_DIR
-  ${NEX_SYN_BASE_DIR}/examples/${NEX_MCU_FAMILY_LINE}
-)
-
 if (NEX_FLOAT STREQUAL "hard")
   set(NEX_FLOAT_HARD ON)
 elseif (NEX_FLOAT STREQUAL "softfp")

@@ -6,7 +6,6 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-message(STATUS "Toolchain: ${CMAKE_TOOLCHAIN_FILE}")
 option(NEX_BUILD_TESTS "Toggles tests build. (Def=ON)" ON)
 option(NEX_BUILD_EXAMPLES "Toggles examples build. (Def=OFF)" OFF)
 
@@ -15,17 +14,14 @@ if (NOT CMAKE_BUILD_TYPE)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 endif()
 
-# list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
-# include(cmake/ecofn)
-# include(cmake/ecodefs)
-# include(cmake/build_config)
-
 include(cmake/nexfn)
+include(cmake/nexdefs)
 include(cmake/properties)
 include(cmake/build_config)
 
+nex_log(STATUS "Toolchain: ${CMAKE_TOOLCHAIN_FILE}")
 nex_log(STATUS "Root directory: ${PROJECT_SOURCE_DIR}")
 nex_log(STATUS "Using compiler: ${CMAKE_C_COMPILER}")
 nex_log(STATUS "Using objcopy: ${CMAKE_OBJCOPY}")
@@ -46,5 +42,9 @@ add_subdirectory(appstack/system)
 
 if (NEX_BUILD_TESTS)
   add_subdirectory(appstack/libtest)
+endif()
+
+if (NEX_BUILD_EXAMPLES AND NEX_PLATFORM_ARM)
+  add_subdirectory(examples)
 endif()
 

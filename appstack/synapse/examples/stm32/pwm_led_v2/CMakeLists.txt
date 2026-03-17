@@ -1,1 +1,0 @@
-syn_create_example(pwm_led_v2)

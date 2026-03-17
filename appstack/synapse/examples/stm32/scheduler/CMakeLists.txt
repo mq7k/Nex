@@ -1,1 +1,0 @@
-syn_create_example(scheduler_v1)
