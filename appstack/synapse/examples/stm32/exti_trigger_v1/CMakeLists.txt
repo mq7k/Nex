@@ -1,1 +1,0 @@
-syn_create_example(exti_trigger_v1)

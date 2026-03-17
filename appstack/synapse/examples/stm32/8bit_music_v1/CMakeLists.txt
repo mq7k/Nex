@@ -1,1 +1,0 @@
-syn_create_example(8bit_music_v1)

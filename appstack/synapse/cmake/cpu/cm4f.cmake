@@ -22,6 +22,7 @@ nex_add_sources(
   PATH ${NEX_SYN_SRC_DIR}/cpu/cortex
   SOURCES 
     common/fpu.S
+    drivers/fpu/fpu_v1.c
     drivers/vtable/vtable_v1.c
 )
 

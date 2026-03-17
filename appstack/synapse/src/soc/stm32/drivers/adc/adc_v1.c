@@ -625,6 +625,14 @@ adc_calibration_reset(
 {
   adc->CR2 |= ADC_CR2_RSTCAL;
 }
+
+u32
+adc_is_calibration_init_complete(
+  volatile struct adc_registers_map* adc
+)
+{
+  return adc->CR2 & ADC_CR2_RSTCAL;
+}
 #endif
 
 void
@@ -865,14 +873,6 @@ adc_set_inj_external_event(
 }
 #endif
 
-void
-adc_inj_start(
-  volatile struct adc_registers_map* adc
-)
-{
-  adc->CR2 |= ADC_CR2_JSWSTART;
-}
-
 #if defined(STM32_ADC_xEXTSEL_LAYOUT1) || defined(STM32_ADC_xEXTSEL_LAYOUT2)
 void
 adc_set_reg_external_event(
@@ -1029,6 +1029,14 @@ adc_set_reg_external_event(
       break;
   }
 }
+
+void
+adc_inj_start(
+  volatile struct adc_registers_map* adc
+)
+{
+  adc->CR2 |= ADC_CR2_JSWSTART;
+}
 #endif
 
 void
@@ -1045,7 +1053,11 @@ adc_temperature_sensor_enable(
   volatile struct adc_registers_map* adc
 )
 {
+#if defined(STM32_ADC_CCR_REG)
+  adc_multi_adc_temperature_sensor_enable();
+#else
   adc->CR2 |= ADC_CR2_TSVREFE;
+#endif
 }
 
 void
@@ -1053,7 +1065,43 @@ adc_temperature_sensor_disable(
   volatile struct adc_registers_map* adc
 )
 {
+#if defined(STM32_ADC_CCR_REG)
+  adc_multi_adc_temperature_sensor_disable();
+#else
   adc->CR2 &= ~ADC_CR2_TSVREFE;
+#endif
+}
+
+void
+adc_external_trigger_reg_enable(
+  volatile struct adc_registers_map* adc
+)
+{
+  adc->CR2 |= ADC_CR2_EXTTRIG;
+}
+
+void
+adc_external_trigger_reg_disable(
+  volatile struct adc_registers_map* adc
+)
+{
+  adc->CR2 &= ~ADC_CR2_EXTTRIG;
+}
+
+void
+adc_external_trigger_inj_enable(
+  volatile struct adc_registers_map* adc
+)
+{
+  adc->CR2 |= ADC_CR2_JEXTTRIG;
+}
+
+void
+adc_external_trigger_inj_disable(
+  volatile struct adc_registers_map* adc
+)
+{
+  adc->CR2 &= ~ADC_CR2_JEXTTRIG;
 }
 #endif
 

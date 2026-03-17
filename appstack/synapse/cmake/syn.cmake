@@ -20,7 +20,12 @@ nex_define_macros_iraw(nex_buildcfg ${NEX_MCU_FORMATTED_GROUPS})
 target_link_libraries(nex_synapse PUBLIC nex_synapse_soc)
 target_link_libraries(nex_synapse PUBLIC nex_buildcfg)
 target_link_libraries(nex_synapse PUBLIC nex_libcom)
+
+# Software float/double operations.
 target_link_libraries(nex_synapse PUBLIC gcc)
+
+# String functions.
+target_link_libraries(nex_synapse PUBLIC c)
 
 # if (NEX_BUILD_EXAMPLES)
 #   include(appstack/nex_synapse/cmake/post/examples)
@@ -48,6 +53,12 @@ if (NEX_PLATFORM_ARM)
     PATH ${NEX_SYN_SRC_DIR}/cpu/${NEX_CPU_FAMILY}
     SOURCES common/init.c
     MSG "Adding startup file: "
+  )
+
+  # Not the most aesthetic piece of code, I know.
+  target_link_options(nex_synapse PUBLIC 
+    -T${NEX_SYN_LD_SCRIPTS_DIR}/${NEX_MCU_FAMILY}/${NEX_MCU_LD_SCRIPT}
+    -L${NEX_SYN_LD_SCRIPTS_DIR}/${NEX_MCU_FAMILY}
   )
 
   # Now we can select the FPU implementation.
