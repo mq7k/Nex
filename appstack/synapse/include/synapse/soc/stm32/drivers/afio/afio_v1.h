@@ -12,7 +12,7 @@
 #ifndef STM32_DRIVER_AFIO_H
 #define STM32_DRIVER_AFIO_H
 
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 #include "synapse/specs.h"
 #include "synapse/soc/stm32/periph/gpio.h"

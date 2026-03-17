@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/dcmi/dcmi_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct dcmi_registers_map dcmi_periph;

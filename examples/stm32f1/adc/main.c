@@ -1,5 +1,5 @@
 #include "libcom/unit.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/soc/stm32/drivers/adc/adc_v1.h"
 #include "synapse/soc/stm32/drivers/usart/usart_v1.h"
 #include <synapse/soc/stm32/periph/rcc.h>

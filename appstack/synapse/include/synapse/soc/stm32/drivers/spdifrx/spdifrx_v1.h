@@ -2,7 +2,7 @@
 #define STM32_DRIVER_SPDIFRX_H
 
 #include "libcom/util.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 
 /**

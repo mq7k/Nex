@@ -12,7 +12,7 @@
 #ifndef STM32_DRIVER_BKP_H
 #define STM32_DRIVER_BKP_H
 
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 
 /**

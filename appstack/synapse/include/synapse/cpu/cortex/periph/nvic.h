@@ -1,7 +1,7 @@
 #ifndef ARCH_NVIC_H
 #define ARCH_NVIC_H
 
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/specs.h"
 
 BEGIN_DECLARATIONS

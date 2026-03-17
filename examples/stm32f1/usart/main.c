@@ -1,5 +1,5 @@
 #include "libcom/unit.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 
 #include "synapse/soc/stm32/periph/rcc.h"

@@ -1,6 +1,6 @@
 #include "libcom/util.h"
 #include "synapse/cpu/cortex/periph/fpu.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/drivers/mpu9250.h"
 #include "synapse/io/io_spi.h"
 #include "synapse/io/ioif.h"

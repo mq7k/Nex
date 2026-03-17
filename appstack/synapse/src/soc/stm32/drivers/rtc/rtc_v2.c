@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/rtc/rtc_v2.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct rtc_registers_map rtc_periph;

@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/dma2d/dma2d_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct dma2d_registers_map dma2d_periph;

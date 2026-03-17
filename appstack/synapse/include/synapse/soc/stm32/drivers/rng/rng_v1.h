@@ -1,7 +1,7 @@
 #ifndef STM32_RNG_DRIVER_H
 #define STM32_RNG_DRIVER_H
 
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 #include "synapse/specs.h"
 

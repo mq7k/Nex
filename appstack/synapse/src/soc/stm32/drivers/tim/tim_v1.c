@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/tim/tim_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
 

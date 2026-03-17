@@ -1,4 +1,4 @@
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/format.h"
 #include "libcom/types.h"
 #include "libcom/unit.h"

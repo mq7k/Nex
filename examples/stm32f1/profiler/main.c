@@ -1,6 +1,6 @@
 #include "libcom/types.h"
 #include "system/profiler/profiler.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/unit.h"
 #include "synapse/cpu/cortex/periph/nvic.h"
 #include "synapse/cpu/cortex/common/sys.h"

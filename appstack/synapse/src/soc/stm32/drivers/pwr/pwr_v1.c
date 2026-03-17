@@ -1,6 +1,6 @@
 #include "synapse/soc/stm32/drivers/pwr/pwr_v1.h"
 #include "synapse/soc/stm32/system/specs.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct pwr_registers_map pwr_periph;

@@ -4,7 +4,7 @@
  *
  * The code is kept for reference and will be fixed in a future revision.
  */
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 
 #include "synapse/soc/stm32/periph/flash.h"

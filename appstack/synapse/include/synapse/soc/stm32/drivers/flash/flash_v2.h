@@ -19,7 +19,7 @@
  */
 
 #include "synapse/specs.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 
 BEGIN_DECLARATIONS

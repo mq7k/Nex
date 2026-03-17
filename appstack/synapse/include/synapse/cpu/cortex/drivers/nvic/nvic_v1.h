@@ -1,7 +1,7 @@
 #ifndef ARCH_DRIVER_NVIC_H
 #define ARCH_DRIVER_NVIC_H
 
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 #include "synapse/specs.h"
 

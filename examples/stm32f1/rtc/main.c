@@ -1,4 +1,4 @@
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/cpu/cortex/periph/nvic.h"
 #include "synapse/soc/stm32/periph/gpio.h"
 #include "synapse/soc/stm32/periph/pwr.h"
