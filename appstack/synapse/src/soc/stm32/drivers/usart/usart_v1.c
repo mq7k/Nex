@@ -152,7 +152,7 @@ usart_flag_clear_multibuffer(
 }
 
 u32
-usart_data_read(
+usart_read_byte(
   volatile struct usart_registers_map* usart
 )
 {

@@ -68,7 +68,7 @@ main(void)
   while (1)
   {
     while (usart_is_flag_set(USART1, USART_FLAG_READ_REG_NOT_EMPTY) == 0);
-    u32 c = usart_data_read(USART1);
+    u32 c = usart_read_byte(USART1);
 
     if (echo_mode)
     {

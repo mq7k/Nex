@@ -121,7 +121,7 @@
     },
     {
       "type": "fn_get",
-      "fn": "usart_data_read",
+      "fn": "usart_read_byte",
       "reg": "DR",
       "options": [
         "ioreg"
