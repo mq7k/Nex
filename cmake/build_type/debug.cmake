@@ -1,4 +1,3 @@
-# Should this be enabled only if NOT ARM_BUILD?
 target_compile_options(nex_buildcfg INTERFACE
   -ggdb3
   -O0
@@ -13,6 +12,17 @@ target_link_options(nex_buildcfg INTERFACE
   -fno-omit-frame-pointer
   -Wl,-Map=linker.map
 )
+
+if (NEX_GC_SECTIONS)
+  target_compile_options(nex_buildcfg INTERFACE
+    -ffunction-sections
+    -fdata-sections
+  )
+
+  target_link_options(nex_buildcfg INTERFACE
+    -Wl,--gc-sections
+  )
+endif()
 
 if (NEX_BUILD_TESTS)
   target_compile_options(nex_buildcfg INTERFACE

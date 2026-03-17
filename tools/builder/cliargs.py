@@ -82,6 +82,21 @@ def get_cli_args():
         help='Enables extra debug log.'
     )
 
+    # Toggles compiler flags:
+    # - `-Wl,--gc-sections`
+    # - `-fdata-sections`
+    # - `-ffunction-sections`
+    # The compiler will get rid of unused
+    # symbols in the final binary.
+    # This reduces binary size, but may
+    # result in incorrect behavior with debuggers.
+    parser.add_argument(
+        '--gc-sections',
+        action='store_true',
+        default=True,
+        help='Prevents stripping away unused symbols.'
+    )
+
     # Specifies the build directory.
     # By default, generated files are placed in:
     # 'build/desktop' -> If building 'tests' to run a desktop;

@@ -68,6 +68,7 @@ def parse_cmake_vars(args):
             'NEX_BUILD_EXAMPLES': args.examples,
             'NEX_BUILD_TESTS': args.tests,
             'NEX_FLOAT': args.float,
+            'NEX_GC_SECTIONS': args.gc_sections,
             'NEX_INCLUDE_DEVMODE': to_cmake_bool(args.devmode or args.tests)
     }
 
