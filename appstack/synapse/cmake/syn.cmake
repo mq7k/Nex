@@ -27,10 +27,6 @@ target_link_libraries(nex_synapse PUBLIC gcc)
 # String functions.
 target_link_libraries(nex_synapse PUBLIC c)
 
-# if (NEX_BUILD_EXAMPLES)
-#   include(appstack/nex_synapse/cmake/post/examples)
-# endif()
-
 # Toggling hardware (FPU) floats.
 # The user can specify preferences with '--float'.
 if (NEX_PLATFORM_ARM)
