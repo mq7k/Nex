@@ -22,7 +22,7 @@ nex_add_headers(
   TARGET nex_libtest
   PATH ${NEX_LIBTEST_INC_DIR}
   HEADERS
-    include/libtest/libtest.h
+    libtest/libtest.h
 )
 
 set_property(TARGET nex_libtest PROPERTY C_STANDARD 23)
