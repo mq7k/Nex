@@ -142,7 +142,7 @@ void
 rtc_write_idle_wait(void)
 {
   #ifndef NEX_BUILD_TESTS
-  WAIT_UNTIL(rtc_is_flag_set(RTC_FLAG_WRITE_IDLE));
+  while (rtc_is_flag_set(RTC_FLAG_WRITE_IDLE) == 0);
   #endif
 }
 
