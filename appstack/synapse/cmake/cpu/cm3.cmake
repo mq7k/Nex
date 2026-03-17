@@ -22,6 +22,7 @@ nex_add_sources(
   PATH ${NEX_SYN_SRC_DIR}/cpu/cortex/drivers
   SOURCES
     vtable/vtable_v2.c
+  MSG "Adding CPU driver: "
 )
 
 set_target_properties(nex_buildcfg PROPERTIES
