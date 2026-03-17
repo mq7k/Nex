@@ -30,7 +30,7 @@ endif()
 nex_add_headers(
   TARGET nex_libcom
   PATH ${NEX_LIBCOM_INC_DIR}
-  SOURCES
+  HEADERS
     libcom/data/queue.h
     libcom/data/ring_buffer.h
 
