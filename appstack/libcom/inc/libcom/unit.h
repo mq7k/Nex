@@ -64,7 +64,7 @@ nex_freq_unit_to_string(
 );
 
 u32
-nex_convert_bytes_unit(
+nex_convert_byte_unit(
   u32 value,
   enum nex_byte_unit from,
   enum nex_byte_unit to
