@@ -41,5 +41,4 @@ target_include_directories(nex_system PUBLIC ${NEX_SYSTEM_INCLUDE_DIR})
 
 if (NEX_BUILD_TESTS)
   enable_testing()
-  sys_register_tests(foo/bar.c)
 endif()
