@@ -44,10 +44,12 @@ def get_cli_args():
         required=True
     )
 
+    # Selects the platform to build for.
+    # This argument is ignored if either 
+    # '--examples' or '--tests' are specified.
     parser.add_argument(
         '--platform',
         choices=['desktop', 'arm'],
-        # default='arm',
         type=str,
         help='Selects the target platform to build for (Default: %(default)s). If \'--examples\' or \'--tests\' are specified, this flag is ignored.'
     )
@@ -75,6 +77,8 @@ def get_cli_args():
         help='Clean build directory before building (Default: %(default)s).'
     )
 
+    # Enables extra messages from the build system.
+    # (Not CMake itself, just our cmake files).
     parser.add_argument(
         '--verbose',
         action='store_true',
