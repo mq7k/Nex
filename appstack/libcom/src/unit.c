@@ -1,25 +1,88 @@
 #include "libcom/unit.h"
+#include "sys/devmode.h"
 
-static const double freq_factors[4][4] = {
-  { 1, 0.001, 0.000001, 0.0000000001 },
-  { 1000, 1, 0.001, 0.000001 },
-  { 1000000, 1000, 1, 0.001 },
-  { 1000000000, 1000000, 1000, 1 }
+#include <limits.h>
+
+static constexpr float byte_factors[4][4] = {
+  { 1.0f, 1.0f / 1024.0f, 1.0f / 1024.0f / 1024.0f, 1.0f / 1024.0f / 1024.0f / 1024.0f },
+  { 1024.0f, 1.0f, 1.0f / 1024.0f, 1.0f / 1024.0f / 1024.0f },
+  { 1024.0f * 1024.0f, 1024.0f, 1.0f, 1.0f / 1024.0f },
+  { 1024.0f * 1024.0f * 1024.0f, 1024.0f * 1024.0f, 1024.0f, 1.0f }
 };
 
-static constexpr double byte_factors[4][4] = {
-  { 1, 1 / 1024.0f, 1 / 1024.0f / 1024.0f, 1 / 1024.0f / 1024.0f / 1024.0f },
-  { 1024, 1, 1 / 1024.0f, 1 / 1024.0f / 1024.0f },
-  { 1024 * 1024, 1024, 1, 1 / 1024.0f },
-  { 1024 * 1024 * 1024, 1024 * 1024, 1024, 1 }
+static constexpr u32 factors1000i[] = {
+  1, 1000, 1000000, 1000000000
 };
 
-static constexpr double time_factors[4][4] = {
-  { 1.0, 0.001, 0.000001, 0.0000000001 },
-  { 1000.0, 1.0, 0.000001, 0.0000000001 },
-  { 1000000.0, 1000.0, 1.0, 0.000001 },
-  { 1000000000.0, 1000000.0, 1000.0, 1.0 }
+static const float factors1000f[4][4] = {
+  { 1.0f, 0.001f, 0.000001f, 0.000000001f },
+  { 1000.0f, 1.0f, 0.001f, 0.000001f },
+  { 1000000.0f, 1000.0f, 1.0f, 0.001f },
+  { 1000000000.0f, 1000000.0f, 1000.0f, 1.0f }
 };
+
+static u32
+_convert_unit_factor1000i(
+  u32 value,
+  u32 from,
+  u32 to
+)
+{
+  if (to > from)
+  {
+    const u32 diff = to - from;
+    return value / factors1000i[diff];
+  }
+
+  if (to < from)
+  {
+    const u32 diff = from - to;
+    const u32 factor = factors1000i[diff];
+    u32 val;
+    u32 overflow __attribute__((unused));
+    overflow = __builtin_mul_overflow(value, factor, &val);
+    devmode_assert_false(overflow);
+    return val;
+  }
+
+  return value;
+}
+
+static u32
+_convert_unit_factor1000i_to_largest(
+  u32 value,
+  u32 unit,
+  u32 max_unit,
+  u32* res
+)
+{
+  while (value >= 1000 && unit < max_unit)
+  {
+    value /= 1000;
+    ++unit;
+  }
+
+  *res = unit;
+  return value;
+}
+
+static float
+_convert_unit_factor1000f_to_largest(
+  float value,
+  u32 unit,
+  u32 max_unit,
+  u32* res
+)
+{
+  while (value >= 1000.0f && unit < max_unit)
+  {
+    value /= 1000.0f;
+    ++unit;
+  }
+
+  *res = unit;
+  return value;
+}
 
 u32
 nex_convert_freq_unit(
@@ -28,44 +91,57 @@ nex_convert_freq_unit(
   enum nex_freq_unit to
 )
 {
-  return (u32) nex_convert_freq_unitf(value, from, to);
+  devmode_assert_lower_or_eq(from, NEX_FREQ_UNIT_GHz);
+  devmode_assert_lower_or_eq(to, NEX_FREQ_UNIT_GHz);
+
+  return _convert_unit_factor1000i(value, from, to);
 }
 
-double
+float
 nex_convert_freq_unitf(
-  double value,
+  float value,
   enum nex_freq_unit from,
   enum nex_freq_unit to
 )
 {
-  return freq_factors[from][to] * value;
+  devmode_assert_lower_or_eq(from, NEX_FREQ_UNIT_GHz);
+  devmode_assert_lower_or_eq(to, NEX_FREQ_UNIT_GHz);
+
+  return value * factors1000f[from][to];
 }
 
 u32
 nex_convert_freq_to_largest(
   u32 value,
   enum nex_freq_unit unit,
-  enum nex_freq_unit *res
+  enum nex_freq_unit* res
 )
 {
-  return (u32) nex_convert_freq_to_largestf(value, unit, res);
+  devmode_assert_lower_or_eq(unit, NEX_FREQ_UNIT_GHz);
+
+  return _convert_unit_factor1000i_to_largest(
+    value,
+    unit,
+    NEX_FREQ_UNIT_GHz,
+    (u32*) res
+  );
 }
 
-double
+float
 nex_convert_freq_to_largestf(
-  double value,
+  float value,
   enum nex_freq_unit unit,
   enum nex_freq_unit* res
 )
 {
-  while (value >= 1000.0f && unit < NEX_FREQ_UNIT_GHz)
-  {
-    value /= 1000.0f;
-    ++unit;
-  }
+  devmode_assert_lower_or_eq(unit, NEX_FREQ_UNIT_GHz);
 
-  *res = unit;
-  return value;
+  return _convert_unit_factor1000f_to_largest(
+    value,
+    unit,
+    NEX_FREQ_UNIT_GHz,
+    (u32*) res
+  );
 }
 
 const char*
@@ -88,39 +164,48 @@ nex_freq_unit_to_string(
       return "GHz";
 
     default:
+      devmode_error_invalid_enum(enum nex_time_unit, unit);
       return "Unknown";
   }
 }
 
 u32
-syn_convert_byte_unit(
+nex_convert_byte_unit(
   u32 value,
   enum nex_byte_unit from,
   enum nex_byte_unit to
 )
 {
+  devmode_assert_lower_or_eq(from, NEX_BYTE_UNIT_GB);
+  devmode_assert_lower_or_eq(to, NEX_BYTE_UNIT_GB);
+
   return from > to ? 
          (value << ((from - to) * 10)) :
          (value >> ((to - from) * 10));
 }
 
-double
+float
 nex_convert_byte_unitf(
-  double value,
+  float value,
   enum nex_byte_unit from,
   enum nex_byte_unit to
 )
 {
+  devmode_assert_lower_or_eq(from, NEX_BYTE_UNIT_GB);
+  devmode_assert_lower_or_eq(to, NEX_BYTE_UNIT_GB);
+
   return byte_factors[from][to] * value;
 }
 
-double
+float
 nex_convert_byte_to_largestf(
-  double value,
+  float value,
   enum nex_byte_unit unit,
   enum nex_byte_unit* res
 )
 {
+  devmode_assert_lower_or_eq(unit, NEX_BYTE_UNIT_GB);
+
   while (value >= 1024.0f && unit < NEX_BYTE_UNIT_GB)
   {
     value /= 1024.0f;
@@ -138,6 +223,8 @@ nex_convert_byte_to_largest(
   enum nex_byte_unit* res
 )
 {
+  devmode_assert_lower_or_eq(unit, NEX_BYTE_UNIT_GB);
+
   while (value >= 1024 && unit < NEX_BYTE_UNIT_GB)
   {
     value >>= 10;
@@ -168,6 +255,7 @@ nex_byte_unit_to_string(
       return "GB";
 
     default:
+      devmode_error_invalid_enum(enum nex_byte_unit, unit);
       return "Unknown";
   }
 }
@@ -179,34 +267,40 @@ nex_convert_time_unit(
   enum nex_time_unit to
 )
 {
-  return (u32) nex_convert_time_unitf(value, from, to);
+  devmode_assert_lower_or_eq(from, NEX_TIME_UNIT_SECOND);
+  devmode_assert_lower_or_eq(to, NEX_TIME_UNIT_SECOND);
+
+  return _convert_unit_factor1000i(value, from, to);
 }
 
-double
+float
 nex_convert_time_unitf(
-  double value,
+  float value,
   enum nex_time_unit from,
   enum nex_time_unit to
 )
 {
-  return value * time_factors[from][to];
+  devmode_assert_lower_or_eq(from, NEX_TIME_UNIT_SECOND);
+  devmode_assert_lower_or_eq(to, NEX_TIME_UNIT_SECOND);
+
+  return value * factors1000f[from][to];
 }
 
-double
+float
 nex_convert_time_to_largestf(
-  double value,
+  float value,
   enum nex_time_unit unit,
   enum nex_time_unit* res
 )
 {
-  while (value >= 1000.0f && unit < NEX_TIME_UNIT_SECOND)
-  {
-    value /= 1000.0f;
-    ++unit;
-  }
+  devmode_assert_lower_or_eq(unit, NEX_TIME_UNIT_SECOND);
 
-  *res = unit;
-  return value;
+  return _convert_unit_factor1000f_to_largest(
+    value,
+    unit,
+    NEX_TIME_UNIT_SECOND,
+    (u32*) res
+  );
 }
 
 u32
@@ -216,7 +310,13 @@ nex_convert_time_to_largest(
   enum nex_time_unit* res
 )
 {
-  return (u32) nex_convert_time_to_largestf(value, unit, res);
+  devmode_assert_lower_or_eq(unit, NEX_TIME_UNIT_SECOND);
+  return _convert_unit_factor1000i_to_largest(
+    value,
+    unit,
+    NEX_TIME_UNIT_SECOND,
+    (u32*) res
+  );
 }
 
 const char*
@@ -239,6 +339,7 @@ nex_time_unit_to_string(
       return "ns";
 
     default:
+      devmode_error_invalid_enum(enum nex_time_unit, unit);
       return "Unknown";
   }
 }

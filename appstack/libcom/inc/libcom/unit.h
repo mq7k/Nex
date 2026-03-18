@@ -6,7 +6,7 @@
 
 BEGIN_DECLARATIONS
 
-enum nex_freq_unit
+enum nex_freq_unit : u32
 {
   NEX_FREQ_UNIT_Hz,
   NEX_FREQ_UNIT_KHz,
@@ -22,7 +22,7 @@ enum nex_byte_unit
   NEX_BYTE_UNIT_GB
 };
 
-enum nex_time_unit
+enum nex_time_unit : u32
 {
   NEX_TIME_UNIT_NANOSECOND,
   NEX_TIME_UNIT_MICROSECOND,
