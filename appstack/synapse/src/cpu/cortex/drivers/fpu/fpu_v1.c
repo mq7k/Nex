@@ -2,7 +2,7 @@
 #include "libcom/sys/devmode.h"
 #include "synapse/cpu/cortex/common/memorymap.h"
 #include "synapse/cpu/cortex/common/sys.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 
 typedef volatile struct fpu_registers_map fpu_periph;
 volatile fpu_periph* FPU = (fpu_periph*) (ARCH_FPU_ADDR);

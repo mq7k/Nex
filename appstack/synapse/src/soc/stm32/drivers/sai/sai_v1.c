@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/sai/sai_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct sai_registers_map sai_periph;

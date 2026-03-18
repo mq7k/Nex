@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/sdio/sdio_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct sdio_registers_map sdio_periph;

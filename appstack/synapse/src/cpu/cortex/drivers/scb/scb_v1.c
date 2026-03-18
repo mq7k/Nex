@@ -1,6 +1,6 @@
 #include "synapse/cpu/cortex/drivers/scb/scb_v1.h"
 #include "synapse/cpu/cortex/common/memorymap.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct scb_registers_map scb_periph;

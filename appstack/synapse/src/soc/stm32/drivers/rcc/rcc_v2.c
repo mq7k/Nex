@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/rcc/rcc_v2.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct rcc_registers_map rcc_periph;

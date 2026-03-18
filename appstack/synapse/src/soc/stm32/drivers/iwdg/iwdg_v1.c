@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/iwdg/iwdg_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct iwdg_registers_map iwdg_periph;

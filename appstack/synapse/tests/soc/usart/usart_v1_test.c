@@ -244,18 +244,18 @@ test_usart_flag_clear(void)
 
 // └─Skipping type 'flag_clear (TODO)' (usart_flag_clear_multibuffer)
 void
-test_usart_data_read(void)
+test_usart_read_byte(void)
 {
   u32 res;
 
   // read_reg
   USART1->DR = 0;
-  res = usart_data_read(USART1);
+  res = usart_read_byte(USART1);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
   USART1->DR = 0xffffffff;
-  res = usart_data_read(USART1);
+  res = usart_read_byte(USART1);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
@@ -1386,7 +1386,7 @@ main(void)
   {
     TEST_FUNC(test_usart_is_flag_set),
     TEST_FUNC(test_usart_flag_clear),
-    TEST_FUNC(test_usart_data_read),
+    TEST_FUNC(test_usart_read_byte),
     TEST_FUNC(test_usart_send_byte),
     TEST_FUNC(test_usart_set_bittime),
     TEST_FUNC(test_usart_set_div_fraction),

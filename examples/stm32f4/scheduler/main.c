@@ -2,7 +2,7 @@
 #include "libcom/unit.h"
 #include "libcom/util.h"
 #include "synapse/cpu/cortex/periph/nvic.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "system/scheduler/scheduler.h"
 #include "system/scheduler/task_history.h"
 #include "synapse/soc/stm32/periph/rcc.h"

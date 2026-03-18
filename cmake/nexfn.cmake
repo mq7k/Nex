@@ -73,12 +73,12 @@ endfunction()
 function (nex_add_headers)
   cmake_parse_arguments(ARG "" "TARGET;PATH;MSG" "HEADERS" ${ARGN})
   set(ORIGINAL_LIST ${ARG_HEADERS})
-  list(TRANSFORM ARG_SOURCES PREPEND ${ARG_PATH}/)
+  list(TRANSFORM ARG_HEADERS PREPEND ${ARG_PATH}/)
 
   target_sources(${ARG_TARGET} PUBLIC
     FILE_SET HEADERS
     BASE_DIRS ${ARG_PATH}
-    FILES ${ORIGINAL_LIST}
+    FILES ${ARG_HEADERS}
   )
 
   if (ARG_MSG AND NEX_VERBOSE)

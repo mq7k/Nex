@@ -1,6 +1,6 @@
 #include "synapse/soc/stm32/drivers/fmpi2c/fmpi2c_v1.h"
 #include "libcom/sys/devmode.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/soc/stm32/system/chips/f4/memorymap.h"
 
 typedef struct fmpi2c_registers_map fmpi2c_periph;

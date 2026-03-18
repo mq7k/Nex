@@ -1,7 +1,7 @@
 #include "synapse/soc/stm32/drivers/spi/spi_v1.h"
 #include "libcom/format.h"
 #include "libcom/util.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
 #include "synapse/soc/stm32/drivers/spi/spiif.h"

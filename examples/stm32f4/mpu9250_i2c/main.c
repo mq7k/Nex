@@ -1,4 +1,4 @@
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/soc/stm32/periph/gpio.h"
 #include "synapse/soc/stm32/periph/i2c.h"
 #include "synapse/soc/stm32/periph/usart.h"

@@ -1,4 +1,4 @@
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/soc/stm32/periph/rcc.h"
 #include "synapse/soc/stm32/periph/tim.h"
 #include "synapse/soc/stm32/periph/flash.h"

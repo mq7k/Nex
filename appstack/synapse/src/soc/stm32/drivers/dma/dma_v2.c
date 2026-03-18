@@ -1,6 +1,6 @@
 #include "synapse/soc/stm32/drivers/dma/dma_v2.h"
 #include "libcom/util.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
 #include "synapse/soc/stm32/drivers/dma/dmaif.h"

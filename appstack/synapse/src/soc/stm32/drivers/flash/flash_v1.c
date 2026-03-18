@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/flash/flash_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct flash_registers_map flash_periph;

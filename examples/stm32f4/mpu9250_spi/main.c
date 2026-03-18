@@ -1,6 +1,6 @@
 #include "libcom/util.h"
 #include "synapse/cpu/cortex/drivers/fpu/fpu_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "synapse/soc/stm32/drivers/spi/spi_v1.h"
 #include "synapse/soc/stm32/periph/gpio.h"
 #include "synapse/soc/stm32/periph/spi.h"

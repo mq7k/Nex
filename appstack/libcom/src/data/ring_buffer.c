@@ -201,7 +201,7 @@ nex_ring_buffer_copy(
   if (buffer->head + count < buffer->len)
   {
     // No need to wrap around.
-    memcpy(dst, &buffer->buffer[buffer->head], count);
+    __builtin_memcpy(dst, &buffer->buffer[buffer->head], count);
     buffer->size -= count;
     buffer->head += count;
     return count;
@@ -210,10 +210,10 @@ nex_ring_buffer_copy(
   const u32 original_count = count;
 
   u32 bytes_left_before_wrap = buffer->len - buffer->head;
-  memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
+  __builtin_memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
 
   count -= bytes_left_before_wrap;
-  memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
+  __builtin_memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
 
   buffer->size -= original_count;
   buffer->head = count;
@@ -237,7 +237,7 @@ nex_ring_buffer_peek_copy(
   if (buffer->head + count < buffer->len)
   {
     // No need to wrap around.
-    memcpy(dst, &buffer->buffer[buffer->head], count);
+    __builtin_memcpy(dst, &buffer->buffer[buffer->head], count);
     // buffer->size -= count;
     // buffer->head += count;
     return count;
@@ -246,10 +246,10 @@ nex_ring_buffer_peek_copy(
   const u32 original_count = count;
 
   u32 bytes_left_before_wrap = buffer->len - buffer->head;
-  memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
+  __builtin_memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
 
   count -= bytes_left_before_wrap;
-  memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
+  __builtin_memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
 
   _advance_head(buffer, original_count);
   return original_count;
@@ -273,7 +273,7 @@ nex_ring_buffer_write_bytes(
   if (bytes_left >= count)
   {
     // No need to wrap around.
-    memcpy(&buffer->buffer[buffer->tail], src, count);
+    __builtin_memcpy(&buffer->buffer[buffer->tail], src, count);
     buffer->tail += count;
     buffer->size += count;
     // printf("[PC] All written, returning %u\n", count);
@@ -282,9 +282,9 @@ nex_ring_buffer_write_bytes(
 
   const u32 original_count = count;
 
-  memcpy(&buffer->buffer[buffer->tail], src, bytes_left);
+  __builtin_memcpy(&buffer->buffer[buffer->tail], src, bytes_left);
   count -= bytes_left;
-  memcpy(&buffer->buffer[0], src + bytes_left, count);
+  __builtin_memcpy(&buffer->buffer[0], src + bytes_left, count);
 
   _advance_tail(buffer, original_count);
 

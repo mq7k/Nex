@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/adc/adc_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 #if defined(STM32_ADC_COM)

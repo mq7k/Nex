@@ -44,10 +44,12 @@ def get_cli_args():
         required=True
     )
 
+    # Selects the platform to build for.
+    # This argument is ignored if either 
+    # '--examples' or '--tests' are specified.
     parser.add_argument(
         '--platform',
         choices=['desktop', 'arm'],
-        # default='arm',
         type=str,
         help='Selects the target platform to build for (Default: %(default)s). If \'--examples\' or \'--tests\' are specified, this flag is ignored.'
     )
@@ -75,11 +77,28 @@ def get_cli_args():
         help='Clean build directory before building (Default: %(default)s).'
     )
 
+    # Enables extra messages from the build system.
+    # (Not CMake itself, just our cmake files).
     parser.add_argument(
         '--verbose',
         action='store_true',
         default=False,
         help='Enables extra debug log.'
+    )
+
+    # Toggles compiler flags:
+    # - `-Wl,--gc-sections`
+    # - `-fdata-sections`
+    # - `-ffunction-sections`
+    # The compiler will get rid of unused
+    # symbols in the final binary.
+    # This reduces binary size, but may
+    # result in incorrect behavior with debuggers.
+    parser.add_argument(
+        '--gc-sections',
+        action='store_true',
+        default=True,
+        help='Prevents stripping away unused symbols.'
     )
 
     # Specifies the build directory.
