@@ -75,7 +75,7 @@ typedef u16 ttype;
 #define devmode_assert_false(condition)\
   devmode_assert(\
     !(condition),\
-    #condition " is expected to be false, but it's true",\
+    #condition " is expected to be false, but it's true"\
   )
 
 #define devmode_log(fmt, ...)\
@@ -83,6 +83,9 @@ typedef u16 ttype;
 
 #define devmode_warning(fmt, ...)\
   _devmode_warning(FILESRC, __func__, __LINE__, fmt, ##__VA_ARGS__)
+
+#define devmode_warning_if(condition, fmt, ...)\
+  if (condition) _devmode_warning(FILESRC, __func__, __LINE__, fmt, ##__VA_ARGS__)
 
 #define devmode_error(fmt, ...)\
   _devmode_error(FILESRC, __func__, __LINE__, fmt, ##__VA_ARGS__)
@@ -109,6 +112,7 @@ typedef u16 ttype;
 #define devmode_assert_false(condition)
 #define devmode_log(fmt, ...)
 #define devmode_warning(fmt, ...)
+#define devmode_warning_if(condition, fmt, ...)
 #define devmode_error(fmt, ...)
 #define devmode_error_invalid_enum(type, value)
 #define devmode_halt(trace) (void) trace;
