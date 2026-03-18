@@ -1,15 +1,5 @@
 include(${CMAKE_CURRENT_SOURCE_DIR}/libtestdefs.cmake)
-
-add_library(nex_libtest
-  # src/libtest.c
-)
-
-# target_sources(nex_libtest PUBLIC
-#   FILE_SET HEADERS
-#   BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
-#   FILES
-#     include/libtest/libtest.h
-# )
+add_library(nex_libtest)
 
 nex_add_sources(
   TARGET nex_libtest
