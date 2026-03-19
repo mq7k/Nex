@@ -19,3 +19,6 @@ set_property(TARGET nex_libtest PROPERTY C_STANDARD 23)
 target_link_libraries(nex_libtest PUBLIC nex_buildcfg)
 target_link_libraries(nex_libtest PUBLIC nex_libcom)
 
+# Math library.
+target_link_libraries(nex_libtest PUBLIC m)
+

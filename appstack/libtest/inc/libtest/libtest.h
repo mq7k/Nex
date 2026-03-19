@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define handle_assert_fail(condition, value, exp, format)\
   fprintf(stderr, "\n===============\n");\
@@ -16,6 +17,14 @@
   fprintf(stderr, #value " = " #format "\n", value);\
   fprintf(stderr, #exp " = " #format "\n", exp);\
   print_bin_compare(stderr, exp, value);\
+  fprintf(stderr, "===============\n")
+
+#define handle_assert_failf(condition, value, exp, format)\
+  fprintf(stderr, "\n===============\n");\
+  fprintf(stderr, "\033[31mAssertion failed.\033[0m\n");\
+  fprintf(stderr, ">> %s() at %s:%d\nCondition: " #condition ".\n", __func__, __FILE__, __LINE__);\
+  fprintf(stderr, #value " = " #format "\n", value);\
+  fprintf(stderr, #exp " = " #format "\n", exp);\
   fprintf(stderr, "===============\n")
 
 #define ABORT(message, ...)\
@@ -30,9 +39,32 @@
     }\
   } while (0)
 
+#define ASSERT_CONDITIONF(a, b, op)\
+  do {\
+    if (!((a) op (b)))\
+    {\
+      handle_assert_failf((a) op (b), a, b, "%f");\
+      exit(1);\
+    }\
+  } while (0)
+
 #define ASSERT_TRUE(value) ASSERT_CONDITION(value, 0, !=)
 #define ASSERT_FALSE(value) ASSERT_CONDITION(value, 0, ==)
 #define ASSERT_EQ(value, expected) ASSERT_CONDITION(value, expected, ==)
+
+// Automatic delta scaling.
+// A fixed delta only works for
+// value near 0.0f.
+#define ASSERT_EQF(value, expected)\
+  ASSERT_EQFD(\
+    value,\
+    expected,\
+    fminf(fabsf(value), fabsf(expected)) * 1e-6f\
+  )
+
+#define ASSERT_EQFD(value, expected, delta)\
+  ASSERT_CONDITIONF(fabsf(value - expected), delta, <=)
+
 #define ASSERT_NOT_EQ(value, expected) ASSERT_CONDITION(value, expected, !=)
 #define ASSERT_GT(value, expected) ASSERT_CONDITION(value, expected, >)
 #define ASSERT_GT_OR_EQ(value, expected) ASSERT_CONDITION(value, expected, >=)
