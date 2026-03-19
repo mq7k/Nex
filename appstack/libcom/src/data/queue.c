@@ -1,4 +1,5 @@
 #include "libcom/data/queue.h"
+#include "util.h"
 
 static u8*
 _get_entry(
@@ -10,7 +11,7 @@ _get_entry(
   return &queue->buf[mapped_idx];
 }
 
-void
+u32
 nex_queue_init(
   struct queue* queue,
   void* buf,
@@ -18,12 +19,19 @@ nex_queue_init(
   u32 element_sz
 )
 {
+  if (!nex_is_power_of_two(len))
+  {
+    return NEX_FAILURE;
+  }
+
   queue->buf = buf;
   queue->len = len;
   queue->head = 0;
   queue->tail = 0;
   queue->size = 0;
   queue->element_sz = element_sz;
+
+  return NEX_SUCCESS;
 }
 
 void*
