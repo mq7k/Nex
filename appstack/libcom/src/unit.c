@@ -14,11 +14,8 @@ static constexpr u32 factors1000i[] = {
   1, 1000, 1000000, 1000000000
 };
 
-static const float factors1000f[4][4] = {
-  { 1.0f, 0.001f, 0.000001f, 0.000000001f },
-  { 1000.0f, 1.0f, 0.001f, 0.000001f },
-  { 1000000.0f, 1000.0f, 1.0f, 0.001f },
-  { 1000000000.0f, 1000000.0f, 1000.0f, 1.0f }
+static constexpr float factors1000f[] = {
+  1.0f, 1e3, 1e6, 1e9
 };
 
 static u32
@@ -43,6 +40,29 @@ _convert_unit_factor1000i(
     overflow = __builtin_mul_overflow(value, factor, &val);
     devmode_assert_false(overflow);
     return val;
+  }
+
+  return value;
+}
+
+static float
+_convert_unit_factor1000f(
+  float value,
+  u32 from,
+  u32 to
+)
+{
+  if (to > from)
+  {
+    const u32 diff = to - from;
+    return value / factors1000f[diff];
+  }
+
+  if (to < from)
+  {
+    const u32 diff = from - to;
+    const float factor = factors1000f[diff];
+    return value * factor;
   }
 
   return value;
@@ -107,7 +127,7 @@ nex_convert_freq_unitf(
   devmode_assert_lower_or_eq(from, NEX_FREQ_UNIT_GHz);
   devmode_assert_lower_or_eq(to, NEX_FREQ_UNIT_GHz);
 
-  return value * factors1000f[from][to];
+  return _convert_unit_factor1000f(value, from, to);
 }
 
 u32
@@ -283,7 +303,7 @@ nex_convert_time_unitf(
   devmode_assert_lower_or_eq(from, NEX_TIME_UNIT_SECOND);
   devmode_assert_lower_or_eq(to, NEX_TIME_UNIT_SECOND);
 
-  return value * factors1000f[from][to];
+  return _convert_unit_factor1000f(value, from, to);
 }
 
 float
