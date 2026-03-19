@@ -269,24 +269,35 @@ nex_format_double_stream(
 )
 {
   u32 count = 0;
-  u32 int_part;
+  u64 int_part;
 
   if (value < 0)
   {
     callback(ctx, '-');
-    int_part = (u32) (-value);
+    int_part = (u64) (-value);
+    ++count;
   }
   else
   {
-    int_part = (u32) value;
+    int_part = (u64) value;
   }
 
-  count += nex_format_unsigned_int_stream(int_part, callback, ctx);
+  count += nex_format_unsigned_long_stream(int_part, callback, ctx);
 
   callback(ctx, '.');
   ++count;
 
-  u32 d = (u32) ((value - (double) ((u32) value)) * 1000000.0);
+  double d0 = (value - (double) ((u32) value)) * 1e7f;
+  u32 d;
+  if (d0 < 0)
+  {
+    d = (u32) (-d0);
+  }
+  else
+  {
+    d = (u32) d0;
+  }
+
   u32 c = d;
   u32 digits = 0;
   while (c > 0)
@@ -295,14 +306,25 @@ nex_format_double_stream(
     ++digits;
   }
 
-  for (u32 i = 0; i < (6 - digits); ++i)
+  u32 dec_part = 0;
+  for (u32 i = 0; i < (7 - digits); ++i)
   {
     callback(ctx, '0');
-    ++count;
+    ++dec_part;
   }
 
-  count += nex_format_unsigned_int_stream(d, callback, ctx);
-  return count;
+  if (d > 0)
+  {
+    dec_part += nex_format_unsigned_int_stream(d, callback, ctx);
+  }
+
+  for (u32 i = 0; i < (7 - dec_part); ++i)
+  {
+    callback(ctx, '0');
+    ++dec_part;
+  }
+
+  return count + dec_part;
 }
 
 u32
