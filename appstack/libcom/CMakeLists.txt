@@ -52,6 +52,7 @@ if (NEX_BUILD_TESTS)
   enable_testing()
   libcom_register_tests(
     unit_test.c
+    format_test.c
   )
 endif()
 
