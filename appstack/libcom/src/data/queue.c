@@ -63,7 +63,7 @@ nex_queue_peek_tail(
   struct queue* queue
 )
 {
-  return _get_entry(queue, queue->tail - 1);
+  return _get_entry(queue, FAST_MOD((queue->tail - 1), queue->len));
 }
 
 void*
