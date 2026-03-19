@@ -159,7 +159,7 @@ nex_format_signed_int_stream(
     callback(ctx, c);
   }
 
-  return count;
+  return count + neg;
 }
 
 u32
