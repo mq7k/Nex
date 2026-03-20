@@ -16,7 +16,7 @@ struct queue
   u32 element_sz;
 };
 
-void
+u32
 nex_queue_init(
   struct queue* queue,
   void* buf,

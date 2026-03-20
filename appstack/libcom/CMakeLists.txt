@@ -48,3 +48,13 @@ nex_add_headers(
 target_link_libraries(nex_libcom PUBLIC nex_buildcfg)
 target_include_directories(nex_libcom PUBLIC ${NEX_LIBCOM_INC_DIR})
 
+if (NEX_BUILD_TESTS)
+  enable_testing()
+  libcom_register_tests(
+    unit_test.c
+    format_test.c
+    queue_test.c
+    ring_buffer_test.c
+  )
+endif()
+

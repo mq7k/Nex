@@ -6,7 +6,7 @@
 
 BEGIN_DECLARATIONS
 
-enum nex_freq_unit
+enum nex_freq_unit : u32
 {
   NEX_FREQ_UNIT_Hz,
   NEX_FREQ_UNIT_KHz,
@@ -22,7 +22,7 @@ enum nex_byte_unit
   NEX_BYTE_UNIT_GB
 };
 
-enum nex_time_unit
+enum nex_time_unit : u32
 {
   NEX_TIME_UNIT_NANOSECOND,
   NEX_TIME_UNIT_MICROSECOND,
@@ -37,9 +37,9 @@ nex_convert_freq_unit(
   enum nex_freq_unit to
 );
 
-double
+float
 nex_convert_freq_unitf(
-  double value,
+  float value,
   enum nex_freq_unit from,
   enum nex_freq_unit to
 );
@@ -51,9 +51,9 @@ nex_convert_freq_to_largest(
   enum nex_freq_unit *res
 );
 
-double
+float
 nex_convert_freq_to_largestf(
-  double value,
+  float value,
   enum nex_freq_unit unit,
   enum nex_freq_unit* res
 );
@@ -64,22 +64,22 @@ nex_freq_unit_to_string(
 );
 
 u32
-nex_convert_bytes_unit(
+nex_convert_byte_unit(
   u32 value,
   enum nex_byte_unit from,
   enum nex_byte_unit to
 );
 
-double
+float
 nex_convert_byte_unitf(
-  double value,
+  float value,
   enum nex_byte_unit from,
   enum nex_byte_unit to
 );
 
-double
+float
 nex_convert_byte_to_largestf(
-  double value,
+  float value,
   enum nex_byte_unit from,
   enum nex_byte_unit* res
 );
@@ -103,16 +103,16 @@ nex_convert_time_unit(
   enum nex_time_unit to
 );
 
-double
+float
 nex_convert_time_unitf(
-  double value,
+  float value,
   enum nex_time_unit from,
   enum nex_time_unit to
 );
 
-double
+float
 nex_convert_time_to_largestf(
-  double value,
+  float value,
   enum nex_time_unit unit,
   enum nex_time_unit* res
 );
