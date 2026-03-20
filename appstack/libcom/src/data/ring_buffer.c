@@ -202,8 +202,6 @@ nex_ring_buffer_copy(
   {
     // No need to wrap around.
     __builtin_memcpy(dst, &buffer->buffer[buffer->head], count);
-    // buffer->size -= count;
-    // buffer->head += count;
     _advance_head(buffer, count);
     return count;
   }
@@ -239,8 +237,6 @@ nex_ring_buffer_peek_copy(
   {
     // No need to wrap around.
     __builtin_memcpy(dst, &buffer->buffer[buffer->head], count);
-    // buffer->size -= count;
-    // buffer->head += count;
     return count;
   }
 
@@ -252,7 +248,6 @@ nex_ring_buffer_peek_copy(
   count -= bytes_left_before_wrap;
   __builtin_memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
 
-  // _advance_head(buffer, original_count);
   return original_count;
 }
 
@@ -270,15 +265,11 @@ nex_ring_buffer_write_bytes(
   }
 
   const u32 bytes_left = buffer->len - buffer->tail;
-  // printf("[PC] Bytes left: %u (%u, %u)\n", bytes_left, buffer->len, buffer->tail);
   if (bytes_left >= count)
   {
     // No need to wrap around.
     __builtin_memcpy(&buffer->buffer[buffer->tail], src, count);
-    // buffer->tail += count;
     _advance_tail(buffer, count);
-    // buffer->size += count;
-    // printf("[PC] All written, returning %u\n", count);
     return count;
   }
 
@@ -289,8 +280,6 @@ nex_ring_buffer_write_bytes(
   __builtin_memcpy(&buffer->buffer[0], src + bytes_left, count);
 
   _advance_tail(buffer, original_count);
-
-  // printf("[PC] Wrap write, returning %u\n", count);
   return count;
 }
 
