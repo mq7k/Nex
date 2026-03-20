@@ -53,6 +53,7 @@ if (NEX_BUILD_TESTS)
   libcom_register_tests(
     unit_test.c
     format_test.c
+    queue_test.c
   )
 endif()
 
