@@ -35,6 +35,13 @@
   fprintf(stderr, #exp " = \"%s\"\n", exp);\
   fprintf(stderr, "===============\n")
 
+#define handle_assert_fail_ptr(condition, value, exp, msg)\
+  fprintf(stderr, "\n===============\n");\
+  fprintf(stderr, "\033[31mAssertion failed.\033[0m\n");\
+  fprintf(stderr, ">> %s() at %s:%d\nCondition: %s.\n", __func__, __FILE__, __LINE__, msg);\
+  fprintf(stderr, #value " = %p\n", (void*) value);\
+  fprintf(stderr, "===============\n")
+
 #define ABORT(message, ...)\
   fprintf(stderr, "Unexpected condition reached.\n>>%s() at %s:%d\nCause: " #message "\n", __func__, __FILE__, __LINE__, ##__VA_ARGS__)
 
@@ -65,8 +72,20 @@
     }\
   } while (0)
 
+
+#define ASSERT_CONDITION_PTR(a, b, op, msg)\
+  do {\
+    if (!((a) op (b)))\
+    {\
+      handle_assert_fail_ptr((a) op (b), a, b, msg);\
+      exit(1);\
+    }\
+  } while (0)
+
 #define ASSERT_TRUE(value) ASSERT_CONDITION(value, 0, !=)
 #define ASSERT_FALSE(value) ASSERT_CONDITION(value, 0, ==)
+#define ASSERT_NON_NULL(ptr) ASSERT_CONDITION_PTR(ptr, 0, !=, #ptr " != NULL")
+#define ASSERT_NULL(ptr) ASSERT_CONDITION_PTR(ptr, 0, ==, #ptr " == NULL")
 #define ASSERT_EQ(value, expected) ASSERT_CONDITION(value, expected, ==)
 
 // Automatic delta scaling.
