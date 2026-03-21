@@ -26,7 +26,7 @@ Building a fully functional drone from scratch: hardware, firmware, and flight c
 
 ## Roadmap
 - stm32f7 support (More in the future).
-- Drivers interfaces.
+- Driver interfaces.
 - Sensor drivers.
 - Flight controller.
 - Bootloader.
