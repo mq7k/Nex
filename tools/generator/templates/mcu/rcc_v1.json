@@ -1,6 +1,6 @@
 {
   "periph": "RCC",
-  "path": "stm32/drivers/rcc/rcc_v1.h",
+  "path": "soc/stm32/drivers/rcc/rcc_v1.h",
   "struct": "rcc_registers_map",
   "functions": [
     {

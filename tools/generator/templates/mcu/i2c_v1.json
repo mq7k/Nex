@@ -1,6 +1,6 @@
 {
   "periph": "_I2C",
-  "path": "stm32/drivers/i2c/i2c_v1.h",
+  "path": "soc/stm32/drivers/i2c/i2c_v1.h",
   "struct": "i2c_registers_map",
   "functions": [
     {

@@ -1,6 +1,6 @@
 {
   "periph": "_GPIO",
-  "path": "stm32/drivers/gpio/gpio_v1.h",
+  "path": "soc/stm32/drivers/gpio/gpio_v1.h",
   "struct": "gpio_registers_map",
   "functions": [
     {

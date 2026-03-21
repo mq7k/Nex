@@ -1,6 +1,6 @@
 {
   "periph": "IWDG",
-  "path": "stm32/drivers/iwdg/iwdg_v1.h",
+  "path": "soc/stm32/drivers/iwdg/iwdg_v1.h",
   "struct": "iwdg_registers_map",
   "functions": [
     {

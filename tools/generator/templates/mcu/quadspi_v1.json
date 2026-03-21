@@ -1,6 +1,6 @@
 {
   "periph": "QUADSPI",
-  "path": "stm32/drivers/quadspi/quadspi_v1.h",
+  "path": "soc/stm32/drivers/quadspi/quadspi_v1.h",
   "struct": "quadspi_registers_map",
   "functions": [
     {

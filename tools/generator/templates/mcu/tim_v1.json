@@ -1,6 +1,6 @@
 {
   "periph": "_TIM",
-  "path": "stm32/drivers/tim/tim_v1.h",
+  "path": "soc/stm32/drivers/tim/tim_v1.h",
   "struct": "tim_registers_map",
   "functions": [
     {

@@ -1,6 +1,6 @@
 {
   "periph": "_SAI",
-  "path": "stm32/drivers/sai/sai_v1.h",
+  "path": "soc/stm32/drivers/sai/sai_v1.h",
   "struct": "sai_registers_map",
   "output_dir": "sai",
   "functions": [

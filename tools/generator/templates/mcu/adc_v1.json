@@ -1,6 +1,6 @@
 {
   "periph": "_ADC",
-  "path": "stm32/drivers/adc/adc_v1.h",
+  "path": "soc/stm32/drivers/adc/adc_v1.h",
   "struct": "adc_registers_map",
   "functions": [
     {

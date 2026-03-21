@@ -1,6 +1,6 @@
 {
   "periph": "BKP",
-  "path": "stm32/drivers/bkp/bkp_v1.h",
+  "path": "soc/stm32/drivers/bkp/bkp_v1.h",
   "struct": "bkp_registers_map",
   "functions": [
     {
