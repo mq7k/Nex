@@ -145,24 +145,6 @@ scb_is_isr_pending(void)
   return SCB->ICSR & SCB_ICSR_ISRPENDING;
 }
 
-// void
-// scb_systick_pending_clear(void)
-// {
-//   SCB->ICSR |= SCB_ICSR_PENDSTCLR;
-// }
-
-// void
-// scb_systick_set_pending(void)
-// {
-//   SCB->ICSR |= SCB_ICSR_PENDSTSET;
-// }
-
-// u32
-// scb_is_systick_pending(void)
-// {
-//   return SCB->ICSR & SCB_ICSR_PENDSTSET;
-// }
-
 void
 scb_pendsv_pending_clear(void)
 {
