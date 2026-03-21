@@ -23,9 +23,7 @@ def execute_cmd(cmd, timeout=None):
                 stdout=file,
                 stderr=file
             )
-            print(f'Return code: {res.returncode}')
-
-            return res.returncode == 0
+            return res.returncode
         # if res.returncode != 0:
         #     with open('guard.log', 'r') as file:
         #         print(file.read())
@@ -66,10 +64,12 @@ def try_compile(file):
             '--tests'
     ]
 
-    if not execute_cmd(cmd):
-        print('Error while trying to compile')
+    code = execute_cmd(cmd)
+    if code:
+        print(f'Error while trying to compile (code={code})')
         print_err_log()
-        sys.exit(1)
+        sys.exit(code)
+
     print('Success')
 
 def open_dir(path):
