@@ -1,5 +1,5 @@
 {
-  "periph": "DMA1",
+  "periph": "_DMA",
   "path": "stm32/drivers/dma/dma_v1.h",
   "struct": "dma_registers_map",
   "functions": [

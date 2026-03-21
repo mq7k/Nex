@@ -1,4 +1,9 @@
 def gen_setupfn(writer, periph, struct):
+    if periph.startswith('_'):
+        writer.write(f'volatile struct {struct}* {periph};')
+
+    writer.newline()
+
     writer.write('void')
     writer.write('setup(void)')
 

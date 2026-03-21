@@ -1,5 +1,5 @@
 {
-  "periph": "USART1",
+  "periph": "_USART",
   "path": "stm32/drivers/usart/usart_v1.h",
   "struct": "usart_registers_map",
   "functions": [

@@ -1,5 +1,5 @@
 {
-  "periph": "CAN1",
+  "periph": "_CAN",
   "path": "stm32/drivers/can/can_v1.h",
   "struct": "can_registers_map",
   "functions": [

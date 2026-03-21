@@ -1,5 +1,5 @@
 {
-  "periph": "SPI1",
+  "periph": "_SPI",
   "path": "stm32/drivers/spi/spi_v1.h",
   "struct": "spi_registers_map",
   "functions": [

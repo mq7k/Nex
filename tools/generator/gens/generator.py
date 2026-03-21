@@ -44,6 +44,13 @@ def generate_from_template(template: str, outfile: TextIO):
     writer = TestWriter(outfile = outfile)
     # writer = TestWriter(outfile = sys.stdout)
 
+    # We cannot use a static periph because not
+    # each MCUs have the same available.
+    # There isn't a peripheral instance available
+    # across each MCU, and even if there was,
+    # there are better way to spend our time.
+    # We can just declaring a `emulated` instance
+    # since it won't affect the result.
     header = { 
       'periph': template['periph'],
       'path': template['path'],
@@ -126,6 +133,7 @@ def handle_input_file(filename, directory_out, filename_fmt):
     if not output_dir:
         output_dir = re.sub('[\\d]+$', '', template['periph']).lower()
 
+    output_dir = output_dir.replace('_', '')
     parent_dir = f'{directory_out}/{output_dir}'
     if not os.path.exists(parent_dir):
         os.mkdir(parent_dir)
