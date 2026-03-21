@@ -476,6 +476,17 @@ _map_speedif(
       *speed = GPIO_SPEED_MEDIUM;
       break;
 
+#if defined(STM32_GPIO_SPEED_HIGH)
+    case GPIOIF_SPEED_HIGH:
+    case GPIOIF_SPEED_FAST:
+      *speed = GPIO_SPEED_HIGH;
+      break;
+#if defined(STM32_GPIO_VERY_HIGH_SPEED)
+    case GPIOIF_SPEED_VERY_HIGH:
+      *speed = GPIO_SPEED_VERY_HIGH;
+      break;
+#endif
+#elif defined(STM32_GPIO_SPEED_FAST)
     case GPIOIF_SPEED_FAST:
       *speed = GPIO_SPEED_FAST;
       break;
@@ -483,6 +494,7 @@ _map_speedif(
     case GPIOIF_SPEED_HIGH:
       *speed = GPIO_SPEED_HIGH;
       break;
+#endif
 
     default:
       return NEX_FAILURE;
