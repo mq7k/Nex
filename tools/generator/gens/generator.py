@@ -22,8 +22,6 @@ from gens.gen_preprocessor import gen_preprocessor
 from gens.gen_setupfn import gen_setupfn
 from gens.gen_mainfn import gen_mainfn
 
-from parser.tl_parser import parse_tl_file
-
 GENERATORS_MAP = {
     'bienum_set': gen_bienumset,
     'fn_toggle': gen_fntoggle,
@@ -79,7 +77,6 @@ def generate_from_template(template: str, outfile: TextIO):
         except Exception as e:
             print(f'Error while generating {fnname}')
             raise e
-            return
 
         generators.append(function)
 

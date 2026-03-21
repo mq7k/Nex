@@ -20,8 +20,6 @@ def gen_fnget_body(writer, header, function, scope):
     gen_fnget_body_read_bits(writer, header, function, scope)
 
 def gen_fnget_body_read_reg(writer, header, function, scope):
-    writer.write('// read_reg')
-
     reg = get_scope_reg(scope)
     periph = header.periph
     fn = get_function_name(function)
@@ -43,8 +41,6 @@ def gen_fnget_body_read_reg(writer, header, function, scope):
         writer.newline()
 
 def gen_fnget_body_read_bit(writer, header, function, scope):
-    writer.write('// read_bit')
-
     reg = get_scope_reg(scope)
     periph = header.periph
     fn = get_function_name(function)
@@ -75,8 +71,6 @@ def gen_fnget_body_read_bit(writer, header, function, scope):
         writer.newline()
 
 def gen_fnget_body_read_bits(writer, header, function, scope):
-    writer.write('// read_bits')
-
     reg = get_scope_reg(scope)
     periph = header.periph
     fn = get_function_name(function)

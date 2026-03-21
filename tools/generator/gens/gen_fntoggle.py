@@ -71,5 +71,4 @@ def gen_fntoggle_body(writer, header, function, scope):
             writer.assert_reg_eq(periph=periph, reg=reg, exp = f'~{bit}')
 
         writer.assert_execution_status(scope.halt)
-
         writer.newline()

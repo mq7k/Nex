@@ -1,5 +1,5 @@
 from util.consts import INT32_MAX
-from util.parser import get_param_name, get_function_name, get_bitval, get_signature, get_scope_reg
+from util.parser import get_function_name, get_bitval, get_signature, get_scope_reg
 from util.comgen import generate_decorator
 
 def gen_flagisset(writer, header, function):

@@ -1,14 +1,11 @@
-from util.consts import INT32_MAX
 from util.comgen import generate_decorator
-from util.parser import get_param_name, get_function_name, get_bitval, get_signature, get_scope_reg
+from util.parser import get_function_name, get_bitval, get_signature, get_scope_reg
 
 def gen_enumset(writer, header, function):
     callback_fn = lambda scope: gen_enumset_body(writer, header, function, scope)
     generate_decorator(writer, function, callback_fn)
 
 def gen_enumset_body(writer, header, function, scope):
-    writer.write(f'// {scope=}')
-
     reg = get_scope_reg(scope)
     periph = header.periph
     fn = get_function_name(function)
