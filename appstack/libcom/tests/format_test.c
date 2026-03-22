@@ -142,6 +142,12 @@ test_format_double_stream(void)
   ASSERT_EQ_STR(buf, "-1.0000000", 10);
 
   reset();
+  value = -3.0974931094083971;
+  written = nex_format_double_stream(value, _callback, NULL);
+  ASSERT_EQ(written, 10);
+  ASSERT_EQ_STR(buf, "-3.0974931", 10);
+
+  reset();
   value = 0.56;
   written = nex_format_double_stream(value, _callback, NULL);
   ASSERT_EQ(written, 9);
@@ -160,10 +166,16 @@ test_format_double_stream(void)
   ASSERT_EQ_STR(buf, "15.8000000", 10);
 
   reset();
-  value = -15.85;
+  value = 15.084346364;
+  written = nex_format_double_stream(value, _callback, NULL);
+  ASSERT_EQ(written, 10);
+  ASSERT_EQ_STR(buf, "15.0843463", 10);
+
+  reset();
+  value = -16.85;
   written = nex_format_double_stream(value, _callback, NULL);
   ASSERT_EQ(written, 11);
-  ASSERT_EQ_STR(buf, "-15.8500000", 11);
+  ASSERT_EQ_STR(buf, "-16.8500000", 11);
 
   reset();
   value = (double) UINT_MAX + 1;
