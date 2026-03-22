@@ -140,7 +140,6 @@ main(void)
 
   struct mpu9250 mpu = {
     .beio = &be,
-    .protocol = MPU9250_PROTOCOL_SPI,
     .cs_port = GPIOA,
     .cs_pin = GPIO0
   };

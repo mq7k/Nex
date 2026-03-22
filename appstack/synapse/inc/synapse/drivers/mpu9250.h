@@ -629,19 +629,11 @@ struct mpu9250_vec16
 struct mpu9250
 {
   struct beio* beio;
-  enum mpu9250_protocol protocol;
 
   // Only used in SPI.
   volatile void* cs_port;
   u32 cs_pin;
 };
-
-u32
-mpu9250_init(
-  struct mpu9250* mpu,
-  enum mpu9250_protocol protocol,
-  void* ctx
-);
 
 u32
 mpu9250_get_self_test_gyro(
