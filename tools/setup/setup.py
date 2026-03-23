@@ -51,9 +51,6 @@ def install_packages():
 
     resolver.do_install(pm, file)
 
-def check_versions(pm):
-    pm.check_version(packages)
-
 def main():
     if os.getuid() != 0:
         print('This script requires root privileges to install required packages.')
