@@ -57,10 +57,6 @@ def install_packages():
     resolver.do_install(pm, file)
 
 def main():
-    if os.getuid() != 0:
-        print('This script requires root privileges to install required packages.')
-        sys.exit(1)
-
     install_packages()
 
 if __name__ == '__main__':
