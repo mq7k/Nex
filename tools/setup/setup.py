@@ -38,13 +38,20 @@ def get_package_manager():
 
 def install_packages():
     pm, path = get_package_manager()
-    # if not os.getcwd().endswith('setup'):
-    #     os.chdir('tools/setup')
+
     file = f'packages/{path}'
+
+    # We navigate to the script directory if we currently
+    # are on the project root.
+    if not os.path.exists(file) and os.path.exists('tools/setup'):
+        os.chdir('tools/setup')
+
+    # If the file is still not found,
+    # it means the script was executed from outside
+    # the project directory.
     if not os.path.exists(file):
         print(f'File \'{file}\' not found')
-        print('Did you execute the script from the correct location?')
-        print('Try navigate to \'synapse/tools/setup\' and execute it again.')
+        print(f'Please, execute the script from either the project root or the script directory.')
         sys.exit(1)
 
     resolver.do_install(pm, file)
