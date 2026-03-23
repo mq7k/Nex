@@ -1,9 +1,7 @@
 #!/usr/bin/python
 
-import subprocess
 import os
 import sys
-import argparse
 
 from pm.apt import AptGet
 from pm.pacman import Pacman
