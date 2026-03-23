@@ -1,7 +1,7 @@
 # Nex
 Nex is a lightweight, layer-based embedded framework designed for building performance-critical applications on STM32 microcontrollers. Currently being developed as the foundation for a custom flight controller.
 
-**Status:** Beta (v0.1) - Core functionality working, API may change.
+**Status:** Beta - Core functionality working, API may change.
 
 The framework is organized in modular layers:
 - **Libcom** - Hardware-agnostic utilities (ring buffers, queues, formatters).
