@@ -22,8 +22,6 @@ from gens.gen_preprocessor import gen_preprocessor
 from gens.gen_setupfn import gen_setupfn
 from gens.gen_mainfn import gen_mainfn
 
-from parser.tl_parser import parse_tl_file
-
 GENERATORS_MAP = {
     'bienum_set': gen_bienumset,
     'fn_toggle': gen_fntoggle,
@@ -44,6 +42,13 @@ def generate_from_template(template: str, outfile: TextIO):
     writer = TestWriter(outfile = outfile)
     # writer = TestWriter(outfile = sys.stdout)
 
+    # We cannot use a static periph because not
+    # each MCUs have the same available.
+    # There isn't a peripheral instance available
+    # across each MCU, and even if there was,
+    # there are better way to spend our time.
+    # We can just declaring a `emulated` instance
+    # since it won't affect the result.
     header = { 
       'periph': template['periph'],
       'path': template['path'],
@@ -72,7 +77,6 @@ def generate_from_template(template: str, outfile: TextIO):
         except Exception as e:
             print(f'Error while generating {fnname}')
             raise e
-            return
 
         generators.append(function)
 
@@ -126,6 +130,7 @@ def handle_input_file(filename, directory_out, filename_fmt):
     if not output_dir:
         output_dir = re.sub('[\\d]+$', '', template['periph']).lower()
 
+    output_dir = output_dir.replace('_', '')
     parent_dir = f'{directory_out}/{output_dir}'
     if not os.path.exists(parent_dir):
         os.mkdir(parent_dir)

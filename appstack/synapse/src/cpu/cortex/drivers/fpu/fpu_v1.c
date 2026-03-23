@@ -2,7 +2,7 @@
 #include "libcom/sys/devmode.h"
 #include "synapse/cpu/cortex/common/memorymap.h"
 #include "synapse/cpu/cortex/common/sys.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 
 typedef volatile struct fpu_registers_map fpu_periph;
 volatile fpu_periph* FPU = (fpu_periph*) (ARCH_FPU_ADDR);
@@ -329,11 +329,3 @@ fpu_get_half_precision_default(void)
   return FPU->FPDSCR & FPU_FPDSCR_AHP;
 }
 
-u32
-cm_get_fpu_fpscr(void)
-{
-  __asm__ ("vmrs r0, FPSCR");
-}
-
-extern void
-cm_set_fpu_fpscr(u32 value);

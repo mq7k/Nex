@@ -1,6 +1,6 @@
 {
   "periph": "SDIO",
-  "path": "stm32/drivers/sdio/sdio_v1.h",
+  "path": "soc/stm32/drivers/sdio/sdio_v1.h",
   "struct": "sdio_registers_map",
   "functions": [
     {

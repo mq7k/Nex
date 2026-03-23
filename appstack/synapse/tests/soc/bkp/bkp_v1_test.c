@@ -4,6 +4,7 @@
 #include "synapse/soc/stm32/drivers/bkp/bkp_v1.h"
 #include "libtest/libtest.h"
 
+
 void
 setup(void)
 {

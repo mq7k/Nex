@@ -1,6 +1,6 @@
 {
   "periph": "LTDC",
-  "path": "stm32/drivers/ltdc/ltdc_v1.h",
+  "path": "soc/stm32/drivers/ltdc/ltdc_v1.h",
   "struct": "ltdc_registers_map",
   "functions": [
     {

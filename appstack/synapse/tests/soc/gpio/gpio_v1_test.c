@@ -4,10 +4,12 @@
 #include "synapse/soc/stm32/drivers/gpio/gpio_v1.h"
 #include "libtest/libtest.h"
 
+volatile struct gpio_registers_map* _GPIO;
+
 void
 setup(void)
 {
-  GPIOA = (struct gpio_registers_map*) membuf;
+  _GPIO = (struct gpio_registers_map*) membuf;
 }
 
 // └─Skipping type 'enum_set (TODO)' (gpio_setup_port)
@@ -18,13 +20,13 @@ test_gpio_port_read(void)
   u32 res;
 
   // read_reg
-  GPIOA->IDR = 0;
-  res = gpio_port_read(GPIOA);
+  _GPIO->IDR = 0;
+  res = gpio_port_read(_GPIO);
   ASSERT_EQ(res, 0);
   ASSERT_FALSE(execution_halted());
 
-  GPIOA->IDR = 0xffffffff;
-  res = gpio_port_read(GPIOA);
+  _GPIO->IDR = 0xffffffff;
+  res = gpio_port_read(_GPIO);
   ASSERT_EQ(res, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 

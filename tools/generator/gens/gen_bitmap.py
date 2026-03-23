@@ -13,9 +13,6 @@ def gen_bitmap_body_toggle(writer, header, function, scope):
     signature = get_signature(function)
     bit = get_bitval(scope)
 
-    enum_set = function['set']
-    enum_clear = function['clear']
-
     bit_arg_name = function['bits']['name']
     bit_min = function['bits']['min']
     bit_max = function['bits']['max']

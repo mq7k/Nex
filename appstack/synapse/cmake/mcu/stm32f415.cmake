@@ -26,5 +26,5 @@ nex_add_sources_property(
     can/can_v1.c
     sdio/sdio_v1.c
     dcmi/dcmi_v1.c
-    ltdc/ltdc_v1
+    ltdc/ltdc_v1.c
 )

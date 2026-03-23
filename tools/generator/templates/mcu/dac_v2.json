@@ -1,6 +1,6 @@
 {
   "periph": "DAC",
-  "path": "stm32/drivers/dac/dac_v2.h",
+  "path": "soc/stm32/drivers/dac/dac_v2.h",
   "struct": "dac_registers_map",
   "functions": [
     {

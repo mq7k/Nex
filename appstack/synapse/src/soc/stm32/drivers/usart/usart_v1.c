@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/usart/usart_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
 #include "libcom/format.h"
@@ -152,7 +152,7 @@ usart_flag_clear_multibuffer(
 }
 
 u32
-usart_data_read(
+usart_read_byte(
   volatile struct usart_registers_map* usart
 )
 {

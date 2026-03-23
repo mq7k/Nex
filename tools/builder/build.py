@@ -66,6 +66,9 @@ def main():
     if args.tests:
         build_dir = options['build_dir']
 
+        if not run_tests(f'{build_dir}/appstack/libcom'):
+            print('Error while executing libcom tests: non-zero exit code or timed out')
+
         if not run_tests(f'{build_dir}/appstack/synapse'):
             print('Error while executing synapse tests: non-zero exit code or timed out')
 

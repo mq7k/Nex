@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/dac/dac_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct dac_registers_map dac_periph;

@@ -1,6 +1,6 @@
 {
   "periph": "SCB",
-  "path": "arch/cortex/drivers/scb/scb_v1.h",
+  "path": "cpu/cortex/drivers/scb/scb_v1.h",
   "struct": "scb_registers_map",
   "functions": [
     {

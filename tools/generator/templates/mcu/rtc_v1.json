@@ -1,6 +1,6 @@
 {
   "periph": "RTC",
-  "path": "stm32/drivers/rtc/rtc_v1.h",
+  "path": "soc/stm32/drivers/rtc/rtc_v1.h",
   "struct": "rtc_registers_map",
   "functions": [
     {

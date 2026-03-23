@@ -1,0 +1,4 @@
+set(
+  NEX_EXAMPLES_DIR
+  ${CMAKE_SOURCE_DIR}/examples/${NEX_MCU_FAMILY_LINE}
+)

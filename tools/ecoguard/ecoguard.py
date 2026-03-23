@@ -1,11 +1,5 @@
 #!/usr/bin/python
 
-# To generate tests.
-# tools/generator/gen.py --output-dir tests/periph --path tools/generator/templates/drivers
-
-# To build a target.
-# tools/builder/build.py --target=targets/stm32/f4/stm32f446mc.json --build-type=Release --tests
-
 import os
 import subprocess
 import sys
@@ -23,35 +17,9 @@ def execute_cmd(cmd, timeout=None):
                 stdout=file,
                 stderr=file
             )
-            print(f'Return code: {res.returncode}')
-
-            return res.returncode == 0
-        # if res.returncode != 0:
-        #     with open('guard.log', 'r') as file:
-        #         print(file.read())
-        #     sys.exit(0)
-        # return True
+            return res.returncode
     except subprocess.TimeoutExpired:
         return False
-
-# def explore_family(path, family):
-#     print(f'>>> {family=}')
-#
-#     for mcu in os.listdir(f'{path}/{family}'):
-#         full_path = f'{path}/{family}/{mcu}'
-#         print(f'Compiling "{full_path}"')
-#         cmd = [
-#             'tools/builder/build.py',
-#             f'--target={full_path}',
-#             '--build-type=Release',
-#             '--tests'
-#         ]
-#         execute_cmake_cmd(cmd, 5)
-
-# def explore_target(target):
-#     path = f'targets/{target}'
-#     for family in os.listdir(path):
-#         explore_family(path, family)
 
 def print_err_log():
     with open(ERR_LOG_FILE_NAME, 'r') as file:
@@ -66,10 +34,12 @@ def try_compile(file):
             '--tests'
     ]
 
-    if not execute_cmd(cmd):
-        print('Error while trying to compile')
+    code = execute_cmd(cmd)
+    if code:
+        print(f'Error while trying to compile (code={code})')
         print_err_log()
-        sys.exit(1)
+        sys.exit(code)
+
     print('Success')
 
 def open_dir(path):
@@ -82,15 +52,8 @@ def open_dir(path):
             try_compile(file)
 
 def main():
-    # Execute this once.
-    # Clear tests/periph content if necessary.
-    # tools/generator/gen.py --output-dir tests/periph --path tools/generator/templates/drivers
-    
     path = 'appstack/synapse/cmake/targets'
     open_dir(path)
-    # targets = os.listdir('targets')
-    # for target in targets:
-    #     explore_target(target)
 
 if __name__ == '__main__':
     main()

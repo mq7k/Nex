@@ -40,16 +40,18 @@ def get_cli_args():
         choices=['Release', 'Debug'],
         default='Release',
         type=str,
-        help='Selects the build type configuration (Default: %(default)s).',
+        help='Select the build type configuration (Default: %(default)s).',
         required=True
     )
 
+    # Selects the platform to build for.
+    # This argument is ignored if either 
+    # '--examples' or '--tests' are specified.
     parser.add_argument(
         '--platform',
         choices=['desktop', 'arm'],
-        # default='arm',
         type=str,
-        help='Selects the target platform to build for (Default: %(default)s). If \'--examples\' or \'--tests\' are specified, this flag is ignored.'
+        help='Select the target platform to build for (Default: %(default)s). If \'--examples\' or \'--tests\' are specified, this flag is ignored.'
     )
 
     # Specifies the build generator that CMake will use.
@@ -62,7 +64,7 @@ def get_cli_args():
         '--generator',
         type=str,
         default='Ninja',
-        help='CMake generator (Default: %(default)s).'
+        help='Select CMake generator (Default: %(default)s).'
     )
 
     # Deletes the build directory before starting the current build process.
@@ -75,11 +77,28 @@ def get_cli_args():
         help='Clean build directory before building (Default: %(default)s).'
     )
 
+    # Enables extra messages from the build system.
+    # (Not CMake itself, just our cmake files).
     parser.add_argument(
         '--verbose',
         action='store_true',
         default=False,
-        help='Enables extra debug log.'
+        help='Enable extra debug log.'
+    )
+
+    # Toggles compiler flags:
+    # - `-Wl,--gc-sections`
+    # - `-fdata-sections`
+    # - `-ffunction-sections`
+    # The compiler will get rid of unused
+    # symbols in the final binary.
+    # This reduces binary size, but may
+    # result in incorrect behavior with debuggers.
+    parser.add_argument(
+        '--gc-sections',
+        action='store_true',
+        default=True,
+        help='Prevent stripping away unused symbols.'
     )
 
     # Specifies the build directory.
@@ -90,7 +109,7 @@ def get_cli_args():
     parser.add_argument(
         '--build-dir',
         type=str,
-        help='Output build directory (Default: %(default)s).'
+        help='Select output build directory (Default: %(default)s).'
     )
 
     # Includes devmode in the final binary.
@@ -103,7 +122,7 @@ def get_cli_args():
     parser.add_argument(
         '--devmode',
         action='store_true',
-        help='Include devmode in the final build (Not recommended in production builds).'
+        help='Enable devmode assertions (Not recommended in production builds).',
     )
 
     # Forces the use of software floats,

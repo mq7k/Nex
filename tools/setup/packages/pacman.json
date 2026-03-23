@@ -1,5 +1,6 @@
 [
   "arm-none-eabi-gcc",
+  "arm-none-eabi-newlib",
   "ninja",
   "cmake",
   "doxygen"

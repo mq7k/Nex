@@ -1,6 +1,6 @@
 {
   "periph": "AFIO",
-  "path": "stm32/drivers/afio/afio_v1.h",
+  "path": "soc/stm32/drivers/afio/afio_v1.h",
   "struct": "afio_registers_map",
   "functions": [
     {

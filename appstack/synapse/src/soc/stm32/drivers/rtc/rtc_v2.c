@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/rtc/rtc_v2.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct rtc_registers_map rtc_periph;
@@ -853,15 +853,13 @@ rtc_set_alarm_time(
   switch (alarm)
   {
     case RTC_ALARMA:
-      // while ((RTC->ISR & (1u << 1)) == 0);
-      WAIT_UNTIL(rtc_is_flag_set(RTC_FLAG_ALARMA_WRITE));
+      while (rtc_is_flag_set(RTC_FLAG_ALARMA_WRITE) == 0);
       RTC->ALRMAR = value;
       break;
     
 #if defined(STM32_RTC_ALARMB)
     case RTC_ALARMB:
-      // while ((RTC->ISR & (1u << 2)) == 0);
-      WAIT_UNTIL(rtc_is_flag_set(RTC_FLAG_ALARMA_WRITE));
+      while (rtc_is_flag_set(RTC_FLAG_ALARMA_WRITE) == 0);
       RTC->ALRMBR = value;
       break;
 #endif

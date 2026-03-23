@@ -198,27 +198,26 @@ nex_ring_buffer_copy(
     count = sz;
   }
 
-  if (buffer->head + count < buffer->len)
+  if (buffer->head + count <= buffer->len)
   {
     // No need to wrap around.
-    memcpy(dst, &buffer->buffer[buffer->head], count);
-    buffer->size -= count;
-    buffer->head += count;
+    __builtin_memcpy(dst, &buffer->buffer[buffer->head], count);
+    _advance_head(buffer, count);
     return count;
   }
 
   const u32 original_count = count;
 
   u32 bytes_left_before_wrap = buffer->len - buffer->head;
-  memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
+  __builtin_memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
 
   count -= bytes_left_before_wrap;
-  memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
+  __builtin_memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
 
   buffer->size -= original_count;
   buffer->head = count;
 
-  return count;
+  return original_count;
 }
 
 u32
@@ -234,24 +233,21 @@ nex_ring_buffer_peek_copy(
     count = sz;
   }
 
-  if (buffer->head + count < buffer->len)
+  if (buffer->head + count <= buffer->len)
   {
     // No need to wrap around.
-    memcpy(dst, &buffer->buffer[buffer->head], count);
-    // buffer->size -= count;
-    // buffer->head += count;
+    __builtin_memcpy(dst, &buffer->buffer[buffer->head], count);
     return count;
   }
 
   const u32 original_count = count;
 
   u32 bytes_left_before_wrap = buffer->len - buffer->head;
-  memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
+  __builtin_memcpy(dst, &buffer->buffer[buffer->head], bytes_left_before_wrap);
 
   count -= bytes_left_before_wrap;
-  memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
+  __builtin_memcpy(dst + bytes_left_before_wrap, buffer->buffer, count);
 
-  _advance_head(buffer, original_count);
   return original_count;
 }
 
@@ -262,33 +258,28 @@ nex_ring_buffer_write_bytes(
   u32 count
 )
 {
-  u32 size = nex_ring_buffer_len(buffer);
+  u32 size = nex_ring_buffer_space_left(buffer);
   if (count > size)
   {
     count = size;
   }
 
   const u32 bytes_left = buffer->len - buffer->tail;
-  // printf("[PC] Bytes left: %u (%u, %u)\n", bytes_left, buffer->len, buffer->tail);
   if (bytes_left >= count)
   {
     // No need to wrap around.
-    memcpy(&buffer->buffer[buffer->tail], src, count);
-    buffer->tail += count;
-    buffer->size += count;
-    // printf("[PC] All written, returning %u\n", count);
+    __builtin_memcpy(&buffer->buffer[buffer->tail], src, count);
+    _advance_tail(buffer, count);
     return count;
   }
 
   const u32 original_count = count;
 
-  memcpy(&buffer->buffer[buffer->tail], src, bytes_left);
+  __builtin_memcpy(&buffer->buffer[buffer->tail], src, bytes_left);
   count -= bytes_left;
-  memcpy(&buffer->buffer[0], src + bytes_left, count);
+  __builtin_memcpy(&buffer->buffer[0], src + bytes_left, count);
 
   _advance_tail(buffer, original_count);
-
-  // printf("[PC] Wrap write, returning %u\n", count);
   return count;
 }
 
@@ -306,7 +297,7 @@ nex_ring_buffer_find(
     u32 idx = FAST_MOD(buffer->head + i, buffer->len);
     if (buffer->buffer[idx] == byte)
     {
-      *pos = i;
+      *pos = (idx - starting_at);
       return NEX_SUCCESS;
     }
   }

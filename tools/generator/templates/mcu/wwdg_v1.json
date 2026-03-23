@@ -1,6 +1,6 @@
 {
   "periph": "WWDG",
-  "path": "stm32/drivers/wwdg/wwdg_v1.h",
+  "path": "soc/stm32/drivers/wwdg/wwdg_v1.h",
   "struct": "wwdg_registers_map",
   "functions": [ 
     {

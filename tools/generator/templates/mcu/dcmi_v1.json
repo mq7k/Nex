@@ -1,6 +1,6 @@
 {
   "periph": "DCMI",
-  "path": "stm32/drivers/dcmi/dcmi_v1.h",
+  "path": "soc/stm32/drivers/dcmi/dcmi_v1.h",
   "struct": "dcmi_registers_map",
   "functions": [
     {

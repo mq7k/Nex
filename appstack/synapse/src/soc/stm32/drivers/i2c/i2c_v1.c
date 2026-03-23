@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/i2c/i2c_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct i2c_registers_map i2c_periph;

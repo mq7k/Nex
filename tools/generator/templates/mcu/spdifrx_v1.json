@@ -1,6 +1,6 @@
 {
   "periph": "SPDIFRX",
-  "path": "stm32/drivers/spdifrx/spdifrx_v1.h",
+  "path": "soc/stm32/drivers/spdifrx/spdifrx_v1.h",
   "struct": "spdifrx_registers_map",
   "functions": [
     {

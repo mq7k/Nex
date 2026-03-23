@@ -1,6 +1,6 @@
 {
-  "periph": "USART1",
-  "path": "stm32/drivers/usart/usart_v1.h",
+  "periph": "_USART",
+  "path": "soc/stm32/drivers/usart/usart_v1.h",
   "struct": "usart_registers_map",
   "functions": [
     {
@@ -121,7 +121,7 @@
     },
     {
       "type": "fn_get",
-      "fn": "usart_data_read",
+      "fn": "usart_read_byte",
       "reg": "DR",
       "options": [
         "ioreg"

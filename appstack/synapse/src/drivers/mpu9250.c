@@ -2,48 +2,7 @@
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
 #include "libcom/util.h"
-#include "synapse/io/io_spi.h"
 #include "synapse/soc/stm32/drivers/gpio/gpioif.h"
-
-u32
-mpu9250_init(
-  struct mpu9250* mpu,
-  enum mpu9250_protocol protocol,
-  void* ctx
-)
-{
-  if (mpu->cs_port == NULL || mpu->cs_pin > (1u << 16))
-  {
-    return NEX_FAILURE;
-  }
-
-  struct ioops* ops;
-
-  switch (protocol)
-  {
-    case MPU9250_PROTOCOL_I2C:
-      // TODO: Implement I2C.
-      return NEX_FAILURE;
-
-    case MPU9250_PROTOCOL_SPI:
-      // We configure the backend to
-      // automatically skip dummy bytes
-      // before the actual payload.
-      struct beio_spi* beiospi = (struct beio_spi*) ctx;
-      beiospi->cflags |= BEIO_SPI_CFLAG_SKIP_DUMMY_DATA;
-      beiospi->dummy = 0x00;
-      ops = &ioops_spi;
-      break;
-
-    default:
-      return NEX_FAILURE;
-  }
-
-  mpu->beio->ops = ops;
-  mpu->beio->ctx = ctx;
-
-  return NEX_SUCCESS;
-}
 
 static void
 _cs_low(

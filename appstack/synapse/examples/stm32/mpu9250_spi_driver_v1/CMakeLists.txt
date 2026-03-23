@@ -1,1 +1,0 @@
-syn_create_example(mpu9250_spi_driver_v1)

@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/syscfg/syscfg_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 #include "synapse/specs.h"
 

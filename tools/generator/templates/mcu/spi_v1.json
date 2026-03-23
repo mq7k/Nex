@@ -1,6 +1,6 @@
 {
-  "periph": "SPI1",
-  "path": "stm32/drivers/spi/spi_v1.h",
+  "periph": "_SPI",
+  "path": "soc/stm32/drivers/spi/spi_v1.h",
   "struct": "spi_registers_map",
   "functions": [
     {
@@ -261,14 +261,29 @@
     },
     {
       "type": "fn_get",
-      "fn": "spi_data_read",
-      "reg": "DR"
+      "fn": "spi_read_byte",
+      "reg": "DR",
+      "mask": "0xff"
     },
     {
       "type": "fn_set_value",
-      "fn": "spi_data_write",
+      "fn": "spi_write_byte",
       "signature": "{periph}, {val}",
-      "reg": "DR"
+      "reg": "DR",
+      "mask": "0xff",
+      "options": [
+        "ioreg"
+      ],
+      "args": {
+        "val": [
+          {
+            "value": 0
+          },
+          {
+            "value": "0xff"
+          }
+        ]
+      }
     },
     {
       "type": "fn_set_value",

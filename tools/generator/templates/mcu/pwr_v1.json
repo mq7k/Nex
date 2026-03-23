@@ -1,6 +1,6 @@
 {
   "periph": "PWR",
-  "path": "stm32/drivers/pwr/pwr_v1.h",
+  "path": "soc/stm32/drivers/pwr/pwr_v1.h",
   "struct": "pwr_registers_map",
   "functions": [
     {

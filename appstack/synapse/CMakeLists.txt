@@ -71,11 +71,6 @@ add_subdirectory(src/io)
 # adds compiler/linker flags...
 include(syn)
 
-# TODO: Make sure this is correct.
-# if (BUILD_EXAMPLES AND SYN_PLATFORM_ARM)
-#   include(cmake/post/examples)
-# endif()
-
 nex_add_sources_from_property(
   TARGET nex_synapse_soc
   PATH ${NEX_SYN_SRC_DIR}/soc/${NEX_MCU_FAMILY}/drivers

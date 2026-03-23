@@ -1,5 +1,5 @@
 #include "synapse/soc/stm32/drivers/wwdg/wwdg_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/types.h"
 #include "libcom/sys/devmode.h"
 

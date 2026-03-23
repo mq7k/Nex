@@ -48,7 +48,6 @@ def _recv(keys, args, idx, ss):
         ss.pop_scope()
 
 def generate_args_combinations(args, ss):
-    items = args.items()
     keys = list(args.keys())
 
     yield from _recv(keys, args, 0, ss)

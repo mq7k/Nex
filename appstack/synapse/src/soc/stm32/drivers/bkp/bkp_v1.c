@@ -1,6 +1,6 @@
 #include "synapse/soc/stm32/system/specs.h"
 #include "synapse/soc/stm32/drivers/bkp/bkp_v1.h"
-#include "synapse/common/util/common.h"
+#include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 
 typedef volatile struct bkp_registers_map bkp_periph;

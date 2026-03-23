@@ -1,6 +1,6 @@
 {
   "periph": "SYSCFG",
-  "path": "stm32/drivers/syscfg/syscfg_v1.h",
+  "path": "soc/stm32/drivers/syscfg/syscfg_v1.h",
   "struct": "syscfg_registers_map",
   "functions": [
     {

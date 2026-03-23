@@ -353,8 +353,8 @@ void lptim1_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
 #endif
 
 #if defined(STM32_DFSDM2)
-void dfsm2_flt0_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
-void dfsm2_flt1_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
-void dfsm2_flt2_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
-void dfsm2_flt3_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
+void dfsdm2_flt0_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
+void dfsdm2_flt1_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
+void dfsdm2_flt2_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
+void dfsdm2_flt3_isr(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
 #endif
