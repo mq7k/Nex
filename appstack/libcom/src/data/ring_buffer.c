@@ -297,7 +297,7 @@ nex_ring_buffer_find(
     u32 idx = FAST_MOD(buffer->head + i, buffer->len);
     if (buffer->buffer[idx] == byte)
     {
-      *pos = (idx - starting_at);
+      *pos = (i - starting_at);
       return NEX_SUCCESS;
     }
   }
