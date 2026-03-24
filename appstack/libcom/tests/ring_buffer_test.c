@@ -270,13 +270,17 @@ test_ring_buffer_find(void)
   res = nex_ring_buffer_copy(&rb, dst, 8);
   ASSERT_EQ(res, 8);
 
-  src[7] = 1;
+  src[6] = 1;
   res = nex_ring_buffer_write_bytes(&rb, src, 8);
   ASSERT_EQ(res, 8);
 
   res = nex_ring_buffer_find(&rb, 1, 0, &pos);
   ASSERT_EQ(res, NEX_SUCCESS);
-  ASSERT_EQ(pos, 7);
+  ASSERT_EQ(pos, 14);
+
+  nex_ring_buffer_consume(&rb, pos);
+  u8 byte = nex_ring_buffer_read(&rb);
+  ASSERT_EQ(byte, 1);
 }
 
 void
