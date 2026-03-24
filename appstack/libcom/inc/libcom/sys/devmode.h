@@ -63,13 +63,13 @@ typedef u16 ttype;
   devmode_assert(\
     (value) == 0,\
     #value " is expected to be zero, but it's %d",\
-    (ttype) (condition)\
+    (ttype) (value)\
   )
 
 #define devmode_assert_true(condition)\
   devmode_assert(\
     (condition),\
-    #condition " is expected to be true, but it's false",\
+    #condition " is expected to be true, but it's false"\
   )
 
 #define devmode_assert_false(condition)\
