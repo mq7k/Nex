@@ -1,7 +1,7 @@
 # Nex
 Nex is a lightweight, layer-based embedded framework designed for building performance-critical applications on STM32 microcontrollers. Currently being developed as the foundation for a custom flight controller.
 
-**Status:** Beta (v0.1) - Core functionality working, API may change.
+**Status:** Beta - Core functionality working, API may change.
 
 The framework is organized in modular layers:
 - **Libcom** - Hardware-agnostic utilities (ring buffers, queues, formatters).
@@ -25,13 +25,12 @@ Where:
 Building a fully functional drone from scratch: hardware, firmware, and flight control algorithms. This framework serves as the embedded software foundation for that goal.
 
 ## Roadmap
-- stm32f7 support (More in the future).
-- Drivers interfaces.
+- Extend stm32 support to other families.
+- Driver interfaces.
 - Sensor drivers.
 - Flight controller.
 - Bootloader.
 - File system.
-- Improve CMake build system.
 - Multi-repo (?)
 - Doxygen docs.
 - More tests.

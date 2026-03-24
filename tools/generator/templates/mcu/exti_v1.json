@@ -1,6 +1,6 @@
 {
   "periph": "EXTI",
-  "path": "stm32/drivers/exti/exti_v1.h",
+  "path": "soc/stm32/drivers/exti/exti_v1.h",
   "struct": "exti_registers_map",
   "functions": [
     {

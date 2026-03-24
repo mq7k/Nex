@@ -1,6 +1,6 @@
 {
   "periph": "HASH",
-  "path": "stm32/drivers/hash/hash_v1.h",
+  "path": "soc/stm32/drivers/hash/hash_v1.h",
   "struct": "hash_registers_map",
   "functions": [
     {

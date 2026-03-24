@@ -270,6 +270,7 @@ nex_format_double_stream(
 {
   u32 count = 0;
   u64 int_part;
+  i64 sub_part = (i64) (-value);
 
   if (value < 0)
   {
@@ -287,7 +288,7 @@ nex_format_double_stream(
   callback(ctx, '.');
   ++count;
 
-  double d0 = (value - (double) ((u32) value)) * 1e7f;
+  double d0 = (value + (double) sub_part) * 1e7f;
   u32 d;
   if (d0 < 0)
   {

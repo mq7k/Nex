@@ -1,6 +1,6 @@
 {
   "periph": "DMA2D",
-  "path": "stm32/drivers/dma2d/dma2d_v1.h",
+  "path": "soc/stm32/drivers/dma2d/dma2d_v1.h",
   "struct": "dma2d_registers_map",
   "functions": [
     {

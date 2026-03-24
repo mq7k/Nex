@@ -1,6 +1,6 @@
 {
   "periph": "CRC",
-  "path": "stm32/drivers/crc/crc_v1.h",
+  "path": "soc/stm32/drivers/crc/crc_v1.h",
   "struct": "crc_registers_map",
   "functions": [
     {

@@ -344,15 +344,6 @@ scb_get_pending_exception_number(void);
 u32
 scb_is_isr_pending(void);
 
-// void
-// scb_systick_pending_clear(void);
-
-// void
-// scb_systick_set_pending(void);
-
-// u32
-// scb_is_systick_pending(void);
-
 void
 scb_pendsv_pending_clear(void);
 

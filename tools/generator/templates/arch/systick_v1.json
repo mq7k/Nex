@@ -1,6 +1,6 @@
 {
   "periph": "SYSTICK",
-  "path": "arch/cortex/drivers/systick/systick_v1.h",
+  "path": "cpu/cortex/drivers/systick/systick_v1.h",
   "struct": "systick_registers_map",
   "functions": [
     {

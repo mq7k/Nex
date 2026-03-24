@@ -1,6 +1,6 @@
 {
   "periph": "FLASH",
-  "path": "stm32/drivers/flash/flash_v2.h",
+  "path": "soc/stm32/drivers/flash/flash_v2.h",
   "struct": "flash_registers_map",
   "functions": [
     {

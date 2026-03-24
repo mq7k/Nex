@@ -1,7 +1,6 @@
 from util.consts import INT32_MAX
-from gens.common import generate_args_combinations
 from util.comgen import generate_decorator
-from util.parser import get_param_name, get_function_name, get_bitval, get_signature, get_scope_reg, parse_int
+from util.parser import get_function_name, get_signature, get_scope_reg, parse_int
 
 def gen_fnsetvalue(writer, header, function):
     if 'args' not in function:
@@ -56,13 +55,5 @@ def gen_fnsetvalue_body(writer, header, function, scope):
         v = f'({value}u << {shift})'
         writer.assert_reg_eq(periph=periph, reg=reg, exp=f'{m} | {v}')
 
-    # if not scope.halt:
-    #     m = f'~({mask}u << {shift})'
-    #     v = f'({value}u << {shift})'
-    #     writer.assert_reg_eq(periph=periph, reg=reg, exp=f'{m} | {v}')
-    # else:
-    #     writer.assert_reg_eq(periph=periph, reg=reg, exp=f'{mask}u << {shift}')
-
     writer.assert_execution_status(scope.halt)
-
     writer.newline()

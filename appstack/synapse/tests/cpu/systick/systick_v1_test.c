@@ -4,6 +4,7 @@
 #include "synapse/cpu/cortex/drivers/systick/systick_v1.h"
 #include "libtest/libtest.h"
 
+
 void
 setup(void)
 {
@@ -90,7 +91,6 @@ test_systick_has_overflowed(void)
 {
   u32 res;
 
-  // read_bit
   SYSTICK->CSR = 0;
   res = systick_has_overflowed();
   ASSERT_EQ(res, 0);
@@ -161,7 +161,6 @@ test_systick_get_current_value(void)
 {
   u32 res;
 
-  // read_bits
   SYSTICK->CVR = 0;
   res = systick_get_current_value();
   ASSERT_EQ(res, 0);
@@ -184,7 +183,6 @@ test_systick_get_calibration_value(void)
 {
   u32 res;
 
-  // read_bits
   SYSTICK->CALIB = 0;
   res = systick_get_calibration_value();
   ASSERT_EQ(res, 0);
@@ -207,7 +205,6 @@ test_systick_is_calibration_value_available(void)
 {
   u32 res;
 
-  // read_bit
   SYSTICK->CALIB = 0;
   res = systick_is_calibration_value_available();
   ASSERT_EQ(res, 0);
@@ -230,7 +227,6 @@ test_systick_has_reference_clock(void)
 {
   u32 res;
 
-  // read_bit
   SYSTICK->CALIB = 0;
   res = systick_has_reference_clock();
   ASSERT_EQ(res, 0);

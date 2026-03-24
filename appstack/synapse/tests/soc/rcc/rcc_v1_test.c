@@ -4,6 +4,7 @@
 #include "synapse/soc/stm32/drivers/rcc/rcc_v1.h"
 #include "libtest/libtest.h"
 
+
 void
 setup(void)
 {

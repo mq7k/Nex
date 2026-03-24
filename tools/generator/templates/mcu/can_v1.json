@@ -1,6 +1,6 @@
 {
-  "periph": "CAN1",
-  "path": "stm32/drivers/can/can_v1.h",
+  "periph": "_CAN",
+  "path": "soc/stm32/drivers/can/can_v1.h",
   "struct": "can_registers_map",
   "functions": [
     {

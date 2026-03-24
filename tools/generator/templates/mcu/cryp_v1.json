@@ -1,6 +1,6 @@
 {
   "periph": "CRYP",
-  "path": "stm32/drivers/cryp/cryp_v1.h",
+  "path": "soc/stm32/drivers/cryp/cryp_v1.h",
   "struct": "cryp_registers_map",
   "functions": [
     {
