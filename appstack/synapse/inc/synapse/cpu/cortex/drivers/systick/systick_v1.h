@@ -5,6 +5,9 @@
 #define CM3_SYSTICK_H
 
 #include "libcom/types.h"
+#include "libcom/util.h"
+
+BEGIN_DECLARATIONS
 
 /**
  * @brief SYST_CSR - Control and Status Register
@@ -290,5 +293,7 @@ systick_is_calibration_value_available(void);
  */
 u32
 systick_has_reference_clock(void);
+
+END_DECLARATIONS
 
 #endif
