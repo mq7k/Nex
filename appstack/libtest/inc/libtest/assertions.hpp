@@ -109,7 +109,7 @@ namespace nextest
 
   template <typename T, typename S>
   void
-  handleassert_fail(
+  handle_assert_fail(
     T value,
     S expected,
     const char* condition,
@@ -156,7 +156,7 @@ namespace nextest
     i32 result = nextest::compare(value, expected);
     if (result != 0)
     {
-      handleassert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
+      handle_assert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
     }
   }
 
@@ -174,7 +174,7 @@ namespace nextest
     i32 result = nextest::compare(value, expected);
     if (result == 0)
     {
-      handleassert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
+      handle_assert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
     }
   }
 
@@ -192,7 +192,7 @@ namespace nextest
     i32 result = nextest::compare(value, expected);
     if (!(result > 0))
     {
-      handleassert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
+      handle_assert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
     }
   }
 
@@ -210,7 +210,7 @@ namespace nextest
     i32 result = nextest::compare(value, expected);
     if (!(result >= 0))
     {
-      handleassert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
+      handle_assert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
     }
   }
 
@@ -228,7 +228,7 @@ namespace nextest
     i32 result = nextest::compare(value, expected);
     if (!(result < 0))
     {
-      handleassert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
+      handle_assert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
     }
   }
 
@@ -246,7 +246,7 @@ namespace nextest
     i32 result = nextest::compare(value, expected);
     if (!(result <= 0))
     {
-      handleassert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
+      handle_assert_fail(value, expected, condition, value_var_name, expected_var_name, loc);
     }
   }
 
@@ -262,7 +262,7 @@ namespace nextest
   {
     if (t != nullptr)
     {
-      handleassert_fail(t, NULL, condition, value_var_name, "", loc);
+      handle_assert_fail(t, NULL, condition, value_var_name, "", loc);
     }
   }
 
@@ -278,7 +278,7 @@ namespace nextest
   {
     if (t == nullptr)
     {
-      handleassert_fail(t, NULL, condition, value_var_name, "", loc);
+      handle_assert_fail(t, NULL, condition, value_var_name, "", loc);
     }
   }
 
@@ -293,7 +293,7 @@ namespace nextest
   {
     if (!t)
     {
-      handleassert_fail(t, true, condition, var_name, "", loc);
+      handle_assert_fail(t, true, condition, var_name, "", loc);
     }
   }
 
@@ -308,7 +308,7 @@ namespace nextest
   {
     if (t)
     {
-      handleassert_fail(t, false, condition, var_name, "", loc);
+      handle_assert_fail(t, false, condition, var_name, "", loc);
     }
   }
 
