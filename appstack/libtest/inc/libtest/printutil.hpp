@@ -36,7 +36,7 @@ namespace nextest
   template <typename T>
   requires (std::is_integral_v<T> && std::is_signed_v<T>)
   void 
-  _print(
+  print_var(
     T t
   )
   {
@@ -46,7 +46,7 @@ namespace nextest
   template <typename T>
   requires (std::is_integral_v<T> && std::is_unsigned_v<T>)
   void 
-  _print(
+  print_var(
     T t
   )
   {
@@ -56,7 +56,7 @@ namespace nextest
   template <typename T>
   requires (std::is_floating_point_v<T>)
   void 
-  _print(
+  print_var(
     T t
   )
   {
@@ -65,7 +65,8 @@ namespace nextest
 
   template <typename T>
   requires nextest::is_char_ptr<T>
-  void _print(
+  void 
+  print_var(
     T t
   )
   {
@@ -75,7 +76,7 @@ namespace nextest
   template <typename T>
   requires (std::is_pointer_v<T> && !nextest::is_char_ptr<T>)
   void 
-  _print(
+  print_var(
     T t
   )
   {
@@ -85,7 +86,7 @@ namespace nextest
   template <typename T>
   requires std::is_enum_v<T>
   void 
-  _print(
+  print_var(
     T t
   )
   {

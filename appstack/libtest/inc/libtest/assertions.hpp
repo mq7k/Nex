@@ -97,13 +97,13 @@ namespace nextest
 {
   template <typename T>
   void
-  print_var(
+  print_test_var(
     const char* varname,
     T t
   )
   {
     std::fprintf(stderr, "%s: ", varname);
-    _print(t);
+    print_var(t);
     std::fprintf(stderr, "\n");
   }
 
@@ -123,11 +123,11 @@ namespace nextest
     std::fprintf(stderr, ">> In function %s (%s:%u)\n", loc.file_name(), loc.file_name(), loc.line());
     std::fprintf(stderr, "Condition: %s\n", condition);
 
-    print_var(value_var_name, value);
+    print_test_var(value_var_name, value);
 
     if (std::strlen(expected_var_name) > 0)
     {
-      print_var(expected_var_name, expected);
+      print_test_var(expected_var_name, expected);
     }
 
     if constexpr (
