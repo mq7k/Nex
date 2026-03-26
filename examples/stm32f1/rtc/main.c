@@ -1,3 +1,4 @@
+#include "cpu/cortex/common/sys.h"
 #include "synapse/common/common.h"
 #include "synapse/cpu/cortex/periph/nvic.h"
 #include "synapse/soc/stm32/periph/gpio.h"
@@ -5,24 +6,32 @@
 #include "synapse/soc/stm32/periph/rcc.h"
 #include "synapse/soc/stm32/periph/rtc.h"
 
-void rcc_setup(void)
+void
+rcc_setup(void)
 {
-  rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
+  rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
   rcc_periph_clock_enable(RCC_PERIPH_BKP);
   rcc_periph_clock_enable(RCC_PERIPH_PWR);
 }
 
-void gpio_setup(void)
+void
+gpio_setup(void)
 {
+  // For some reason, using C13 (Which is connected to the onboard LED)
+  // generate such period:
+  // 1s off -> ~1.4s on
+  // Switching to any other GPIO pin fixes the issue.
+  // Honestly, I am not sure why.
   gpio_setup_port_pin(
-    GPIOC,
+    GPIOB,
     GPIO13,
     GPIO_MODE_OUTPUT_50MHZ,
     GPIO_CNF_OUTPUT_PUSHPULL
   );
 }
 
-void rtc_setup(void)
+void
+rtc_setup(void)
 {
   pwr_backup_domain_protection_disable();
 
@@ -54,14 +63,17 @@ void rtc_setup(void)
   rtc_interrupt_enable(RTC_INTERRUPT_SECOND);
 }
 
-void rtc_wakeup_isr(void)
+void
+rtc_wakeup_isr(void)
 {
   while (!rtc_is_flag_set(RTC_FLAG_WRITE_IDLE));
   rtc_flag_clear(RTC_FLAG_SECOND);
-  gpio_pin_toggle(GPIOC, GPIO13);
+  nvic_clear_pending_irq(NVIC_IRQ_RTC_WAKEUP);
+  gpio_pin_toggle(GPIOB, GPIO13);
 }
 
-int main(void)
+int
+main(void)
 {
   rcc_setup();
   gpio_setup();
@@ -72,3 +84,4 @@ int main(void)
 
   while (1);
 }
+
