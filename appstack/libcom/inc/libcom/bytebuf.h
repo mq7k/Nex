@@ -58,16 +58,22 @@ nex_bytebuf_set_cur(
   u32 offset
 );
 
-u32
+i32
 nex_bytebuf_read_u8(
   struct nex_bytebuf* stream,
   u8* var
 );
 
-void
+u8
 nex_bytebuf_read_u8_unsafe(
-  struct nex_bytebuf* stream,
-  u8* var
+  struct nex_bytebuf* stream
+);
+
+i32
+nex_bytebuf_read_u8_arr(
+  struct nex_bytebuf* bytebuf,
+  u8* buf,
+  u32 len
 );
 
 void
@@ -77,47 +83,53 @@ nex_bytebuf_read_u8_arr_unsafe(
   u32 len
 );
 
-u32
-nex_bytebuf_read_u8_arr(
-  struct nex_bytebuf* bytebuf,
-  u8* buf,
-  u32 len
-);
-
-u32
+i32
 nex_bytebuf_read_u16(
   struct nex_bytebuf* stream,
   u16* var
 );
 
-void
+u16
 nex_bytebuf_read_u16_unsafe(
-  struct nex_bytebuf* stream,
-  u16* var
+  struct nex_bytebuf* stream
 );
 
-u32
+i32
 nex_bytebuf_read_u32(
   struct nex_bytebuf* stream,
   u32* var
 );
 
-void
+u32
 nex_bytebuf_read_u32_unsafe(
+  struct nex_bytebuf* stream
+);
+
+i32
+nex_bytebuf_read_str(
   struct nex_bytebuf* stream,
-  u32* var
+  u8* buf
 );
 
 u32
-nex_bytebuf_read_str_fixed(
+nex_bytebuf_read_str_unsafe(
   struct nex_bytebuf* stream,
-  char* buf,
-  u32 max_len,
-  u32* read_count
+  u8* buf
 );
 
+i32
+nex_bytebuf_write_u8(
+  struct nex_bytebuf* stream,
+  u8 var
+);
 
-u32
+void
+nex_bytebuf_write_u8_unsafe(
+  struct nex_bytebuf* stream,
+  u8 var
+);
+
+i32
 nex_bytebuf_write_u8_arr(
   struct nex_bytebuf* stream,
   u8* buf,
@@ -131,19 +143,7 @@ nex_bytebuf_write_u8_arr_unsafe(
   u32 len
 );
 
-u32
-nex_bytebuf_write_u8(
-  struct nex_bytebuf* stream,
-  u8 var
-);
-
-void
-nex_bytebuf_write_u8_unsafe(
-  struct nex_bytebuf* stream,
-  u8 var
-);
-
-u32
+i32
 nex_bytebuf_write_u16(
   struct nex_bytebuf* stream,
   u16 var
@@ -155,7 +155,21 @@ nex_bytebuf_write_u16_unsafe(
   u16 var
 );
 
-u32
+i32
+nex_bytebuf_write_u16_arr(
+  struct nex_bytebuf* stream,
+  u16* buf,
+  u32 len
+);
+
+void
+nex_bytebuf_write_u16_arr_unsafe(
+  struct nex_bytebuf* stream,
+  u16* buf,
+  u32 len
+);
+
+i32
 nex_bytebuf_write_u32(
   struct nex_bytebuf* stream,
   u32 var
@@ -167,7 +181,21 @@ nex_bytebuf_write_u32_unsafe(
   u32 var
 );
 
-u32
+i32
+nex_bytebuf_write_u32_arr(
+  struct nex_bytebuf* stream,
+  u32* buf,
+  u32 len
+);
+
+void
+nex_bytebuf_write_u32_arr_unsafe(
+  struct nex_bytebuf* stream,
+  u32* buf,
+  u32 len
+);
+
+i32
 nex_bytebuf_write_str(
   struct nex_bytebuf* stream,
   const char* buf,

@@ -7,6 +7,6 @@ def gen_preprocessor(writer: TestWriter, path: str):
     writer.newline()
 
     writer.write(f'#include "synapse/{path}"')
-    writer.write('#include "libtest/libtest.h"')
+    writer.write('#include "libtest/libtest.hpp"')
 
     writer.newline()

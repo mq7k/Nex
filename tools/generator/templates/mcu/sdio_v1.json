@@ -92,13 +92,23 @@
       "mask": "0xffffffff"
     },
     {
-      "type": "fn_set_value",
+      "type": "enum_set",
       "fn": "sdio_set_cmd",
-      "signature": "{val}",
+      "signature": "{cmd}",
       "reg": "CMD",
+      "shift": 0,
+      "mask": "0xffffffff",
       "options": [
         "ioreg"
-      ]
+      ],
+      "args": {
+        "cmd": [
+          {
+            "enum": "SDIO_COMMAND_GO_IDLE_STATE",
+            "value": 0
+          }
+        ]
+      }
     },
     {
       "type": "enum_set",

@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.28)
-project(nex VERSION 1.0.0 LANGUAGES C ASM)
+project(nex VERSION 1.0.0 LANGUAGES C CXX ASM)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(NEX_BUILD_TESTS "Toggles tests build. (Def=ON)" ON)
 option(NEX_BUILD_EXAMPLES "Toggles examples build. (Def=OFF)" OFF)
@@ -23,7 +26,8 @@ include(cmake/build_config)
 
 nex_log(STATUS "Toolchain: ${CMAKE_TOOLCHAIN_FILE}")
 nex_log(STATUS "Root directory: ${PROJECT_SOURCE_DIR}")
-nex_log(STATUS "Using compiler: ${CMAKE_C_COMPILER}")
+nex_log(STATUS "Using C compiler: ${CMAKE_C_COMPILER}")
+nex_log(STATUS "Using CXX compiler: ${CMAKE_CXX_COMPILER}")
 nex_log(STATUS "Using objcopy: ${CMAKE_OBJCOPY}")
 nex_log(STATUS "Using C standard: ${CMAKE_C_STANDARD}")
 

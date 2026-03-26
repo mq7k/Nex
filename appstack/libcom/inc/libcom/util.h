@@ -17,15 +17,13 @@ BEGIN_DECLARATIONS
 #define NEX_ALIAS(name) __attribute__((alias(name)))
 #define NEX_WEAK_NEX_ALIAS(name) __attribute__((weak, alias(name)))
 
-#if __STDC_VERSION__ >= 202000
-// C23 or newer.
+#if defined(__cplusplus) || __STDC_VERSION__ >= 202000
+// C23 or newer OR C++.
 #define NEX_ALIGN_AS(value) alignas(value)
 #else
-// Older than C23.
+// Older than C23 AND not C++.
 #define NEX_ALIGN_AS(value) _Alignas(value)
 #endif
-// #define NEX_ALIGN(align) __attribute__((aligned(align)))
-// #define NEX_ALIGN_AS(type) __attribute__((aligned(sizeof(type))))
 
 #define FAST_MOD(a, b) ((a) & ((b) - 1))
 #define MAX(a, b) ((a) > (b) ? a : b)

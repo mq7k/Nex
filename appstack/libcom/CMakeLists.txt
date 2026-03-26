@@ -38,6 +38,7 @@ nex_add_headers(
     sys/runtime.h
 
     bytebuf.h
+    errcodes.h
     format.h
     semver.h
     types.h
@@ -51,10 +52,10 @@ target_include_directories(nex_libcom PUBLIC ${NEX_LIBCOM_INC_DIR})
 if (NEX_BUILD_TESTS)
   enable_testing()
   libcom_register_tests(
-    unit_test.c
-    format_test.c
-    queue_test.c
-    ring_buffer_test.c
+    unit_test.cpp
+    format_test.cpp
+    queue_test.cpp
+    ring_buffer_test.cpp
   )
 endif()
 

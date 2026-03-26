@@ -651,6 +651,6 @@ afio_set_external_interrupt_source(
   enum afio_pin pin
 );
 
-BEGIN_DECLARATIONS
+END_DECLARATIONS
 
 #endif
