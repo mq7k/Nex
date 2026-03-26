@@ -6,14 +6,16 @@
 #include "synapse/soc/stm32/periph/rcc.h"
 #include "synapse/soc/stm32/periph/rtc.h"
 
-void rcc_setup(void)
+void
+rcc_setup(void)
 {
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
   rcc_periph_clock_enable(RCC_PERIPH_BKP);
   rcc_periph_clock_enable(RCC_PERIPH_PWR);
 }
 
-void gpio_setup(void)
+void
+gpio_setup(void)
 {
   // For some reason, using C13 (Which is connected to the onboard LED)
   // generate such period:
@@ -28,7 +30,8 @@ void gpio_setup(void)
   );
 }
 
-void rtc_setup(void)
+void
+rtc_setup(void)
 {
   pwr_backup_domain_protection_disable();
 
@@ -60,7 +63,8 @@ void rtc_setup(void)
   rtc_interrupt_enable(RTC_INTERRUPT_SECOND);
 }
 
-void rtc_wakeup_isr(void)
+void
+rtc_wakeup_isr(void)
 {
   while (!rtc_is_flag_set(RTC_FLAG_WRITE_IDLE));
   rtc_flag_clear(RTC_FLAG_SECOND);
@@ -68,7 +72,8 @@ void rtc_wakeup_isr(void)
   gpio_pin_toggle(GPIOB, GPIO13);
 }
 
-int main(void)
+int
+main(void)
 {
   rcc_setup();
   gpio_setup();
