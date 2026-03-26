@@ -111,11 +111,11 @@ if (NEX_BUILD_TESTS)
   enable_testing()
 
   get_target_property(SOC_SRC_LIST nex_synapse_soc NEX_SRC_FILES)
-  list(TRANSFORM SOC_SRC_LIST REPLACE "\\.c" "_test.c")
+  list(TRANSFORM SOC_SRC_LIST REPLACE "\\.c" "_test.cpp")
   list(TRANSFORM SOC_SRC_LIST PREPEND ${NEX_SYN_TESTS_DIR}/soc/)
 
   get_target_property(CPU_SRC_LIST nex_synapse_cpu NEX_SRC_FILES)
-  list(TRANSFORM CPU_SRC_LIST REPLACE "\\.c" "_test.c")
+  list(TRANSFORM CPU_SRC_LIST REPLACE "\\.c" "_test.cpp")
   list(TRANSFORM CPU_SRC_LIST PREPEND ${NEX_SYN_TESTS_DIR}/cpu/)
 
   syn_register_tests(${SOC_SRC_LIST})

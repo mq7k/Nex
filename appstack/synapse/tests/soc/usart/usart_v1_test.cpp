@@ -1,0 +1,1429 @@
+#include "libcom/util.h"
+#include "libcom/types.h"
+
+#include "synapse/soc/stm32/drivers/usart/usart_v1.h"
+#include "libtest/libtest.hpp"
+
+volatile struct usart_registers_map* _USART;
+
+void
+setup(void)
+{
+  _USART = (struct usart_registers_map*) membuf;
+}
+
+void
+test_usart_is_flag_set(void)
+{
+  u32 res;
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_PARITY_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 0);
+  res = usart_is_flag_set(_USART, USART_FLAG_PARITY_ERROR);
+  ASSERT_EQ(res, (1u << 0));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 0);
+  res = usart_is_flag_set(_USART, USART_FLAG_PARITY_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_PARITY_ERROR);
+  ASSERT_EQ(res, (1u << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_FRAMING_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 1);
+  res = usart_is_flag_set(_USART, USART_FLAG_FRAMING_ERROR);
+  ASSERT_EQ(res, (1u << 1));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 1);
+  res = usart_is_flag_set(_USART, USART_FLAG_FRAMING_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_FRAMING_ERROR);
+  ASSERT_EQ(res, (1u << 1));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_NOISE_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 2);
+  res = usart_is_flag_set(_USART, USART_FLAG_NOISE_ERROR);
+  ASSERT_EQ(res, (1u << 2));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 2);
+  res = usart_is_flag_set(_USART, USART_FLAG_NOISE_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_NOISE_ERROR);
+  ASSERT_EQ(res, (1u << 2));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_OVERRUN_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 3);
+  res = usart_is_flag_set(_USART, USART_FLAG_OVERRUN_ERROR);
+  ASSERT_EQ(res, (1u << 3));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 3);
+  res = usart_is_flag_set(_USART, USART_FLAG_OVERRUN_ERROR);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_OVERRUN_ERROR);
+  ASSERT_EQ(res, (1u << 3));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_IDLE_LINE);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 4);
+  res = usart_is_flag_set(_USART, USART_FLAG_IDLE_LINE);
+  ASSERT_EQ(res, (1u << 4));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 4);
+  res = usart_is_flag_set(_USART, USART_FLAG_IDLE_LINE);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_IDLE_LINE);
+  ASSERT_EQ(res, (1u << 4));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 5);
+  res = usart_is_flag_set(_USART, USART_FLAG_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(res, (1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 5);
+  res = usart_is_flag_set(_USART, USART_FLAG_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(res, (1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMISSION_COMPLETE);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 6);
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMISSION_COMPLETE);
+  ASSERT_EQ(res, (1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 6);
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMISSION_COMPLETE);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMISSION_COMPLETE);
+  ASSERT_EQ(res, (1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMIT_REG_EMPTY);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 7);
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMIT_REG_EMPTY);
+  ASSERT_EQ(res, (1u << 7));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 7);
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMIT_REG_EMPTY);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_TRANSMIT_REG_EMPTY);
+  ASSERT_EQ(res, (1u << 7));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_LIN_BREAK);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 8);
+  res = usart_is_flag_set(_USART, USART_FLAG_LIN_BREAK);
+  ASSERT_EQ(res, (1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 8);
+  res = usart_is_flag_set(_USART, USART_FLAG_LIN_BREAK);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_LIN_BREAK);
+  ASSERT_EQ(res, (1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->SR = 0;
+  res = usart_is_flag_set(_USART, USART_FLAG_CTS);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = (1u << 9);
+  res = usart_is_flag_set(_USART, USART_FLAG_CTS);
+  ASSERT_EQ(res, (1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = ~(1u << 9);
+  res = usart_is_flag_set(_USART, USART_FLAG_CTS);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->SR = 0xffffffff;
+  res = usart_is_flag_set(_USART, USART_FLAG_CTS);
+  ASSERT_EQ(res, (1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+
+}
+
+void
+test_usart_flag_clear(void)
+{
+
+
+
+
+
+
+
+
+
+
+}
+
+// └─Skipping type 'flag_clear (TODO)' (usart_flag_clear_multibuffer)
+void
+test_usart_read_byte(void)
+{
+  u32 res;
+
+  _USART->DR = 0;
+  res = usart_read_byte(_USART);
+  ASSERT_EQ(res, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->DR = 0xffffffff;
+  res = usart_read_byte(_USART);
+  ASSERT_EQ(res, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_send_byte(void)
+{
+  _USART->DR = 0;
+  usart_send_byte(_USART, 0);
+  ASSERT_EQ(_USART->DR, 0u << 0);
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->DR = 0;
+  usart_send_byte(_USART, 0x1ff);
+  ASSERT_EQ(_USART->DR, 0x1ffu << 0);
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->DR = 0;
+  usart_send_byte(_USART, 0x200);
+  ASSERT_EQ(_USART->DR, 0x200u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
+}
+
+void
+test_usart_set_bittime(void)
+{
+  _USART->BRR = 0;
+  usart_set_bittime(_USART, 0);
+  ASSERT_EQ(_USART->BRR, 0u << 0);
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->BRR = 0;
+  usart_set_bittime(_USART, 0xffff);
+  ASSERT_EQ(_USART->BRR, 0xffffu << 0);
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->BRR = 0;
+  usart_set_bittime(_USART, 0x10000);
+  ASSERT_EQ(_USART->BRR, 0x10000u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
+}
+
+void
+test_usart_set_div_fraction(void)
+{
+  _USART->BRR = 0;
+  usart_set_div_fraction(_USART, 0);
+  ASSERT_EQ(_USART->BRR, 0u << 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->BRR = 0xffffffff;
+  usart_set_div_fraction(_USART, 0);
+  ASSERT_EQ(_USART->BRR, ~(0xfu << 0) | (0u << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->BRR = 0;
+  usart_set_div_fraction(_USART, 0xf);
+  ASSERT_EQ(_USART->BRR, 0xfu << 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->BRR = 0xffffffff;
+  usart_set_div_fraction(_USART, 0xf);
+  ASSERT_EQ(_USART->BRR, ~(0xfu << 0) | (0xfu << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->BRR = 0;
+  usart_set_div_fraction(_USART, 0x10);
+  ASSERT_EQ(_USART->BRR, 0x10u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  _USART->BRR = 0xffffffff;
+  usart_set_div_fraction(_USART, 0x10);
+  ASSERT_EQ(_USART->BRR, ~(0xfu << 0) | (0x10u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
+}
+
+void
+test_usart_set_div_mantissa(void)
+{
+  _USART->BRR = 0;
+  usart_set_div_mantissa(_USART, 0);
+  ASSERT_EQ(_USART->BRR, 0u << 4);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->BRR = 0xffffffff;
+  usart_set_div_mantissa(_USART, 0);
+  ASSERT_EQ(_USART->BRR, ~(0xfffu << 4) | (0u << 4));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->BRR = 0;
+  usart_set_div_mantissa(_USART, 0xfff);
+  ASSERT_EQ(_USART->BRR, 0xfffu << 4);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->BRR = 0xffffffff;
+  usart_set_div_mantissa(_USART, 0xfff);
+  ASSERT_EQ(_USART->BRR, ~(0xfffu << 4) | (0xfffu << 4));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->BRR = 0;
+  usart_set_div_mantissa(_USART, 0x1000);
+  ASSERT_EQ(_USART->BRR, 0x1000u << 4);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  _USART->BRR = 0xffffffff;
+  usart_set_div_mantissa(_USART, 0x1000);
+  ASSERT_EQ(_USART->BRR, ~(0xfffu << 4) | (0x1000u << 4));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
+}
+
+void
+test_usart_send_break(void)
+{
+  _USART->CR1 = 0;
+  usart_send_break(_USART);
+  ASSERT_EQ(_USART->CR1, (1u << 0));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 0);
+  usart_send_break(_USART);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_set_receiver_mode(void)
+{
+  _USART->CR1 = 0;
+  usart_set_receiver_mode(_USART, USART_RECEIVER_MODE_MUTE);
+  ASSERT_EQ(_USART->CR1, (1u << 1));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 1);
+  usart_set_receiver_mode(_USART, USART_RECEIVER_MODE_MUTE);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 1);
+  usart_set_receiver_mode(_USART, USART_RECEIVER_MODE_ACTIVE);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_set_receiver_mode(_USART, USART_RECEIVER_MODE_ACTIVE);
+  ASSERT_EQ(_USART->CR1, 0xffffffff & ~(1u << 1));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_receiver(void)
+{
+  _USART->CR1 = 0;
+  usart_receiver_enable(_USART);
+  ASSERT_EQ(_USART->CR1, (1u << 2));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 2);
+  usart_receiver_enable(_USART);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 2);
+  usart_receiver_disable(_USART);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_receiver_disable(_USART);
+  ASSERT_EQ(_USART->CR1, ~(1u << 2));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_transmitter(void)
+{
+  _USART->CR1 = 0;
+  usart_transmitter_enable(_USART);
+  ASSERT_EQ(_USART->CR1, (1u << 3));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 3);
+  usart_transmitter_enable(_USART);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 3);
+  usart_transmitter_disable(_USART);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_transmitter_disable(_USART);
+  ASSERT_EQ(_USART->CR1, ~(1u << 3));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_interrupt(void)
+{
+  _USART->CR1 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_IDLE);
+  ASSERT_EQ(_USART->CR1, (1u << 4));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 4);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_IDLE);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 4);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_IDLE);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_IDLE);
+  ASSERT_EQ(_USART->CR1, ~(1u << 4));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR1 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(_USART->CR1, (1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 5);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 5);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_READ_REG_NOT_EMPTY);
+  ASSERT_EQ(_USART->CR1, ~(1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR1 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_TRANSMITTION_COMPLETE);
+  ASSERT_EQ(_USART->CR1, (1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 6);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_TRANSMITTION_COMPLETE);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 6);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_TRANSMITTION_COMPLETE);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_TRANSMITTION_COMPLETE);
+  ASSERT_EQ(_USART->CR1, ~(1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR1 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_WRITE_REG_EMPTY);
+  ASSERT_EQ(_USART->CR1, (1u << 7));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 7);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_WRITE_REG_EMPTY);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 7);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_WRITE_REG_EMPTY);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_WRITE_REG_EMPTY);
+  ASSERT_EQ(_USART->CR1, ~(1u << 7));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR1 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_PARITY_ERROR);
+  ASSERT_EQ(_USART->CR1, (1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 8);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_PARITY_ERROR);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 8);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_PARITY_ERROR);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_PARITY_ERROR);
+  ASSERT_EQ(_USART->CR1, ~(1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR2 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_LINE_BREAK_DETECTION);
+  ASSERT_EQ(_USART->CR2, (1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(1u << 6);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_LINE_BREAK_DETECTION);
+  ASSERT_EQ(_USART->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = (1u << 6);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_LINE_BREAK_DETECTION);
+  ASSERT_EQ(_USART->CR2, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_LINE_BREAK_DETECTION);
+  ASSERT_EQ(_USART->CR2, ~(1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR3 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_ERROR);
+  ASSERT_EQ(_USART->CR3, (1u << 0));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 0);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_ERROR);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 0);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_ERROR);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_ERROR);
+  ASSERT_EQ(_USART->CR3, ~(1u << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR3 = 0;
+  usart_interrupt_enable(_USART, USART_INTERRUPT_CTS);
+  ASSERT_EQ(_USART->CR3, (1u << 10));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 10);
+  usart_interrupt_enable(_USART, USART_INTERRUPT_CTS);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 10);
+  usart_interrupt_disable(_USART, USART_INTERRUPT_CTS);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_interrupt_disable(_USART, USART_INTERRUPT_CTS);
+  ASSERT_EQ(_USART->CR3, ~(1u << 10));
+  ASSERT_FALSE(execution_halted());
+
+
+}
+
+void
+test_usart_set_parity(void)
+{
+  _USART->CR1 = 0;
+  usart_set_parity(_USART, USART_PARITY_ODD);
+  ASSERT_EQ(_USART->CR1, (1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 9);
+  usart_set_parity(_USART, USART_PARITY_ODD);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 9);
+  usart_set_parity(_USART, USART_PARITY_EVEN);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_set_parity(_USART, USART_PARITY_EVEN);
+  ASSERT_EQ(_USART->CR1, 0xffffffff & ~(1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_parity_control(void)
+{
+  _USART->CR1 = 0;
+  usart_parity_control_enable(_USART);
+  ASSERT_EQ(_USART->CR1, (1u << 10));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 10);
+  usart_parity_control_enable(_USART);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 10);
+  usart_parity_control_disable(_USART);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_parity_control_disable(_USART);
+  ASSERT_EQ(_USART->CR1, ~(1u << 10));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_set_wakeup_method(void)
+{
+  _USART->CR1 = 0;
+  usart_set_wakeup_method(_USART, USART_WAKEUP_METHOD_ADDRESS_MARK);
+  ASSERT_EQ(_USART->CR1, (1u << 11));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 11);
+  usart_set_wakeup_method(_USART, USART_WAKEUP_METHOD_ADDRESS_MARK);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 11);
+  usart_set_wakeup_method(_USART, USART_WAKEUP_METHOD_IDLE_LINE);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_set_wakeup_method(_USART, USART_WAKEUP_METHOD_IDLE_LINE);
+  ASSERT_EQ(_USART->CR1, 0xffffffff & ~(1u << 11));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_set_word_length(void)
+{
+  _USART->CR1 = 0;
+  usart_set_word_length(_USART, USART_WORD_LENGTH_9BITS);
+  ASSERT_EQ(_USART->CR1, (1u << 12));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 12);
+  usart_set_word_length(_USART, USART_WORD_LENGTH_9BITS);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 12);
+  usart_set_word_length(_USART, USART_WORD_LENGTH_8BITS);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_set_word_length(_USART, USART_WORD_LENGTH_8BITS);
+  ASSERT_EQ(_USART->CR1, 0xffffffff & ~(1u << 12));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart(void)
+{
+  _USART->CR1 = 0;
+  usart_enable(_USART);
+  ASSERT_EQ(_USART->CR1, (1u << 13));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 13);
+  usart_enable(_USART);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 13);
+  usart_disable(_USART);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_disable(_USART);
+  ASSERT_EQ(_USART->CR1, ~(1u << 13));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+#if defined(STM32_USART_OVERSAMPLING)
+void
+test_usart_set_oversampling_mode(void)
+{
+  _USART->CR1 = 0;
+  usart_set_oversampling_mode(_USART, USART_OVERSAMPLING_MODE8);
+  ASSERT_EQ(_USART->CR1, (1u << 15));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = ~(1u << 15);
+  usart_set_oversampling_mode(_USART, USART_OVERSAMPLING_MODE8);
+  ASSERT_EQ(_USART->CR1, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = (1u << 15);
+  usart_set_oversampling_mode(_USART, USART_OVERSAMPLING_MODE16);
+  ASSERT_EQ(_USART->CR1, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR1 = 0xffffffff;
+  usart_set_oversampling_mode(_USART, USART_OVERSAMPLING_MODE16);
+  ASSERT_EQ(_USART->CR1, 0xffffffff & ~(1u << 15));
+  ASSERT_FALSE(execution_halted());
+
+}
+#endif
+
+void
+test_usart_set_node_address(void)
+{
+  _USART->CR2 = 0;
+  usart_set_node_address(_USART, 0);
+  ASSERT_EQ(_USART->CR2, 0u << 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_set_node_address(_USART, 0);
+  ASSERT_EQ(_USART->CR2, ~(0xfu << 0) | (0u << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR2 = 0;
+  usart_set_node_address(_USART, 0xf);
+  ASSERT_EQ(_USART->CR2, 0xfu << 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_set_node_address(_USART, 0xf);
+  ASSERT_EQ(_USART->CR2, ~(0xfu << 0) | (0xfu << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR2 = 0;
+  usart_set_node_address(_USART, 0x10);
+  ASSERT_EQ(_USART->CR2, 0x10u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  _USART->CR2 = 0xffffffff;
+  usart_set_node_address(_USART, 0x10);
+  ASSERT_EQ(_USART->CR2, ~(0xfu << 0) | (0x10u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
+}
+
+void
+test_usart_set_line_break_detection_length(void)
+{
+  _USART->CR2 = 0;
+  usart_set_line_break_detection_length(_USART, USART_LINE_BREAK_LENGTH_11BITS);
+  ASSERT_EQ(_USART->CR2, (1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(1u << 5);
+  usart_set_line_break_detection_length(_USART, USART_LINE_BREAK_LENGTH_11BITS);
+  ASSERT_EQ(_USART->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = (1u << 5);
+  usart_set_line_break_detection_length(_USART, USART_LINE_BREAK_LENGTH_10BITS);
+  ASSERT_EQ(_USART->CR2, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_set_line_break_detection_length(_USART, USART_LINE_BREAK_LENGTH_10BITS);
+  ASSERT_EQ(_USART->CR2, 0xffffffff & ~(1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_last_bit_clock_pulse_output(void)
+{
+  _USART->CR2 = 0;
+  usart_last_bit_clock_pulse_output_enable(_USART);
+  ASSERT_EQ(_USART->CR2, (1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(1u << 8);
+  usart_last_bit_clock_pulse_output_enable(_USART);
+  ASSERT_EQ(_USART->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = (1u << 8);
+  usart_last_bit_clock_pulse_output_disable(_USART);
+  ASSERT_EQ(_USART->CR2, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_last_bit_clock_pulse_output_disable(_USART);
+  ASSERT_EQ(_USART->CR2, ~(1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_set_clock_phase(void)
+{
+  _USART->CR2 = 0;
+  usart_set_clock_phase(_USART, USART_CLOCK_PHASE_SECOND);
+  ASSERT_EQ(_USART->CR2, (1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(1u << 9);
+  usart_set_clock_phase(_USART, USART_CLOCK_PHASE_SECOND);
+  ASSERT_EQ(_USART->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = (1u << 9);
+  usart_set_clock_phase(_USART, USART_CLOCK_PHASE_FIRST);
+  ASSERT_EQ(_USART->CR2, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_set_clock_phase(_USART, USART_CLOCK_PHASE_FIRST);
+  ASSERT_EQ(_USART->CR2, 0xffffffff & ~(1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_set_clock_polarity(void)
+{
+  _USART->CR2 = 0;
+  usart_set_clock_polarity(_USART, USART_CLOCK_POLARITY_STEADY_HIGH);
+  ASSERT_EQ(_USART->CR2, (1u << 10));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(1u << 10);
+  usart_set_clock_polarity(_USART, USART_CLOCK_POLARITY_STEADY_HIGH);
+  ASSERT_EQ(_USART->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = (1u << 10);
+  usart_set_clock_polarity(_USART, USART_CLOCK_POLARITY_STEADY_LOW);
+  ASSERT_EQ(_USART->CR2, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_set_clock_polarity(_USART, USART_CLOCK_POLARITY_STEADY_LOW);
+  ASSERT_EQ(_USART->CR2, 0xffffffff & ~(1u << 10));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_clock(void)
+{
+  _USART->CR2 = 0;
+  usart_clock_enable(_USART);
+  ASSERT_EQ(_USART->CR2, (1u << 11));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(1u << 11);
+  usart_clock_enable(_USART);
+  ASSERT_EQ(_USART->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = (1u << 11);
+  usart_clock_disable(_USART);
+  ASSERT_EQ(_USART->CR2, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_clock_disable(_USART);
+  ASSERT_EQ(_USART->CR2, ~(1u << 11));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_set_stop_bits(void)
+{
+  _USART->CR2 = 0;
+  usart_set_stop_bits(_USART, USART_STOP_BITS_1BIT);
+  ASSERT_EQ(_USART->CR2, (0b00u << 12));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(0x3u << 12);
+  usart_set_stop_bits(_USART, USART_STOP_BITS_1BIT);
+  ASSERT_EQ(_USART->CR2, ~(0x3u << 12) | (0b00u << 12));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR2 = 0;
+  usart_set_stop_bits(_USART, USART_STOP_BITS_0DOT5_BITS);
+  ASSERT_EQ(_USART->CR2, (0b01u << 12));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(0x3u << 12);
+  usart_set_stop_bits(_USART, USART_STOP_BITS_0DOT5_BITS);
+  ASSERT_EQ(_USART->CR2, ~(0x3u << 12) | (0b01u << 12));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR2 = 0;
+  usart_set_stop_bits(_USART, USART_STOP_BITS_2BITS);
+  ASSERT_EQ(_USART->CR2, (0b10u << 12));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(0x3u << 12);
+  usart_set_stop_bits(_USART, USART_STOP_BITS_2BITS);
+  ASSERT_EQ(_USART->CR2, ~(0x3u << 12) | (0b10u << 12));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->CR2 = 0;
+  usart_set_stop_bits(_USART, USART_STOP_BITS_1DOT5_BITS);
+  ASSERT_EQ(_USART->CR2, (0b11u << 12));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(0x3u << 12);
+  usart_set_stop_bits(_USART, USART_STOP_BITS_1DOT5_BITS);
+  ASSERT_EQ(_USART->CR2, ~(0x3u << 12) | (0b11u << 12));
+  ASSERT_FALSE(execution_halted());
+
+
+}
+
+void
+test_usart_line_mode(void)
+{
+  _USART->CR2 = 0;
+  usart_line_mode_enable(_USART);
+  ASSERT_EQ(_USART->CR2, (1u << 14));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = ~(1u << 14);
+  usart_line_mode_enable(_USART);
+  ASSERT_EQ(_USART->CR2, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = (1u << 14);
+  usart_line_mode_disable(_USART);
+  ASSERT_EQ(_USART->CR2, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR2 = 0xffffffff;
+  usart_line_mode_disable(_USART);
+  ASSERT_EQ(_USART->CR2, ~(1u << 14));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_irda_mode(void)
+{
+  _USART->CR3 = 0;
+  usart_irda_mode_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 1));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 1);
+  usart_irda_mode_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 1);
+  usart_irda_mode_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_irda_mode_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 1));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_irda_low_power(void)
+{
+  _USART->CR3 = 0;
+  usart_irda_low_power_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 2));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 2);
+  usart_irda_low_power_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 2);
+  usart_irda_low_power_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_irda_low_power_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 2));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_half_duplex(void)
+{
+  _USART->CR3 = 0;
+  usart_half_duplex_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 3));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 3);
+  usart_half_duplex_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 3);
+  usart_half_duplex_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_half_duplex_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 3));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_smartcard_nack(void)
+{
+  _USART->CR3 = 0;
+  usart_smartcard_nack_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 4));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 4);
+  usart_smartcard_nack_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 4);
+  usart_smartcard_nack_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_smartcard_nack_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 4));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_smardcard_mode(void)
+{
+  _USART->CR3 = 0;
+  usart_smardcard_mode_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 5);
+  usart_smardcard_mode_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 5);
+  usart_smardcard_mode_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_smardcard_mode_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 5));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_dma_reception(void)
+{
+  _USART->CR3 = 0;
+  usart_dma_reception_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 6);
+  usart_dma_reception_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 6);
+  usart_dma_reception_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_dma_reception_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 6));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_dma_transmission(void)
+{
+  _USART->CR3 = 0;
+  usart_dma_transmission_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 7));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 7);
+  usart_dma_transmission_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 7);
+  usart_dma_transmission_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_dma_transmission_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 7));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_rts(void)
+{
+  _USART->CR3 = 0;
+  usart_rts_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 8);
+  usart_rts_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 8);
+  usart_rts_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_rts_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 8));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+void
+test_usart_cts(void)
+{
+  _USART->CR3 = 0;
+  usart_cts_enable(_USART);
+  ASSERT_EQ(_USART->CR3, (1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 9);
+  usart_cts_enable(_USART);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 9);
+  usart_cts_disable(_USART);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_cts_disable(_USART);
+  ASSERT_EQ(_USART->CR3, ~(1u << 9));
+  ASSERT_FALSE(execution_halted());
+
+}
+
+#if defined(STM32_USART_ONEBIT_SAMPLING)
+void
+test_usart_set_onebit_sampling_method(void)
+{
+  _USART->CR3 = 0;
+  usart_set_onebit_sampling_method(_USART, USART_ONEBIT_SAMPLING_METHOD_ONE_SAMPLE);
+  ASSERT_EQ(_USART->CR3, (1u << 11));
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = ~(1u << 11);
+  usart_set_onebit_sampling_method(_USART, USART_ONEBIT_SAMPLING_METHOD_ONE_SAMPLE);
+  ASSERT_EQ(_USART->CR3, 0xffffffff);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = (1u << 11);
+  usart_set_onebit_sampling_method(_USART, USART_ONEBIT_SAMPLING_METHOD_THREE_SAMPLE);
+  ASSERT_EQ(_USART->CR3, 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->CR3 = 0xffffffff;
+  usart_set_onebit_sampling_method(_USART, USART_ONEBIT_SAMPLING_METHOD_THREE_SAMPLE);
+  ASSERT_EQ(_USART->CR3, 0xffffffff & ~(1u << 11));
+  ASSERT_FALSE(execution_halted());
+
+}
+#endif
+
+void
+test_usart_set_prescaler(void)
+{
+  _USART->GTPR = 0;
+  usart_set_prescaler(_USART, 0);
+  ASSERT_EQ(_USART->GTPR, 0u << 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->GTPR = 0xffffffff;
+  usart_set_prescaler(_USART, 0);
+  ASSERT_EQ(_USART->GTPR, ~(0xffu << 0) | (0u << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->GTPR = 0;
+  usart_set_prescaler(_USART, 0xff);
+  ASSERT_EQ(_USART->GTPR, 0xffu << 0);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->GTPR = 0xffffffff;
+  usart_set_prescaler(_USART, 0xff);
+  ASSERT_EQ(_USART->GTPR, ~(0xffu << 0) | (0xffu << 0));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->GTPR = 0;
+  usart_set_prescaler(_USART, 0x100);
+  ASSERT_EQ(_USART->GTPR, 0x100u << 0);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  _USART->GTPR = 0xffffffff;
+  usart_set_prescaler(_USART, 0x100);
+  ASSERT_EQ(_USART->GTPR, ~(0xffu << 0) | (0x100u << 0));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
+}
+
+void
+test_usart_set_guard_time(void)
+{
+  _USART->GTPR = 0;
+  usart_set_guard_time(_USART, 0);
+  ASSERT_EQ(_USART->GTPR, 0u << 8);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->GTPR = 0xffffffff;
+  usart_set_guard_time(_USART, 0);
+  ASSERT_EQ(_USART->GTPR, ~(0xffu << 8) | (0u << 8));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->GTPR = 0;
+  usart_set_guard_time(_USART, 0xff);
+  ASSERT_EQ(_USART->GTPR, 0xffu << 8);
+  ASSERT_FALSE(execution_halted());
+
+  _USART->GTPR = 0xffffffff;
+  usart_set_guard_time(_USART, 0xff);
+  ASSERT_EQ(_USART->GTPR, ~(0xffu << 8) | (0xffu << 8));
+  ASSERT_FALSE(execution_halted());
+
+
+  _USART->GTPR = 0;
+  usart_set_guard_time(_USART, 0x100);
+  ASSERT_EQ(_USART->GTPR, 0x100u << 8);
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+  _USART->GTPR = 0xffffffff;
+  usart_set_guard_time(_USART, 0x100);
+  ASSERT_EQ(_USART->GTPR, ~(0xffu << 8) | (0x100u << 8));
+  ASSERT_TRUE(execution_halted());
+  execution_resume();
+
+
+}
+
+int
+main(void)
+{
+  const test_function_t tests[] =
+  {
+    TEST_FUNC(test_usart_is_flag_set),
+    TEST_FUNC(test_usart_flag_clear),
+    TEST_FUNC(test_usart_read_byte),
+    TEST_FUNC(test_usart_send_byte),
+    TEST_FUNC(test_usart_set_bittime),
+    TEST_FUNC(test_usart_set_div_fraction),
+    TEST_FUNC(test_usart_set_div_mantissa),
+    TEST_FUNC(test_usart_send_break),
+    TEST_FUNC(test_usart_set_receiver_mode),
+    TEST_FUNC(test_usart_receiver),
+    TEST_FUNC(test_usart_transmitter),
+    TEST_FUNC(test_usart_interrupt),
+    TEST_FUNC(test_usart_set_parity),
+    TEST_FUNC(test_usart_parity_control),
+    TEST_FUNC(test_usart_set_wakeup_method),
+    TEST_FUNC(test_usart_set_word_length),
+    TEST_FUNC(test_usart),
+#if defined(STM32_USART_OVERSAMPLING)
+    TEST_FUNC(test_usart_set_oversampling_mode),
+#endif
+    TEST_FUNC(test_usart_set_node_address),
+    TEST_FUNC(test_usart_set_line_break_detection_length),
+    TEST_FUNC(test_usart_last_bit_clock_pulse_output),
+    TEST_FUNC(test_usart_set_clock_phase),
+    TEST_FUNC(test_usart_set_clock_polarity),
+    TEST_FUNC(test_usart_clock),
+    TEST_FUNC(test_usart_set_stop_bits),
+    TEST_FUNC(test_usart_line_mode),
+    TEST_FUNC(test_usart_irda_mode),
+    TEST_FUNC(test_usart_irda_low_power),
+    TEST_FUNC(test_usart_half_duplex),
+    TEST_FUNC(test_usart_smartcard_nack),
+    TEST_FUNC(test_usart_smardcard_mode),
+    TEST_FUNC(test_usart_dma_reception),
+    TEST_FUNC(test_usart_dma_transmission),
+    TEST_FUNC(test_usart_rts),
+    TEST_FUNC(test_usart_cts),
+#if defined(STM32_USART_ONEBIT_SAMPLING)
+    TEST_FUNC(test_usart_set_onebit_sampling_method),
+#endif
+    TEST_FUNC(test_usart_set_prescaler),
+    TEST_FUNC(test_usart_set_guard_time),
+  };
+
+  return TESTS_RUN(tests);
+}

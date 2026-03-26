@@ -1,7 +1,7 @@
 #include "libcom/data/ring_buffer.h"
+#include "errcodes.h"
 #include "libcom/util.h"
-
-#include <string.h>
+#include <limits.h>
 
 static void
 _advance_head(
@@ -23,8 +23,24 @@ _advance_tail(
   buffer->size += len;
 }
 
-void
+i32
 nex_ring_buffer_init(
+  struct nex_ring_buffer* buffer,
+  u8* rawbuf,
+  u32 len
+)
+{
+  if (!nex_is_power_of_two(len))
+  {
+    return -NERR_INV_ARG;
+  }
+
+  nex_ring_buffer_init_unsafe(buffer, rawbuf, len);
+  return NOK;
+}
+
+void
+nex_ring_buffer_init_unsafe(
   struct nex_ring_buffer* buffer,
   u8* rawbuf,
   u32 len
@@ -79,7 +95,7 @@ nex_ring_buffer_clear(
   buffer->size = 0;
 }
 
-u32
+i32
 nex_ring_buffer_write(
   struct nex_ring_buffer* buffer,
   u8 byte
@@ -87,36 +103,49 @@ nex_ring_buffer_write(
 {
   if (buffer->size == buffer->len)
   {
-    return NEX_FAILURE;
+    return -NERR_FULL;
   }
 
-  buffer->buffer[buffer->tail] = byte;
-  _advance_tail(buffer, 1);
-
-  return NEX_SUCCESS;
-}
-
-u8
-nex_ring_buffer_pop_head(
-  struct nex_ring_buffer* buffer
-)
-{
-  u8 byte = buffer->buffer[buffer->head];
-  _advance_head(buffer, 1);
-  return byte;
-}
-
-u8
-nex_ring_buffer_read(
-  struct nex_ring_buffer* buffer
-)
-{
-  u8 byte = buffer->buffer[buffer->head];
-  _advance_head(buffer, 1);
-  return byte;
+  nex_ring_buffer_write_unsafe(buffer, byte);
+  return NOK;
 }
 
 void
+nex_ring_buffer_write_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8 byte
+)
+{
+  buffer->buffer[buffer->tail] = byte;
+  _advance_tail(buffer, 1);
+}
+
+i32
+nex_ring_buffer_pop_head(
+  struct nex_ring_buffer* buffer,
+  u8* byte
+)
+{
+  if (nex_ring_buffer_is_empty(buffer))
+  {
+    return -NERR_EMPTY;
+  }
+
+  *byte = nex_ring_buffer_pop_head_unsafe(buffer);
+  return NOK;
+}
+
+u8
+nex_ring_buffer_pop_head_unsafe(
+  struct nex_ring_buffer* buffer
+)
+{
+  u8 byte = buffer->buffer[buffer->head];
+  _advance_head(buffer, 1);
+  return byte;
+}
+
+i32
 nex_ring_buffer_consume(
   struct nex_ring_buffer* buffer,
   u32 len
@@ -124,80 +153,83 @@ nex_ring_buffer_consume(
 {
   if (len > buffer->size)
   {
-    len = buffer->len;
+    return -NERR_INV_ARG;
   }
 
-  _advance_head(buffer, len);
+  nex_ring_buffer_consume_unsafe(buffer, len);
+  return NOK;
 }
 
 void
-nex_ring_buffer_advance_tail(
+nex_ring_buffer_consume_unsafe(
   struct nex_ring_buffer* buffer,
   u32 len
 )
 {
-  _advance_tail(buffer, len);
+  _advance_head(buffer, len);
+}
+
+i32
+nex_ring_buffer_head_peek(
+  struct nex_ring_buffer* buffer,
+  u8* byte
+)
+{
+  if (nex_ring_buffer_is_empty(buffer))
+  {
+    return -NERR_EMPTY;
+  }
+
+  *byte = nex_ring_buffer_head_peek_unsafe(buffer);
+  return NOK;
 }
 
 u8
-nex_ring_buffer_head_peek(
+nex_ring_buffer_head_peek_unsafe(
   struct nex_ring_buffer* buffer
 )
 {
   return buffer->buffer[buffer->head];
 }
 
-void
-nex_ring_buffer_readable_bytes_until_wrap(
-  struct nex_ring_buffer* buffer,
-  u8** ptr,
-  u32* len
-)
-{
-  *ptr = &buffer->buffer[buffer->head];
-
-  if (buffer->tail > buffer->head)
-  {
-    *len = buffer->size;
-  }
-  else
-  {
-    *len = buffer->len - buffer->head;
-  }
-}
-
-void
-nex_ring_buffer_writable_bytes_until_wrap(
-  struct nex_ring_buffer* buffer,
-  u8** ptr,
-  u32* len
-)
-{
-  *ptr = &buffer->buffer[buffer->tail];
-
-  if (buffer->tail >= buffer->head)
-  {
-    *len = buffer->len - buffer->tail;
-  }
-  else
-  {
-    *len = buffer->head - buffer->tail;
-  }
-}
-
-u32
+i32
 nex_ring_buffer_copy(
   struct nex_ring_buffer* buffer,
   u8* dst,
   u32 count
 )
 {
-  u32 sz = nex_ring_buffer_size(buffer);
-  if (count > sz)
+  if (dst == NULL)
   {
-    count = sz;
+    return -NERR_INV_ARG;
   }
 
+  if (count > nex_ring_buffer_len(buffer))
+  {
+    return -NERR_INV_ARG;
+  }
+
+  if (count > INT_MAX)
+  {
+    return -NERR_RANGE;
+  }
+
+  u32 size = nex_ring_buffer_size(buffer);
+  if (count > size)
+  {
+    count = size;
+  }
+
+  return (i32) nex_ring_buffer_copy_unsafe(buffer, dst, count);
+}
+
+u32
+nex_ring_buffer_copy_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8* dst,
+  u32 count
+)
+{
   if (buffer->head + count <= buffer->len)
   {
     // No need to wrap around.
@@ -220,19 +252,39 @@ nex_ring_buffer_copy(
   return original_count;
 }
 
-u32
+i32
 nex_ring_buffer_peek_copy(
   struct nex_ring_buffer* buffer,
   u8* dst,
   u32 count
 )
 {
-  u32 sz = nex_ring_buffer_size(buffer);
-  if (count > sz)
+  if (dst == NULL)
   {
-    count = sz;
+    return -NERR_INV_ARG;
   }
 
+  if (count > INT_MAX)
+  {
+    return -NERR_RANGE;
+  }
+
+  u32 size = nex_ring_buffer_size(buffer);
+  if (count > size)
+  {
+    count = size;
+  }
+
+  return (i32) nex_ring_buffer_peek_copy_unsafe(buffer, dst, count);
+}
+
+u32
+nex_ring_buffer_peek_copy_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8* dst,
+  u32 count
+)
+{
   if (buffer->head + count <= buffer->len)
   {
     // No need to wrap around.
@@ -251,19 +303,39 @@ nex_ring_buffer_peek_copy(
   return original_count;
 }
 
-u32
+i32
 nex_ring_buffer_write_bytes(
   struct nex_ring_buffer* buffer,
   u8* src,
   u32 count
 )
 {
-  u32 size = nex_ring_buffer_space_left(buffer);
-  if (count > size)
+  if (src == NULL)
   {
-    count = size;
+    return -NERR_RANGE;
   }
 
+  if (count > INT_MAX)
+  {
+    return -NERR_RANGE;
+  }
+
+  u32 space_left = nex_ring_buffer_space_left(buffer);
+  if (count > space_left)
+  {
+    count = space_left;
+  }
+
+  return (i32) nex_ring_buffer_write_bytes_unsafe(buffer, src, count);
+}
+
+u32
+nex_ring_buffer_write_bytes_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8* src,
+  u32 count
+)
+{
   const u32 bytes_left = buffer->len - buffer->tail;
   if (bytes_left >= count)
   {
@@ -283,12 +355,11 @@ nex_ring_buffer_write_bytes(
   return count;
 }
 
-u32
+i32
 nex_ring_buffer_find(
   struct nex_ring_buffer* buffer,
   u8 byte,
-  u32 starting_at,
-  u32* pos
+  u32 starting_at
 )
 {
   u32 sz = nex_ring_buffer_size(buffer);
@@ -297,12 +368,11 @@ nex_ring_buffer_find(
     u32 idx = FAST_MOD(buffer->head + i, buffer->len);
     if (buffer->buffer[idx] == byte)
     {
-      *pos = (i - starting_at);
-      return NEX_SUCCESS;
+      return (i32) (i - starting_at);
     }
   }
 
-  return NEX_FAILURE;
+  return -NERR_NOT_FOUND;
 }
 
 u32

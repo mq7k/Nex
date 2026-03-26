@@ -15,8 +15,15 @@ struct nex_ring_buffer
   u32 len;
 };
 
-void
+i32
 nex_ring_buffer_init(
+  struct nex_ring_buffer* buffer,
+  u8* rawbuf,
+  u32 len
+);
+
+void
+nex_ring_buffer_init_unsafe(
   struct nex_ring_buffer* buffer,
   u8* rawbuf,
   u32 len
@@ -47,54 +54,53 @@ nex_ring_buffer_clear(
   struct nex_ring_buffer* buffer
 );
 
-u32
+i32
 nex_ring_buffer_write(
   struct nex_ring_buffer* buffer,
   u8 byte
 );
 
-u8
-nex_ring_buffer_pop_head(
-  struct nex_ring_buffer* buffer
-);
-
-u8
-nex_ring_buffer_read(
-  struct nex_ring_buffer* buffer
-);
-
 void
+nex_ring_buffer_write_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8 byte
+);
+
+i32
+nex_ring_buffer_pop_head(
+  struct nex_ring_buffer* buffer,
+  u8* byte
+);
+
+u8
+nex_ring_buffer_pop_head_unsafe(
+  struct nex_ring_buffer* buffer
+);
+
+i32
 nex_ring_buffer_consume(
   struct nex_ring_buffer* buffer,
   u32 len
 );
 
 void
-nex_ring_buffer_advance_tail(
+nex_ring_buffer_consume_unsafe(
   struct nex_ring_buffer* buffer,
   u32 len
 );
 
-u8
+i32
 nex_ring_buffer_head_peek(
+  struct nex_ring_buffer* buffer,
+  u8* byte
+);
+
+u8
+nex_ring_buffer_head_peek_unsafe(
   struct nex_ring_buffer* buffer
 );
 
-void
-nex_ring_buffer_readable_bytes_until_wrap(
-  struct nex_ring_buffer* buffer,
-  u8** ptr,
-  u32* len
-);
-
-void
-nex_ring_buffer_writable_bytes_until_wrap(
-  struct nex_ring_buffer* buffer,
-  u8** ptr,
-  u32* len
-);
-
-u32
+i32
 nex_ring_buffer_copy(
   struct nex_ring_buffer* buffer,
   u8* dst,
@@ -102,6 +108,13 @@ nex_ring_buffer_copy(
 );
 
 u32
+nex_ring_buffer_copy_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8* dst,
+  u32 count
+);
+
+i32
 nex_ring_buffer_peek_copy(
   struct nex_ring_buffer* buffer,
   u8* dst,
@@ -109,6 +122,13 @@ nex_ring_buffer_peek_copy(
 );
 
 u32
+nex_ring_buffer_peek_copy_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8* dst,
+  u32 count
+);
+
+i32
 nex_ring_buffer_write_bytes(
   struct nex_ring_buffer* buffer,
   u8* src,
@@ -116,11 +136,17 @@ nex_ring_buffer_write_bytes(
 );
 
 u32
+nex_ring_buffer_write_bytes_unsafe(
+  struct nex_ring_buffer* buffer,
+  u8* src,
+  u32 count
+);
+
+i32
 nex_ring_buffer_find(
   struct nex_ring_buffer* buffer,
   u8 byte,
-  u32 starting_at,
-  u32* pos
+  u32 starting_at
 );
 
 u32
