@@ -60,7 +60,7 @@ namespace nextest
     T t
   )
   {
-    std::fprintf(stderr, "%f", t);
+    std::fprintf(stderr, "%Lf", static_cast<long double>(t));
   }
 
   template <typename T>
