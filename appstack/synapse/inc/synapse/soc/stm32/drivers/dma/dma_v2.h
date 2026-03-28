@@ -18,7 +18,7 @@ struct dma_channel_registers_map
   u32 CNDTR;
   u32 CPAR;
   u32 CMAR;
-  u32 __padding[4];
+  u32 _padding;
 };
 
 struct dma_registers_map
