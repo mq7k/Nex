@@ -9,20 +9,21 @@
 #include "synapse/soc/stm32/periph/adc.h"
 #include "synapse/cpu/cortex/common/sys.h"
 #include "synapse/cpu/cortex/periph/systick.h"
-#include "synapse/cpu/cortex/periph/fpu.h"
 #include "synapse/cpu/cortex/periph/nvic.h"
+#include "unit.h"
+#include "util.h"
 
 // DShot150
-// #define TIM_AUTORELOAD_VALUE (667)
+// #define TIM_AUTORELOAD_VALUE (483)
 
 // DShot300
-#define TIM_AUTORELOAD_VALUE (334)
+#define TIM_AUTORELOAD_VALUE (242)
 
 // DShot600
-// #define TIM_AUTORELOAD_VALUE (167)
+// #define TIM_AUTORELOAD_VALUE (121)
 
 // DShot1200
-// #define TIM_AUTORELOAD_VALUE (83)
+// #define TIM_AUTORELOAD_VALUE (60)
 
 #define CC_PERIOD_HIGH ((u32) (TIM_AUTORELOAD_VALUE * .75))
 #define CC_PERIOD_LOW ((u32) (TIM_AUTORELOAD_VALUE * .375))
@@ -89,118 +90,62 @@ dshot_calc_periods(
 void
 rcc_setup(void)
 {
-  flash_set_wait_state(FLASH_WAIT_STATE3);
-  flash_prefetch_enable();
+  flash_set_wait_state(FLASH_WAIT_STATE2);
 
-  rcc_set_main_pll_source(RCC_MAIN_PLL_SOURCE_HSI);
-  rcc_set_main_pll_factorM(8);
-  rcc_set_main_pll_factorN(100);
-  rcc_set_main_pll_factorP(RCC_MAIN_PLL_FACTORP_DIV2);
+  rcc_osc_enable(RCC_OSC_HSE);
+  rcc_osc_ready_wait(RCC_OSC_HSE);
+  rcc_set_pll_source(RCC_PLL_SOURCE_HSE);
+  rcc_set_pll_multiplication_factor(RCC_PLL_MULTIPLICATION_FACTOR_9);
+  rcc_set_apb1_prescaler(RCC_APB1_PRESCALER_2);
 
   rcc_osc_enable(RCC_OSC_PLL);
-  while (rcc_is_osc_ready(RCC_OSC_PLL) == 0);
+  rcc_osc_ready_wait(RCC_OSC_PLL);
 
-  rcc_set_system_clock_source(RCC_SYSTEM_CLOCK_SOURCE_PLL);
-  rcc_system_clock_source_ready_wait(RCC_SYSTEM_CLOCK_SOURCE_PLL);
+  rcc_set_sysclock_source(RCC_SYSCLOCK_PLL);
+  while (rcc_get_sysclock_status() != RCC_SYSCLOCK_PLL);
 
   rcc_periph_clock_enable(RCC_PERIPH_TIM1);
   rcc_periph_clock_enable(RCC_PERIPH_TIM2);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
-  rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
-  rcc_periph_clock_enable(RCC_PERIPH_DMA2);
+  rcc_periph_clock_enable(RCC_PERIPH_DMA1);
   rcc_periph_clock_enable(RCC_PERIPH_ADC1);
+  rcc_periph_clock_enable(RCC_PERIPH_AFIO);
 }
 
 void
 gpio_setup(void)
 {
-  gpio_setup_port_pins(
+  gpio_setup_port(
     GPIOA,
-    GPIO9 | GPIO10 | GPIO11,
-    GPIO_MODE_ALTFN,
-    GPIO_SPEED_HIGH
+    GPIO0,
+    GPIO_MODE_INPUT,
+    GPIO_CNF_INPUT_FLOATING
   );
 
-  gpio_set_pin_alternate_function(GPIOA, GPIO9 | GPIO10, GPIO_ALTFN7);
-
-  gpio_set_pin_alternate_function(
+  gpio_setup_port(
     GPIOA,
     GPIO11,
-    GPIO_ALTFN1
-  );
-
-  gpio_setup_port_pins(
-    GPIOA,
-    GPIO0,
-    GPIO_MODE_ANALOG,
-    GPIO_SPEED_HIGH
-  );
-
-  gpio_set_port_pins_io_resistor(
-    GPIOA,
-    GPIO0,
-    GPIO_IO_RESISTOR_NO_PULLUPDOWN
+    GPIO_MODE_OUTPUT_50MHZ,
+    GPIO_CNF_ALTFN_PUSHPULL
   );
 }
 
 void
 dma_setup(void)
 {
-  dma_stream_disable(DMA2, DMA_STREAM5);
-
-  dma_stream_set_periph_address(
-    DMA2,
-    DMA_STREAM5,
-    (u32) &TIM1->CCR4
-  );
-
-  dma_stream_set_memory_address(
-    DMA2,
-    DMA_STREAM5,
-    DMA_STREAM_MEMORY0,
-    (u32) arr
-  );
-
-  dma_stream_set_items_transfer_count(DMA2, DMA_STREAM5, ARR_SIZE(arr));
-  dma_stream_set_channel(DMA2, DMA_STREAM5, DMA_STREAM_CHANNEL6);
-  dma_stream_set_priority(DMA2, DMA_STREAM5, DMA_STREAM_PRIORITY_VERY_HIGH);
-  dma_stream_direct_mode_enable(DMA2, DMA_STREAM5);
-
-  dma_stream_set_data_transfer_direction(
-    DMA2,
-    DMA_STREAM5,
-    DMA_STREAM_DIRECTION_MEMORY_TO_PERIPH
-  );
-
-  dma_stream_memory_increment_mode_enable(DMA2, DMA_STREAM5);
-  dma_stream_periph_increment_mode_disable(DMA2, DMA_STREAM5);
-
-  dma_stream_set_memory_burst_transfer(
-    DMA2,
-    DMA_STREAM5,
-    DMA_STREAM_MEMORY_BURST_SINGLE_TRANSFER
-  );
-
-  dma_stream_set_periph_burst_transfer(
-    DMA2,
-    DMA_STREAM5,
-    DMA_STREAM_PERIPH_BURST_SINGLE_TRANSFER
-  );
-
-  dma_stream_set_memory_data_size(
-    DMA2,
-    DMA_STREAM5,
-    DMA_STREAM_MEMORY_SIZE_HALF_WORD
-  );
-
-  dma_stream_set_periph_data_size(
-    DMA2,
-    DMA_STREAM5,
-    DMA_STREAM_PERIPH_SIZE_HALF_WORD
-  );
-
-  dma_stream_circular_mode_disable(DMA2, DMA_STREAM5);
-  dma_stream_enable(DMA2, DMA_STREAM5);
+  dma_channel_disable(DMA1, DMA_CHANNEL5);
+  dma_channel_set_periph_address(DMA1, DMA_CHANNEL5, (u32) &TIM1->CCR4);
+  dma_channel_set_memory_address(DMA1, DMA_CHANNEL5, (u32) arr);
+  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, ARR_SIZE(arr));
+  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL5, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
+  dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL5);
+  dma_channel_periph_increment_mode_disable(DMA1, DMA_CHANNEL5);
+  dma_channel_memory_increment_mode_enable(DMA1, DMA_CHANNEL5);
+  dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_16BITS);
+  dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_16BITS);
+  dma_channel_circular_mode_disable(DMA1, DMA_CHANNEL5);
+  dma_channel_enable(DMA1, DMA_CHANNEL5);
 }
 
 void
@@ -220,14 +165,15 @@ timer_setup(void)
 
   tim_dma_request_enable(TIM1, TIM_DMA_MODE_UPDATE);
   tim_set_cc_dma_request_source(TIM1, TIM_CC_DMA_REQUEST_SOURCE_UPDATE_EVENT);
+  tim_set_update_request_event_source(TIM1, TIM_UPDATE_REQUEST_SOURCE_COUNTER_AND_DMA);
 }
 
 void
 timer_sys_setup(void)
 {
-  tim_set_prescaler(TIM2, 3);
+  tim_set_prescaler(TIM2, 0);
   tim_set_clock_division(TIM2, TIM_CLOCK_DIVISION_NODIV);
-  tim_set_autoreload_value(TIM2, 24);
+  tim_set_autoreload_value(TIM2, 35);
   tim_set_counter_direction(TIM2, TIM_COUNTER_DIRECTION_UP);
   tim_set_cc_value(TIM2, TIM_CHANNEL4, 0);
   tim_interrupt_enable(TIM2, TIM_INTERRUPT_UPDATE);
@@ -239,7 +185,9 @@ adc_setup(void)
 {
   u32 sequence[] = { ADC_REG_CHANNEL0 };
   adc_set_reg_sequence(ADC1, sequence, ARR_SIZE(sequence));
-  adc_set_channel_sample_rate(ADC1, ADC_REG_CHANNEL0, ADC_SAMPLE_RATE_480CYCLES);
+  adc_set_channel_sample_rate(ADC1, ADC_REG_CHANNEL0, ADC_SAMPLE_RATE_239dot5_CYCLES);
+  adc_set_reg_external_event(ADC1, ADC_REG_TRIGGER_EVENT_SWSTART);
+  adc_external_trigger_reg_enable(ADC1);
   adc_enable(ADC1);
 }
 
@@ -272,8 +220,6 @@ delay_us(u32 us)
 int
 main(void)
 {
-  fpu_set_access_level(FPU_ACCESS_LEVEL_FULL);
-
   struct dshot_config conf;
   conf.motor_speed = dshot_motor_speed_percentage(0);
   conf.telemetry = 0;
@@ -293,12 +239,14 @@ main(void)
 
   while (1)
   {
-    if (dma_is_stream_flag_set(DMA2, DMA_STREAM5, DMA_STREAM_FLAG_TRANSFER_COMPLETE))
+    if (dma_is_channel_flag_set(DMA1, DMA_CHANNEL5, DMA_FLAG_TRANSER_COMPLETE))
     {
-      dma_stream_flag_clear(DMA2, DMA_STREAM5, DMA_STREAM_FLAG_TRANSFER_COMPLETE);
+      dma_channel_disable(DMA1, DMA_CHANNEL5);
 
+      dma_channel_flag_clear(DMA1, DMA_CHANNEL5, DMA_FLAG_TRANSER_COMPLETE);
       if (update_speed)
       {
+        gpio_pin_toggle(GPIOB, GPIO12);
         update_speed = 0;
         speed = (u32) ((float) adc_data / 4095.0f * 100.0f);
 
@@ -315,12 +263,17 @@ main(void)
       }
 
       delay_us(25);
-      dma_stream_enable(DMA2, DMA_STREAM5);
+
+      dma_channel_set_periph_address(DMA1, DMA_CHANNEL5, (u32) &TIM1->CCR4);
+      dma_channel_set_memory_address(DMA1, DMA_CHANNEL5, (u32) arr);
+      dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, ARR_SIZE(arr));
+      dma_channel_enable(DMA1, DMA_CHANNEL5);
     }
 
     if (!adc_is_flag_set(ADC1, ADC_FLAG_START))
     {
       adc_reg_start(ADC1);
+      // adc_enable(ADC1);
     }
     else if (adc_is_flag_set(ADC1, ADC_FLAG_EOC))
     {

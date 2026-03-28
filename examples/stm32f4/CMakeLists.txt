@@ -1,7 +1,7 @@
 add_subdirectory(8bit_music)
 add_subdirectory(blink)
 add_subdirectory(dma_m2m)
-# add_subdirectory(dshot)
+add_subdirectory(dshot)
 add_subdirectory(iwdg)
 # add_subdirectory(mpu9250_i2c)
 # add_subdirectory(mpu9250_spi)
