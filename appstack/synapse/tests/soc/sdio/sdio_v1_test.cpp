@@ -4,11 +4,35 @@
 #include "synapse/soc/stm32/drivers/sdio/sdio_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   SDIO = (struct sdio_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct sdio_registers_map, POWER, 0x00lu);
+  ASSERT_ADDR(struct sdio_registers_map, CLKCR, 0x04lu);
+  ASSERT_ADDR(struct sdio_registers_map, ARG, 0x08lu);
+  ASSERT_ADDR(struct sdio_registers_map, CMD, 0x0clu);
+  ASSERT_ADDR(struct sdio_registers_map, RESPCMD, 0x10lu);
+  ASSERT_ADDR(struct sdio_registers_map, RESP[0], 0x14lu);
+  ASSERT_ADDR(struct sdio_registers_map, RESP[1], 0x18lu);
+  ASSERT_ADDR(struct sdio_registers_map, DTIMER, 0x24lu);
+  ASSERT_ADDR(struct sdio_registers_map, DLEN, 0x28lu);
+  ASSERT_ADDR(struct sdio_registers_map, DCTRL, 0x2clu);
+  ASSERT_ADDR(struct sdio_registers_map, DCOUNT, 0x30lu);
+  ASSERT_ADDR(struct sdio_registers_map, STA, 0x34lu);
+  ASSERT_ADDR(struct sdio_registers_map, ICR, 0x38lu);
+  ASSERT_ADDR(struct sdio_registers_map, MASK, 0x3clu);
+  ASSERT_ADDR(struct sdio_registers_map, FIFOCNT, 0x48lu);
+  ASSERT_ADDR(struct sdio_registers_map, FIFO, 0x80lu);
 }
 
 void
@@ -2371,6 +2395,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_sdio_power),
     TEST_FUNC(test_sdio_set_clock_divide_factor),
     TEST_FUNC(test_sdio_clock_config),

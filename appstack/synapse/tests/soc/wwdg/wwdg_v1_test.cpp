@@ -4,11 +4,22 @@
 #include "synapse/soc/stm32/drivers/wwdg/wwdg_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   WWDG = (struct wwdg_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct wwdg_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct wwdg_registers_map, CFR, 0x04lu);
+  ASSERT_ADDR(struct wwdg_registers_map, SR, 0x08lu);
 }
 
 void
@@ -249,6 +260,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_wwdg_set_counter),
     TEST_FUNC(test_wwdg_get_counter),
     TEST_FUNC(test_wwdg_start),

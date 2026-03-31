@@ -4,12 +4,72 @@
 #include "synapse/soc/stm32/drivers/dma/dma_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 volatile struct dma_registers_map* _DMA;
 
 void
 setup(void)
 {
   _DMA = (struct dma_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct dma_registers_map, LISR, 0x00lu);
+  ASSERT_ADDR(struct dma_registers_map, HISR, 0x04lu);
+  ASSERT_ADDR(struct dma_registers_map, LIFCR, 0x08lu);
+  ASSERT_ADDR(struct dma_registers_map, HIFCR, 0x0clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[0].SCR, 0x10lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[0].SNDTR, 0x14lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[0].SPAR, 0x18lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[0].SM0AR, 0x1clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[0].SM1AR, 0x20lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[0].SFCR, 0x24lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[1].SCR, 0x28lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[1].SNDTR, 0x2clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[1].SPAR, 0x30lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[1].SM0AR, 0x34lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[1].SM1AR, 0x38lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[1].SFCR, 0x3clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[2].SCR, 0x40lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[2].SNDTR, 0x44lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[2].SPAR, 0x48lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[2].SM0AR, 0x4clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[2].SM1AR, 0x50lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[2].SFCR, 0x54lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[3].SCR, 0x58lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[3].SNDTR, 0x5clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[3].SPAR, 0x60lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[3].SM0AR, 0x64lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[3].SM1AR, 0x68lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[3].SFCR, 0x6clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[4].SCR, 0x70lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[4].SNDTR, 0x74lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[4].SPAR, 0x78lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[4].SM0AR, 0x7clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[4].SM1AR, 0x80lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[4].SFCR, 0x84lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[5].SCR, 0x88lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[5].SNDTR, 0x8clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[5].SPAR, 0x90lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[5].SM0AR, 0x94lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[5].SM1AR, 0x98lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[5].SFCR, 0x9clu);
+  ASSERT_ADDR(struct dma_registers_map, streams[6].SCR, 0xa0lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[6].SNDTR, 0xa4lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[6].SPAR, 0xa8lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[6].SM0AR, 0xaclu);
+  ASSERT_ADDR(struct dma_registers_map, streams[6].SM1AR, 0xb0lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[6].SFCR, 0xb4lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[7].SCR, 0xb8lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[7].SNDTR, 0xbclu);
+  ASSERT_ADDR(struct dma_registers_map, streams[7].SPAR, 0xc0lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[7].SM0AR, 0xc4lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[7].SM1AR, 0xc8lu);
+  ASSERT_ADDR(struct dma_registers_map, streams[7].SFCR, 0xcclu);
 }
 
 void
@@ -7965,6 +8025,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_dma_is_stream_flag_set),
     TEST_FUNC(test_dma_stream_flag_clear),
     TEST_FUNC(test_dma_stream_is_enabled),

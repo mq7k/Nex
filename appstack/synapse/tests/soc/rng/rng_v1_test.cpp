@@ -4,11 +4,22 @@
 #include "synapse/soc/stm32/drivers/rng/rng_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   RNG = (struct rng_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct rng_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct rng_registers_map, SR, 0x04lu);
+  ASSERT_ADDR(struct rng_registers_map, DR, 0x08lu);
 }
 
 void
@@ -288,6 +299,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_rng),
     TEST_FUNC(test_rng_interrupt_toggle),
 #if defined(STM32_RNG_CK_ERRDE)

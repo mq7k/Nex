@@ -4,12 +4,30 @@
 #include "synapse/soc/stm32/drivers/dma/dma_v2.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 volatile struct dma_registers_map* _DMA;
 
 void
 setup(void)
 {
   _DMA = (struct dma_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct dma_registers_map, ISR, 0x00lu);
+  ASSERT_ADDR(struct dma_registers_map, IFCR, 0x04lu);
+  ASSERT_ADDR(struct dma_registers_map, channels[0].CCR, 0x08lu);
+  ASSERT_ADDR(struct dma_registers_map, channels[0].CNDTR, 0x0clu);
+  ASSERT_ADDR(struct dma_registers_map, channels[0].CPAR, 0x10lu);
+  ASSERT_ADDR(struct dma_registers_map, channels[0].CMAR, 0x14lu);
+  ASSERT_ADDR(struct dma_registers_map, channels[1].CCR, 0x1clu);
+  ASSERT_ADDR(struct dma_registers_map, channels[1].CNDTR, 0x20lu);
+  ASSERT_ADDR(struct dma_registers_map, channels[1].CPAR, 0x24lu);
+  ASSERT_ADDR(struct dma_registers_map, channels[1].CMAR, 0x28lu);
 }
 
 void
@@ -3720,6 +3738,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_dma_is_channel_flag_set),
     TEST_FUNC(test_dma_channel_flag_clear),
     TEST_FUNC(test_dma_channel),

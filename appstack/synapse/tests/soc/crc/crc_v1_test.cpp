@@ -4,11 +4,22 @@
 #include "synapse/soc/stm32/drivers/crc/crc_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   CRC = (struct crc_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct crc_registers_map, DR, 0x00lu);
+  ASSERT_ADDR(struct crc_registers_map, IDR, 0x04lu);
+  ASSERT_ADDR(struct crc_registers_map, CR, 0x08lu);
 }
 
 void
@@ -244,6 +255,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_crc_data_read),
     TEST_FUNC(test_crc_data_write),
     TEST_FUNC(test_crc_independent_data_read),

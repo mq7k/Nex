@@ -4,11 +4,21 @@
 #include "synapse/soc/stm32/drivers/pwr/pwr_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   PWR = (struct pwr_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct pwr_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct pwr_registers_map, CSR, 0x04lu);
 }
 
 void
@@ -498,6 +508,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_pwr_set_voltage_regulator_mode),
     TEST_FUNC(test_pwr_set_deepsleep_mode),
     TEST_FUNC(test_pwr_flag_clear),

@@ -4,11 +4,36 @@
 #include "synapse/cpu/cortex/drivers/scb/scb_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   SCB = (struct scb_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct scb_registers_map, ACTLR, 0x00lu);
+  ASSERT_ADDR(struct scb_registers_map, CPUID, 0xcf8lu);
+  ASSERT_ADDR(struct scb_registers_map, ICSR, 0xcfclu);
+  ASSERT_ADDR(struct scb_registers_map, VTOR, 0xd00lu);
+  ASSERT_ADDR(struct scb_registers_map, AIRCR, 0xd04lu);
+  ASSERT_ADDR(struct scb_registers_map, SCR, 0xd08lu);
+  ASSERT_ADDR(struct scb_registers_map, CCR, 0xd0clu);
+  ASSERT_ADDR(struct scb_registers_map, SHPR1, 0xd10lu);
+  ASSERT_ADDR(struct scb_registers_map, SHPR2, 0xd14lu);
+  ASSERT_ADDR(struct scb_registers_map, SHPR3, 0xd18lu);
+  ASSERT_ADDR(struct scb_registers_map, SHCSR, 0xd1clu);
+  ASSERT_ADDR(struct scb_registers_map, CFSR, 0xd20lu);
+  ASSERT_ADDR(struct scb_registers_map, HFSR, 0xd24lu);
+  ASSERT_ADDR(struct scb_registers_map, DFSR, 0xd28lu);
+  ASSERT_ADDR(struct scb_registers_map, MMFAR, 0xd2clu);
+  ASSERT_ADDR(struct scb_registers_map, BFAR, 0xd30lu);
+  ASSERT_ADDR(struct scb_registers_map, AFSR, 0xd34lu);
 }
 
 void
@@ -67,6 +92,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_scb_interrupt_multi_cycle_intructions),
     TEST_FUNC(test_scb_folding_it_instructions),
   };

@@ -4,11 +4,32 @@
 #include "synapse/soc/stm32/drivers/dac/dac_v2.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   DAC = (struct dac_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct dac_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct dac_registers_map, SWTRIGR, 0x04lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12R1, 0x08lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12L1, 0x0clu);
+  ASSERT_ADDR(struct dac_registers_map, DHR8R1, 0x10lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12R2, 0x14lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12L2, 0x18lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR8R2, 0x1clu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12RD, 0x20lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12LD, 0x24lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR8RD, 0x28lu);
+  ASSERT_ADDR(struct dac_registers_map, DOR1, 0x2clu);
+  ASSERT_ADDR(struct dac_registers_map, DOR2, 0x30lu);
 }
 
 void
@@ -157,104 +178,104 @@ test_dac_channel_trigger(void)
 }
 
 void
-test_dac_channel_set_trigger(void)
+test_dac_set_channel_trigger(void)
 {
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM6);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM6);
   ASSERT_EQ(DAC->CR, (0b000u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM6);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM6);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b000u << 3));
   ASSERT_FALSE(execution_halted());
 
 
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM3);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM3);
   ASSERT_EQ(DAC->CR, (0b001u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM3);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM3);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b001u << 3));
   ASSERT_FALSE(execution_halted());
 
 
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM7);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM7);
   ASSERT_EQ(DAC->CR, (0b010u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM7);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM7);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b010u << 3));
   ASSERT_FALSE(execution_halted());
 
 
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM5);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM5);
   ASSERT_EQ(DAC->CR, (0b011u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM5);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM5);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b011u << 3));
   ASSERT_FALSE(execution_halted());
 
 
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM2);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM2);
   ASSERT_EQ(DAC->CR, (0b100u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM2);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM2);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b100u << 3));
   ASSERT_FALSE(execution_halted());
 
 
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM4);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM4);
   ASSERT_EQ(DAC->CR, (0b101u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM4);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_TIM4);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b101u << 3));
   ASSERT_FALSE(execution_halted());
 
 
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_EXT_LINE9);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_EXT_LINE9);
   ASSERT_EQ(DAC->CR, (0b110u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_EXT_LINE9);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_EXT_LINE9);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b110u << 3));
   ASSERT_FALSE(execution_halted());
 
 
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_SOFTWARE);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_SOFTWARE);
   ASSERT_EQ(DAC->CR, (0b111u << 3));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 3);
-  dac_channel_set_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_SOFTWARE);
+  dac_set_channel_trigger(DAC_CHANNEL1, DAC_CHANNEL_TRIGGER_SOFTWARE);
   ASSERT_EQ(DAC->CR, ~(0x7u << 3) | (0b111u << 3));
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM6);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM6);
   ASSERT_EQ(DAC->CR, (0b000u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM6);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM6);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b000u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -262,12 +283,12 @@ test_dac_channel_set_trigger(void)
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM3);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM3);
   ASSERT_EQ(DAC->CR, (0b001u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM3);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM3);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b001u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -275,12 +296,12 @@ test_dac_channel_set_trigger(void)
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM7);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM7);
   ASSERT_EQ(DAC->CR, (0b010u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM7);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM7);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b010u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -288,12 +309,12 @@ test_dac_channel_set_trigger(void)
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM5);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM5);
   ASSERT_EQ(DAC->CR, (0b011u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM5);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM5);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b011u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -301,12 +322,12 @@ test_dac_channel_set_trigger(void)
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM2);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM2);
   ASSERT_EQ(DAC->CR, (0b100u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM2);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM2);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b100u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -314,12 +335,12 @@ test_dac_channel_set_trigger(void)
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM4);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM4);
   ASSERT_EQ(DAC->CR, (0b101u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM4);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_TIM4);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b101u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -327,12 +348,12 @@ test_dac_channel_set_trigger(void)
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_EXT_LINE9);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_EXT_LINE9);
   ASSERT_EQ(DAC->CR, (0b110u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_EXT_LINE9);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_EXT_LINE9);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b110u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -340,12 +361,12 @@ test_dac_channel_set_trigger(void)
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_SOFTWARE);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_SOFTWARE);
   ASSERT_EQ(DAC->CR, (0b111u << 19));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(0x7u << 19);
-  dac_channel_set_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_SOFTWARE);
+  dac_set_channel_trigger(DAC_CHANNEL2, DAC_CHANNEL_TRIGGER_SOFTWARE);
   ASSERT_EQ(DAC->CR, ~(0x7u << 19) | (0b111u << 19));
   ASSERT_FALSE(execution_halted());
 
@@ -724,47 +745,47 @@ test_dac_set_channel_amplitude(void)
 }
 
 void
-test_dac_dma_enable(void)
+test_dac_dma(void)
 {
   DAC->CR = 0;
-  dac_dma_enable_enable(DAC_CHANNEL1);
+  dac_dma_enable(DAC_CHANNEL1);
   ASSERT_EQ(DAC->CR, (1u << 12));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(1u << 12);
-  dac_dma_enable_enable(DAC_CHANNEL1);
+  dac_dma_enable(DAC_CHANNEL1);
   ASSERT_EQ(DAC->CR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = 0xffffffff;
-  dac_dma_enable_disable(DAC_CHANNEL1);
+  dac_dma_disable(DAC_CHANNEL1);
   ASSERT_EQ(DAC->CR, ~(1u << 12));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = (1u << 12);
-  dac_dma_enable_disable(DAC_CHANNEL1);
+  dac_dma_disable(DAC_CHANNEL1);
   ASSERT_EQ(DAC->CR, 0);
   ASSERT_FALSE(execution_halted());
 
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->CR = 0;
-  dac_dma_enable_enable(DAC_CHANNEL2);
+  dac_dma_enable(DAC_CHANNEL2);
   ASSERT_EQ(DAC->CR, (1u << 28));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = ~(1u << 28);
-  dac_dma_enable_enable(DAC_CHANNEL2);
+  dac_dma_enable(DAC_CHANNEL2);
   ASSERT_EQ(DAC->CR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = 0xffffffff;
-  dac_dma_enable_disable(DAC_CHANNEL2);
+  dac_dma_disable(DAC_CHANNEL2);
   ASSERT_EQ(DAC->CR, ~(1u << 28));
   ASSERT_FALSE(execution_halted());
 
   DAC->CR = (1u << 28);
-  dac_dma_enable_disable(DAC_CHANNEL2);
+  dac_dma_disable(DAC_CHANNEL2);
   ASSERT_EQ(DAC->CR, 0);
   ASSERT_FALSE(execution_halted());
 
@@ -777,20 +798,20 @@ test_dac_channel_software_trigger(void)
 {
   DAC->SWTRIGR = 0;
   dac_channel_software_trigger_enable(DAC_CHANNEL1);
-  ASSERT_EQ(DAC->SWTRIGR, (1u << 1));
+  ASSERT_EQ(DAC->SWTRIGR, (1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DAC->SWTRIGR = ~(1u << 1);
+  DAC->SWTRIGR = ~(1u << 0);
   dac_channel_software_trigger_enable(DAC_CHANNEL1);
   ASSERT_EQ(DAC->SWTRIGR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   DAC->SWTRIGR = 0xffffffff;
   dac_channel_software_trigger_disable(DAC_CHANNEL1);
-  ASSERT_EQ(DAC->SWTRIGR, ~(1u << 1));
+  ASSERT_EQ(DAC->SWTRIGR, ~(1u << 0));
   ASSERT_FALSE(execution_halted());
 
-  DAC->SWTRIGR = (1u << 1);
+  DAC->SWTRIGR = (1u << 0);
   dac_channel_software_trigger_disable(DAC_CHANNEL1);
   ASSERT_EQ(DAC->SWTRIGR, 0);
   ASSERT_FALSE(execution_halted());
@@ -799,20 +820,20 @@ test_dac_channel_software_trigger(void)
 #if defined(STM32_DAC_CHANNEL2)
   DAC->SWTRIGR = 0;
   dac_channel_software_trigger_enable(DAC_CHANNEL2);
-  ASSERT_EQ(DAC->SWTRIGR, (1u << 2));
+  ASSERT_EQ(DAC->SWTRIGR, (1u << 1));
   ASSERT_FALSE(execution_halted());
 
-  DAC->SWTRIGR = ~(1u << 2);
+  DAC->SWTRIGR = ~(1u << 1);
   dac_channel_software_trigger_enable(DAC_CHANNEL2);
   ASSERT_EQ(DAC->SWTRIGR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   DAC->SWTRIGR = 0xffffffff;
   dac_channel_software_trigger_disable(DAC_CHANNEL2);
-  ASSERT_EQ(DAC->SWTRIGR, ~(1u << 2));
+  ASSERT_EQ(DAC->SWTRIGR, ~(1u << 1));
   ASSERT_FALSE(execution_halted());
 
-  DAC->SWTRIGR = (1u << 2);
+  DAC->SWTRIGR = (1u << 1);
   dac_channel_software_trigger_disable(DAC_CHANNEL2);
   ASSERT_EQ(DAC->SWTRIGR, 0);
   ASSERT_FALSE(execution_halted());
@@ -829,32 +850,16 @@ test_dac_set_channel_12bit_right_aligned_data(void)
   ASSERT_EQ(DAC->DHR12R1, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12R1 = 0xffffffff;
-  dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL1, 0);
-  ASSERT_EQ(DAC->DHR12R1, 0);
-  ASSERT_FALSE(execution_halted());
-
 
   DAC->DHR12R1 = 0;
   dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL1, 0xfff);
   ASSERT_EQ(DAC->DHR12R1, 0xfffu << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12R1 = 0xffffffff;
-  dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL1, 0xfff);
-  ASSERT_EQ(DAC->DHR12R1, 0xfff);
-  ASSERT_FALSE(execution_halted());
-
 
   DAC->DHR12R1 = 0;
   dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL1, 0x1000);
   ASSERT_EQ(DAC->DHR12R1, 0x1000u << 0);
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
-
-  DAC->DHR12R1 = 0xffffffff;
-  dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL1, 0x1000);
-  ASSERT_EQ(DAC->DHR12R1, 0x1000);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -865,11 +870,6 @@ test_dac_set_channel_12bit_right_aligned_data(void)
   ASSERT_EQ(DAC->DHR12R1, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12R1 = 0xffffffff;
-  dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL2, 0);
-  ASSERT_EQ(DAC->DHR12R1, 0);
-  ASSERT_FALSE(execution_halted());
-
 #endif
 
 #if defined(STM32_DAC_CHANNEL2)
@@ -878,23 +878,12 @@ test_dac_set_channel_12bit_right_aligned_data(void)
   ASSERT_EQ(DAC->DHR12R1, 0xfffu << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12R1 = 0xffffffff;
-  dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL2, 0xfff);
-  ASSERT_EQ(DAC->DHR12R1, 0xfff);
-  ASSERT_FALSE(execution_halted());
-
 #endif
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->DHR12R1 = 0;
   dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL2, 0x1000);
   ASSERT_EQ(DAC->DHR12R1, 0x1000u << 0);
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
-
-  DAC->DHR12R1 = 0xffffffff;
-  dac_set_channel_12bit_right_aligned_data(DAC_CHANNEL2, 0x1000);
-  ASSERT_EQ(DAC->DHR12R1, 0x1000);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -910,32 +899,16 @@ test_dac_set_channel_12bit_left_aligned_data(void)
   ASSERT_EQ(DAC->DHR12L1, 0u << 4);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12L1 = 0xffffffff;
-  dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL1, 0);
-  ASSERT_EQ(DAC->DHR12L1, 0);
-  ASSERT_FALSE(execution_halted());
-
 
   DAC->DHR12L1 = 0;
   dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL1, 0xfff);
   ASSERT_EQ(DAC->DHR12L1, 0xfffu << 4);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12L1 = 0xffffffff;
-  dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL1, 0xfff);
-  ASSERT_EQ(DAC->DHR12L1, 0xfff);
-  ASSERT_FALSE(execution_halted());
-
 
   DAC->DHR12L1 = 0;
   dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL1, 0x1000);
   ASSERT_EQ(DAC->DHR12L1, 0x1000u << 4);
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
-
-  DAC->DHR12L1 = 0xffffffff;
-  dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL1, 0x1000);
-  ASSERT_EQ(DAC->DHR12L1, 0x1000);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -946,11 +919,6 @@ test_dac_set_channel_12bit_left_aligned_data(void)
   ASSERT_EQ(DAC->DHR12L2, 0u << 4);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12L2 = 0xffffffff;
-  dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL2, 0);
-  ASSERT_EQ(DAC->DHR12L2, 0);
-  ASSERT_FALSE(execution_halted());
-
 #endif
 
 #if defined(STM32_DAC_CHANNEL2)
@@ -959,23 +927,12 @@ test_dac_set_channel_12bit_left_aligned_data(void)
   ASSERT_EQ(DAC->DHR12L2, 0xfffu << 4);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR12L2 = 0xffffffff;
-  dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL2, 0xfff);
-  ASSERT_EQ(DAC->DHR12L2, 0xfff);
-  ASSERT_FALSE(execution_halted());
-
 #endif
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->DHR12L2 = 0;
   dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL2, 0x1000);
   ASSERT_EQ(DAC->DHR12L2, 0x1000u << 4);
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
-
-  DAC->DHR12L2 = 0xffffffff;
-  dac_set_channel_12bit_left_aligned_data(DAC_CHANNEL2, 0x1000);
-  ASSERT_EQ(DAC->DHR12L2, 0x1000);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -991,32 +948,16 @@ test_dac_set_channel_8bit_data(void)
   ASSERT_EQ(DAC->DHR8R1, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR8R1 = 0xffffffff;
-  dac_set_channel_8bit_data(DAC_CHANNEL1, 0);
-  ASSERT_EQ(DAC->DHR8R1, 0);
-  ASSERT_FALSE(execution_halted());
-
 
   DAC->DHR8R1 = 0;
   dac_set_channel_8bit_data(DAC_CHANNEL1, 0xff);
   ASSERT_EQ(DAC->DHR8R1, 0xffu << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR8R1 = 0xffffffff;
-  dac_set_channel_8bit_data(DAC_CHANNEL1, 0xff);
-  ASSERT_EQ(DAC->DHR8R1, 0xff);
-  ASSERT_FALSE(execution_halted());
-
 
   DAC->DHR8R1 = 0;
   dac_set_channel_8bit_data(DAC_CHANNEL1, 0x100);
   ASSERT_EQ(DAC->DHR8R1, 0x100u << 0);
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
-
-  DAC->DHR8R1 = 0xffffffff;
-  dac_set_channel_8bit_data(DAC_CHANNEL1, 0x100);
-  ASSERT_EQ(DAC->DHR8R1, 0x100);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -1027,11 +968,6 @@ test_dac_set_channel_8bit_data(void)
   ASSERT_EQ(DAC->DHR8R2, 0u << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR8R2 = 0xffffffff;
-  dac_set_channel_8bit_data(DAC_CHANNEL2, 0);
-  ASSERT_EQ(DAC->DHR8R2, 0);
-  ASSERT_FALSE(execution_halted());
-
 #endif
 
 #if defined(STM32_DAC_CHANNEL2)
@@ -1040,23 +976,12 @@ test_dac_set_channel_8bit_data(void)
   ASSERT_EQ(DAC->DHR8R2, 0xffu << 0);
   ASSERT_FALSE(execution_halted());
 
-  DAC->DHR8R2 = 0xffffffff;
-  dac_set_channel_8bit_data(DAC_CHANNEL2, 0xff);
-  ASSERT_EQ(DAC->DHR8R2, 0xff);
-  ASSERT_FALSE(execution_halted());
-
 #endif
 
 #if defined(STM32_DAC_CHANNEL2)
   DAC->DHR8R2 = 0;
   dac_set_channel_8bit_data(DAC_CHANNEL2, 0x100);
   ASSERT_EQ(DAC->DHR8R2, 0x100u << 0);
-  ASSERT_TRUE(execution_halted());
-  execution_resume();
-
-  DAC->DHR8R2 = 0xffffffff;
-  dac_set_channel_8bit_data(DAC_CHANNEL2, 0x100);
-  ASSERT_EQ(DAC->DHR8R2, 0x100);
   ASSERT_TRUE(execution_halted());
   execution_resume();
 
@@ -1110,13 +1035,14 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_dac_channel),
     TEST_FUNC(test_dac_channel_buffer),
     TEST_FUNC(test_dac_channel_trigger),
-    TEST_FUNC(test_dac_channel_set_trigger),
+    TEST_FUNC(test_dac_set_channel_trigger),
     TEST_FUNC(test_dac_set_channel_wave),
     TEST_FUNC(test_dac_set_channel_amplitude),
-    TEST_FUNC(test_dac_dma_enable),
+    TEST_FUNC(test_dac_dma),
     TEST_FUNC(test_dac_channel_software_trigger),
     TEST_FUNC(test_dac_set_channel_12bit_right_aligned_data),
     TEST_FUNC(test_dac_set_channel_12bit_left_aligned_data),

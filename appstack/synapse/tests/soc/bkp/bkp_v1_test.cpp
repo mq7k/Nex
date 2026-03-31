@@ -4,11 +4,25 @@
 #include "synapse/soc/stm32/drivers/bkp/bkp_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   BKP = (struct bkp_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct bkp_registers_map, DR0[0], 0x04lu);
+  ASSERT_ADDR(struct bkp_registers_map, DR0[1], 0x08lu);
+  ASSERT_ADDR(struct bkp_registers_map, CR, 0x30lu);
+  ASSERT_ADDR(struct bkp_registers_map, CSR, 0x34lu);
+  ASSERT_ADDR(struct bkp_registers_map, DR1[0], 0x40lu);
+  ASSERT_ADDR(struct bkp_registers_map, DR1[1], 0x44lu);
 }
 
 void
@@ -502,6 +516,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_bkp_data_write),
     TEST_FUNC(test_bkp_data_read),
     TEST_FUNC(test_bkp_set_rtc_calibration_value),

@@ -4,11 +4,26 @@
 #include "synapse/soc/stm32/drivers/hash/hash_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   HASH = (struct hash_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct hash_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct hash_registers_map, DIN, 0x04lu);
+  ASSERT_ADDR(struct hash_registers_map, STR, 0x08lu);
+  ASSERT_ADDR(struct hash_registers_map, HRA[0], 0x0clu);
+  ASSERT_ADDR(struct hash_registers_map, HRA[1], 0x10lu);
+  ASSERT_ADDR(struct hash_registers_map, IMR, 0x20lu);
+  ASSERT_ADDR(struct hash_registers_map, SR, 0x24lu);
 }
 
 void
@@ -581,6 +596,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_hash_init),
     TEST_FUNC(test_hash_dma),
     TEST_FUNC(test_hash_set_data_type),

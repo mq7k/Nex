@@ -4,11 +4,57 @@
 #include "synapse/soc/stm32/drivers/rtc/rtc_v2.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   RTC = (struct rtc_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct rtc_registers_map, TR, 0x00lu);
+  ASSERT_ADDR(struct rtc_registers_map, DR, 0x04lu);
+  ASSERT_ADDR(struct rtc_registers_map, CR, 0x08lu);
+  ASSERT_ADDR(struct rtc_registers_map, ISR, 0x0clu);
+  ASSERT_ADDR(struct rtc_registers_map, PRER, 0x10lu);
+  ASSERT_ADDR(struct rtc_registers_map, WUTR, 0x14lu);
+#if defined(STM32_RTC_EXTENDED)
+  ASSERT_ADDR(struct rtc_registers_map, CALIBR, 0x18lu);
+#endif
+  ASSERT_ADDR(struct rtc_registers_map, ALRMAR, 0x1clu);
+#if defined(STM32_RTC_EXTENDED)
+  ASSERT_ADDR(struct rtc_registers_map, ALRMBR, 0x20lu);
+#endif
+  ASSERT_ADDR(struct rtc_registers_map, WPR, 0x24lu);
+  ASSERT_ADDR(struct rtc_registers_map, SSR, 0x28lu);
+  ASSERT_ADDR(struct rtc_registers_map, SHIFTR, 0x2clu);
+  ASSERT_ADDR(struct rtc_registers_map, TSTR, 0x30lu);
+  ASSERT_ADDR(struct rtc_registers_map, TSSSR, 0x38lu);
+  ASSERT_ADDR(struct rtc_registers_map, CALR, 0x3clu);
+#if defined(STM32_RTC_TAFCR_REG)
+  ASSERT_ADDR(struct rtc_registers_map, TAFCR, 0x40lu);
+#endif
+#if defined(STM32_RTC_TAMPCR_REG)
+  ASSERT_ADDR(struct rtc_registers_map, TAMPCR, 0x40lu);
+#endif
+  ASSERT_ADDR(struct rtc_registers_map, ALRMASSR, 0x44lu);
+#if defined(STM32_RTC_ALARMB)
+  ASSERT_ADDR(struct rtc_registers_map, ALRMBSSR, 0x48lu);
+#endif
+#if defined(STM32_RTC_OPTION_REG)
+  ASSERT_ADDR(struct rtc_registers_map, OR, 0x4clu);
+#endif
+#if defined(STM32_RTC_BKP_WORDS)
+  ASSERT_ADDR(struct rtc_registers_map, BKPR[0], 0x50lu);
+#endif
+#if defined(STM32_RTC_BKP_WORDS)
+  ASSERT_ADDR(struct rtc_registers_map, BKPR[1], 0x54lu);
+#endif
 }
 
 // └─Skipping type 'fn_set_value (TODO)' (rtc_set_calendar_time)
@@ -3477,6 +3523,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_rtc_set_calendar_time_format),
     TEST_FUNC(test_rtc_set_wakeup_clock),
     TEST_FUNC(test_rtc_set_timestamp_event_edge),

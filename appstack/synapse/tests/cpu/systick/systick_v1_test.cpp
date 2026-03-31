@@ -4,11 +4,23 @@
 #include "synapse/cpu/cortex/drivers/systick/systick_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   SYSTICK = (struct systick_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct systick_registers_map, CSR, 0x00lu);
+  ASSERT_ADDR(struct systick_registers_map, RVR, 0x04lu);
+  ASSERT_ADDR(struct systick_registers_map, CVR, 0x08lu);
+  ASSERT_ADDR(struct systick_registers_map, CALIB, 0x0clu);
 }
 
 void
@@ -249,6 +261,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_systick),
     TEST_FUNC(test_systick_interrupt),
     TEST_FUNC(test_systick_set_clock_source),

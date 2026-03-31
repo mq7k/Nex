@@ -4,12 +4,51 @@
 #include "synapse/soc/stm32/drivers/can/can_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 volatile struct can_registers_map* _CAN;
 
 void
 setup(void)
 {
   _CAN = (struct can_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct can_registers_map, MCR, 0x00lu);
+  ASSERT_ADDR(struct can_registers_map, MSR, 0x04lu);
+  ASSERT_ADDR(struct can_registers_map, TSR, 0x08lu);
+  ASSERT_ADDR(struct can_registers_map, RF0R, 0x0clu);
+  ASSERT_ADDR(struct can_registers_map, RF1R, 0x10lu);
+  ASSERT_ADDR(struct can_registers_map, IER, 0x14lu);
+  ASSERT_ADDR(struct can_registers_map, ESR, 0x18lu);
+  ASSERT_ADDR(struct can_registers_map, BTR, 0x1clu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[0].TIR, 0x180lu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[0].TDTR, 0x184lu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[0].TDLR, 0x188lu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[0].TDHR, 0x18clu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[1].TIR, 0x190lu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[1].TDTR, 0x194lu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[1].TDLR, 0x198lu);
+  ASSERT_ADDR(struct can_registers_map, mailboxes[1].TDHR, 0x19clu);
+  ASSERT_ADDR(struct can_registers_map, recv[0].RIR, 0x1b0lu);
+  ASSERT_ADDR(struct can_registers_map, recv[0].RDTR, 0x1b4lu);
+  ASSERT_ADDR(struct can_registers_map, recv[0].RDLR, 0x1b8lu);
+  ASSERT_ADDR(struct can_registers_map, recv[0].RDHR, 0x1bclu);
+  ASSERT_ADDR(struct can_registers_map, recv[1].RIR, 0x1c0lu);
+  ASSERT_ADDR(struct can_registers_map, recv[1].RDTR, 0x1c4lu);
+  ASSERT_ADDR(struct can_registers_map, recv[1].RDLR, 0x1c8lu);
+  ASSERT_ADDR(struct can_registers_map, recv[1].RDHR, 0x1cclu);
+  ASSERT_ADDR(struct can_registers_map, FMR, 0x200lu);
+  ASSERT_ADDR(struct can_registers_map, FM1R, 0x204lu);
+  ASSERT_ADDR(struct can_registers_map, FS1R, 0x20clu);
+  ASSERT_ADDR(struct can_registers_map, FFA1R, 0x214lu);
+  ASSERT_ADDR(struct can_registers_map, FA1R, 0x21clu);
+  ASSERT_ADDR(struct can_registers_map, FR[0], 0x240lu);
+  ASSERT_ADDR(struct can_registers_map, FR[1], 0x244lu);
 }
 
 void
@@ -5134,6 +5173,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_can_set_hardware_mode),
     TEST_FUNC(test_can_sleep_mode),
     TEST_FUNC(test_can_set_tx_fifo_priority),

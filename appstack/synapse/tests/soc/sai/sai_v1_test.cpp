@@ -4,12 +4,32 @@
 #include "synapse/soc/stm32/drivers/sai/sai_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 volatile struct sai_registers_map* _SAI;
 
 void
 setup(void)
 {
   _SAI = (struct sai_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+#if defined(STM32_SAI_GCR)
+  ASSERT_ADDR(struct sai_registers_map, GCR, 0x00lu);
+#endif
+  ASSERT_ADDR(struct sai_registers_map, CR1, 0x04lu);
+  ASSERT_ADDR(struct sai_registers_map, CR2, 0x08lu);
+  ASSERT_ADDR(struct sai_registers_map, FRCR, 0x0clu);
+  ASSERT_ADDR(struct sai_registers_map, SLOTR, 0x10lu);
+  ASSERT_ADDR(struct sai_registers_map, IM, 0x14lu);
+  ASSERT_ADDR(struct sai_registers_map, SR, 0x18lu);
+  ASSERT_ADDR(struct sai_registers_map, CLRFR, 0x1clu);
+  ASSERT_ADDR(struct sai_registers_map, DR, 0x20lu);
+  ASSERT_ADDR(struct sai_registers_map, CR1, 0x04lu);
 }
 
 #if defined(STM32_SAI_GCR)
@@ -1420,6 +1440,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
 #if defined(STM32_SAI_GCR)
     TEST_FUNC(test_sai_set_sync_output),
 #endif

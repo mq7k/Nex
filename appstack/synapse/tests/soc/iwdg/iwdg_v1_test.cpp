@@ -4,11 +4,23 @@
 #include "synapse/soc/stm32/drivers/iwdg/iwdg_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   IWDG = (struct iwdg_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct iwdg_registers_map, KR, 0x00lu);
+  ASSERT_ADDR(struct iwdg_registers_map, PR, 0x04lu);
+  ASSERT_ADDR(struct iwdg_registers_map, RLR, 0x08lu);
+  ASSERT_ADDR(struct iwdg_registers_map, SR, 0x0clu);
 }
 
 // └─Skipping type 'fn_call (TODO)' (iwdg_reset)
@@ -190,6 +202,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_iwdg_set_prescaler),
     TEST_FUNC(test_iwdg_set_reload_value),
     TEST_FUNC(test_iwdg_is_flag_set),
