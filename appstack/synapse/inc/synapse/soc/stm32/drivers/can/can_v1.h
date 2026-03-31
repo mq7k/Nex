@@ -45,9 +45,21 @@ struct can_registers_map
   u32 __padding1[12];
   u32 FMR;
   u32 FM1R;
+
+  u32 _padding2;
+
   u32 FS1R;
+
+  u32 _padding3;
+
   u32 FFA1R;
+
+  u32 _padding4;
+
   u32 FA1R;
+
+  u32 _padding5[8];
+
   u32 FR[56];
 };
 

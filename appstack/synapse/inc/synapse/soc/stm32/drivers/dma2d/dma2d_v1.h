@@ -29,6 +29,8 @@ struct dma2d_registers_map
   u32 NLR;
   u32 LWR;
   u32 AMTCR;
+
+  u8 _padding[944];
 };
 
 enum dma2d_cr : u32

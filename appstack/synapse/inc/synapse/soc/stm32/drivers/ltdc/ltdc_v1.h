@@ -17,28 +17,49 @@ struct ltdc_layer_register_map
   u32 LCACR;
   u32 LDCCR;
   u32 LBFCR;
+
+  u32 _padding0[2];
+
   u32 LCFBAR;
   u32 LCFBLR;
   u32 LCFBLNR;
+
+  u32 _padding1[3];
+
   u32 LCLUTWR;
+
+  u32 _padding2[15];
 };
 
 struct ltdc_registers_map
 {
+  u32 _padding0[2];
+
   u32 SSCR;
   u32 BPCR;
   u32 AWCR;
   u32 TWCR;
   u32 GCR;
+
+  u32 _padding1[2];
+
   u32 SRCR;
+
+  u32 _padding2;
+
   u32 BCCR;
+
+  u32 _padding3;
+
   u32 IER;
   u32 ISR;
   u32 ICR;
   u32 LIPCR;
   u32 CPSR;
   u32 CDSR;
-  u32 LCR[2];
+
+  u32 _padding4[14];
+
   struct ltdc_layer_register_map layers[2];
 };
 

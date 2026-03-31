@@ -27,7 +27,13 @@ struct sdio_registers_map
   u32 STA;
   u32 ICR;
   u32 MASK;
+  
+  u32 _padding0[2];
+
   u32 FIFOCNT;
+
+  u32 _padding1[13];
+
   u32 FIFO;
 };
 
