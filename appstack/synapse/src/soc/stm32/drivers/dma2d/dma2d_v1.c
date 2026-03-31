@@ -1025,3 +1025,27 @@ dma2d_set_deadtime(
   syn_set_register_bits(reg, mask, deadtime << shift);
 }
 
+void
+dma2d_set_fg_clut(
+  u32* arr,
+  u32 len
+)
+{
+  for (u32 i = 0; i < len; ++i)
+  {
+    DMA2D->FGCLUT[i] = arr[i];
+  }
+}
+
+void
+dma2d_set_bg_clut(
+  u32* arr,
+  u32 len
+)
+{
+  for (u32 i = 0; i < len; ++i)
+  {
+    DMA2D->BGCLUT[i] = arr[i];
+  }
+}
+

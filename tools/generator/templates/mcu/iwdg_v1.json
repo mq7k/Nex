@@ -2,6 +2,24 @@
   "periph": "IWDG",
   "path": "soc/stm32/drivers/iwdg/iwdg_v1.h",
   "struct": "iwdg_registers_map",
+  "regs": [
+    {
+      "name": "KR",
+      "offset": "0x00"
+    },
+    {
+      "name": "PR",
+      "offset": "0x04"
+    },
+    {
+      "name": "RLR",
+      "offset": "0x08"
+    },
+    {
+      "name": "SR",
+      "offset": "0x0c"
+    }
+  ],
   "functions": [
     {
       "type": "fn_call (TODO)",

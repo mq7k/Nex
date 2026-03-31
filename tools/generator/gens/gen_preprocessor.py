@@ -10,3 +10,7 @@ def gen_preprocessor(writer: TestWriter, path: str):
     writer.write('#include "libtest/libtest.hpp"')
 
     writer.newline()
+
+    writer.write('#define ASSERT_ADDR(periph, reg, offset)\\')
+    writer.write(f'\tASSERT_EQ(offsetof(periph, reg), offset)')
+    writer.newline()

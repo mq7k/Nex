@@ -17,6 +17,7 @@ from gens.gen_fncall import gen_fncall
 from gens.gen_bitmap import gen_bitmap
 from gens.gen_fnsetvalue import gen_fnsetvalue
 from gens.gen_enumtoggle import gen_enumtoggle
+from gens.gen_regaddrfn import gen_regaddrfn
 
 from gens.gen_preprocessor import gen_preprocessor
 from gens.gen_setupfn import gen_setupfn
@@ -59,8 +60,12 @@ def generate_from_template(template: str, outfile: TextIO):
     gen_preprocessor(writer, header.path)
     gen_setupfn(writer, header.periph, header.struct)
 
-    functions = template['functions']
     generators = []
+    if 'regs' in template:
+        gen_regaddrfn(writer, header.struct, template['regs'])
+        generators.append({ 'fn': 'reg_addr' })
+
+    functions = template['functions']
 
     for function in functions:
         fntype = function['type']

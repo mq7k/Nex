@@ -62,6 +62,8 @@ struct afio_registers_map
    */
   u32 EXTICR[4];
 
+  u32 _padding;
+
   /**
    * @brief AFIO_MAPR2 - AF remap and debug I/O configuration register2
    *

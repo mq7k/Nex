@@ -48,5 +48,7 @@
 #define STM32_FLASH_PCROP
 #define STM32_FLASH_SNB_4BIT
 
+#define STM32_RTC_TAFCR_REG
+
 #endif
 

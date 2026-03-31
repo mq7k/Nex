@@ -4,11 +4,26 @@
 #include "synapse/soc/stm32/drivers/afio/afio_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   AFIO = (struct afio_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct afio_registers_map, EVCR, 0x00lu);
+  ASSERT_ADDR(struct afio_registers_map, MAPR, 0x04lu);
+  ASSERT_ADDR(struct afio_registers_map, EXTICR[0], 0x08lu);
+  ASSERT_ADDR(struct afio_registers_map, EXTICR[1], 0x0clu);
+  ASSERT_ADDR(struct afio_registers_map, EXTICR[2], 0x10lu);
+  ASSERT_ADDR(struct afio_registers_map, EXTICR[3], 0x14lu);
+  ASSERT_ADDR(struct afio_registers_map, MAPR2, 0x1clu);
 }
 
 void
@@ -1779,6 +1794,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_afio_set_eventout_port),
     TEST_FUNC(test_afio_set_eventout_pin),
     TEST_FUNC(test_afio_eventout),

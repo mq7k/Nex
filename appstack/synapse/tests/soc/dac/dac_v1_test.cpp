@@ -4,11 +4,47 @@
 #include "synapse/soc/stm32/drivers/dac/dac_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   DAC = (struct dac_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct dac_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct dac_registers_map, SWTRIGR, 0x04lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12R1, 0x08lu);
+  ASSERT_ADDR(struct dac_registers_map, DHR12L1, 0x0clu);
+  ASSERT_ADDR(struct dac_registers_map, DHR8R1, 0x10lu);
+#if defined(STM32_DAC_CHANNEL2)
+  ASSERT_ADDR(struct dac_registers_map, DHR12R2, 0x14lu);
+#endif
+#if defined(STM32_DAC_CHANNEL2)
+  ASSERT_ADDR(struct dac_registers_map, DHR12L2, 0x18lu);
+#endif
+#if defined(STM32_DAC_CHANNEL2)
+  ASSERT_ADDR(struct dac_registers_map, DHR8R2, 0x1clu);
+#endif
+#if defined(STM32_DAC_CHANNEL_COMMON)
+  ASSERT_ADDR(struct dac_registers_map, DHR12RD, 0x20lu);
+#endif
+#if defined(STM32_DAC_CHANNEL_COMMON)
+  ASSERT_ADDR(struct dac_registers_map, DHR12LD, 0x24lu);
+#endif
+#if defined(STM32_DAC_CHANNEL_COMMON)
+  ASSERT_ADDR(struct dac_registers_map, DHR8RD, 0x28lu);
+#endif
+  ASSERT_ADDR(struct dac_registers_map, DOR1, 0x2clu);
+#if defined(STM32_DAC_CHANNEL2)
+  ASSERT_ADDR(struct dac_registers_map, DOR2, 0x30lu);
+#endif
+  ASSERT_ADDR(struct dac_registers_map, SR, 0x34lu);
 }
 
 void
@@ -1170,6 +1206,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_dac_channel),
     TEST_FUNC(test_dac_channel_output_buffer),
     TEST_FUNC(test_dac_channel_trigger),

@@ -4,11 +4,31 @@
 #include "synapse/soc/stm32/drivers/cryp/cryp_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   CRYP = (struct cryp_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct cryp_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct cryp_registers_map, SR, 0x04lu);
+  ASSERT_ADDR(struct cryp_registers_map, DIN, 0x08lu);
+  ASSERT_ADDR(struct cryp_registers_map, DOUT, 0x0clu);
+  ASSERT_ADDR(struct cryp_registers_map, DMACR, 0x10lu);
+  ASSERT_ADDR(struct cryp_registers_map, IMSCR, 0x14lu);
+  ASSERT_ADDR(struct cryp_registers_map, RISR, 0x18lu);
+  ASSERT_ADDR(struct cryp_registers_map, MISR, 0x1clu);
+  ASSERT_ADDR(struct cryp_registers_map, KR[0], 0x20lu);
+  ASSERT_ADDR(struct cryp_registers_map, KR[1], 0x24lu);
+  ASSERT_ADDR(struct cryp_registers_map, IV[0], 0x40lu);
+  ASSERT_ADDR(struct cryp_registers_map, IV[1], 0x44lu);
 }
 
 void
@@ -575,6 +595,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_cryp_set_algorithm_direction),
     TEST_FUNC(test_cryp_set_data_type),
     TEST_FUNC(test_cryp_set_key_size),

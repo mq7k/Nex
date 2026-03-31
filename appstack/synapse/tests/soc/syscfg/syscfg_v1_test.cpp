@@ -4,11 +4,37 @@
 #include "synapse/soc/stm32/drivers/syscfg/syscfg_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   SYSCFG = (struct syscfg_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct syscfg_registers_map, MEMRMP, 0x00lu);
+  ASSERT_ADDR(struct syscfg_registers_map, PMC, 0x04lu);
+  ASSERT_ADDR(struct syscfg_registers_map, EXTICR1, 0x08lu);
+  ASSERT_ADDR(struct syscfg_registers_map, EXTICR2, 0x0clu);
+  ASSERT_ADDR(struct syscfg_registers_map, EXTICR3, 0x10lu);
+  ASSERT_ADDR(struct syscfg_registers_map, EXTICR4, 0x14lu);
+#if defined(STM32_SYSCFG_CFGR2)
+  ASSERT_ADDR(struct syscfg_registers_map, CFGR2, 0x18lu);
+#endif
+#if defined(STM32_SYSCFG_CMPCR)
+  ASSERT_ADDR(struct syscfg_registers_map, CMPCR, 0x20lu);
+#endif
+#if defined(STM32_SYSCFG_CFGR)
+  ASSERT_ADDR(struct syscfg_registers_map, CFGR, 0x2clu);
+#endif
+#if defined(STM32_SYSCFG_MCHDLYCR)
+  ASSERT_ADDR(struct syscfg_registers_map, MCHDLYCR, 0x30lu);
+#endif
 }
 
 #if defined(STM32_SYSCFG_MEMMODE_2BIT)
@@ -3289,6 +3315,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
 #if defined(STM32_SYSCFG_MEMMODE_2BIT)
     TEST_FUNC(test_syscfg_set_memory_mapping),
 #endif

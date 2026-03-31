@@ -2,6 +2,36 @@
   "periph": "_USART",
   "path": "soc/stm32/drivers/usart/usart_v1.h",
   "struct": "usart_registers_map",
+  "regs": [
+    {
+      "name": "SR",
+      "offset": "0x00"
+    },
+    {
+      "name": "DR",
+      "offset": "0x04"
+    },
+    {
+      "name": "BRR",
+      "offset": "0x08"
+    },
+    {
+      "name": "CR1",
+      "offset": "0x0c"
+    },
+    {
+      "name": "CR2",
+      "offset": "0x10"
+    },
+    {
+      "name": "CR3",
+      "offset": "0x14"
+    },
+    {
+      "name": "GTPR",
+      "offset": "0x18"
+    }
+  ],
   "functions": [
     {
       "type": "flag_is_set",

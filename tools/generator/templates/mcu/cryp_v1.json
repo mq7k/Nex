@@ -2,6 +2,56 @@
   "periph": "CRYP",
   "path": "soc/stm32/drivers/cryp/cryp_v1.h",
   "struct": "cryp_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "SR",
+      "offset": "0x04"
+    },
+    {
+      "name": "DIN",
+      "offset": "0x08"
+    },
+    {
+      "name": "DOUT",
+      "offset": "0x0c"
+    },
+    {
+      "name": "DMACR",
+      "offset": "0x10"
+    },
+    {
+      "name": "IMSCR",
+      "offset": "0x14"
+    },
+    {
+      "name": "RISR",
+      "offset": "0x18"
+    },
+    {
+      "name": "MISR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "KR[0]",
+      "offset": "0x20"
+    },
+    {
+      "name": "KR[1]",
+      "offset": "0x24"
+    },
+    {
+      "name": "IV[0]",
+      "offset": "0x40"
+    },
+    {
+      "name": "IV[1]",
+      "offset": "0x44"
+    }
+  ],
   "functions": [
     {
       "type": "bienum_set",

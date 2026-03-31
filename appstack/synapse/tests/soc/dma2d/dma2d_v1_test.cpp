@@ -4,11 +4,44 @@
 #include "synapse/soc/stm32/drivers/dma2d/dma2d_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   DMA2D = (struct dma2d_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct dma2d_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct dma2d_registers_map, ISR, 0x04lu);
+  ASSERT_ADDR(struct dma2d_registers_map, IFCR, 0x08lu);
+  ASSERT_ADDR(struct dma2d_registers_map, FGMAR, 0x0clu);
+  ASSERT_ADDR(struct dma2d_registers_map, FGOR, 0x10lu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGMAR, 0x14lu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGOR, 0x18lu);
+  ASSERT_ADDR(struct dma2d_registers_map, FGPFCCR, 0x1clu);
+  ASSERT_ADDR(struct dma2d_registers_map, FGCOLR, 0x20lu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGPFCCR, 0x24lu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGCOLR, 0x28lu);
+  ASSERT_ADDR(struct dma2d_registers_map, FGCMAR, 0x2clu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGCMAR, 0x30lu);
+  ASSERT_ADDR(struct dma2d_registers_map, OPFCCR, 0x34lu);
+  ASSERT_ADDR(struct dma2d_registers_map, OCOLR, 0x38lu);
+  ASSERT_ADDR(struct dma2d_registers_map, OMAR, 0x3clu);
+  ASSERT_ADDR(struct dma2d_registers_map, OOR, 0x40lu);
+  ASSERT_ADDR(struct dma2d_registers_map, NLR, 0x44lu);
+  ASSERT_ADDR(struct dma2d_registers_map, LWR, 0x48lu);
+  ASSERT_ADDR(struct dma2d_registers_map, AMTCR, 0x4clu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGCOLR, 0x28lu);
+  ASSERT_ADDR(struct dma2d_registers_map, FGCLUT[0], 0x400lu);
+  ASSERT_ADDR(struct dma2d_registers_map, FGCLUT[1], 0x404lu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGCLUT[0], 0x800lu);
+  ASSERT_ADDR(struct dma2d_registers_map, BGCLUT[1], 0x804lu);
 }
 
 void
@@ -2289,6 +2322,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_dma2d_start),
     TEST_FUNC(test_dma2d_suspend),
     TEST_FUNC(test_dma2d_abort),

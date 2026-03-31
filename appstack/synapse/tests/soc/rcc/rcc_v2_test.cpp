@@ -4,11 +4,66 @@
 #include "synapse/soc/stm32/drivers/rcc/rcc_v2.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   RCC = (struct rcc_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct rcc_registers_map, CR, 0x00lu);
+  ASSERT_ADDR(struct rcc_registers_map, PLLCFGR, 0x04lu);
+  ASSERT_ADDR(struct rcc_registers_map, CFGR, 0x08lu);
+  ASSERT_ADDR(struct rcc_registers_map, CIR, 0x0clu);
+  ASSERT_ADDR(struct rcc_registers_map, AHB1RSTR, 0x10lu);
+#if defined(STM32_RCC_AHB2)
+  ASSERT_ADDR(struct rcc_registers_map, AHB2RSTR, 0x14lu);
+#endif
+#if defined(STM32_RCC_AHB3)
+  ASSERT_ADDR(struct rcc_registers_map, AHB3RSTR, 0x18lu);
+#endif
+  ASSERT_ADDR(struct rcc_registers_map, APB1RSTR, 0x20lu);
+  ASSERT_ADDR(struct rcc_registers_map, APB2RSTR, 0x24lu);
+  ASSERT_ADDR(struct rcc_registers_map, AHB1ENR, 0x30lu);
+#if defined(STM32_RCC_AHB2)
+  ASSERT_ADDR(struct rcc_registers_map, AHB2ENR, 0x34lu);
+#endif
+#if defined(STM32_RCC_AHB3)
+  ASSERT_ADDR(struct rcc_registers_map, AHB3ENR, 0x38lu);
+#endif
+  ASSERT_ADDR(struct rcc_registers_map, APB1ENR, 0x40lu);
+  ASSERT_ADDR(struct rcc_registers_map, APB2ENR, 0x44lu);
+  ASSERT_ADDR(struct rcc_registers_map, AHB1LPENR, 0x50lu);
+#if defined(STM32_RCC_AHB2)
+  ASSERT_ADDR(struct rcc_registers_map, AHB2LPENR, 0x54lu);
+#endif
+#if defined(STM32_RCC_AHB3)
+  ASSERT_ADDR(struct rcc_registers_map, AHB3LPENR, 0x58lu);
+#endif
+  ASSERT_ADDR(struct rcc_registers_map, APB1LPENR, 0x60lu);
+  ASSERT_ADDR(struct rcc_registers_map, APB2LPENR, 0x64lu);
+  ASSERT_ADDR(struct rcc_registers_map, BDCR, 0x70lu);
+  ASSERT_ADDR(struct rcc_registers_map, CSR, 0x74lu);
+  ASSERT_ADDR(struct rcc_registers_map, SSCGR, 0x80lu);
+#if defined(STM32_RCC_PLLI2S)
+  ASSERT_ADDR(struct rcc_registers_map, PLLI2SCFGR, 0x84lu);
+#endif
+#if defined(STM32_RCC_PLLSAI)
+  ASSERT_ADDR(struct rcc_registers_map, PLLSAICFGR, 0x88lu);
+#endif
+  ASSERT_ADDR(struct rcc_registers_map, DCKCFGR, 0x8clu);
+#if defined(STM32_RCC_CKGATE)
+  ASSERT_ADDR(struct rcc_registers_map, CKGATENR, 0x90lu);
+#endif
+#if defined(STM32_RCC_DCKCFGR2)
+  ASSERT_ADDR(struct rcc_registers_map, DCKCFGR2, 0x94lu);
+#endif
 }
 
 void
@@ -9099,6 +9154,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_rcc_osc),
     TEST_FUNC(test_rcc_is_osc_ready),
     TEST_FUNC(test_rcc_set_hsi_trim),

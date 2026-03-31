@@ -2,6 +2,52 @@
   "periph": "SYSCFG",
   "path": "soc/stm32/drivers/syscfg/syscfg_v1.h",
   "struct": "syscfg_registers_map",
+  "regs": [
+    {
+      "name": "MEMRMP",
+      "offset": "0x00"
+    },
+    {
+      "name": "PMC",
+      "offset": "0x04"
+    },
+    {
+      "name": "EXTICR1",
+      "offset": "0x08"
+    },
+    {
+      "name": "EXTICR2",
+      "offset": "0x0c"
+    },
+    {
+      "name": "EXTICR3",
+      "offset": "0x10"
+    },
+    {
+      "name": "EXTICR4",
+      "offset": "0x14"
+    },
+    {
+      "name": "CFGR2",
+      "offset": "0x18",
+      "ifdef": "STM32_SYSCFG_CFGR2"
+    },
+    {
+      "name": "CMPCR",
+      "offset": "0x20",
+      "ifdef": "STM32_SYSCFG_CMPCR"
+    },
+    {
+      "name": "CFGR",
+      "offset": "0x2c",
+      "ifdef": "STM32_SYSCFG_CFGR"
+    },
+    {
+      "name": "MCHDLYCR",
+      "offset": "0x30",
+      "ifdef": "STM32_SYSCFG_MCHDLYCR"
+    }
+  ],
   "functions": [
     {
       "type": "enum_set",

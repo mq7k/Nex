@@ -4,12 +4,29 @@
 #include "synapse/soc/stm32/drivers/spi/spi_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 volatile struct spi_registers_map* _SPI;
 
 void
 setup(void)
 {
   _SPI = (struct spi_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct spi_registers_map, CR1, 0x00lu);
+  ASSERT_ADDR(struct spi_registers_map, CR2, 0x04lu);
+  ASSERT_ADDR(struct spi_registers_map, SR, 0x08lu);
+  ASSERT_ADDR(struct spi_registers_map, DR, 0x0clu);
+  ASSERT_ADDR(struct spi_registers_map, CRCPR, 0x10lu);
+  ASSERT_ADDR(struct spi_registers_map, RXCRCR, 0x14lu);
+  ASSERT_ADDR(struct spi_registers_map, TXCRCR, 0x18lu);
+  ASSERT_ADDR(struct spi_registers_map, I2SCFGR, 0x1clu);
+  ASSERT_ADDR(struct spi_registers_map, I2SPR, 0x20lu);
 }
 
 void
@@ -1279,6 +1296,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_spi_set_clock_phase),
     TEST_FUNC(test_spi_set_clock_polarity),
     TEST_FUNC(test_spi_set_role),

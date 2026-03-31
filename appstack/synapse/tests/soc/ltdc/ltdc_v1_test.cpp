@@ -4,11 +4,55 @@
 #include "synapse/soc/stm32/drivers/ltdc/ltdc_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   LTDC = (struct ltdc_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct ltdc_registers_map, SSCR, 0x08lu);
+  ASSERT_ADDR(struct ltdc_registers_map, BPCR, 0x0clu);
+  ASSERT_ADDR(struct ltdc_registers_map, AWCR, 0x10lu);
+  ASSERT_ADDR(struct ltdc_registers_map, TWCR, 0x14lu);
+  ASSERT_ADDR(struct ltdc_registers_map, GCR, 0x18lu);
+  ASSERT_ADDR(struct ltdc_registers_map, SRCR, 0x24lu);
+  ASSERT_ADDR(struct ltdc_registers_map, BCCR, 0x2clu);
+  ASSERT_ADDR(struct ltdc_registers_map, IER, 0x34lu);
+  ASSERT_ADDR(struct ltdc_registers_map, ISR, 0x38lu);
+  ASSERT_ADDR(struct ltdc_registers_map, ICR, 0x3clu);
+  ASSERT_ADDR(struct ltdc_registers_map, LIPCR, 0x40lu);
+  ASSERT_ADDR(struct ltdc_registers_map, CDSR, 0x48lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LCR, 0x84lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LWHPCR, 0x88lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LWVPCR, 0x8clu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LCKCR, 0x90lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LPFCR, 0x94lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LCACR, 0x98lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LDCCR, 0x9clu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LBFCR, 0xa0lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LCFBAR, 0xaclu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LCFBLR, 0xb0lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LCFBLNR, 0xb4lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[0].LCLUTWR, 0xc4lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LCR, 0x104lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LWHPCR, 0x108lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LWVPCR, 0x10clu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LCKCR, 0x110lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LPFCR, 0x114lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LCACR, 0x118lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LDCCR, 0x11clu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LBFCR, 0x120lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LCFBAR, 0x12clu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LCFBLR, 0x130lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LCFBLNR, 0x134lu);
+  ASSERT_ADDR(struct ltdc_registers_map, layers[1].LCLUTWR, 0x144lu);
 }
 
 void
@@ -3130,6 +3174,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_ltdc_set_sync_height),
     TEST_FUNC(test_ltdc_set_sync_width),
     TEST_FUNC(test_ltdc_set_vertical_back_porch),

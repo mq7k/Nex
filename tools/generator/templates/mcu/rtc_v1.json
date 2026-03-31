@@ -2,6 +2,48 @@
   "periph": "RTC",
   "path": "soc/stm32/drivers/rtc/rtc_v1.h",
   "struct": "rtc_registers_map",
+  "regs": [
+    {
+      "name": "CRH",
+      "offset": "0x00"
+    },
+    {
+      "name": "CRL",
+      "offset": "0x04"
+    },
+    {
+      "name": "PRLH",
+      "offset": "0x08"
+    },
+    {
+      "name": "PRLL",
+      "offset": "0x0c"
+    },
+    {
+      "name": "DIVH",
+      "offset": "0x10"
+    },
+    {
+      "name": "DIVL",
+      "offset": "0x14"
+    },
+    {
+      "name": "CNTH",
+      "offset": "0x18"
+    },
+    {
+      "name": "CNTL",
+      "offset": "0x1c"
+    },
+    {
+      "name": "ALRH",
+      "offset": "0x20"
+    },
+    {
+      "name": "ALRL",
+      "offset": "0x24"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

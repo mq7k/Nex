@@ -382,10 +382,11 @@ dac_set_channel_12bit_right_aligned_data(
       constexpr u32 shift = DAC_DHR12R1_DACC1DHR_SHIFT;
       constexpr u32 mask = DAC_DHR12R1_DACC1DHR_MASK;
 
+      devmode_assert_lower_or_eq(data, mask);
       syn_set_register_bits(
         &DAC->DHR12R1,
         mask << shift,
-        (data & mask) << shift
+        data << shift
       );
 
       break;
@@ -395,10 +396,11 @@ dac_set_channel_12bit_right_aligned_data(
       constexpr u32 shift = DAC_DHR12R2_DACC2DHR_SHIFT;
       constexpr u32 mask = DAC_DHR12R2_DACC2DHR_MASK;
 
+      devmode_assert_lower_or_eq(data, mask);
       syn_set_register_bits(
         &DAC->DHR12R2,
         mask << shift,
-        (data & mask) << shift
+        data << shift
       );
 
       break;
@@ -427,7 +429,7 @@ dac_set_channel_12bit_left_aligned_data(
       syn_set_register_bits(
         &DAC->DHR12L1,
         mask << shift,
-        (data & mask) << shift
+        data << shift
       );
 
       break;
@@ -441,7 +443,7 @@ dac_set_channel_12bit_left_aligned_data(
       syn_set_register_bits(
         &DAC->DHR12L2,
         mask << shift,
-        (data & mask) << shift
+        data << shift
       );
 
       break;
@@ -470,7 +472,7 @@ dac_set_channel_8bit_data(
       syn_set_register_bits(
         &DAC->DHR8R1,
         mask << shift,
-        (data & mask) << shift
+        data << shift
       );
 
       break;
@@ -484,7 +486,7 @@ dac_set_channel_8bit_data(
       syn_set_register_bits(
         &DAC->DHR8R2,
         mask << shift,
-        (data & mask) << shift
+        data << shift
       );
 
       break;

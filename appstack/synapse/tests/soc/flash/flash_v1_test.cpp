@@ -4,11 +4,20 @@
 #include "synapse/soc/stm32/drivers/flash/flash_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 
 void
 setup(void)
 {
   FLASH = (struct flash_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct flash_registers_map, ACR, 0x00lu);
 }
 
 void
@@ -916,6 +925,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_flash_set_wait_state),
 #if defined(STM32_FLASH_HALF_CYCLE_ACCESS)
     TEST_FUNC(test_flash_half_cycle_access),

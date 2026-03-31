@@ -2,6 +2,88 @@
   "periph": "_ADC",
   "path": "soc/stm32/drivers/adc/adc_v1.h",
   "struct": "adc_registers_map",
+  "regs": [
+    {
+      "name": "SR",
+      "offset": "0x00"
+    },
+    {
+      "name": "CR1",
+      "offset": "0x04"
+    },
+    {
+      "name": "CR2",
+      "offset": "0x08"
+    },
+    {
+      "name": "SMPR1",
+      "offset": "0x0c"
+    },
+    {
+      "name": "SMPR2",
+      "offset": "0x10"
+    },
+    {
+      "name": "JOFR1",
+      "offset": "0x14"
+    },
+    {
+      "name": "JOFR2",
+      "offset": "0x18"
+    },
+    {
+      "name": "JOFR3",
+      "offset": "0x1c"
+    },
+    {
+      "name": "JOFR4",
+      "offset": "0x20"
+    },
+    {
+      "name": "HTR",
+      "offset": "0x24"
+    },
+    {
+      "name": "LTR",
+      "offset": "0x28"
+    },
+    {
+      "name": "SQR1",
+      "offset": "0x2c"
+    },
+    {
+      "name": "SQR2",
+      "offset": "0x30"
+    },
+    {
+      "name": "SQR3",
+      "offset": "0x34"
+    },
+    {
+      "name": "JSQR",
+      "offset": "0x38"
+    },
+    {
+      "name": "JDR1",
+      "offset": "0x3c"
+    },
+    {
+      "name": "JDR2",
+      "offset": "0x40"
+    },
+    {
+      "name": "JDR3",
+      "offset": "0x44"
+    },
+    {
+      "name": "JDR4",
+      "offset": "0x48"
+    },
+    {
+      "name": "DR",
+      "offset": "0x4c"
+    }
+  ],
   "functions": [
     {
       "type": "flag_is_set",

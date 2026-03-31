@@ -2,6 +2,36 @@
   "periph": "FLASH",
   "path": "soc/stm32/drivers/flash/flash_v2.h",
   "struct": "flash_registers_map",
+  "regs": [
+    {
+      "name": "ACR",
+      "offset": "0x00"
+    },
+    {
+      "name": "KEYR",
+      "offset": "0x04"
+    },
+    {
+      "name": "OPTKEYR",
+      "offset": "0x08"
+    },
+    {
+      "name": "SR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "CR",
+      "offset": "0x10"
+    },
+    {
+      "name": "OPTCR",
+      "offset": "0x14"
+    },
+    {
+      "name": "OPTCR1",
+      "offset": "0x18"
+    }
+  ],
   "functions": [
     {
       "type": "enum_set",

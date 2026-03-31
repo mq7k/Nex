@@ -30,7 +30,7 @@ struct syscfg_registers_map
   u32 __reserved2;
 #endif
 
-  u32 __reserved3[3];
+  u32 __reserved3[2];
 
 #if defined(STM32_SYSCFG_CFGR)
   u32 CFGR;

@@ -2,6 +2,36 @@
   "periph": "SPDIFRX",
   "path": "soc/stm32/drivers/spdifrx/spdifrx_v1.h",
   "struct": "spdifrx_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "IMR",
+      "offset": "0x04"
+    },
+    {
+      "name": "SR",
+      "offset": "0x08"
+    },
+    {
+      "name": "IFCR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "DR",
+      "offset": "0x10"
+    },
+    {
+      "name": "CSR",
+      "offset": "0x14"
+    },
+    {
+      "name": "DIR",
+      "offset": "0x18"
+    }
+  ],
   "functions": [
     {
       "type": "enum_set",

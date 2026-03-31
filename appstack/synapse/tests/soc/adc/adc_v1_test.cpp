@@ -4,12 +4,40 @@
 #include "synapse/soc/stm32/drivers/adc/adc_v1.h"
 #include "libtest/libtest.hpp"
 
+#define ASSERT_ADDR(periph, reg, offset)\
+	ASSERT_EQ(offsetof(periph, reg), offset)
+
 volatile struct adc_registers_map* _ADC;
 
 void
 setup(void)
 {
   _ADC = (struct adc_registers_map*) membuf;
+}
+
+void
+test_reg_addr(void)
+{
+  ASSERT_ADDR(struct adc_registers_map, SR, 0x00lu);
+  ASSERT_ADDR(struct adc_registers_map, CR1, 0x04lu);
+  ASSERT_ADDR(struct adc_registers_map, CR2, 0x08lu);
+  ASSERT_ADDR(struct adc_registers_map, SMPR1, 0x0clu);
+  ASSERT_ADDR(struct adc_registers_map, SMPR2, 0x10lu);
+  ASSERT_ADDR(struct adc_registers_map, JOFR1, 0x14lu);
+  ASSERT_ADDR(struct adc_registers_map, JOFR2, 0x18lu);
+  ASSERT_ADDR(struct adc_registers_map, JOFR3, 0x1clu);
+  ASSERT_ADDR(struct adc_registers_map, JOFR4, 0x20lu);
+  ASSERT_ADDR(struct adc_registers_map, HTR, 0x24lu);
+  ASSERT_ADDR(struct adc_registers_map, LTR, 0x28lu);
+  ASSERT_ADDR(struct adc_registers_map, SQR1, 0x2clu);
+  ASSERT_ADDR(struct adc_registers_map, SQR2, 0x30lu);
+  ASSERT_ADDR(struct adc_registers_map, SQR3, 0x34lu);
+  ASSERT_ADDR(struct adc_registers_map, JSQR, 0x38lu);
+  ASSERT_ADDR(struct adc_registers_map, JDR1, 0x3clu);
+  ASSERT_ADDR(struct adc_registers_map, JDR2, 0x40lu);
+  ASSERT_ADDR(struct adc_registers_map, JDR3, 0x44lu);
+  ASSERT_ADDR(struct adc_registers_map, JDR4, 0x48lu);
+  ASSERT_ADDR(struct adc_registers_map, DR, 0x4clu);
 }
 
 void
@@ -2172,6 +2200,7 @@ main(void)
 {
   const test_function_t tests[] =
   {
+    TEST_FUNC(test_reg_addr),
     TEST_FUNC(test_adc_is_flag_set),
     TEST_FUNC(test_adc_flag_clear),
     TEST_FUNC(test_adc_set_analog_watchdog_channel),
