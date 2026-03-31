@@ -2,6 +2,56 @@
   "periph": "QUADSPI",
   "path": "soc/stm32/drivers/quadspi/quadspi_v1.h",
   "struct": "quadspi_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "DCR",
+      "offset": "0x04"
+    },
+    {
+      "name": "SR",
+      "offset": "0x08"
+    },
+    {
+      "name": "FCR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "CCR",
+      "offset": "0x14"
+    },
+    {
+      "name": "AR",
+      "offset": "0x18"
+    },
+    {
+      "name": "ABR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "DR",
+      "offset": "0x20"
+    },
+    {
+      "name": "PSMKR",
+      "offset": "0x24"
+    },
+    {
+      "name": "PSMAR",
+      "offset": "0x28"
+    },
+    {
+      "name": "PIR",
+      "offset": "0x2c"
+    },
+    {
+      "name": "LPTR",
+      "offset": "0x30"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

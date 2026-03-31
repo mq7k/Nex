@@ -2,6 +2,16 @@
   "periph": "PWR",
   "path": "soc/stm32/drivers/pwr/pwr_v1.h",
   "struct": "pwr_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "CSR",
+      "offset": "0x04"
+    }
+  ],
   "functions": [
     {
       "type": "bienum_set",

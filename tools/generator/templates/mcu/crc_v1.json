@@ -2,6 +2,20 @@
   "periph": "CRC",
   "path": "soc/stm32/drivers/crc/crc_v1.h",
   "struct": "crc_registers_map",
+  "regs": [
+    {
+      "name": "DR",
+      "offset": "0x00"
+    },
+    {
+      "name": "IDR",
+      "offset": "0x04"
+    },
+    {
+      "name": "CR",
+      "offset": "0x08"
+    }
+  ],
   "functions": [
     {
       "type": "fn_get",

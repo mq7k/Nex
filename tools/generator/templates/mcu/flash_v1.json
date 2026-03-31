@@ -2,6 +2,12 @@
   "periph": "FLASH",
   "path": "soc/stm32/drivers/flash/flash_v1.h",
   "struct": "flash_registers_map",
+  "regs": [
+    {
+      "name": "ACR",
+      "offset": "0x00"
+    }
+  ],
   "functions": [
     {
       "type": "enum_set",

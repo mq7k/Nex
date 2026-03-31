@@ -2,6 +2,132 @@
   "periph": "_CAN",
   "path": "soc/stm32/drivers/can/can_v1.h",
   "struct": "can_registers_map",
+  "regs": [
+    {
+      "name": "MCR",
+      "offset": "0x00"
+    },
+    {
+      "name": "MSR",
+      "offset": "0x04"
+    },
+    {
+      "name": "TSR",
+      "offset": "0x08"
+    },
+    {
+      "name": "RF0R",
+      "offset": "0x0c"
+    },
+    {
+      "name": "RF1R",
+      "offset": "0x10"
+    },
+    {
+      "name": "IER",
+      "offset": "0x14"
+    },
+    {
+      "name": "ESR",
+      "offset": "0x18"
+    },
+    {
+      "name": "BTR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "mailboxes[0].TIR",
+      "offset": "0x180"
+    },
+    {
+      "name": "mailboxes[0].TDTR",
+      "offset": "0x184"
+    },
+    {
+      "name": "mailboxes[0].TDLR",
+      "offset": "0x188"
+    },
+    {
+      "name": "mailboxes[0].TDHR",
+      "offset": "0x18c"
+    },
+    {
+      "name": "mailboxes[1].TIR",
+      "offset": "0x190"
+    },
+    {
+      "name": "mailboxes[1].TDTR",
+      "offset": "0x194"
+    },
+    {
+      "name": "mailboxes[1].TDLR",
+      "offset": "0x198"
+    },
+    {
+      "name": "mailboxes[1].TDHR",
+      "offset": "0x19c"
+    },
+    {
+      "name": "recv[0].RIR",
+      "offset": "0x1b0"
+    },
+    {
+      "name": "recv[0].RDTR",
+      "offset": "0x1b4"
+    },
+    {
+      "name": "recv[0].RDLR",
+      "offset": "0x1b8"
+    },
+    {
+      "name": "recv[0].RDHR",
+      "offset": "0x1bc"
+    },
+    {
+      "name": "recv[1].RIR",
+      "offset": "0x1c0"
+    },
+    {
+      "name": "recv[1].RDTR",
+      "offset": "0x1c4"
+    },
+    {
+      "name": "recv[1].RDLR",
+      "offset": "0x1c8"
+    },
+    {
+      "name": "recv[1].RDHR",
+      "offset": "0x1cc"
+    },
+    {
+      "name": "FMR",
+      "offset": "0x200"
+    },
+    {
+      "name": "FM1R",
+      "offset": "0x204"
+    },
+    {
+      "name": "FS1R",
+      "offset": "0x20c"
+    },
+    {
+      "name": "FFA1R",
+      "offset": "0x214"
+    },
+    {
+      "name": "FA1R",
+      "offset": "0x21c"
+    },
+    {
+      "name": "FR[0]",
+      "offset": "0x240"
+    },
+    {
+      "name": "FR[1]",
+      "offset": "0x244"
+    }
+  ],
   "functions": [
     {
       "type": "bienum_set",

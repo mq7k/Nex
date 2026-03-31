@@ -2,6 +2,24 @@
   "periph": "SYSTICK",
   "path": "cpu/cortex/drivers/systick/systick_v1.h",
   "struct": "systick_registers_map",
+  "regs": [
+    {
+      "name": "CSR",
+      "offset": "0x00"
+    },
+    {
+      "name": "RVR",
+      "offset": "0x04"
+    },
+    {
+      "name": "CVR",
+      "offset": "0x08"
+    },
+    {
+      "name": "CALIB",
+      "offset": "0x0c"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

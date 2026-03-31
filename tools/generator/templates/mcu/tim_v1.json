@@ -2,6 +2,88 @@
   "periph": "_TIM",
   "path": "soc/stm32/drivers/tim/tim_v1.h",
   "struct": "tim_registers_map",
+  "regs": [
+    {
+      "name": "CR1",
+      "offset": "0x00"
+    },
+    {
+      "name": "CR2",
+      "offset": "0x04"
+    },
+    {
+      "name": "SMCR",
+      "offset": "0x08"
+    },
+    {
+      "name": "DIER",
+      "offset": "0x0c"
+    },
+    {
+      "name": "SR",
+      "offset": "0x10"
+    },
+    {
+      "name": "EGR",
+      "offset": "0x14"
+    },
+    {
+      "name": "CCMR1",
+      "offset": "0x18"
+    },
+    {
+      "name": "CCMR2",
+      "offset": "0x1c"
+    },
+    {
+      "name": "CCER",
+      "offset": "0x20"
+    },
+    {
+      "name": "CNT",
+      "offset": "0x24"
+    },
+    {
+      "name": "PSC",
+      "offset": "0x28"
+    },
+    {
+      "name": "ARR",
+      "offset": "0x2c"
+    },
+    {
+      "name": "RCR",
+      "offset": "0x30"
+    },
+    {
+      "name": "CCR1",
+      "offset": "0x34"
+    },
+    {
+      "name": "CCR2",
+      "offset": "0x38"
+    },
+    {
+      "name": "CCR3",
+      "offset": "0x3c"
+    },
+    {
+      "name": "CCR4",
+      "offset": "0x40"
+    },
+    {
+      "name": "BDTR",
+      "offset": "0x44"
+    },
+    {
+      "name": "DCR",
+      "offset": "0x48"
+    },
+    {
+      "name": "DMAR",
+      "offset": "0x4c"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

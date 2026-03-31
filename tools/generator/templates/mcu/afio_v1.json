@@ -2,6 +2,36 @@
   "periph": "AFIO",
   "path": "soc/stm32/drivers/afio/afio_v1.h",
   "struct": "afio_registers_map",
+  "regs": [
+    {
+      "name": "EVCR",
+      "offset": "0x00"
+    },
+    {
+      "name": "MAPR",
+      "offset": "0x04"
+    },
+    {
+      "name": "EXTICR[0]",
+      "offset": "0x08"
+    },
+    {
+      "name": "EXTICR[1]",
+      "offset": "0x0c"
+    },
+    {
+      "name": "EXTICR[2]",
+      "offset": "0x10"
+    },
+    {
+      "name": "EXTICR[3]",
+      "offset": "0x14"
+    },
+    {
+      "name": "MAPR2",
+      "offset": "0x1c"
+    }
+  ],
   "functions": [
     {
       "type": "enum_set",

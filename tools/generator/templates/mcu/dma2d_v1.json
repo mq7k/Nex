@@ -2,6 +2,108 @@
   "periph": "DMA2D",
   "path": "soc/stm32/drivers/dma2d/dma2d_v1.h",
   "struct": "dma2d_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "ISR",
+      "offset": "0x04"
+    },
+    {
+      "name": "IFCR",
+      "offset": "0x08"
+    },
+    {
+      "name": "FGMAR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "FGOR",
+      "offset": "0x10"
+    },
+    {
+      "name": "BGMAR",
+      "offset": "0x14"
+    },
+    {
+      "name": "BGOR",
+      "offset": "0x18"
+    },
+    {
+      "name": "FGPFCCR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "FGCOLR",
+      "offset": "0x20"
+    },
+    {
+      "name": "BGPFCCR",
+      "offset": "0x24"
+    },
+    {
+      "name": "BGCOLR",
+      "offset": "0x28"
+    },
+    {
+      "name": "FGCMAR",
+      "offset": "0x2c"
+    },
+    {
+      "name": "BGCMAR",
+      "offset": "0x30"
+    },
+    {
+      "name": "OPFCCR",
+      "offset": "0x34"
+    },
+    {
+      "name": "OCOLR",
+      "offset": "0x38"
+    },
+    {
+      "name": "OMAR",
+      "offset": "0x3c"
+    },
+    {
+      "name": "OOR",
+      "offset": "0x40"
+    },
+    {
+      "name": "NLR",
+      "offset": "0x44"
+    },
+    {
+      "name": "LWR",
+      "offset": "0x48"
+    },
+    {
+      "name": "AMTCR",
+      "offset": "0x4c"
+    },
+    {
+      "name": "BGCOLR",
+      "offset": "0x28"
+    },
+    {
+      "name": "FGCLUT[0]",
+      "offset": "0x400"
+    },
+    {
+      "name": "FGCLUT[1]",
+      "offset": "0x404"
+    },
+    {
+      "name": "BGCLUT[0]",
+      "offset": "0x800"
+    },
+    {
+      "name": "BGCLUT[1]",
+      "offset": "0x804"
+    }
+  ],
   "functions": [
     {
       "type": "fn_call",

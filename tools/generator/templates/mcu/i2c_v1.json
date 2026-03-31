@@ -2,6 +2,49 @@
   "periph": "_I2C",
   "path": "soc/stm32/drivers/i2c/i2c_v1.h",
   "struct": "i2c_registers_map",
+  "regs": [
+    {
+      "name": "CR1",
+      "offset": "0x00"
+    },
+    {
+      "name": "CR2",
+      "offset": "0x04"
+    },
+    {
+      "name": "OAR1",
+      "offset": "0x08"
+    },
+    {
+      "name": "OAR2",
+      "offset": "0x0c"
+    },
+    {
+      "name": "DR",
+      "offset": "0x10"
+    },
+    {
+      "name": "SR1",
+      "offset": "0x14"
+    },
+    {
+      "name": "SR2",
+      "offset": "0x18"
+    },
+    {
+      "name": "CCR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "TRISE",
+      "offset": "0x20"
+    },
+    {
+      "name": "FLTR",
+      "offset": "0x24",
+      "ifdef": "STM32_I2C_FILTER"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

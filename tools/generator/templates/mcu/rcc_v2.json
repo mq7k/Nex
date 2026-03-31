@@ -2,6 +2,126 @@
   "periph": "RCC",
   "path": "soc/stm32/drivers/rcc/rcc_v2.h",
   "struct": "rcc_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "PLLCFGR",
+      "offset": "0x04"
+    },
+    {
+      "name": "CFGR",
+      "offset": "0x08"
+    },
+    {
+      "name": "CIR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "AHB1RSTR",
+      "offset": "0x10"
+    },
+    {
+      "name": "AHB2RSTR",
+      "offset": "0x14",
+      "ifdef": "STM32_RCC_AHB2"
+    },
+    {
+      "name": "AHB3RSTR",
+      "offset": "0x18",
+      "ifdef": "STM32_RCC_AHB3"
+    },
+    {
+      "name": "APB1RSTR",
+      "offset": "0x20"
+    },
+    {
+      "name": "APB2RSTR",
+      "offset": "0x24"
+    },
+    {
+      "name": "AHB1ENR",
+      "offset": "0x30"
+    },
+    {
+      "name": "AHB2ENR",
+      "offset": "0x34",
+      "ifdef": "STM32_RCC_AHB2"
+    },
+    {
+      "name": "AHB3ENR",
+      "offset": "0x38",
+      "ifdef": "STM32_RCC_AHB3"
+    },
+    {
+      "name": "APB1ENR",
+      "offset": "0x40"
+    },
+    {
+      "name": "APB2ENR",
+      "offset": "0x44"
+    },
+    {
+      "name": "AHB1LPENR",
+      "offset": "0x50"
+    },
+    {
+      "name": "AHB2LPENR",
+      "offset": "0x54",
+      "ifdef": "STM32_RCC_AHB2"
+    },
+    {
+      "name": "AHB3LPENR",
+      "offset": "0x58",
+      "ifdef": "STM32_RCC_AHB3"
+    },
+    {
+      "name": "APB1LPENR",
+      "offset": "0x60"
+    },
+    {
+      "name": "APB2LPENR",
+      "offset": "0x64"
+    },
+    {
+      "name": "BDCR",
+      "offset": "0x70"
+    },
+    {
+      "name": "CSR",
+      "offset": "0x74"
+    },
+    {
+      "name": "SSCGR",
+      "offset": "0x80"
+    },
+    {
+      "name": "PLLI2SCFGR",
+      "offset": "0x84",
+      "ifdef": "STM32_RCC_PLLI2S"
+    },
+    {
+      "name": "PLLSAICFGR",
+      "offset": "0x88",
+      "ifdef": "STM32_RCC_PLLSAI"
+    },
+    {
+      "name": "DCKCFGR",
+      "offset": "0x8c"
+    },
+    {
+      "name": "CKGATENR",
+      "offset": "0x90",
+      "ifdef": "STM32_RCC_CKGATE"
+    },
+    {
+      "name": "DCKCFGR2",
+      "offset": "0x94",
+      "ifdef": "STM32_RCC_DCKCFGR2"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

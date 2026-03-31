@@ -2,6 +2,48 @@
   "periph": "RCC",
   "path": "soc/stm32/drivers/rcc/rcc_v1.h",
   "struct": "rcc_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "CFGR",
+      "offset": "0x04"
+    },
+    {
+      "name": "CIR",
+      "offset": "0x08"
+    },
+    {
+      "name": "APB2RSTR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "APB1RSTR",
+      "offset": "0x10"
+    },
+    {
+      "name": "AHBENR",
+      "offset": "0x14"
+    },
+    {
+      "name": "APB2ENR",
+      "offset": "0x18"
+    },
+    {
+      "name": "APB1ENR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "BDCR",
+      "offset": "0x20"
+    },
+    {
+      "name": "CSR",
+      "offset": "0x24"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

@@ -2,6 +2,36 @@
   "periph": "_GPIO",
   "path": "soc/stm32/drivers/gpio/gpio_v1.h",
   "struct": "gpio_registers_map",
+  "regs": [
+    {
+      "name": "CRL",
+      "offset": "0x00"
+    },
+    {
+      "name": "CRH",
+      "offset": "0x04"
+    },
+    {
+      "name": "IDR",
+      "offset": "0x08"
+    },
+    {
+      "name": "ODR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "BSRR",
+      "offset": "0x10"
+    },
+    {
+      "name": "BRR",
+      "offset": "0x14"
+    },
+    {
+      "name": "LCKR",
+      "offset": "0x18"
+    }
+  ],
   "functions": [
     {
       "type": "enum_set (TODO)",

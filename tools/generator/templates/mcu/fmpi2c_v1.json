@@ -2,6 +2,52 @@
   "periph": "FMPI2C1",
   "path": "soc/stm32/drivers/fmpi2c/fmpi2c_v1.h",
   "struct": "fmpi2c_registers_map",
+  "regs": [
+    {
+      "name": "CR1",
+      "offset": "0x00"
+    },
+    {
+      "name": "CR2",
+      "offset": "0x04"
+    },
+    {
+      "name": "OAR1",
+      "offset": "0x08"
+    },
+    {
+      "name": "OAR2",
+      "offset": "0x0c"
+    },
+    {
+      "name": "TIMINGR",
+      "offset": "0x10"
+    },
+    {
+      "name": "TIMEOUTR",
+      "offset": "0x14"
+    },
+    {
+      "name": "ISR",
+      "offset": "0x18"
+    },
+    {
+      "name": "ICR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "PECR",
+      "offset": "0x20"
+    },
+    {
+      "name": "RXDR",
+      "offset": "0x24"
+    },
+    {
+      "name": "TXDR",
+      "offset": "0x28"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

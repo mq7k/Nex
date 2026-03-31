@@ -2,6 +2,71 @@
   "periph": "DAC",
   "path": "soc/stm32/drivers/dac/dac_v1.h",
   "struct": "dac_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "SWTRIGR",
+      "offset": "0x04"
+    },
+    {
+      "name": "DHR12R1",
+      "offset": "0x08"
+    },
+    {
+      "name": "DHR12L1",
+      "offset": "0x0c"
+    },
+    {
+      "name": "DHR8R1",
+      "offset": "0x10"
+    },
+    {
+      "name": "DHR12R2",
+      "offset": "0x14",
+      "ifdef": "STM32_DAC_CHANNEL2"
+    },
+    {
+      "name": "DHR12L2",
+      "offset": "0x18",
+      "ifdef": "STM32_DAC_CHANNEL2"
+    },
+    {
+      "name": "DHR8R2",
+      "offset": "0x1c",
+      "ifdef": "STM32_DAC_CHANNEL2"
+    },
+    {
+      "name": "DHR12RD",
+      "offset": "0x20",
+      "ifdef": "STM32_DAC_CHANNEL_COMMON"
+    },
+    {
+      "name": "DHR12LD",
+      "offset": "0x24",
+      "ifdef": "STM32_DAC_CHANNEL_COMMON"
+    },
+    {
+      "name": "DHR8RD",
+      "offset": "0x28",
+      "ifdef": "STM32_DAC_CHANNEL_COMMON"
+    },
+    {
+      "name": "DOR1",
+      "offset": "0x2c"
+    },
+    {
+      "name": "DOR2",
+      "offset": "0x30",
+      "ifdef": "STM32_DAC_CHANNEL2"
+    },
+    {
+      "name": "SR",
+      "offset": "0x34"
+    }
+  ],
   "functions": [
     {
       "type": "enum_toggle",
