@@ -23,9 +23,7 @@ struct scb_registers_map
   u32 SHCSR;
   u32 CFSR;
   u32 HFSR;
-
-  u32 _reserved1;
-
+  u32 DFSR;
   u32 MMFAR;
   u32 BFAR;
   u32 AFSR;
