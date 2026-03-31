@@ -130,10 +130,7 @@ namespace nextest
       print_test_var(expected_var_name, expected);
     }
 
-    if constexpr (
-      std::is_integral_v<T> && std::is_integral_v<S> &&
-      !(std::is_same_v<T, bool> || std::is_same_v<S, bool>) 
-    )
+    if constexpr (std::is_same_v<u32, T> && std::is_same_v<u32, S>)
     {
       nextest::print_bin_compare(stderr, expected, value);
     }
