@@ -26,7 +26,7 @@ def print_err_log():
         print(file.read())
 
 def try_compile(file):
-    print(f'Try compiling target {file}... ', end='')
+    print(f'Try compiling target {file}... ', end='', flush=True)
     cmd = [
             'tools/builder/build.py',
             f'--target={file}',
