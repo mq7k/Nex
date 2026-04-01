@@ -106,17 +106,19 @@ enum nvic_irq
   NVIC_IRQ_TIM8_CC = 46,
 #endif
 
-//   NVIC_IRQ_DMA2_CHANNEL7 = 47,
-//
-// #if defined(STM32_FSMC)
-//   NVIC_IRQ_FSMC = 48,
-// #elif defined(STM32_FMC)
-//   NVIC_IRQ_FMC = 48,
-// #endif
-//
-// #if defined(STM32_SDIO)
-//   NVIC_IRQ_SDIO = 49,
-// #endif
+#if defined(STM32_ADC3)
+  NVIC_IRQ_ADC3 = 47,
+#endif
+
+#if defined(STM32_FSMC)
+  NVIC_IRQ_FSMC = 48,
+#elif defined(STM32_FMC)
+  NVIC_IRQ_FMC = 48,
+#endif
+
+#if defined(STM32_SDIO)
+  NVIC_IRQ_SDIO = 49,
+#endif
 
   NVIC_IRQ_TIM5 = 50,
 
@@ -212,150 +214,277 @@ nvic_trigger_irq(
   enum nvic_irq interrupt
 );
 
-/* Default implementations */
-void blocking_handler(void);
-void null_handler(void);
+void
+blocking_handler(void);
 
-/* Core exceptions */
-void nmi_handler();
-void hard_fault_handler(void);
-void memory_fault_handler(void);
-void bus_fault_handler(void);
-void usage_fault_handler(void);
-void debug_monitor_handler(void);
-void sv_call_handler(void);
-void pend_sv_handler(void);
-void systick_handler(void);
+// Core exceptions.
+void
+nmi_handler(void);
 
-/* Interrupts service routines */
-void wwdg_isr(void);
-void pvd_isr(void);
-void tamper_isr(void);
-void rtc_wakeup_isr(void);
-void flash_isr(void);
-void rcc_isr(void);
-void exti0_isr(void);
-void exti1_isr(void);
-void exti2_isr(void);
-void exti3_isr(void);
-void exti4_isr(void);
-void dma1_channel1_isr(void);
-void dma1_channel2_isr(void);
-void dma1_channel3_isr(void);
-void dma1_channel4_isr(void);
-void dma1_channel5_isr(void);
-void dma1_channel6_isr(void);
-void dma1_channel7_isr(void);
-void adc_isr(void);
+void
+hard_fault_handler(void);
+
+void
+memory_fault_handler(void);
+
+void
+bus_fault_handler(void);
+
+void
+usage_fault_handler(void);
+
+void
+debug_monitor_handler(void);
+
+void
+sv_call_handler(void);
+
+void
+pend_sv_handler(void);
+
+void
+systick_handler(void);
+
+// SoC exceptions.
+void
+wwdg_isr(void);
+
+void
+pvd_isr(void);
+
+void
+tamper_isr(void);
+
+void
+rtc_wakeup_isr(void);
+
+void
+flash_isr(void);
+
+void
+rcc_isr(void);
+
+void
+exti0_isr(void);
+
+void
+exti1_isr(void);
+
+void
+exti2_isr(void);
+
+void
+exti3_isr(void);
+
+void
+exti4_isr(void);
+
+void
+dma1_channel1_isr(void);
+
+void
+dma1_channel2_isr(void);
+
+void
+dma1_channel3_isr(void);
+
+void
+dma1_channel4_isr(void);
+
+void
+dma1_channel5_isr(void);
+
+void
+dma1_channel6_isr(void);
+
+void
+dma1_channel7_isr(void);
+
+void
+adc_isr(void);
 
 #if defined(STM32_CAN1)
-void can1_tx_isr(void);
-void can1_rx0_isr(void);
-void can1_rx1_isr(void);
-void can1_sce_isr(void);
+void
+can1_tx_isr(void);
+
+void
+can1_rx0_isr(void);
+
+void
+can1_rx1_isr(void);
+
+void
+can1_sce_isr(void);
 #endif
 
-void exti9_5_isr(void);
-void tim1_brk_isr(void);
-void tim1_up_isr(void);
-void tim1_trg_com_isr(void);
-void tim1_cc_isr(void);
+void
+exti9_5_isr(void);
+
+void
+tim1_brk_isr(void);
+
+void
+tim1_up_isr(void);
+
+void
+tim1_trg_com_isr(void);
+
+void
+tim1_cc_isr(void);
 
 #if defined(STM32_TIM2)
-void tim2_isr(void);
+void
+tim2_isr(void);
 #endif
 
 #if defined(STM32_TIM3)
-void tim3_isr(void);
+void
+tim3_isr(void);
 #endif
 
 #if defined(STM32_TIM4)
-void tim4_isr(void);
+void
+tim4_isr(void);
 #endif
 
-void i2c1_ev_isr(void);
-void i2c1_er_isr(void);
+void
+i2c1_ev_isr(void);
 
-void i2c2_ev_isr(void);
-void i2c2_er_isr(void);
+void
+i2c1_er_isr(void);
 
-void spi1_isr(void);
-void spi2_isr(void);
+void
+i2c2_ev_isr(void);
 
-void usart1_isr(void);
-void usart2_isr(void);
+void
+i2c2_er_isr(void);
+
+void
+spi1_isr(void);
+
+void
+spi2_isr(void);
+
+void
+usart1_isr(void);
+
+void
+usart2_isr(void);
 
 #if defined(STM32_USART3)
-void usart3_isr(void);
+void
+usart3_isr(void);
 #endif
 
-void exti15_10_isr(void);
+void
+exti15_10_isr(void);
 
-void rtc_alarm_isr(void);
+void
+rtc_alarm_isr(void);
 
 #if defined(STM32_USB_OTG_FS)
-void otg_fs_wkup_isr(void);
+void
+otg_fs_wkup_isr(void);
 #endif
 
 #if defined(STM32_TIM8)
-void tim8_brk_isr(void);
-void tim8_up_isr(void);
-void tim8_trg_isr(void);
-void tim8_cc_isr(void);
+void
+tim8_brk_tim12_isr(void);
+
+void
+tim8_up_tim13_isr(void);
+
+void
+tim8_trg_tim14_isr(void);
+
+void
+tim8_cc_isr(void);
 #endif
 
-void dma1_channel7_isr(void);
+#if defined(STM32_ADC3)
+void
+adc3_isr(void);
+#endif
 
 #if defined(STM32_FSMC)
-void fsmc_isr(void);
+void
+fsmc_isr(void);
 #elif defined(STM32_FMC)
-void fmc_isr(void);
+void
+fmc_isr(void);
 #endif
 
 #if defined(STM32_SDIO)
-void sdio_isr(void);
+void
+sdio_isr(void);
 #endif
 
-void tim5_isr(void);
+void
+tim5_isr(void);
 
 #if defined(STM32_SPI3)
-void spi3_isr(void);
+void
+spi3_isr(void);
 #endif
 
 #if defined(STM32_UART4)
-void uart4_isr(void);
+void
+uart4_isr(void);
 #endif
 
 #if defined(STM32_UART4)
-void uart5_isr(void);
+void
+uart5_isr(void);
 #endif
 
-void tim6_isr(void);
+void
+tim6_isr(void);
 
 #if defined(STM32_TIM7)
-void tim7_isr(void);
+void
+tim7_isr(void);
 #endif
 
-void dma2_channel1_isr(void);
-void dma2_channel2_isr(void);
-void dma2_channel3_isr(void);
-void dma2_channel4_isr(void);
-void dma2_channel5_isr(void);
+void
+dma2_channel1_isr(void);
+
+void
+dma2_channel2_isr(void);
+
+void
+dma2_channel3_isr(void);
+
+void
+dma2_channel4_isr(void);
+
+void
+dma2_channel5_isr(void);
 
 #if defined(STM32_ETH)
-void eth_isr(void);
-void eth_wkup_isr(void);
+void
+eth_isr(void);
+
+void
+eth_wkup_isr(void);
 #endif
 
 #if defined(STM32_CAN2)
-void can2_tx_isr(void);
-void can2_rx0_isr(void);
-void can2_rx1_isr(void);
-void can2_sce_isr(void);
+void
+can2_tx_isr(void);
+
+void
+can2_rx0_isr(void);
+
+void
+can2_rx1_isr(void);
+
+void
+can2_sce_isr(void);
 #endif
 
 #if defined(STM32_USB_OTG_FS)
-void otg_fs_isr(void);
+void
+otg_fs_isr(void);
 #endif
 
 END_DECLARATIONS

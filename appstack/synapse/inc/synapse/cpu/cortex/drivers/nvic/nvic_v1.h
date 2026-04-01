@@ -7,8 +7,6 @@
 
 BEGIN_DECLARATIONS
 
-// #define NVIC_IRQ_COUNT (68)
-
 struct nvic_registers_map
 {
   u32 ISER[8];
@@ -325,255 +323,427 @@ nvic_trigger_irq(
   enum nvic_irq interrupt
 );
 
-/* Default implementations */
-void blocking_handler(void);
-void null_handler(void);
+void
+blocking_handler(void);
 
-/* Core exceptions */
-void nmi_handler();
-void hard_fault_handler(void);
-void memory_fault_handler(void);
-void bus_fault_handler(void);
-void usage_fault_handler(void);
-void debug_monitor_handler(void);
-void sv_call_handler(void);
-void pend_sv_handler(void);
-void systick_handler(void);
+// Core exceptions.
+void
+nmi_handler(void);
+
+void
+hard_fault_handler(void);
+
+void
+memory_fault_handler(void);
+
+void
+bus_fault_handler(void);
+
+void
+usage_fault_handler(void);
+
+void
+debug_monitor_handler(void);
+
+void
+sv_call_handler(void);
+
+void
+pend_sv_handler(void);
+
+void
+systick_handler(void);
 
 /* Interrupts service routines */
-void wwdg_isr(void);
-void pvd_isr(void);
-void tamper_isr(void);
-void rtc_wakeup_isr(void);
-void flash_isr(void);
-void rcc_isr(void);
-void exti0_isr(void);
-void exti1_isr(void);
-void exti2_isr(void);
-void exti3_isr(void);
-void exti4_isr(void);
-void dma1_stream0_isr(void);
-void dma1_stream1_isr(void);
-void dma1_stream2_isr(void);
-void dma1_stream3_isr(void);
-void dma1_stream4_isr(void);
-void dma1_stream5_isr(void);
-void dma1_stream6_isr(void);
-void adc_isr(void);
+void
+wwdg_isr(void);
+
+void
+pvd_isr(void);
+
+void
+tamper_isr(void);
+
+void
+rtc_wakeup_isr(void);
+
+void
+flash_isr(void);
+
+void
+rcc_isr(void);
+
+void
+exti0_isr(void);
+
+void
+exti1_isr(void);
+
+void
+exti2_isr(void);
+
+void
+exti3_isr(void);
+
+void
+exti4_isr(void);
+
+void
+dma1_stream0_isr(void);
+
+void
+dma1_stream1_isr(void);
+
+void
+dma1_stream2_isr(void);
+
+void
+dma1_stream3_isr(void);
+
+void
+dma1_stream4_isr(void);
+
+void
+dma1_stream5_isr(void);
+
+void
+dma1_stream6_isr(void);
+
+void
+adc_isr(void);
 
 #if defined(STM32_CAN1)
-void can1_tx_isr(void);
-void can1_rx0_isr(void);
-void can1_rx1_isr(void);
-void can1_sce_isr(void);
+void
+can1_tx_isr(void);
+
+void
+can1_rx0_isr(void);
+
+void
+can1_rx1_isr(void);
+
+void
+can1_sce_isr(void);
 #endif
 
-void exti9_5_isr(void);
-void tim1_brk_isr(void);
-void tim1_up_isr(void);
-void tim1_trg_com_isr(void);
-void tim1_cc_isr(void);
+void
+exti9_5_isr(void);
+
+void
+tim1_brk_isr(void);
+
+void
+tim1_up_isr(void);
+
+void
+tim1_trg_com_isr(void);
+
+void
+tim1_cc_isr(void);
 
 #if defined(STM32_TIM2)
-void tim2_isr(void);
+void
+tim2_isr(void);
 #endif
 
 #if defined(STM32_TIM3)
-void tim3_isr(void);
+void
+tim3_isr(void);
 #endif
 
 #if defined(STM32_TIM4)
-void tim4_isr(void);
+void
+tim4_isr(void);
 #endif
 
-void i2c1_ev_isr(void);
-void i2c1_er_isr(void);
+void
+i2c1_ev_isr(void);
 
-void i2c2_ev_isr(void);
-void i2c2_er_isr(void);
+void
+i2c1_er_isr(void);
 
-void spi1_isr(void);
-void spi2_isr(void);
+void
+i2c2_ev_isr(void);
 
-void usart1_isr(void);
-void usart2_isr(void);
+void
+i2c2_er_isr(void);
+
+void
+spi1_isr(void);
+
+void
+spi2_isr(void);
+
+void
+usart1_isr(void);
+
+void
+usart2_isr(void);
 
 #if defined(STM32_USART3)
-void usart3_isr(void);
+void
+usart3_isr(void);
 #endif
 
-void exti15_10_isr(void);
+void
+exti15_10_isr(void);
 
-void rtc_alarm_isr(void);
+void
+rtc_alarm_isr(void);
 
 #if defined(STM32_USB_OTG_FS)
-void otg_fs_wkup_isr(void);
+void
+otg_fs_wkup_isr(void);
 #endif
 
 #if defined(STM32_TIM8)
-void tim8_brk_isr(void);
-void tim8_up_isr(void);
-void tim8_trg_isr(void);
-void tim8_cc_isr(void);
+void
+tim8_brk_isr(void);
+
+void
+tim8_up_isr(void);
+
+void
+tim8_trg_isr(void);
+
+void
+tim8_cc_isr(void);
 #endif
 
-void dma1_stream7_isr(void);
+void
+dma1_stream7_isr(void);
 
 #if defined(STM32_FSMC)
-void fsmc_isr(void);
+void
+fsmc_isr(void);
 #elif defined(STM32_FMC)
-void fmc_isr(void);
+void
+fmc_isr(void);
 #endif
 
 #if defined(STM32_SDIO)
-void sdio_isr(void);
+void
+sdio_isr(void);
 #endif
 
-void tim5_isr(void);
+void
+tim5_isr(void);
 
 #if defined(STM32_SPI3)
-void spi3_isr(void);
+void
+spi3_isr(void);
 #endif
 
 #if defined(STM32_UART4)
-void uart4_isr(void);
+void
+uart4_isr(void);
 #endif
 
 #if defined(STM32_UART4)
-void uart5_isr(void);
+void
+uart5_isr(void);
 #endif
 
-void tim6_isr(void);
+void
+tim6_isr(void);
 
 #if defined(STM32_TIM7)
-void tim7_isr(void);
+void
+tim7_isr(void);
 #endif
 
-void dma2_stream0_isr(void);
-void dma2_stream1_isr(void);
-void dma2_stream2_isr(void);
-void dma2_stream3_isr(void);
-void dma2_stream4_isr(void);
+void
+dma2_stream0_isr(void);
+
+void
+dma2_stream1_isr(void);
+
+void
+dma2_stream2_isr(void);
+
+void
+dma2_stream3_isr(void);
+
+void
+dma2_stream4_isr(void);
 
 #if defined(STM32_ETH)
-void eth_isr(void);
-void eth_wkup_isr(void);
+void
+eth_isr(void);
+
+void
+eth_wkup_isr(void);
 #endif
 
 #if defined(STM32_CAN2)
-void can2_tx_isr(void);
-void can2_rx0_isr(void);
-void can2_rx1_isr(void);
-void can2_sce_isr(void);
+void
+can2_tx_isr(void);
+
+void
+can2_rx0_isr(void);
+
+void
+can2_rx1_isr(void);
+
+void
+can2_sce_isr(void);
 #endif
 
 #if defined(STM32_USB_OTG_FS)
-void otg_fs_isr(void);
+void
+otg_fs_isr(void);
 #endif
 
-void dma2_stream5_isr(void);
-void dma2_stream6_isr(void);
-void dma2_stream7_isr(void);
+void
+dma2_stream5_isr(void);
 
-void usart6_isr(void);
+void
+dma2_stream6_isr(void);
+
+void
+dma2_stream7_isr(void);
+
+void
+usart6_isr(void);
 
 #if defined(STM32_I2C3)
-void i2c3_event_isr(void);
-void i2c3_error_isr(void);
+void
+i2c3_event_isr(void);
+
+void
+i2c3_error_isr(void);
 #endif
 
 #if defined(STM32_USB_OTG_HS)
-void otg_hs_ep1_out_isr(void);
-void otg_hs_ep1_in_isr(void);
-void otg_hs_wakeup_isr(void);
-void otg_hs_isr(void);
+void
+otg_hs_ep1_out_isr(void);
+
+void
+otg_hs_ep1_in_isr(void);
+
+void
+otg_hs_wakeup_isr(void);
+
+void
+otg_hs_isr(void);
 #endif
 
 #if defined(STM32_DCMI)
-void dcmi_isr(void);
+void
+dcmi_isr(void);
 #endif
 
 #if defined(STM32_CRYP)
-void cryp_isr(void);
+void
+cryp_isr(void);
 #endif
 
 #if defined(STM32_HASH) || defined(STM32_RNG)
-void hash_rng_isr(void);
+void
+hash_rng_isr(void);
 #endif
 
-void fpu_isr(void);
+void
+fpu_isr(void);
 
 #if defined(STM32_UART7)
-void usart7_isr(void);
+void
+usart7_isr(void);
 #endif
 
 #if defined(STM32_UART8)
-void usart8_isr(void);
+void
+usart8_isr(void);
 #endif
 
 #if defined(STM32_SPI4)
-void spi4_isr(void);
+void
+spi4_isr(void);
 #endif
 
 #if defined(STM32_SPI5)
-void spi5_isr(void);
+void
+spi5_isr(void);
 #endif
 
 #if defined(STM32_SPI6)
-void spi6_isr(void);
+void
+spi6_isr(void);
 #endif
 
 #if defined(STM32_SAI1)
-void sai1_isr(void);
+void
+sai1_isr(void);
 #endif
 
 #if defined(STM32_LCD_TFT)
-void lcd_tft_isr(void);
-void lcd_tft_error_isr(void);
+void
+lcd_tft_isr(void);
+
+void
+lcd_tft_error_isr(void);
 #endif
 
 #if defined(STM32_DMA2D)
-void dma2d_isr(void);
+void
+dma2d_isr(void);
 #endif
 
 #if defined(STM32_SAI2)
-void sai2_isr(void);
+void
+sai2_isr(void);
 #endif
 
 #if defined(STM32_QUADSPI)
-void quadspi_isr(void);
+void
+quadspi_isr(void);
 #endif
 
 #if defined(STM32_HDMI_CEC)
-void hdmi_cec_isr(void);
+void
+hdmi_cec_isr(void);
 #endif
 
 #if defined(STM32_SPDIFRX)
-void spdifrx_isr(void);
+void
+spdifrx_isr(void);
 #endif
 
 #if defined(STM32_FMPI2C1)
-void fmpi2c1_event_isr(void);
-void fmpi2c1_error_isr(void);
+void
+fmpi2c1_event_isr(void);
+
+void
+fmpi2c1_error_isr(void);
 #endif
 
 #if defined(STM32_DSI)
-void dsi_isr(void);
+void
+dsi_isr(void);
 #endif
 
 #if defined(STM32_I2C4)
-void i2c4_isr(void);
+void
+i2c4_isr(void);
 #endif
 
 #if defined(STM32_LPTIM1)
-void lptim1_isr(void);
+void
+lptim1_isr(void);
 #endif
 
 #if defined(STM32_DFSDM2)
-void dfsdm2_flt0_isr(void);
-void dfsdm2_flt1_isr(void);
-void dfsdm2_flt2_isr(void);
-void dfsdm2_flt3_isr(void);
+void
+dfsdm2_flt0_isr(void);
+
+void
+dfsdm2_flt1_isr(void);
+
+void
+dfsdm2_flt2_isr(void);
+
+void
+dfsdm2_flt3_isr(void);
 #endif
 
 END_DECLARATIONS
