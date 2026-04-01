@@ -15,7 +15,7 @@ BEGIN_DECLARATIONS
 
 #define NEX_WEAK __attribute__((weak))
 #define NEX_ALIAS(name) __attribute__((alias(name)))
-#define NEX_WEAK_NEX_ALIAS(name) __attribute__((weak, alias(name)))
+#define NEX_WEAK_ALIAS(name) __attribute__((weak, alias(name)))
 
 #if defined(__cplusplus) || __STDC_VERSION__ >= 202000
 // C23 or newer OR C++.
