@@ -1111,7 +1111,7 @@ rcc_periph_reset(
 #if defined(STM32_GPIO_RST_AHB)
       RCC->AHBENR |= RCC_AHBENR_GPIOGRST;
 #else
-      RCC->APB2RSTR |= RCC_APB2RSTR_IOPFRST;
+      RCC->APB2RSTR |= RCC_APB2RSTR_IOPGRST;
 #endif
       break;
 #endif
