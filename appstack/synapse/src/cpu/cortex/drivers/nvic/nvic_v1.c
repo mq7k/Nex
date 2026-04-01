@@ -104,12 +104,6 @@ blocking_handler(void)
   while (1);
 }
 
-void 
-null_handler(void)
-{
-
-}
-
 // Core exceptions.
 NEX_WEAK_NEX_ALIAS("blocking_handler")
 void 
@@ -131,7 +125,7 @@ NEX_WEAK_NEX_ALIAS("blocking_handler")
 void
 usage_fault_handler(void);
 
-NEX_WEAK_NEX_ALIAS("null_handler")
+NEX_WEAK_NEX_ALIAS("blocking_handler")
 void
 debug_monitor_handler(void);
 
@@ -143,7 +137,7 @@ NEX_WEAK_NEX_ALIAS("blocking_handler")
 void
 pend_sv_handler(void);
 
-NEX_WEAK_NEX_ALIAS("null_handler")
+NEX_WEAK_NEX_ALIAS("blocking_handler")
 void
 systick_handler(void);
 
