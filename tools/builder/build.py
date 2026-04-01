@@ -21,9 +21,9 @@ def run_tests(path):
 def execute_cmd(cmd):
     try:
         p = subprocess.run(cmd, shell=False)
-        return p.returncode == 0
+        return p.returncode
     except subprocess.TimeoutExpired:
-        return False
+        return 1
 
 def main():
     args = cliargs.get_cli_args()
@@ -44,14 +44,14 @@ def main():
     # Generates build files (Makefile, Ninja, Visual Studio, ...)
     cmd = cmake.generate_cmake_gen_command(options, build_config)
     print(f'{cmd=}')
-    if not execute_cmd(cmd):
+    if execute_cmd(cmd):
         print('Failed to generate build files.')
         print('CMake exited with non-zero code or the subprocess timed out')
         sys.exit(1)
 
     # Uses those generated files to compile the project.
     cmd = cmake.generate_cmake_build_command(options['build_dir'])
-    if not execute_cmd(cmd):
+    if execute_cmd(cmd):
         print('Failed to build the project.')
         print('CMake exited with non-zero code or the subprocess timed out')
         sys.exit(1)
@@ -66,14 +66,23 @@ def main():
     if args.tests:
         build_dir = options['build_dir']
 
-        if not run_tests(f'{build_dir}/appstack/libcom'):
+        code = run_tests(f'{build_dir}/appstack/libcom')
+        if code:
             print('Error while executing libcom tests: non-zero exit code or timed out')
+            return code
 
-        if not run_tests(f'{build_dir}/appstack/synapse'):
+        code = run_tests(f'{build_dir}/appstack/synapse')
+        if code:
             print('Error while executing synapse tests: non-zero exit code or timed out')
+            return code
 
-        if not run_tests(f'{build_dir}/appstack/system'):
+        code = run_tests(f'{build_dir}/appstack/system')
+        if code:
             print('Error while executing system tests: non-zero exit code or timed out')
+            return code
+
+    return 0
 
 if __name__ == '__main__':
-    main()
+    code = main()
+    sys.exit(code)
