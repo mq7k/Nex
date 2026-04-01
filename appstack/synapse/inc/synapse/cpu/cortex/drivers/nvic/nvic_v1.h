@@ -7,8 +7,6 @@
 
 BEGIN_DECLARATIONS
 
-// #define NVIC_IRQ_COUNT (68)
-
 struct nvic_registers_map
 {
   u32 ISER[8];
