@@ -1,5 +1,6 @@
 #include "synapse/cpu/cortex/drivers/nvic/nvic_v1.h"
 #include "synapse/cpu/cortex/common/memorymap.h"
+#include "util.h"
 
 typedef volatile struct nvic_registers_map nvic_periph;
 nvic_periph* NVIC = (nvic_periph*) (ARCH_NVIC_ADDR);
@@ -107,16 +108,14 @@ void null_handler(void)
 
 }
 
-/* Core exceptions */
-void nmi_handler(void)
-{
-  while (1);
-}
+NEX_WEAK_NEX_ALIAS("blocking_handler")
+void 
+nmi_handler(void);
 
-void hard_fault_handler(void)
-{
-  while (1);
-}
+NEX_WEAK_NEX_ALIAS("blocking_handler")
+void 
+hard_fault_handler(void);
+
 void memory_fault_handler(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
 void bus_fault_handler(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
 void usage_fault_handler(void) NEX_WEAK_NEX_ALIAS("blocking_handler");
