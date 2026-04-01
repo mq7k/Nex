@@ -36,7 +36,7 @@ def try_compile(file):
 
     code = execute_cmd(cmd)
     if code:
-        print(f'Error while trying to compile (code={code})')
+        print(f'Error (code={code})')
         print_err_log()
         sys.exit(code)
 
