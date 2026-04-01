@@ -38,15 +38,16 @@ namespace nextest
     u32 val
   )
   {
-    constexpr size_t sz = sizeof(u32);
+    // Number of bits to display.
+    constexpr size_t szbits = sizeof(u32) * 8;
 
     print_bitpos(fd);
     std::fprintf(fd, "Exp: ");
 
-    for (u32 i = 0; i < sz; ++i)
+    for (u32 i = 0; i < szbits; ++i)
     {
-      u32 exp_bit = (exp >> (sz - i - 1)) & 1;
-      u32 val_bit = (val >> (sz - i - 1)) & 1;
+      u32 exp_bit = (exp >> (szbits - i - 1)) & 1;
+      u32 val_bit = (val >> (szbits - i - 1)) & 1;
 
       const char* color = exp_bit == val_bit ? term_color::green : term_color::red;
       std::fprintf(fd, "%s%-3u", color, exp_bit);
@@ -54,10 +55,10 @@ namespace nextest
 
     std::fprintf(fd, "%s\nVal: ", term_color::reset);
 
-    for (u32 i = 0; i < sz; ++i)
+    for (u32 i = 0; i < szbits; ++i)
     {
-      u32 exp_bit = (exp >> (sz - i - 1)) & 1;
-      u32 val_bit = (val >> (sz - i - 1)) & 1;
+      u32 exp_bit = (exp >> (szbits - i - 1)) & 1;
+      u32 val_bit = (val >> (szbits - i - 1)) & 1;
 
       const char* color = exp_bit == val_bit ? term_color::green : term_color::red;
       std::fprintf(fd, "%s%-3u", color, val_bit);
