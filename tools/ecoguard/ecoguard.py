@@ -26,7 +26,7 @@ def print_err_log():
         print(file.read())
 
 def try_compile(file):
-    print(f'Try compiling target {file}... ', end='')
+    print(f'Try compiling target {file}... ', end='', flush=True)
     cmd = [
             'tools/builder/build.py',
             f'--target={file}',
@@ -36,7 +36,7 @@ def try_compile(file):
 
     code = execute_cmd(cmd)
     if code:
-        print(f'Error while trying to compile (code={code})')
+        print(f'Error (code={code})')
         print_err_log()
         sys.exit(code)
 

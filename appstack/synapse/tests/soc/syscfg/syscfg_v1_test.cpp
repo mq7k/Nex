@@ -24,7 +24,7 @@ test_reg_addr(void)
   ASSERT_ADDR(struct syscfg_registers_map, EXTICR3, 0x10lu);
   ASSERT_ADDR(struct syscfg_registers_map, EXTICR4, 0x14lu);
 #if defined(STM32_SYSCFG_CFGR2)
-  ASSERT_ADDR(struct syscfg_registers_map, CFGR2, 0x18lu);
+  ASSERT_ADDR(struct syscfg_registers_map, CFGR2, 0x1clu);
 #endif
 #if defined(STM32_SYSCFG_CMPCR)
   ASSERT_ADDR(struct syscfg_registers_map, CMPCR, 0x20lu);

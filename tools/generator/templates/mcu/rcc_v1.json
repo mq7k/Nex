@@ -588,7 +588,7 @@
           },
           {
             "enum": "RCC_MCO_PLL3",
-            "value": "0b0110",
+            "value": "0b1011",
             "ifdef": "STM32_RCC_OSC_PLL3"
           },
           {
@@ -1210,7 +1210,7 @@
           },
           {
             "enum": "RCC_PERIPH_OTGFS",
-            "shift": 8,
+            "shift": 12,
             "reg": "AHBENR",
             "ifdef": "STM32_RCC_OTGFS"
           },
@@ -1400,7 +1400,8 @@
           {
             "enum": "RCC_PERIPH_TIM1",
             "shift": 11,
-            "reg": "APB2ENR"
+            "reg": "APB2ENR",
+            "ifdef": "STM32_TIM1"
           },
           {
             "enum": "RCC_PERIPH_SPI1",

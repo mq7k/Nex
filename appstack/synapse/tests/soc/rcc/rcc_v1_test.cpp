@@ -1401,12 +1401,12 @@ test_rcc_set_microcontroller_clock_output(void)
 #if defined(STM32_RCC_OSC_PLL3)
   RCC->CFGR = 0;
   rcc_set_microcontroller_clock_output(RCC_MCO_PLL3);
-  ASSERT_EQ(RCC->CFGR, (0b0110u << 24));
+  ASSERT_EQ(RCC->CFGR, (0b1011u << 24));
   ASSERT_FALSE(execution_halted());
 
   RCC->CFGR = ~(0x7u << 24);
   rcc_set_microcontroller_clock_output(RCC_MCO_PLL3);
-  ASSERT_EQ(RCC->CFGR, ~(0x7u << 24) | (0b0110u << 24));
+  ASSERT_EQ(RCC->CFGR, ~(0x7u << 24) | (0b1011u << 24));
   ASSERT_FALSE(execution_halted());
 
 #endif
@@ -3006,22 +3006,22 @@ test_rcc_periph_clock(void)
 #if defined(STM32_RCC_OTGFS)
   RCC->AHBENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_OTGFS);
-  ASSERT_EQ(RCC->AHBENR, (1u << 8));
+  ASSERT_EQ(RCC->AHBENR, (1u << 12));
   ASSERT_FALSE(execution_halted());
 
-  RCC->AHBENR = ~(1u << 8);
+  RCC->AHBENR = ~(1u << 12);
   rcc_periph_clock_enable(RCC_PERIPH_OTGFS);
   ASSERT_EQ(RCC->AHBENR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
-  RCC->AHBENR = (1u << 8);
+  RCC->AHBENR = (1u << 12);
   rcc_periph_clock_disable(RCC_PERIPH_OTGFS);
   ASSERT_EQ(RCC->AHBENR, 0);
   ASSERT_FALSE(execution_halted());
 
   RCC->AHBENR = 0xffffffff;
   rcc_periph_clock_disable(RCC_PERIPH_OTGFS);
-  ASSERT_EQ(RCC->AHBENR, ~(1u << 8));
+  ASSERT_EQ(RCC->AHBENR, ~(1u << 12));
   ASSERT_FALSE(execution_halted());
 
 #endif
@@ -3636,6 +3636,7 @@ test_rcc_periph_clock(void)
 
 #endif
 
+#if defined(STM32_TIM1)
   RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_TIM1);
   ASSERT_EQ(RCC->APB2ENR, (1u << 11));
@@ -3656,6 +3657,7 @@ test_rcc_periph_clock(void)
   ASSERT_EQ(RCC->APB2ENR, ~(1u << 11));
   ASSERT_FALSE(execution_halted());
 
+#endif
 
   RCC->APB2ENR = 0;
   rcc_periph_clock_enable(RCC_PERIPH_SPI1);
