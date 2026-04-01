@@ -103,11 +103,7 @@ void blocking_handler(void)
   while (1);
 }
 
-void null_handler(void)
-{
-
-}
-
+// Core exceptions.
 NEX_WEAK_NEX_ALIAS("blocking_handler")
 void 
 nmi_handler(void);
@@ -116,7 +112,6 @@ NEX_WEAK_NEX_ALIAS("blocking_handler")
 void 
 hard_fault_handler(void);
 
-// Core exceptions.
 NEX_WEAK_NEX_ALIAS("blocking_handler")
 void
 memory_fault_handler(void);

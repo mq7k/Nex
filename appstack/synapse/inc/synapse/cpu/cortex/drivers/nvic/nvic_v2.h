@@ -214,14 +214,10 @@ nvic_trigger_irq(
   enum nvic_irq interrupt
 );
 
-/* Default implementations */
 void
 blocking_handler(void);
 
-void
-null_handler(void);
-
-/* Core exceptions */
+// Core exceptions.
 void
 nmi_handler();
 
@@ -249,7 +245,7 @@ pend_sv_handler(void);
 void
 systick_handler(void);
 
-/* Interrupts service routines */
+// SoC exceptions.
 void
 wwdg_isr(void);
 
