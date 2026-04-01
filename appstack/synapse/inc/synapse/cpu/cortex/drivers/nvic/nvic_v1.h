@@ -325,16 +325,12 @@ nvic_trigger_irq(
   enum nvic_irq interrupt
 );
 
-/* Default implementations */
 void
 blocking_handler(void);
 
+// Core exceptions.
 void
-null_handler(void);
-
-/* Core exceptions */
-void
-nmi_handler();
+nmi_handler(void);
 
 void
 hard_fault_handler(void);

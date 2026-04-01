@@ -219,7 +219,7 @@ blocking_handler(void);
 
 // Core exceptions.
 void
-nmi_handler();
+nmi_handler(void);
 
 void
 hard_fault_handler(void);
