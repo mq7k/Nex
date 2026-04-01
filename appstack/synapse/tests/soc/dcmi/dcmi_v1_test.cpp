@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/dcmi/dcmi_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,17 +14,17 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct dcmi_registers_map, CR, 0x00lu);
-  ASSERT_ADDR(struct dcmi_registers_map, SR, 0x04lu);
-  ASSERT_ADDR(struct dcmi_registers_map, RIS, 0x08lu);
-  ASSERT_ADDR(struct dcmi_registers_map, IER, 0x0clu);
-  ASSERT_ADDR(struct dcmi_registers_map, MIS, 0x10lu);
-  ASSERT_ADDR(struct dcmi_registers_map, ICR, 0x14lu);
-  ASSERT_ADDR(struct dcmi_registers_map, ESCR, 0x18lu);
-  ASSERT_ADDR(struct dcmi_registers_map, ESUR, 0x1clu);
-  ASSERT_ADDR(struct dcmi_registers_map, CWSTRT, 0x20lu);
-  ASSERT_ADDR(struct dcmi_registers_map, CWSIZE, 0x24lu);
-  ASSERT_ADDR(struct dcmi_registers_map, DR, 0x28lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, CR, 0x00lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, SR, 0x04lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, RIS, 0x08lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, IER, 0x0clu);
+  ASSERT_OFFSET(struct dcmi_registers_map, MIS, 0x10lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, ICR, 0x14lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, ESCR, 0x18lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, ESUR, 0x1clu);
+  ASSERT_OFFSET(struct dcmi_registers_map, CWSTRT, 0x20lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, CWSIZE, 0x24lu);
+  ASSERT_OFFSET(struct dcmi_registers_map, DR, 0x28lu);
 }
 
 void

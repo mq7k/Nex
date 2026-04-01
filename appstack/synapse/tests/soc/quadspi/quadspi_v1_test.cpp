@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/quadspi/quadspi_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,18 +14,18 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct quadspi_registers_map, CR, 0x00lu);
-  ASSERT_ADDR(struct quadspi_registers_map, DCR, 0x04lu);
-  ASSERT_ADDR(struct quadspi_registers_map, SR, 0x08lu);
-  ASSERT_ADDR(struct quadspi_registers_map, FCR, 0x0clu);
-  ASSERT_ADDR(struct quadspi_registers_map, CCR, 0x14lu);
-  ASSERT_ADDR(struct quadspi_registers_map, AR, 0x18lu);
-  ASSERT_ADDR(struct quadspi_registers_map, ABR, 0x1clu);
-  ASSERT_ADDR(struct quadspi_registers_map, DR, 0x20lu);
-  ASSERT_ADDR(struct quadspi_registers_map, PSMKR, 0x24lu);
-  ASSERT_ADDR(struct quadspi_registers_map, PSMAR, 0x28lu);
-  ASSERT_ADDR(struct quadspi_registers_map, PIR, 0x2clu);
-  ASSERT_ADDR(struct quadspi_registers_map, LPTR, 0x30lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, CR, 0x00lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, DCR, 0x04lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, SR, 0x08lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, FCR, 0x0clu);
+  ASSERT_OFFSET(struct quadspi_registers_map, CCR, 0x14lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, AR, 0x18lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, ABR, 0x1clu);
+  ASSERT_OFFSET(struct quadspi_registers_map, DR, 0x20lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, PSMKR, 0x24lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, PSMAR, 0x28lu);
+  ASSERT_OFFSET(struct quadspi_registers_map, PIR, 0x2clu);
+  ASSERT_OFFSET(struct quadspi_registers_map, LPTR, 0x30lu);
 }
 
 void

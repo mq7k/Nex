@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/rtc/rtc_v2.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,43 +14,43 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct rtc_registers_map, TR, 0x00lu);
-  ASSERT_ADDR(struct rtc_registers_map, DR, 0x04lu);
-  ASSERT_ADDR(struct rtc_registers_map, CR, 0x08lu);
-  ASSERT_ADDR(struct rtc_registers_map, ISR, 0x0clu);
-  ASSERT_ADDR(struct rtc_registers_map, PRER, 0x10lu);
-  ASSERT_ADDR(struct rtc_registers_map, WUTR, 0x14lu);
+  ASSERT_OFFSET(struct rtc_registers_map, TR, 0x00lu);
+  ASSERT_OFFSET(struct rtc_registers_map, DR, 0x04lu);
+  ASSERT_OFFSET(struct rtc_registers_map, CR, 0x08lu);
+  ASSERT_OFFSET(struct rtc_registers_map, ISR, 0x0clu);
+  ASSERT_OFFSET(struct rtc_registers_map, PRER, 0x10lu);
+  ASSERT_OFFSET(struct rtc_registers_map, WUTR, 0x14lu);
 #if defined(STM32_RTC_EXTENDED)
-  ASSERT_ADDR(struct rtc_registers_map, CALIBR, 0x18lu);
+  ASSERT_OFFSET(struct rtc_registers_map, CALIBR, 0x18lu);
 #endif
-  ASSERT_ADDR(struct rtc_registers_map, ALRMAR, 0x1clu);
+  ASSERT_OFFSET(struct rtc_registers_map, ALRMAR, 0x1clu);
 #if defined(STM32_RTC_EXTENDED)
-  ASSERT_ADDR(struct rtc_registers_map, ALRMBR, 0x20lu);
+  ASSERT_OFFSET(struct rtc_registers_map, ALRMBR, 0x20lu);
 #endif
-  ASSERT_ADDR(struct rtc_registers_map, WPR, 0x24lu);
-  ASSERT_ADDR(struct rtc_registers_map, SSR, 0x28lu);
-  ASSERT_ADDR(struct rtc_registers_map, SHIFTR, 0x2clu);
-  ASSERT_ADDR(struct rtc_registers_map, TSTR, 0x30lu);
-  ASSERT_ADDR(struct rtc_registers_map, TSSSR, 0x38lu);
-  ASSERT_ADDR(struct rtc_registers_map, CALR, 0x3clu);
+  ASSERT_OFFSET(struct rtc_registers_map, WPR, 0x24lu);
+  ASSERT_OFFSET(struct rtc_registers_map, SSR, 0x28lu);
+  ASSERT_OFFSET(struct rtc_registers_map, SHIFTR, 0x2clu);
+  ASSERT_OFFSET(struct rtc_registers_map, TSTR, 0x30lu);
+  ASSERT_OFFSET(struct rtc_registers_map, TSSSR, 0x38lu);
+  ASSERT_OFFSET(struct rtc_registers_map, CALR, 0x3clu);
 #if defined(STM32_RTC_TAFCR_REG)
-  ASSERT_ADDR(struct rtc_registers_map, TAFCR, 0x40lu);
+  ASSERT_OFFSET(struct rtc_registers_map, TAFCR, 0x40lu);
 #endif
 #if defined(STM32_RTC_TAMPCR_REG)
-  ASSERT_ADDR(struct rtc_registers_map, TAMPCR, 0x40lu);
+  ASSERT_OFFSET(struct rtc_registers_map, TAMPCR, 0x40lu);
 #endif
-  ASSERT_ADDR(struct rtc_registers_map, ALRMASSR, 0x44lu);
+  ASSERT_OFFSET(struct rtc_registers_map, ALRMASSR, 0x44lu);
 #if defined(STM32_RTC_ALARMB)
-  ASSERT_ADDR(struct rtc_registers_map, ALRMBSSR, 0x48lu);
+  ASSERT_OFFSET(struct rtc_registers_map, ALRMBSSR, 0x48lu);
 #endif
 #if defined(STM32_RTC_OPTION_REG)
-  ASSERT_ADDR(struct rtc_registers_map, OR, 0x4clu);
+  ASSERT_OFFSET(struct rtc_registers_map, OR, 0x4clu);
 #endif
 #if defined(STM32_RTC_BKP_WORDS)
-  ASSERT_ADDR(struct rtc_registers_map, BKPR[0], 0x50lu);
+  ASSERT_OFFSET(struct rtc_registers_map, BKPR[0], 0x50lu);
 #endif
 #if defined(STM32_RTC_BKP_WORDS)
-  ASSERT_ADDR(struct rtc_registers_map, BKPR[1], 0x54lu);
+  ASSERT_OFFSET(struct rtc_registers_map, BKPR[1], 0x54lu);
 #endif
 }
 

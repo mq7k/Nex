@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/i2c/i2c_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 volatile struct i2c_registers_map* _I2C;
 
 void
@@ -18,17 +15,17 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct i2c_registers_map, CR1, 0x00lu);
-  ASSERT_ADDR(struct i2c_registers_map, CR2, 0x04lu);
-  ASSERT_ADDR(struct i2c_registers_map, OAR1, 0x08lu);
-  ASSERT_ADDR(struct i2c_registers_map, OAR2, 0x0clu);
-  ASSERT_ADDR(struct i2c_registers_map, DR, 0x10lu);
-  ASSERT_ADDR(struct i2c_registers_map, SR1, 0x14lu);
-  ASSERT_ADDR(struct i2c_registers_map, SR2, 0x18lu);
-  ASSERT_ADDR(struct i2c_registers_map, CCR, 0x1clu);
-  ASSERT_ADDR(struct i2c_registers_map, TRISE, 0x20lu);
+  ASSERT_OFFSET(struct i2c_registers_map, CR1, 0x00lu);
+  ASSERT_OFFSET(struct i2c_registers_map, CR2, 0x04lu);
+  ASSERT_OFFSET(struct i2c_registers_map, OAR1, 0x08lu);
+  ASSERT_OFFSET(struct i2c_registers_map, OAR2, 0x0clu);
+  ASSERT_OFFSET(struct i2c_registers_map, DR, 0x10lu);
+  ASSERT_OFFSET(struct i2c_registers_map, SR1, 0x14lu);
+  ASSERT_OFFSET(struct i2c_registers_map, SR2, 0x18lu);
+  ASSERT_OFFSET(struct i2c_registers_map, CCR, 0x1clu);
+  ASSERT_OFFSET(struct i2c_registers_map, TRISE, 0x20lu);
 #if defined(STM32_I2C_FILTER)
-  ASSERT_ADDR(struct i2c_registers_map, FLTR, 0x24lu);
+  ASSERT_OFFSET(struct i2c_registers_map, FLTR, 0x24lu);
 #endif
 }
 

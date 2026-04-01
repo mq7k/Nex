@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/gpio/gpio_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 volatile struct gpio_registers_map* _GPIO;
 
 void
@@ -18,13 +15,13 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct gpio_registers_map, CRL, 0x00lu);
-  ASSERT_ADDR(struct gpio_registers_map, CRH, 0x04lu);
-  ASSERT_ADDR(struct gpio_registers_map, IDR, 0x08lu);
-  ASSERT_ADDR(struct gpio_registers_map, ODR, 0x0clu);
-  ASSERT_ADDR(struct gpio_registers_map, BSRR, 0x10lu);
-  ASSERT_ADDR(struct gpio_registers_map, BRR, 0x14lu);
-  ASSERT_ADDR(struct gpio_registers_map, LCKR, 0x18lu);
+  ASSERT_OFFSET(struct gpio_registers_map, CRL, 0x00lu);
+  ASSERT_OFFSET(struct gpio_registers_map, CRH, 0x04lu);
+  ASSERT_OFFSET(struct gpio_registers_map, IDR, 0x08lu);
+  ASSERT_OFFSET(struct gpio_registers_map, ODR, 0x0clu);
+  ASSERT_OFFSET(struct gpio_registers_map, BSRR, 0x10lu);
+  ASSERT_OFFSET(struct gpio_registers_map, BRR, 0x14lu);
+  ASSERT_OFFSET(struct gpio_registers_map, LCKR, 0x18lu);
 }
 
 // └─Skipping type 'enum_set (TODO)' (gpio_setup_port)

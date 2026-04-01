@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/bkp/bkp_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,12 +14,12 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct bkp_registers_map, DR0[0], 0x04lu);
-  ASSERT_ADDR(struct bkp_registers_map, DR0[1], 0x08lu);
-  ASSERT_ADDR(struct bkp_registers_map, CR, 0x30lu);
-  ASSERT_ADDR(struct bkp_registers_map, CSR, 0x34lu);
-  ASSERT_ADDR(struct bkp_registers_map, DR1[0], 0x40lu);
-  ASSERT_ADDR(struct bkp_registers_map, DR1[1], 0x44lu);
+  ASSERT_OFFSET(struct bkp_registers_map, DR0[0], 0x04lu);
+  ASSERT_OFFSET(struct bkp_registers_map, DR0[1], 0x08lu);
+  ASSERT_OFFSET(struct bkp_registers_map, CR, 0x30lu);
+  ASSERT_OFFSET(struct bkp_registers_map, CSR, 0x34lu);
+  ASSERT_OFFSET(struct bkp_registers_map, DR1[0], 0x40lu);
+  ASSERT_OFFSET(struct bkp_registers_map, DR1[1], 0x44lu);
 }
 
 void

@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/usart/usart_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 volatile struct usart_registers_map* _USART;
 
 void
@@ -18,13 +15,13 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct usart_registers_map, SR, 0x00lu);
-  ASSERT_ADDR(struct usart_registers_map, DR, 0x04lu);
-  ASSERT_ADDR(struct usart_registers_map, BRR, 0x08lu);
-  ASSERT_ADDR(struct usart_registers_map, CR1, 0x0clu);
-  ASSERT_ADDR(struct usart_registers_map, CR2, 0x10lu);
-  ASSERT_ADDR(struct usart_registers_map, CR3, 0x14lu);
-  ASSERT_ADDR(struct usart_registers_map, GTPR, 0x18lu);
+  ASSERT_OFFSET(struct usart_registers_map, SR, 0x00lu);
+  ASSERT_OFFSET(struct usart_registers_map, DR, 0x04lu);
+  ASSERT_OFFSET(struct usart_registers_map, BRR, 0x08lu);
+  ASSERT_OFFSET(struct usart_registers_map, CR1, 0x0clu);
+  ASSERT_OFFSET(struct usart_registers_map, CR2, 0x10lu);
+  ASSERT_OFFSET(struct usart_registers_map, CR3, 0x14lu);
+  ASSERT_OFFSET(struct usart_registers_map, GTPR, 0x18lu);
 }
 
 void

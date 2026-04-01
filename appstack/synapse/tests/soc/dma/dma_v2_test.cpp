@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/dma/dma_v2.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 volatile struct dma_registers_map* _DMA;
 
 void
@@ -18,16 +15,16 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct dma_registers_map, ISR, 0x00lu);
-  ASSERT_ADDR(struct dma_registers_map, IFCR, 0x04lu);
-  ASSERT_ADDR(struct dma_registers_map, channels[0].CCR, 0x08lu);
-  ASSERT_ADDR(struct dma_registers_map, channels[0].CNDTR, 0x0clu);
-  ASSERT_ADDR(struct dma_registers_map, channels[0].CPAR, 0x10lu);
-  ASSERT_ADDR(struct dma_registers_map, channels[0].CMAR, 0x14lu);
-  ASSERT_ADDR(struct dma_registers_map, channels[1].CCR, 0x1clu);
-  ASSERT_ADDR(struct dma_registers_map, channels[1].CNDTR, 0x20lu);
-  ASSERT_ADDR(struct dma_registers_map, channels[1].CPAR, 0x24lu);
-  ASSERT_ADDR(struct dma_registers_map, channels[1].CMAR, 0x28lu);
+  ASSERT_OFFSET(struct dma_registers_map, ISR, 0x00lu);
+  ASSERT_OFFSET(struct dma_registers_map, IFCR, 0x04lu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[0].CCR, 0x08lu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[0].CNDTR, 0x0clu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[0].CPAR, 0x10lu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[0].CMAR, 0x14lu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[1].CCR, 0x1clu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[1].CNDTR, 0x20lu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[1].CPAR, 0x24lu);
+  ASSERT_OFFSET(struct dma_registers_map, channels[1].CMAR, 0x28lu);
 }
 
 void

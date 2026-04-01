@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/adc/adc_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 volatile struct adc_registers_map* _ADC;
 
 void
@@ -18,26 +15,26 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct adc_registers_map, SR, 0x00lu);
-  ASSERT_ADDR(struct adc_registers_map, CR1, 0x04lu);
-  ASSERT_ADDR(struct adc_registers_map, CR2, 0x08lu);
-  ASSERT_ADDR(struct adc_registers_map, SMPR1, 0x0clu);
-  ASSERT_ADDR(struct adc_registers_map, SMPR2, 0x10lu);
-  ASSERT_ADDR(struct adc_registers_map, JOFR1, 0x14lu);
-  ASSERT_ADDR(struct adc_registers_map, JOFR2, 0x18lu);
-  ASSERT_ADDR(struct adc_registers_map, JOFR3, 0x1clu);
-  ASSERT_ADDR(struct adc_registers_map, JOFR4, 0x20lu);
-  ASSERT_ADDR(struct adc_registers_map, HTR, 0x24lu);
-  ASSERT_ADDR(struct adc_registers_map, LTR, 0x28lu);
-  ASSERT_ADDR(struct adc_registers_map, SQR1, 0x2clu);
-  ASSERT_ADDR(struct adc_registers_map, SQR2, 0x30lu);
-  ASSERT_ADDR(struct adc_registers_map, SQR3, 0x34lu);
-  ASSERT_ADDR(struct adc_registers_map, JSQR, 0x38lu);
-  ASSERT_ADDR(struct adc_registers_map, JDR1, 0x3clu);
-  ASSERT_ADDR(struct adc_registers_map, JDR2, 0x40lu);
-  ASSERT_ADDR(struct adc_registers_map, JDR3, 0x44lu);
-  ASSERT_ADDR(struct adc_registers_map, JDR4, 0x48lu);
-  ASSERT_ADDR(struct adc_registers_map, DR, 0x4clu);
+  ASSERT_OFFSET(struct adc_registers_map, SR, 0x00lu);
+  ASSERT_OFFSET(struct adc_registers_map, CR1, 0x04lu);
+  ASSERT_OFFSET(struct adc_registers_map, CR2, 0x08lu);
+  ASSERT_OFFSET(struct adc_registers_map, SMPR1, 0x0clu);
+  ASSERT_OFFSET(struct adc_registers_map, SMPR2, 0x10lu);
+  ASSERT_OFFSET(struct adc_registers_map, JOFR1, 0x14lu);
+  ASSERT_OFFSET(struct adc_registers_map, JOFR2, 0x18lu);
+  ASSERT_OFFSET(struct adc_registers_map, JOFR3, 0x1clu);
+  ASSERT_OFFSET(struct adc_registers_map, JOFR4, 0x20lu);
+  ASSERT_OFFSET(struct adc_registers_map, HTR, 0x24lu);
+  ASSERT_OFFSET(struct adc_registers_map, LTR, 0x28lu);
+  ASSERT_OFFSET(struct adc_registers_map, SQR1, 0x2clu);
+  ASSERT_OFFSET(struct adc_registers_map, SQR2, 0x30lu);
+  ASSERT_OFFSET(struct adc_registers_map, SQR3, 0x34lu);
+  ASSERT_OFFSET(struct adc_registers_map, JSQR, 0x38lu);
+  ASSERT_OFFSET(struct adc_registers_map, JDR1, 0x3clu);
+  ASSERT_OFFSET(struct adc_registers_map, JDR2, 0x40lu);
+  ASSERT_OFFSET(struct adc_registers_map, JDR3, 0x44lu);
+  ASSERT_OFFSET(struct adc_registers_map, JDR4, 0x48lu);
+  ASSERT_OFFSET(struct adc_registers_map, DR, 0x4clu);
 }
 
 void
