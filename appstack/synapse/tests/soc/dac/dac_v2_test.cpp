@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/dac/dac_v2.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,19 +14,19 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct dac_registers_map, CR, 0x00lu);
-  ASSERT_ADDR(struct dac_registers_map, SWTRIGR, 0x04lu);
-  ASSERT_ADDR(struct dac_registers_map, DHR12R1, 0x08lu);
-  ASSERT_ADDR(struct dac_registers_map, DHR12L1, 0x0clu);
-  ASSERT_ADDR(struct dac_registers_map, DHR8R1, 0x10lu);
-  ASSERT_ADDR(struct dac_registers_map, DHR12R2, 0x14lu);
-  ASSERT_ADDR(struct dac_registers_map, DHR12L2, 0x18lu);
-  ASSERT_ADDR(struct dac_registers_map, DHR8R2, 0x1clu);
-  ASSERT_ADDR(struct dac_registers_map, DHR12RD, 0x20lu);
-  ASSERT_ADDR(struct dac_registers_map, DHR12LD, 0x24lu);
-  ASSERT_ADDR(struct dac_registers_map, DHR8RD, 0x28lu);
-  ASSERT_ADDR(struct dac_registers_map, DOR1, 0x2clu);
-  ASSERT_ADDR(struct dac_registers_map, DOR2, 0x30lu);
+  ASSERT_OFFSET(struct dac_registers_map, CR, 0x00lu);
+  ASSERT_OFFSET(struct dac_registers_map, SWTRIGR, 0x04lu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR12R1, 0x08lu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR12L1, 0x0clu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR8R1, 0x10lu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR12R2, 0x14lu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR12L2, 0x18lu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR8R2, 0x1clu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR12RD, 0x20lu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR12LD, 0x24lu);
+  ASSERT_OFFSET(struct dac_registers_map, DHR8RD, 0x28lu);
+  ASSERT_OFFSET(struct dac_registers_map, DOR1, 0x2clu);
+  ASSERT_OFFSET(struct dac_registers_map, DOR2, 0x30lu);
 }
 
 void

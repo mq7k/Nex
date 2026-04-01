@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/sai/sai_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 volatile struct sai_registers_map* _SAI;
 
 void
@@ -19,17 +16,17 @@ void
 test_reg_addr(void)
 {
 #if defined(STM32_SAI_GCR)
-  ASSERT_ADDR(struct sai_registers_map, GCR, 0x00lu);
+  ASSERT_OFFSET(struct sai_registers_map, GCR, 0x00lu);
 #endif
-  ASSERT_ADDR(struct sai_registers_map, CR1, 0x04lu);
-  ASSERT_ADDR(struct sai_registers_map, CR2, 0x08lu);
-  ASSERT_ADDR(struct sai_registers_map, FRCR, 0x0clu);
-  ASSERT_ADDR(struct sai_registers_map, SLOTR, 0x10lu);
-  ASSERT_ADDR(struct sai_registers_map, IM, 0x14lu);
-  ASSERT_ADDR(struct sai_registers_map, SR, 0x18lu);
-  ASSERT_ADDR(struct sai_registers_map, CLRFR, 0x1clu);
-  ASSERT_ADDR(struct sai_registers_map, DR, 0x20lu);
-  ASSERT_ADDR(struct sai_registers_map, CR1, 0x04lu);
+  ASSERT_OFFSET(struct sai_registers_map, CR1, 0x04lu);
+  ASSERT_OFFSET(struct sai_registers_map, CR2, 0x08lu);
+  ASSERT_OFFSET(struct sai_registers_map, FRCR, 0x0clu);
+  ASSERT_OFFSET(struct sai_registers_map, SLOTR, 0x10lu);
+  ASSERT_OFFSET(struct sai_registers_map, IM, 0x14lu);
+  ASSERT_OFFSET(struct sai_registers_map, SR, 0x18lu);
+  ASSERT_OFFSET(struct sai_registers_map, CLRFR, 0x1clu);
+  ASSERT_OFFSET(struct sai_registers_map, DR, 0x20lu);
+  ASSERT_OFFSET(struct sai_registers_map, CR1, 0x04lu);
 }
 
 #if defined(STM32_SAI_GCR)

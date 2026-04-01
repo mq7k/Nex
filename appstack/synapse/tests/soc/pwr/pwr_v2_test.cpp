@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/pwr/pwr_v2.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,8 +14,8 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct pwr_registers_map, CR, 0x00lu);
-  ASSERT_ADDR(struct pwr_registers_map, CSR, 0x04lu);
+  ASSERT_OFFSET(struct pwr_registers_map, CR, 0x00lu);
+  ASSERT_OFFSET(struct pwr_registers_map, CSR, 0x04lu);
 }
 
 void

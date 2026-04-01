@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/hash/hash_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,13 +14,13 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct hash_registers_map, CR, 0x00lu);
-  ASSERT_ADDR(struct hash_registers_map, DIN, 0x04lu);
-  ASSERT_ADDR(struct hash_registers_map, STR, 0x08lu);
-  ASSERT_ADDR(struct hash_registers_map, HRA[0], 0x0clu);
-  ASSERT_ADDR(struct hash_registers_map, HRA[1], 0x10lu);
-  ASSERT_ADDR(struct hash_registers_map, IMR, 0x20lu);
-  ASSERT_ADDR(struct hash_registers_map, SR, 0x24lu);
+  ASSERT_OFFSET(struct hash_registers_map, CR, 0x00lu);
+  ASSERT_OFFSET(struct hash_registers_map, DIN, 0x04lu);
+  ASSERT_OFFSET(struct hash_registers_map, STR, 0x08lu);
+  ASSERT_OFFSET(struct hash_registers_map, HRA[0], 0x0clu);
+  ASSERT_OFFSET(struct hash_registers_map, HRA[1], 0x10lu);
+  ASSERT_OFFSET(struct hash_registers_map, IMR, 0x20lu);
+  ASSERT_OFFSET(struct hash_registers_map, SR, 0x24lu);
 }
 
 void

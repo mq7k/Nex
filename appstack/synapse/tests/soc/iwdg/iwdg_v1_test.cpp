@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/iwdg/iwdg_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,10 +14,10 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct iwdg_registers_map, KR, 0x00lu);
-  ASSERT_ADDR(struct iwdg_registers_map, PR, 0x04lu);
-  ASSERT_ADDR(struct iwdg_registers_map, RLR, 0x08lu);
-  ASSERT_ADDR(struct iwdg_registers_map, SR, 0x0clu);
+  ASSERT_OFFSET(struct iwdg_registers_map, KR, 0x00lu);
+  ASSERT_OFFSET(struct iwdg_registers_map, PR, 0x04lu);
+  ASSERT_OFFSET(struct iwdg_registers_map, RLR, 0x08lu);
+  ASSERT_OFFSET(struct iwdg_registers_map, SR, 0x0clu);
 }
 
 // └─Skipping type 'fn_call (TODO)' (iwdg_reset)

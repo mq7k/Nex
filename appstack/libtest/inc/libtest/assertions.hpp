@@ -91,6 +91,9 @@
     #expected\
   )
 
+#define ASSERT_OFFSET(periph, reg, offset)\
+  ASSERT_EQ(offsetof(periph, reg), offset)
+
 #define ABORT(message) nextest::abort(message)
 
 namespace nextest

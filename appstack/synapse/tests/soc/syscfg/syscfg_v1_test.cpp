@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/syscfg/syscfg_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,23 +14,23 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct syscfg_registers_map, MEMRMP, 0x00lu);
-  ASSERT_ADDR(struct syscfg_registers_map, PMC, 0x04lu);
-  ASSERT_ADDR(struct syscfg_registers_map, EXTICR1, 0x08lu);
-  ASSERT_ADDR(struct syscfg_registers_map, EXTICR2, 0x0clu);
-  ASSERT_ADDR(struct syscfg_registers_map, EXTICR3, 0x10lu);
-  ASSERT_ADDR(struct syscfg_registers_map, EXTICR4, 0x14lu);
+  ASSERT_OFFSET(struct syscfg_registers_map, MEMRMP, 0x00lu);
+  ASSERT_OFFSET(struct syscfg_registers_map, PMC, 0x04lu);
+  ASSERT_OFFSET(struct syscfg_registers_map, EXTICR1, 0x08lu);
+  ASSERT_OFFSET(struct syscfg_registers_map, EXTICR2, 0x0clu);
+  ASSERT_OFFSET(struct syscfg_registers_map, EXTICR3, 0x10lu);
+  ASSERT_OFFSET(struct syscfg_registers_map, EXTICR4, 0x14lu);
 #if defined(STM32_SYSCFG_CFGR2)
-  ASSERT_ADDR(struct syscfg_registers_map, CFGR2, 0x1clu);
+  ASSERT_OFFSET(struct syscfg_registers_map, CFGR2, 0x1clu);
 #endif
 #if defined(STM32_SYSCFG_CMPCR)
-  ASSERT_ADDR(struct syscfg_registers_map, CMPCR, 0x20lu);
+  ASSERT_OFFSET(struct syscfg_registers_map, CMPCR, 0x20lu);
 #endif
 #if defined(STM32_SYSCFG_CFGR)
-  ASSERT_ADDR(struct syscfg_registers_map, CFGR, 0x2clu);
+  ASSERT_OFFSET(struct syscfg_registers_map, CFGR, 0x2clu);
 #endif
 #if defined(STM32_SYSCFG_MCHDLYCR)
-  ASSERT_ADDR(struct syscfg_registers_map, MCHDLYCR, 0x30lu);
+  ASSERT_OFFSET(struct syscfg_registers_map, MCHDLYCR, 0x30lu);
 #endif
 }
 

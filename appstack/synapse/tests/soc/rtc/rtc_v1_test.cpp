@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/rtc/rtc_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,16 +14,16 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct rtc_registers_map, CRH, 0x00lu);
-  ASSERT_ADDR(struct rtc_registers_map, CRL, 0x04lu);
-  ASSERT_ADDR(struct rtc_registers_map, PRLH, 0x08lu);
-  ASSERT_ADDR(struct rtc_registers_map, PRLL, 0x0clu);
-  ASSERT_ADDR(struct rtc_registers_map, DIVH, 0x10lu);
-  ASSERT_ADDR(struct rtc_registers_map, DIVL, 0x14lu);
-  ASSERT_ADDR(struct rtc_registers_map, CNTH, 0x18lu);
-  ASSERT_ADDR(struct rtc_registers_map, CNTL, 0x1clu);
-  ASSERT_ADDR(struct rtc_registers_map, ALRH, 0x20lu);
-  ASSERT_ADDR(struct rtc_registers_map, ALRL, 0x24lu);
+  ASSERT_OFFSET(struct rtc_registers_map, CRH, 0x00lu);
+  ASSERT_OFFSET(struct rtc_registers_map, CRL, 0x04lu);
+  ASSERT_OFFSET(struct rtc_registers_map, PRLH, 0x08lu);
+  ASSERT_OFFSET(struct rtc_registers_map, PRLL, 0x0clu);
+  ASSERT_OFFSET(struct rtc_registers_map, DIVH, 0x10lu);
+  ASSERT_OFFSET(struct rtc_registers_map, DIVL, 0x14lu);
+  ASSERT_OFFSET(struct rtc_registers_map, CNTH, 0x18lu);
+  ASSERT_OFFSET(struct rtc_registers_map, CNTL, 0x1clu);
+  ASSERT_OFFSET(struct rtc_registers_map, ALRH, 0x20lu);
+  ASSERT_OFFSET(struct rtc_registers_map, ALRL, 0x24lu);
 }
 
 void

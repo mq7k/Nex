@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/fmpi2c/fmpi2c_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,17 +14,17 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct fmpi2c_registers_map, CR1, 0x00lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, CR2, 0x04lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, OAR1, 0x08lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, OAR2, 0x0clu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, TIMINGR, 0x10lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, TIMEOUTR, 0x14lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, ISR, 0x18lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, ICR, 0x1clu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, PECR, 0x20lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, RXDR, 0x24lu);
-  ASSERT_ADDR(struct fmpi2c_registers_map, TXDR, 0x28lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, CR1, 0x00lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, CR2, 0x04lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, OAR1, 0x08lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, OAR2, 0x0clu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, TIMINGR, 0x10lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, TIMEOUTR, 0x14lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, ISR, 0x18lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, ICR, 0x1clu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, PECR, 0x20lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, RXDR, 0x24lu);
+  ASSERT_OFFSET(struct fmpi2c_registers_map, TXDR, 0x28lu);
 }
 
 void

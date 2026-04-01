@@ -10,7 +10,7 @@ def gen_regaddrfn(writer, struct, regs):
         name = entry['name']
         offset = entry['offset']
         s = entry.get('struct', struct)
-        writer.write(f'ASSERT_ADDR(struct {s}, {name}, {offset}lu);')
+        writer.write(f'ASSERT_OFFSET(struct {s}, {name}, {offset}lu);')
 
         if 'ifdef' in entry:
             writer.endif()

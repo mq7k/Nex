@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/spdifrx/spdifrx_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,13 +14,13 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct spdifrx_registers_map, CR, 0x00lu);
-  ASSERT_ADDR(struct spdifrx_registers_map, IMR, 0x04lu);
-  ASSERT_ADDR(struct spdifrx_registers_map, SR, 0x08lu);
-  ASSERT_ADDR(struct spdifrx_registers_map, IFCR, 0x0clu);
-  ASSERT_ADDR(struct spdifrx_registers_map, DR, 0x10lu);
-  ASSERT_ADDR(struct spdifrx_registers_map, CSR, 0x14lu);
-  ASSERT_ADDR(struct spdifrx_registers_map, DIR, 0x18lu);
+  ASSERT_OFFSET(struct spdifrx_registers_map, CR, 0x00lu);
+  ASSERT_OFFSET(struct spdifrx_registers_map, IMR, 0x04lu);
+  ASSERT_OFFSET(struct spdifrx_registers_map, SR, 0x08lu);
+  ASSERT_OFFSET(struct spdifrx_registers_map, IFCR, 0x0clu);
+  ASSERT_OFFSET(struct spdifrx_registers_map, DR, 0x10lu);
+  ASSERT_OFFSET(struct spdifrx_registers_map, CSR, 0x14lu);
+  ASSERT_OFFSET(struct spdifrx_registers_map, DIR, 0x18lu);
 }
 
 void

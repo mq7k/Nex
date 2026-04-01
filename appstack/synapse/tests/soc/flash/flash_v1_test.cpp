@@ -4,9 +4,6 @@
 #include "synapse/soc/stm32/drivers/flash/flash_v1.h"
 #include "libtest/libtest.hpp"
 
-#define ASSERT_ADDR(periph, reg, offset)\
-	ASSERT_EQ(offsetof(periph, reg), offset)
-
 
 void
 setup(void)
@@ -17,7 +14,7 @@ setup(void)
 void
 test_reg_addr(void)
 {
-  ASSERT_ADDR(struct flash_registers_map, ACR, 0x00lu);
+  ASSERT_OFFSET(struct flash_registers_map, ACR, 0x00lu);
 }
 
 void
