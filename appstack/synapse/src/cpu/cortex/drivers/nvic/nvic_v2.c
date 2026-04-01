@@ -1,4 +1,4 @@
-#include "synapse/cpu/cortex/drivers/nvic/nvic_v1.h"
+#include "synapse/cpu/cortex/drivers/nvic/nvic_v2.h"
 #include "synapse/cpu/cortex/common/memorymap.h"
 #include "util.h"
 
