@@ -86,24 +86,26 @@ struct vector_table vec_table = {
     [NVIC_IRQ_OTG_FS_WAKEUP]   = otg_fs_wkup_isr,
 #endif
 
-// #if defined(STM32_TIM8)
-//     [NVIC_IRQ_TIM8_BREAK_TIM12] = tim8_brk_isr,
-//     [NVIC_IRQ_TIM8_UPDATE_TIM13] = tim8_up_isr,
-//     [NVIC_IRQ_TIM8_TRIGGER_TIM14] = tim8_trg_isr,
-//     [NVIC_IRQ_TIM8_CC] = tim8_cc_isr,
-// #endif
-//
-//     [NVIC_IRQ_DMA1_STREAM7] = dma2_stream7_isr,
-//
-// #if defined(STM32_FSMC)
-//     [NVIC_IRQ_FSMC] = fsmc_isr,
-// #elif defined(STM32_FMC)
-//     [NVIC_IRQ_FMC] = fmc_isr,
-// #endif
-//
-// #if defined(STM32_SDIO)
-//     [NVIC_IRQ_SDIO] = sdio_isr,
-// #endif
+#if defined(STM32_TIM8)
+    [NVIC_IRQ_TIM8_BREAK_TIM12] = tim8_brk_tim12_isr,
+    [NVIC_IRQ_TIM8_UPDATE_TIM13] = tim8_up_tim13_isr,
+    [NVIC_IRQ_TIM8_TRIGGER_TIM14] = tim8_trg_tim14_isr,
+    [NVIC_IRQ_TIM8_CC] = tim8_cc_isr,
+#endif
+
+#if defined(STM32_ADC3)
+    [NVIC_IRQ_ADC3] = adc3_isr,
+#endif
+
+#if defined(STM32_FSMC)
+    [NVIC_IRQ_FSMC] = fsmc_isr,
+#elif defined(STM32_FMC)
+    [NVIC_IRQ_FMC] = fmc_isr,
+#endif
+
+#if defined(STM32_SDIO)
+    [NVIC_IRQ_SDIO] = sdio_isr,
+#endif
 
     [NVIC_IRQ_TIM5]          = tim5_isr,
 

@@ -106,17 +106,19 @@ enum nvic_irq
   NVIC_IRQ_TIM8_CC = 46,
 #endif
 
-//   NVIC_IRQ_DMA2_CHANNEL7 = 47,
-//
-// #if defined(STM32_FSMC)
-//   NVIC_IRQ_FSMC = 48,
-// #elif defined(STM32_FMC)
-//   NVIC_IRQ_FMC = 48,
-// #endif
-//
-// #if defined(STM32_SDIO)
-//   NVIC_IRQ_SDIO = 49,
-// #endif
+#if defined(STM32_ADC3)
+  NVIC_IRQ_ADC3 = 47,
+#endif
+
+#if defined(STM32_FSMC)
+  NVIC_IRQ_FSMC = 48,
+#elif defined(STM32_FMC)
+  NVIC_IRQ_FMC = 48,
+#endif
+
+#if defined(STM32_SDIO)
+  NVIC_IRQ_SDIO = 49,
+#endif
 
   NVIC_IRQ_TIM5 = 50,
 
@@ -298,13 +300,16 @@ void otg_fs_wkup_isr(void);
 #endif
 
 #if defined(STM32_TIM8)
-void tim8_brk_isr(void);
-void tim8_up_isr(void);
-void tim8_trg_isr(void);
+void tim8_brk_tim12_isr(void);
+void tim8_up_tim13_isr(void);
+void tim8_trg_tim14_isr(void);
 void tim8_cc_isr(void);
 #endif
 
-void dma1_channel7_isr(void);
+#if defined(STM32_ADC3)
+void
+adc3_isr(void);
+#endif
 
 #if defined(STM32_FSMC)
 void fsmc_isr(void);
