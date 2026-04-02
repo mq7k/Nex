@@ -48,8 +48,6 @@ BEGIN_DECLARATIONS
 
 #define BIT(pos) (1u << (pos))
 
-#define WAIT_UNTIL(condition) while ((condition) == 0)
-
 u32
 nex_is_power_of_two(
   u32 value
