@@ -9,7 +9,7 @@ struct queue queue;
 #define BUFSZ (16)
 #define QUEUESZ (4)
 
-NEX_ALIGN_AS(u32)
+alignas(u32)
 char buf[BUFSZ] = {};
 
 void
