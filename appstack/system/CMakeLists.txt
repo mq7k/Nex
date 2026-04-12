@@ -10,9 +10,10 @@ nex_add_sources(
     profiler/profiler.c
 
     scheduler/scheduler.c
-    scheduler/task_history.c
+    # scheduler/task_history.c
 
-    time/backend/stm32_tim.c
+    time/backend/stm32_coarse_time.c
+    time/backend/stm32_monotonic_time.c
     time/dispatcher.c
     time/time.c
 

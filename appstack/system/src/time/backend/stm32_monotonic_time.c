@@ -24,7 +24,7 @@ _on_overflow(
   ++ctx->ofcount;
 }
 
-struct sys_time_vtable stm32_tim_backend = {
+struct sys_monotonic_time_vtable stm32_monotonic_time_backend = {
   .now = _now,
   .on_overflow = _on_overflow
 };

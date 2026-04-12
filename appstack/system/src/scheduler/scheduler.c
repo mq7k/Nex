@@ -14,6 +14,7 @@ system_scheduler_init(
 {
   scheduler->active_tasks_count = 0;
   scheduler->allocated_tasks_count = 0;
+  scheduler->active_tasks_count = 0;
 
   for (u32 i = 0; i < SCHEDULER_MAX_PERIODIC_TASKS; ++i)
   {
@@ -22,9 +23,6 @@ system_scheduler_init(
     scheduler->allocated_tasks[i].ticks_delay_left = 0;
     scheduler->allocated_tasks[i].ticks_delay = 0;
     scheduler->active_tasks[i] = 0;
-
-    struct scheduler_task* task = &scheduler->allocated_tasks[i];
-    task_history_init(&task->history);
   }
 }
 
@@ -39,7 +37,6 @@ system_scheduler_task_alloc(
   }
 
   u32 idx = scheduler->allocated_tasks_count++;
-
   struct scheduler_task* task;
 
   task = &scheduler->allocated_tasks[idx];
@@ -75,6 +72,8 @@ system_scheduler_task_enable(
   {
     return NEX_FAILURE;
   }
+
+  task->last_exec_time = 0;
 
   // delay_us > max_tick_time_us is a user configuration error. 
   // We can only perform a work-around.
@@ -149,48 +148,15 @@ system_scheduler_tick(
   struct system_scheduler* scheduler
 )
 {
-  struct scheduler_task* executed_tasks[SCHEDULER_MAX_PERIODIC_TASKS];
-  u32 count = 0;
-  u64 acc = 0;
-
   for (u32 i = 0; i < scheduler->active_tasks_count; ++i)
   {
     u32 idx = scheduler->active_tasks[i];
     struct scheduler_task* task = &scheduler->allocated_tasks[idx];
     if (--task->ticks_delay_left == 0)
     {
-      u64 start = system_get_time();
       task->callback(task, task->ctx);
-      u64 end = system_get_time();
-      u64 elapsed = end - start;
-      task_history_add_sample(&task->history, elapsed);
       task->ticks_delay_left = task->ticks_delay;
-
-      if (!(task->flags & SCHEDULER_TASK_EXCLUDE_FROM_STATS))
-      {
-        executed_tasks[count++] = task;
-        acc += (end - start);
-      }
     }
-  }
-
-  scheduler->acc = acc;
-
-  if (acc == 0)
-  {
-    return;
-  }
-
-  const u32 max_tick_time_tt = scheduler->max_tick_time_tt;
-  u64 max_time = acc > max_tick_time_tt ? acc : max_tick_time_tt;
-
-  for (u32 i = 0; i < count; ++i)
-  {
-    struct scheduler_task* task = executed_tasks[i];
-    u64 time = task_history_get_last_exec_time(&task->history);
-
-    task->history.cpu_usage = (u32) (((float) time / (float) max_time) * 100);
-    task->history.tick_usage = (u32) (((float) time / (float) acc) * 100);
   }
 }
 
@@ -234,18 +200,3 @@ system_scheduler_loop(
   }
 }
 
-u32
-system_scheduler_get_task_cpu_usage(
-  struct scheduler_task* task
-)
-{
-  return task->history.cpu_usage;
-}
-
-u32
-system_scheduler_get_task_tick_usage(
-  struct scheduler_task* task
-)
-{
-  return task->history.tick_usage;
-}

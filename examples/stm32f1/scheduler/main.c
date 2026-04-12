@@ -89,13 +89,12 @@ usart_setup(void)
 void
 system_timer_setup(void)
 {
-  tim_set_prescaler(TIM2, 0);
+  tim_set_prescaler(TIM2, 7);
   tim_set_clock_division(TIM2, TIM_CLOCK_DIVISION_NODIV);
   tim_set_autoreload_value(TIM2, 0xfffe);
   tim_oc_preload_enable(TIM2, TIM_CHANNEL4);
   tim_set_counter_direction(TIM2, TIM_COUNTER_DIRECTION_UP);
   tim_cc_channel_enable(TIM2, TIM_CHANNEL4);
-  tim_interrupt_enable(TIM2, TIM_INTERRUPT_UPDATE);
   tim_counter_enable(TIM2);
 }
 
@@ -106,8 +105,8 @@ timer_setup(void)
   tim_auto_reload_preload_enable(TIM1);
   tim_set_clock_division(TIM1, TIM_CLOCK_DIVISION_NODIV);
   tim_set_counter_direction(TIM1, TIM_COUNTER_DIRECTION_UP);
-  tim_set_prescaler(TIM1, 7999);
-  tim_set_autoreload_value(TIM1, 1);
+  tim_set_prescaler(TIM1, 0);
+  tim_set_autoreload_value(TIM1, 7999);
   tim_cc_channel_enable(TIM1, TIM_CHANNEL4);
   tim_interrupt_enable(TIM1, TIM_INTERRUPT_UPDATE);
 }
@@ -125,14 +124,6 @@ tim1_up_isr(void)
   nvic_clear_pending_irq(NVIC_IRQ_TIM1_UPDATE);
   tim_flag_clear(TIM1, TIM_FLAG_UPDATE);
   system_scheduler_wakeup(&scheduler);
-}
-
-void
-tim2_isr(void)
-{
-  system_time_handle_overflow();
-  nvic_clear_pending_irq(NVIC_IRQ_TIM2);
-  tim_flag_clear(TIM2, TIM_FLAG_UPDATE);
 }
 
 static void
@@ -174,44 +165,6 @@ _check_btn(
   }
 }
 
-static void
-_sysinfo(
-  struct scheduler_task*,
-  void*
-)
-{
-  u32 ram_used = nex_get_RAM_usage();
-  u32 flash_used = nex_get_flash_usage();
-
-  enum nex_byte_unit ram_used_unit;
-  enum nex_byte_unit flash_used_unit;
-  ram_used = nex_convert_byte_to_largest(ram_used, NEX_BYTE_UNIT_BYTE, &ram_used_unit);
-  flash_used = nex_convert_byte_to_largest(flash_used, NEX_BYTE_UNIT_BYTE, &flash_used_unit);
-
-  usart_send_strln(USART1, "Runtime system resources:");
-  usart_send_strfln(USART1, "RAM usage: %u %s", ram_used, nex_byte_unit_to_string(ram_used_unit));
-  usart_send_strfln(USART1, "Flash usage: %u %s", flash_used, nex_byte_unit_to_string(flash_used_unit));
-  usart_send_strfln(USART1, "Tick time: %L", scheduler.acc);
-  usart_send_strfln(USART1, "Tasks usage:");
-
-  for (u32 i = 0; i < scheduler.active_tasks_count; ++i)
-  {
-    u32 idx = scheduler.active_tasks[i];
-    struct scheduler_task* t = &scheduler.allocated_tasks[idx];
-    u64 time = task_history_get_last_exec_time(&t->history);
-    usart_send_strfln(
-      USART1,
-      "%s: %u%% CPU (time: %l, tick time: %u)",
-      t->name,
-      system_scheduler_get_task_cpu_usage(t),
-      time,
-      system_scheduler_get_task_tick_usage(t)
-    );
-  }
-
-  usart_send_strln(USART1, "********************");
-}
-
 int 
 main() 
 {
@@ -226,17 +179,16 @@ main()
     .value_width_bits = 16 
   };
 
-  struct sys_time_backend time_backend = {
-    .vtable = system_get_time_backend(SYSTEM_TIME_BACKEND_STM32_TIM),
+  struct sys_coarse_time_backend time_backend = {
+    .vtable = system_get_coarse_time_backend(SYSTEM_COARSE_TIME_BACKEND_STM32_TIM),
     .ctx = &time_ctx
-  }; 
+  };
 
-  system_set_time_source(&time_backend);
+  system_set_coarse_time_source(&time_backend);
   system_timer_setup();
 
   system_scheduler_init(&scheduler);
   scheduler.max_tick_time_us = 1'000;
-  scheduler.max_tick_time_tt = (u32) (1'000'000 / 125.0);
 
   struct scheduler_task* gl_task = system_scheduler_task_alloc(&scheduler);
   gl_task->name = "Green Led Task";
@@ -262,17 +214,10 @@ main()
   btn_check->delay_us = nex_convert_time_unit(32, NEX_TIME_UNIT_MILLISECOND, NEX_TIME_UNIT_MICROSECOND);
   btn_check->callback = _check_btn;
 
-  struct scheduler_task* sys_info = system_scheduler_task_alloc(&scheduler);
-  sys_info->name = "System info";
-  sys_info->priority = 1;
-  sys_info->delay_us = nex_convert_time_unit(1, NEX_TIME_UNIT_SECOND, NEX_TIME_UNIT_MICROSECOND);
-  sys_info->callback = _sysinfo;
-
   system_scheduler_task_enable(&scheduler, gl_task);
   system_scheduler_task_enable(&scheduler, rl_task);
   system_scheduler_task_enable(&scheduler, bl_task);
   system_scheduler_task_enable(&scheduler, btn_check);
-  // system_scheduler_task_enable(&scheduler, sys_info);
 
   tim_counter_enable(TIM1);
   system_scheduler_loop(&scheduler);

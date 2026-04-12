@@ -17,7 +17,7 @@ void
 rcc_setup(void)
 {
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
-  rcc_periph_clock_enable(RCC_PERIPH_TIM1);
+  rcc_periph_clock_enable(RCC_PERIPH_TIM2);
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
 }
 
@@ -58,22 +58,12 @@ usart_setup(void)
 void
 timer_setup(void)
 {
-  tim_set_prescaler(TIM1, 0);
-  tim_set_clock_division(TIM1, TIM_CLOCK_DIVISION_NODIV);
-  tim_set_autoreload_value(TIM1, 0xffff);
-  tim_oc_preload_enable(TIM1, TIM_CHANNEL4);
-  tim_set_counter_direction(TIM1, TIM_COUNTER_DIRECTION_UP);
-  tim_cc_channel_enable(TIM1, TIM_CHANNEL4);
-  tim_interrupt_enable(TIM1, TIM_INTERRUPT_UPDATE);
-  tim_counter_enable(TIM1);
-}
-
-void
-tim1_up_isr(void)
-{
-  system_time_handle_overflow();
-  nvic_clear_pending_irq(NVIC_IRQ_TIM1_BREAK);
-  tim_flag_clear(TIM1, TIM_FLAG_UPDATE);
+  tim_set_prescaler(TIM2, 0);
+  tim_set_clock_division(TIM2, TIM_CLOCK_DIVISION_NODIV);
+  tim_oc_preload_enable(TIM2, TIM_CHANNEL4);
+  tim_set_counter_direction(TIM2, TIM_COUNTER_DIRECTION_UP);
+  tim_cc_channel_enable(TIM2, TIM_CHANNEL4);
+  tim_counter_enable(TIM2);
 }
 
 int
@@ -84,26 +74,27 @@ main(void)
   timer_setup();
   usart_setup();
 
-  struct system_stm32_timer_backend_ctx ctx = {
-    .tim = TIM1,
+  struct system_stm32_timer_backend_ctx time_ctx = {
+    .tim = TIM2,
+    .value_width_bits = 16
   };
 
-  struct sys_time_backend backend = {
-    .vtable = system_get_time_backend(SYSTEM_TIME_BACKEND_STM32_TIM),
-    .ctx = &ctx
+  struct sys_coarse_time_backend time_backend = {
+    .vtable = system_get_coarse_time_backend(SYSTEM_COARSE_TIME_BACKEND_STM32_TIM),
+    .ctx = &time_ctx
   };
 
-  system_set_time_source(&backend);
+  system_set_coarse_time_source(&time_backend);
 
   usart_send_strfln(USART1, "\n");
   usart_send_strfln(USART1, "Starting profiler...");
 
   struct profiler_section nop_section = {};
 
-  u64 start = system_get_time();
+  u32 start = system_get_coarse_time();
   syn_delay_nop(1000000);
 
-  u64 end = system_get_time();
+  u32 end = system_get_coarse_time();
   profiler_section_update(&nop_section, (end - start));
 
   usart_send_strfln(USART1, "call_count: %u", nop_section.call_count);
