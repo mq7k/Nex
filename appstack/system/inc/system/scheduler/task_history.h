@@ -10,14 +10,12 @@ BEGIN_DECLARATIONS
 
 struct scheduler_task_exec_history
 {
-  u64 arr[SCHEDULER_EXEC_HISTORY_COUNT];
+  u32 arr[SCHEDULER_EXEC_HISTORY_COUNT];
   u32 count;
-  u64 average;
+  u32 average;
 
   u32 cpu_usage;
   u32 tick_usage;
-
-  u32 ha;
 };
 
 void
@@ -28,15 +26,15 @@ task_history_init(
 void
 task_history_add_sample(
   struct scheduler_task_exec_history* history,
-  u64 sample
+  u32 sample
 );
 
-u64
+u32
 task_history_get_average(
   struct scheduler_task_exec_history* history
 );
 
-u64
+u32
 task_history_get_last_exec_time(
   struct scheduler_task_exec_history* history
 );

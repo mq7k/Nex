@@ -1,23 +1,38 @@
 #include "system/time/time.h"
 
-static struct sys_time_backend* time_backend;
+static struct sys_coarse_time_backend* coarse_time_backend;
+static struct sys_monotonic_time_backend* monotonic_time_backend;
 
 void
-system_set_time_source(
-  struct sys_time_backend* backend
+system_set_coarse_time_source(
+  struct sys_coarse_time_backend* backend
 )
 {
-  time_backend = backend;
+  coarse_time_backend = backend;
+}
+
+void
+system_set_monotonic_time_source(
+  struct sys_monotonic_time_backend* backend
+)
+{
+  monotonic_time_backend = backend;
+}
+
+u32
+system_get_coarse_time(void)
+{
+  return coarse_time_backend->vtable->now(coarse_time_backend->ctx);
 }
 
 u64 
-system_get_time(void)
+system_get_monotonic_time(void)
 {
-  return time_backend->vtable->now(time_backend->ctx);
+  return monotonic_time_backend->vtable->now(monotonic_time_backend->ctx);
 }
 
 void
 system_time_handle_overflow(void)
 {
-  time_backend->vtable->on_overflow(time_backend->ctx);
+  monotonic_time_backend->vtable->on_overflow(monotonic_time_backend->ctx);
 }

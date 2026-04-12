@@ -32,7 +32,8 @@ struct scheduler_task
   u32 ticks_delay_left;
   u32 flags;
 
-  struct scheduler_task_exec_history history;
+  u32 last_exec_time;
+  u32 next_exec_time;
 };
 
 struct scheduler_backend
@@ -53,8 +54,6 @@ struct system_scheduler
 
   u32 tick_ready;
   u32 max_tick_time_us;
-  u32 max_tick_time_tt;
-  u64 acc;
 };
 
 void
