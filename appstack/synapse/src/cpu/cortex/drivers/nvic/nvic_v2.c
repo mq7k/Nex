@@ -1,4 +1,5 @@
 #include "synapse/cpu/cortex/drivers/nvic/nvic_v2.h"
+#include "synapse/common/handlers.h"
 #include "synapse/cpu/cortex/common/memorymap.h"
 #include "util.h"
 
@@ -98,356 +99,576 @@ nvic_trigger_irq(
   NVIC->STIR = interrupt;
 }
 
-void blocking_handler(void)
+// Core exceptions.
+void 
+nmi_handler(void)
 {
   while (1);
 }
 
-// Core exceptions.
-NEX_WEAK_ALIAS("blocking_handler")
 void 
-nmi_handler(void);
+hard_fault_handler(void)
+{
+  while (1);
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
-void 
-hard_fault_handler(void);
-
-NEX_WEAK_ALIAS("blocking_handler")
 void
-memory_fault_handler(void);
+memory_fault_handler(void)
+{
+  while (1);
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
 void
-bus_fault_handler(void);
+bus_fault_handler(void)
+{
+  while (1);
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
 void
-usage_fault_handler(void);
+usage_fault_handler(void)
+{
+  while (1);
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
 void
-debug_monitor_handler(void);
+debug_monitor_handler(void)
+{
+  while (1);
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
 void
-sv_call_handler(void);
+sv_call_handler(void)
+{
+  while (1);
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
 void
-pend_sv_handler(void);
+pend_sv_handler(void)
+{
+  while (1);
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
 void
-systick_handler(void);
+systick_handler(void)
+{
+  while (1);
+}
 
 // SoC exceptions.
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-wwdg_isr(void);
+wwdg_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-pvd_isr(void);
+pvd_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tamper_isr(void);
+tamper_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-rtc_wakeup_isr(void);
+rtc_wakeup_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-flash_isr(void);
+flash_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-rcc_isr(void);
+rcc_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-exti0_isr(void);
+exti0_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-exti1_isr(void);
+exti1_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-exti2_isr(void);
+exti2_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-exti3_isr(void);
+exti3_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-exti4_isr(void);
+exti4_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma1_channel1_isr(void);
+dma1_channel1_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma1_channel2_isr(void);
+dma1_channel2_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma1_channel3_isr(void);
+dma1_channel3_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma1_channel4_isr(void);
+dma1_channel4_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma1_channel5_isr(void);
+dma1_channel5_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma1_channel6_isr(void);
+dma1_channel6_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma1_channel7_isr(void);
+dma1_channel7_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-adc_isr(void);
+adc_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_CAN1)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can1_tx_isr(void);
+can1_tx_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can1_rx0_isr(void);
+can1_rx0_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can1_rx1_isr(void);
+can1_rx1_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can1_sce_isr(void);
+can1_sce_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-exti9_5_isr(void);
+exti9_5_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim1_brk_isr(void);
+tim1_brk_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim1_up_isr(void);
+tim1_up_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim1_trg_com_isr(void);
+tim1_trg_com_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim1_cc_isr(void);
+tim1_cc_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_TIM2)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim2_isr(void);
+tim2_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_TIM3)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim3_isr(void);
+tim3_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_TIM4)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim4_isr(void);
+tim4_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-i2c1_ev_isr(void);
+i2c1_ev_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-i2c1_er_isr(void);
+i2c1_er_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-i2c2_ev_isr(void);
+i2c2_ev_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-i2c2_er_isr(void);
+i2c2_er_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-spi1_isr(void);
+spi1_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-spi2_isr(void);
+spi2_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-usart1_isr(void);
+usart1_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-usart2_isr(void);
+usart2_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_USART3)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-usart3_isr(void);
+usart3_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-exti15_10_isr(void);
+exti15_10_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-rtc_alarm_isr(void);
+rtc_alarm_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_USB_OTG_FS)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-otg_fs_wkup_isr(void);
+otg_fs_wkup_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_TIM8)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim8_brk_tim12_isr(void);
+tim8_brk_tim12_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim8_up_tim13_isr(void);
+tim8_up_tim13_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim8_trg_tim14_isr(void);
+tim8_trg_tim14_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim8_cc_isr(void);
+tim8_cc_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_ADC3)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-adc3_isr(void);
+adc3_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_FSMC)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-fsmc_isr(void);
+fsmc_isr(void)
+{
+  default_isr_handler();
+}
 #elif defined(STM32_FMC)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-fmc_isr(void);
+fmc_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_SDIO)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-sdio_isr(void);
+sdio_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim5_isr(void);
+tim5_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_SPI3)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-spi3_isr(void);
+spi3_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_UART4)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-uart4_isr(void);
+uart4_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_UART4)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-uart5_isr(void);
+uart5_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim6_isr(void);
+tim6_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_TIM7)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-tim7_isr(void);
+tim7_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma2_channel1_isr(void);
+dma2_channel1_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma2_channel2_isr(void);
+dma2_channel2_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma2_channel3_isr(void);
+dma2_channel3_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma2_channel4_isr(void);
+dma2_channel4_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-dma2_channel5_isr(void);
+dma2_channel5_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_ETH)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-eth_isr(void);
+eth_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-eth_wkup_isr(void);
+eth_wkup_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_CAN2)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can2_tx_isr(void);
+can2_tx_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can2_rx0_isr(void);
+can2_rx0_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can2_rx1_isr(void);
+can2_rx1_isr(void)
+{
+  default_isr_handler();
+}
 
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-can2_sce_isr(void);
+can2_sce_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 
 #if defined(STM32_USB_OTG_FS)
-NEX_WEAK_ALIAS("blocking_handler")
+NEX_WEAK
 void
-otg_fs_isr(void);
+otg_fs_isr(void)
+{
+  default_isr_handler();
+}
 #endif
 

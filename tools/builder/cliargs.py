@@ -139,6 +139,15 @@ def get_cli_args():
         help='Select how floating point operations are handled. Only used in "arm" builds.'
     )
 
+    # Defines default SoC ISR handlers as blocking.
+    # Each handler will be defined as `while (1);`.
+    # If not specified, each hanndler will be defined empty.
+    parser.add_argument(
+        '--default-isr-handler-blocking',
+        action='store_true',
+        help='Select the default SoC ISR handler implementation.'
+    )
+
     group = parser.add_mutually_exclusive_group()
 
     # Enables tests building.
