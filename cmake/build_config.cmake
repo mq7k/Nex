@@ -54,8 +54,10 @@ target_compile_options(nex_buildcfg INTERFACE
   -Wshadow
   -Wundef
   -Wformat=2
-  -lc
 )
+
+# Software float/double operations.
+target_link_libraries(nex_buildcfg INTERFACE gcc)
 
 target_compile_features(nex_buildcfg INTERFACE c_std_23)
 
