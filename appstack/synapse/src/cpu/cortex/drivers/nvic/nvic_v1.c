@@ -100,54 +100,63 @@ nvic_trigger_irq(
 }
 
 // Core exceptions.
+NEX_WEAK
 void 
 nmi_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void 
 hard_fault_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void
 memory_fault_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void
 bus_fault_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void
 usage_fault_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void
 debug_monitor_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void
 sv_call_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void
 pend_sv_handler(void)
 {
   while (1);
 }
 
+NEX_WEAK
 void
 systick_handler(void)
 {
