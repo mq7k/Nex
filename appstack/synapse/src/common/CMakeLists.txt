@@ -1,7 +1,9 @@
 nex_add_sources(
   TARGET nex_synapse_util
   PATH ${NEX_SYN_SRC_DIR}/common
-  SOURCES syscall.c
+  SOURCES
+    syscall.c
+    handlers.c
   MSG "Adding common file: "
 )
 
