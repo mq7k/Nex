@@ -4,6 +4,10 @@ if (NEX_INCLUDE_DEVMODE)
   nex_define_macros_i(nex_buildcfg NEX_INCLUDE_DEVMODE)
 endif()
 
+if (NEX_DEFAULT_ISR_HANDLER_BLOCKING)
+  nex_define_macros_i(nex_buildcfg NEX_DEFAULT_ISR_HANDLER_BLOCKING)
+endif()
+
 # Equals ignore case.
 string(TOLOWER ${CMAKE_BUILD_TYPE} _BUILDTYPE)
 
