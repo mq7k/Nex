@@ -22,11 +22,21 @@ nex_add_sources(
   PATH ${NEX_SYN_SRC_DIR}/cpu/cortex/drivers
   SOURCES
     vtable/vtable_v2.c
+  MSG "Adding CPU driver: "
+)
+
+if (NEX_PLATFORM_ARM)
+
+nex_add_sources(
+  TARGET nex_synapse_cpu
+  PATH ${NEX_SYN_SRC_DIR}/cpu/cortex
+  SOURCES
     common/memcpy.S
     common/memset.S
     common/string.S
   MSG "Adding CPU driver: "
 )
+endif()
 
 set_target_properties(nex_buildcfg PROPERTIES
   NEX_HAS_FPU "OFF"
