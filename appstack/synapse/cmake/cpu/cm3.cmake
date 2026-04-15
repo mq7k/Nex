@@ -22,6 +22,9 @@ nex_add_sources(
   PATH ${NEX_SYN_SRC_DIR}/cpu/cortex/drivers
   SOURCES
     vtable/vtable_v2.c
+    common/memcpy.S
+    common/memset.S
+    common/string.S
   MSG "Adding CPU driver: "
 )
 

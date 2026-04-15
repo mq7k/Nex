@@ -4,6 +4,7 @@ nex_add_sources(
   SOURCES
     syscall.c
     handlers.c
+    stkchk.c
   MSG "Adding common file: "
 )
 

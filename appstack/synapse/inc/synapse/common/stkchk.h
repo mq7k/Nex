@@ -1,0 +1,15 @@
+#ifndef SYN_STKCHK_H
+#define SYN_STKCHK_H
+
+#include "util.h"
+
+BEGIN_DECLARATIONS
+
+extern u32 __stack_chk_guard;
+
+u32
+syn_stkchk_guard_generate(void);
+
+END_DECLARATIONS
+
+#endif
