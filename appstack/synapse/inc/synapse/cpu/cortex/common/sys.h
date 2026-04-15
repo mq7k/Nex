@@ -34,25 +34,33 @@ extern u32
 cm_get_basepri(void);
 
 extern void
-cm_set_basepri(u32 basepri);
+cm_set_basepri(
+  u32 basepri
+);
 
 extern u32
 cm_get_msp(void);
 
 extern void
-cm_set_msp(u32 msp);
+cm_set_msp(
+  u32 msp
+);
 
 extern u32
 cm_get_psp(void);
 
 extern void
-cm_set_psp(u32 psp);
+cm_set_psp(
+  u32 psp
+);
 
 extern u32
 cm_get_control(void);
 
 extern void
-cm_set_control(u32 control);
+cm_set_control(
+  u32 control
+);
 
 extern void 
 cm_isb(void);
@@ -67,24 +75,35 @@ extern void
 cm_bkpt(void);
 
 extern void
-cm_ldrex(u32* addr);
+cm_ldrex(
+  u32* addr
+);
 
 extern u32
-cm_strex(u32* addr, u32 value);
+cm_strex(
+  u32* addr,
+  u32 value
+);
 
 #if defined(NEX_FPU)
 extern u32
 cm_get_fpu_fpscr(void);
 
 extern void
-cm_set_fpu_fpscr(u32 value);
+cm_set_fpu_fpscr(
+  u32 value
+);
 #endif
 
 extern u32
-cm_rfind_first_cleared_bit(u32 value);
+cm_rfind_first_cleared_bit(
+  u32 value
+);
 
 extern u32
-cm_lfind_first_cleared_bit(u32 value);
+cm_lfind_first_cleared_bit(
+  u32 value
+);
 
 END_DECLARATIONS
 
