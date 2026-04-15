@@ -8,49 +8,49 @@
 .global cm_irq_enable
 .type cm_irq_enable, %function
 cm_irq_enable:
-  cpsie i // Clears `PRIMASK` 
+  cpsie i
   isb
   bx lr
 
 .global cm_irq_disable
 .type cm_irq_disable, %function
 cm_irq_disable:
-  cpsid i // Sets `PRIMASK`
+  cpsid i
   isb
   bx lr
 
 .global cm_faults_enable
 .type cm_faults_enable, %function
 cm_faults_enable:
-  cpsie f // Clears register `FAULTMASK`
+  cpsie f
   isb
   bx lr
 
 .global cm_faults_disable
 .type cm_faults_disable, %function
 cm_faults_disable:
-  cpsid f // Sets `FAULTMASK`
-  isb // Instruction Synchronization Barrier
+  cpsid f
+  isb
   bx lr
 
 .global cm_wfe
 .type cm_wf3, %function
 cm_wfe:
-  wfe // Waits for event
+  wfe
   isb
   bx lr
 
 .global cm_wfi
 .type cm_wfi, %function
 cm_wfi:
-  wfi // Waits for interrupt
+  wfi
   isb
   bx lr
 
 .global cm_get_primask
 .type cm_get_primask, %function
 cm_get_primask:
-  mrs r0, PRIMASK // Reads `PRIMASK` and stores its value to r0
+  mrs r0, PRIMASK
   bx lr
 
 .global cm_get_faultmask
@@ -68,7 +68,7 @@ cm_get_basepri:
 .global cm_set_basepri
 .type cm_set_basepri, %function
 cm_set_basepri:
-  msr BASEPRI, r0 // Reads `r0` and stores its value to BASEPRI
+  msr BASEPRI, r0
   bx lr
 
 .global cm_get_msp
