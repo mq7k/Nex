@@ -80,6 +80,12 @@ extern void
 cm_set_fpu_fpscr(u32 value);
 #endif
 
+extern u32
+cm_rfind_first_cleared_bit(u32 value);
+
+extern u32
+cm_lfind_first_cleared_bit(u32 value);
+
 END_DECLARATIONS
 
 #endif
