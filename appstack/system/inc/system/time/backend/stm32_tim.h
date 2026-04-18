@@ -4,7 +4,7 @@
 #include "libcom/types.h"
 #include "libcom/util.h"
 #include "synapse/soc/stm32/periph/tim.h"
-#include "time/backend/timeif.h"
+#include "system/time/backend/timeif.h"
 
 BEGIN_DECLARATIONS
 

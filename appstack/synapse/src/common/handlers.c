@@ -1,5 +1,5 @@
 #include "synapse/common/handlers.h"
-#include "util.h"
+#include "libcom/util.h"
 
 NEX_WEAK
 void

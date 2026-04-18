@@ -1,6 +1,6 @@
 #include "libcom/data/queue.h"
-#include "errcodes.h"
-#include "util.h"
+#include "libcom/errcodes.h"
+#include "libcom/util.h"
 
 static u8*
 _get_entry(
