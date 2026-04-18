@@ -29,3 +29,16 @@ nex_is_addr_aligned(
   const uptr addr_ptr = (uptr) addr;
   return addr_ptr == (addr_ptr & (alignment - 1));
 }
+
+u32
+nex_murmur_hash3_fmix32(
+  u32 value
+)
+{
+  value ^= value >> 16;
+  value *= 0x7feb352d;
+  value ^= value >> 15;
+  value *= 0x846ca68b;
+  value ^= value >> 16;
+  return value;
+}
