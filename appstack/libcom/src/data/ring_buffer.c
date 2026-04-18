@@ -1,5 +1,5 @@
 #include "libcom/data/ring_buffer.h"
-#include "errcodes.h"
+#include "libcom/errcodes.h"
 #include "libcom/util.h"
 #include <limits.h>
 

@@ -1,5 +1,5 @@
-#include "types.h"
-#include "util.h"
+#include "libcom/types.h"
+#include "libcom/util.h"
 #include <sys/types.h>
 
 NEX_WEAK
