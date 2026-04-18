@@ -1,4 +1,3 @@
-nex_log(STATUS ">>>>>>>>>>>>>>>>>>> ${NEX_CUSTOM_CANARY_INIT}")
 if (NOT NEX_CUSTOM_CANARY_INIT)
   nex_add_sources(
     TARGET nex_synapse_util
