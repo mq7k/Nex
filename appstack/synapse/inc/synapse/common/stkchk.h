@@ -1,7 +1,7 @@
 #ifndef SYN_STKCHK_H
 #define SYN_STKCHK_H
 
-#include "util.h"
+#include "libcom/util.h"
 
 BEGIN_DECLARATIONS
 

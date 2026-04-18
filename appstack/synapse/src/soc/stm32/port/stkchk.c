@@ -1,8 +1,8 @@
-#include "types.h"
 #include "synapse/common/stkchk.h"
 #include "synapse/soc/stm32/periph/rng.h"
 #include "synapse/soc/stm32/periph/rcc.h"
-#include "util.h"
+#include "libcom/util.h"
+#include "libcom/types.h"
 
 u32
 syn_stkchk_guard_generate(void)
