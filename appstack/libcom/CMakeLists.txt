@@ -5,6 +5,7 @@ nex_add_sources(
   TARGET nex_libcom
   PATH ${NEX_LIBCOM_SRC_DIR}
   SOURCES
+    data/heap.c
     data/queue.c
     data/ring_buffer.c
 
