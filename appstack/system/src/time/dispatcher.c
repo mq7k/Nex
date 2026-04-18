@@ -1,6 +1,6 @@
 #include "system/time/dispatcher.h"
 #include "system/time/backend/stm32_tim.h"
-#include "time/backend/timeif.h"
+#include "system/time/backend/timeif.h"
 
 struct sys_coarse_time_vtable*
 system_get_coarse_time_backend(
