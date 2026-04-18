@@ -5,6 +5,7 @@ nex_add_sources(
   TARGET nex_libcom
   PATH ${NEX_LIBCOM_SRC_DIR}
   SOURCES
+    data/heap.c
     data/queue.c
     data/ring_buffer.c
 
@@ -29,21 +30,21 @@ endif()
 
 nex_add_headers(
   TARGET nex_libcom
-  PATH ${NEX_LIBCOM_INC_DIR}/libcom
+  PATH ${NEX_LIBCOM_INC_DIR}
   HEADERS
-    data/queue.h
-    data/ring_buffer.h
+    libcom/data/queue.h
+    libcom/data/ring_buffer.h
 
-    sys/devmode.h
-    sys/runtime.h
+    libcom/sys/devmode.h
+    libcom/sys/runtime.h
 
-    bytebuf.h
-    errcodes.h
-    format.h
-    semver.h
-    types.h
-    unit.h
-    util.h
+    libcom/bytebuf.h
+    libcom/errcodes.h
+    libcom/format.h
+    libcom/semver.h
+    libcom/types.h
+    libcom/unit.h
+    libcom/util.h
 )
 
 target_link_libraries(nex_libcom PUBLIC nex_buildcfg)

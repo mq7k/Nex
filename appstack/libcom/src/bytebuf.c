@@ -1,5 +1,5 @@
 #include "libcom/bytebuf.h"
-#include "errcodes.h"
+#include "libcom/errcodes.h"
 #include "libcom/util.h"
 
 void
