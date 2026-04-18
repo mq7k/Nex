@@ -65,6 +65,11 @@ nex_is_addr_aligned(
   u32 alignment
 );
 
+u32
+nex_murmur_hash3_fmix32(
+  u32 value
+);
+
 END_DECLARATIONS
 
 #endif
