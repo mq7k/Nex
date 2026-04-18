@@ -10,22 +10,8 @@ __stack_chk_fail(void)
   while (1);
 }
 
-static u32
-mix(
-  u32 x
-)
-{
-  x ^= x >> 16;
-  x *= 0x7feb352d;
-  x ^= x >> 15;
-  x *= 0x846ca68b;
-  x ^= x >> 16;
-  return x;
-}
-
-NEX_WEAK
 u32
-syn_stkchk_guard_generate(void)
+syn_stkchk_guard_generate_def(void)
 {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wuninitialized"
@@ -51,11 +37,18 @@ syn_stkchk_guard_generate(void)
 
 #pragma GCC diagnostic pop
 
-  seed = mix(seed);
+  seed = nex_murmur_hash3_fmix32(seed);
   if (seed == 0)
   {
     seed = 0xa5a5a5a5;
   }
 
   return seed;
+}
+
+NEX_WEAK
+u32
+syn_stkchk_guard_generate(void)
+{
+  return syn_stkchk_guard_generate_def();
 }
