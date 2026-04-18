@@ -70,7 +70,8 @@ def parse_cmake_vars(args):
             'NEX_FLOAT': args.float,
             'NEX_GC_SECTIONS': args.gc_sections,
             'NEX_INCLUDE_DEVMODE': to_cmake_bool(args.devmode or args.tests),
-            'NEX_DEFAULT_ISR_HANDLER_BLOCKING': args.default_isr_handler_blocking
+            'NEX_DEFAULT_ISR_HANDLER_BLOCKING': args.default_isr_handler_blocking,
+            'NEX_CUSTOM_CANARY_INIT': to_cmake_bool(args.custom_canary_guard)
     }
 
     table = {}
