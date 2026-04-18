@@ -1,7 +1,7 @@
 #ifndef SYN_HANDLERS_H
 #define SYN_HANDLERS_H
 
-#include "util.h"
+#include "libcom/util.h"
 
 BEGIN_DECLARATIONS
 
