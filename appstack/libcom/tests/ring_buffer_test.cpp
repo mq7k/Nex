@@ -1,7 +1,7 @@
-#include "data/ring_buffer.h"
-#include "errcodes.h"
+#include "libcom/data/ring_buffer.h"
+#include "libcom/errcodes.h"
 #include "libtest/libtest.hpp"
-#include "util.h"
+#include "libcom/util.h"
 
 #define BUFSZ (16)
 u8 buf[BUFSZ];

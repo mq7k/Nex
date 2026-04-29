@@ -4,7 +4,7 @@
 #include "libtest/comparator.hpp"
 #include <cstdio>
 #include <type_traits>
-#include "types.h"
+#include "libcom/types.h"
 
 namespace term_color
 {

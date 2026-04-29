@@ -10,8 +10,8 @@
 #include "synapse/cpu/cortex/common/sys.h"
 #include "synapse/cpu/cortex/periph/systick.h"
 #include "synapse/cpu/cortex/periph/nvic.h"
-#include "unit.h"
-#include "util.h"
+#include "libcom/unit.h"
+#include "libcom/util.h"
 
 // DShot150
 // #define TIM_AUTORELOAD_VALUE (483)
