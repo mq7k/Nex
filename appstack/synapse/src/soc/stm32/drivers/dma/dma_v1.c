@@ -1288,19 +1288,31 @@ dmaif_configure(
     config->periph_addr
   );
 
-  if (!config->pbuf)
+  // if (!config->pbuf)
+  // {
+  //   return DMAIF_CODE_INVALID_PBUF;
+  // }
+
+  if (config->pbuf)
   {
-    return DMAIF_CODE_INVALID_PBUF;
+    dma_stream_set_memory_address(
+      config->dma,
+      config->stream,
+      DMA_STREAM_MEMORY0,
+      (uptr) config->pbuf
+    );
   }
 
-  dma_stream_set_memory_address(
-    config->dma,
-    config->stream,
-    DMA_STREAM_MEMORY0,
-    (uptr) config->pbuf
-  );
-
   return DMAIF_CODE_OK;
+}
+
+void
+dmaif_set_periph_addr(
+  struct dmaif_config* config,
+  uptr addr
+)
+{
+  dma_stream_set_periph_address(config->dma, config->stream, addr);
 }
 
 void
@@ -1376,3 +1388,70 @@ dmaif_get_current_db_target(
   return dma_stream_get_current_target(config->dma, config->stream);
 }
 
+void
+dmaif_interrupt_enable(
+  struct dmaif_config* config,
+  enum dmaif_interrupt interrupt
+)
+{
+  switch (interrupt)
+  {
+    case DMAIF_INTERRUPT_FIFO_ERR:
+      dma_stream_interrupt_enable(config->dma, config->stream, DMA_STREAM_INTERRUPT_FIFO_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_DIRECT_MODE_ERR:
+      dma_stream_interrupt_enable(config->dma, config->stream, DMA_STREAM_INTERRUPT_DIRECT_MODE_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_TRANSFER_ERR:
+      dma_stream_interrupt_enable(config->dma, config->stream, DMA_STREAM_INTERRUPT_TRANSFER_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_HALF_TRANSFER:
+      dma_stream_interrupt_enable(config->dma, config->stream, DMA_STREAM_INTERRUPT_HALF_TRANSFER);
+      break;
+
+    case DMAIF_INTERRUPT_TC:
+      dma_stream_interrupt_enable(config->dma, config->stream, DMA_STREAM_INTERRUPT_TRANSFER_COMPLETE);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum dmaif_interrupt, interrupt);
+      break;
+  }
+}
+
+void
+dmaif_interrupt_disable(
+  struct dmaif_config* config,
+  enum dmaif_interrupt interrupt
+)
+{
+  switch (interrupt)
+  {
+    case DMAIF_INTERRUPT_FIFO_ERR:
+      dma_stream_interrupt_disable(config->dma, config->stream, DMA_STREAM_INTERRUPT_FIFO_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_DIRECT_MODE_ERR:
+      dma_stream_interrupt_disable(config->dma, config->stream, DMA_STREAM_INTERRUPT_DIRECT_MODE_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_TRANSFER_ERR:
+      dma_stream_interrupt_disable(config->dma, config->stream, DMA_STREAM_INTERRUPT_TRANSFER_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_HALF_TRANSFER:
+      dma_stream_interrupt_disable(config->dma, config->stream, DMA_STREAM_INTERRUPT_HALF_TRANSFER);
+      break;
+
+    case DMAIF_INTERRUPT_TC:
+      dma_stream_interrupt_disable(config->dma, config->stream, DMA_STREAM_INTERRUPT_TRANSFER_COMPLETE);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum dmaif_interrupt, interrupt);
+      break;
+  }
+}

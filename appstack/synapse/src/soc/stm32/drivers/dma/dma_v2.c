@@ -647,19 +647,31 @@ dmaif_configure(
     config->channel,
     config->periph_addr
   );
+  
+  // if (!config->pbuf)
+  // {
+  //   return DMAIF_CODE_INVALID_PBUF;
+  // }
 
-  if (!config->pbuf)
+  if (config->pbuf)
   {
-    return DMAIF_CODE_INVALID_PBUF;
+    dma_channel_set_memory_address(
+      config->dma,
+      config->channel,
+      (uptr) config->pbuf
+    );
   }
 
-  dma_channel_set_memory_address(
-    config->dma,
-    config->channel,
-    (uptr) config->pbuf
-  );
-
   return DMAIF_CODE_OK;
+}
+
+void
+dmaif_set_periph_addr(
+  struct dmaif_config* config,
+  uptr addr
+)
+{
+  dma_channel_set_periph_address(config->dma, config->channel, addr);
 }
 
 void
@@ -709,4 +721,56 @@ dmaif_get_current_db_target(
 )
 {
   return 0;
+}
+
+void
+dmaif_interrupt_enable(
+  struct dmaif_config* config,
+  enum dmaif_interrupt interrupt
+)
+{
+  switch (interrupt)
+  {
+    case DMAIF_INTERRUPT_TRANSFER_ERR:
+      dma_channel_interrupt_enable(config->dma, config->stream, DMA_INTERRUPT_TRANSFER_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_HALF_TRANSFER:
+      dma_channel_interrupt_enable(config->dma, config->stream, DMA_INTERRUPT_HALF_TRANSFER);
+      break;
+
+    case DMAIF_INTERRUPT_TC:
+      dma_channel_interrupt_enable(config->dma, config->stream, DMA_INTERRUPT_TRANSFER_COMPLETE);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum dmaif_interrupt, interrupt);
+      break;
+  }
+}
+
+void
+dmaif_interrupt_disable(
+  struct dmaif_config* config,
+  enum dmaif_interrupt interrupt
+)
+{
+  switch (interrupt)
+  {
+    case DMAIF_INTERRUPT_TRANSFER_ERR:
+      dma_channel_interrupt_disable(config->dma, config->stream, DMA_INTERRUPT_TRANSFER_ERROR);
+      break;
+
+    case DMAIF_INTERRUPT_HALF_TRANSFER:
+      dma_channel_interrupt_disable(config->dma, config->stream, DMA_INTERRUPT_HALF_TRANSFER);
+      break;
+
+    case DMAIF_INTERRUPT_TC:
+      dma_channel_interrupt_disable(config->dma, config->stream, DMA_INTERRUPT_TRANSFER_COMPLETE);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum dmaif_interrupt, interrupt);
+      break;
+  }
 }
