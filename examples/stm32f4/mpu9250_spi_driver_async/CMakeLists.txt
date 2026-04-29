@@ -1,0 +1,1 @@
+syn_register_example(mpu9250_spi_driver_async main.c)
