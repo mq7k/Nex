@@ -1,7 +1,7 @@
 #include "synapse/cpu/cortex/drivers/nvic/nvic_v2.h"
 #include "synapse/common/handlers.h"
 #include "synapse/cpu/cortex/common/memorymap.h"
-#include "util.h"
+#include "libcom/util.h"
 
 typedef volatile struct nvic_registers_map nvic_periph;
 nvic_periph* NVIC = (nvic_periph*) (ARCH_NVIC_ADDR);
