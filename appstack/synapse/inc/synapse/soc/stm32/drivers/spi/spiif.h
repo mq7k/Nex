@@ -166,6 +166,26 @@ spiif_transceive_16bit(
   u32 len
 );
 
+void
+spiif_dma_tx_enable(
+  struct spiif_config* config
+);
+
+void
+spiif_dma_tx_disable(
+  struct spiif_config* config
+);
+
+void
+spiif_dma_rx_enable(
+  struct spiif_config* config
+);
+
+void
+spiif_dma_rx_disable(
+  struct spiif_config* config
+);
+
 END_DECLARATIONS
 
 #endif
