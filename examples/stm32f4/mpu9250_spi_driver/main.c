@@ -128,20 +128,25 @@ main(void)
       .role = SPIIF_ROLE_MASTER,
       .options = SPIIF_CAP_MSB
     },
-    .cflags = 0
+    .cflags = 0,
+    .cs_port = GPIOA,
+    .cs_pin = GPIO0
   };
 
   struct beio be = {
     .ctx = &bespi,
-    .ops = &ioops_spi
+    .ops = &ioops_spi,
   };
 
-  beio_init(&be);
+  u32 code;
+  if ((code = beio_init(&be)) != NEX_SUCCESS)
+  {
+    usart_send_strfln(USART1, "Failed to init beio (%d)", code);
+    while (1);
+  }
 
   struct mpu9250 mpu = {
-    .beio = &be,
-    .cs_port = GPIOA,
-    .cs_pin = GPIO0
+    .beio = &be
   };
 
   mpu9250_sleep_disable(&mpu);
