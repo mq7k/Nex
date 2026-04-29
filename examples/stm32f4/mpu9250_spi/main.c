@@ -100,7 +100,7 @@ _enumerate_device(void)
       break;
 
     default:
-      usart_send_strfln(USART1, "Device: Unknown");
+      usart_send_strfln(USART1, "Device: Unknown (0x%x)", byte);
       return NEX_FAILURE;
   }
 
