@@ -147,7 +147,9 @@ main(void)
       .spi = SPI1,
       .role = SPIIF_ROLE_MASTER,
       .options = SPIIF_CAP_MSB
-    }
+    },
+    .cs_port = GPIOA,
+    .cs_pin = GPIO0
   };
 
   struct beio be = {
@@ -158,9 +160,7 @@ main(void)
   beio_init(&be);
 
   struct mpu9250 mpu = {
-    .beio = &be,
-    .cs_port = GPIOA,
-    .cs_pin = GPIO0
+    .beio = &be
   };
 
   mpu9250_sleep_disable(&mpu);
