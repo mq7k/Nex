@@ -3,7 +3,7 @@
 
 #include "libcom/types.h"
 #include "libcom/sys/devmode.h"
-#include "util.h"
+#include "libcom/util.h"
 
 #include <cstdio>
 #include <math.h>

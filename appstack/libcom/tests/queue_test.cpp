@@ -2,7 +2,7 @@
 #include "libcom/errcodes.h"
 #include "libtest/libtest.hpp"
 #include "libtest/assertions.hpp"
-#include "util.h"
+#include "libcom/util.h"
 
 struct queue queue;
 
