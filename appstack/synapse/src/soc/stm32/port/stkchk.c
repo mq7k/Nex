@@ -1,5 +1,10 @@
 #include "synapse/common/stkchk.h"
+#include "synapse/soc/stm32/system/specs.h"
+
+#if defined(STM32_RNG)
 #include "synapse/soc/stm32/periph/rng.h"
+#endif
+
 #include "synapse/soc/stm32/periph/rcc.h"
 #include "libcom/util.h"
 #include "libcom/types.h"
