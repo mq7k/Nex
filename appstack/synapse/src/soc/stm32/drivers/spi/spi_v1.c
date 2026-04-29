@@ -1449,3 +1449,35 @@ spiif_transceive_16bit(
 {
   spi_transceive_16bits(config->spi, out, in, len);
 }
+
+void
+spiif_dma_tx_enable(
+  struct spiif_config* config
+)
+{
+  spi_dma_tx_enable(config->spi);
+}
+
+void
+spiif_dma_tx_disable(
+  struct spiif_config* config
+)
+{
+  spi_dma_tx_disable(config->spi);
+}
+
+void
+spiif_dma_rx_enable(
+  struct spiif_config* config
+)
+{
+  spi_dma_rx_enable(config->spi);
+}
+
+void
+spiif_dma_rx_disable(
+  struct spiif_config* config
+)
+{
+  spi_dma_rx_disable(config->spi);
+}

@@ -1,4 +1,10 @@
+#include "cpu/cortex/drivers/nvic/nvic_v1.h"
 #include "libcom/util.h"
+#include "soc/stm32/drivers/dma/dma_v1.h"
+#include "soc/stm32/drivers/dma/dmaif.h"
+#include "soc/stm32/drivers/spi/spi_v1.h"
+#include "soc/stm32/drivers/spi/spiif.h"
+#include "soc/stm32/drivers/usart/usart_v1.h"
 #include "synapse/cpu/cortex/periph/fpu.h"
 #include "synapse/common/common.h"
 #include "synapse/drivers/mpu9250.h"
@@ -16,6 +22,7 @@ rcc_setup(void)
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_SPI1);
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
+  rcc_periph_clock_enable(RCC_PERIPH_DMA2);
 }
 
 void
@@ -69,7 +76,9 @@ spi_setup(void)
   spi_set_frame_format(SPI1, SPI_FRAME_FORMAT_MSB_FIRST);
   spi_software_slave_management_enable(SPI1);
   spi_internal_slave_select_enable(SPI1);
-  spi_enable(SPI1);
+  spi_dma_rx_enable(SPI1);
+  spi_dma_tx_enable(SPI1);
+  // spi_enable(SPI1);
 }
 
 static u32
@@ -101,11 +110,54 @@ _enumerate_device(
       break;
 
     default:
-      usart_send_strfln(USART1, "Device: Unknown");
+      usart_send_strfln(USART1, "Device: Unknown (0x%x)", response);
       return NEX_FAILURE;
   }
 
   return NEX_SUCCESS;
+}
+
+struct mpu9250 mpu;
+struct beio be;
+
+void
+dma2_stream0_isr(void)
+{
+  // usart_send_strfln(USART1, "Fired 1");
+  beio_transfer_complete(&be);
+
+  if (dma_is_stream_flag_set(DMA2, DMA_STREAM0, DMA_STREAM_FLAG_TRANSFER_COMPLETE))
+  {
+    dma_stream_flag_clear(DMA2, DMA_STREAM0, DMA_STREAM_FLAG_TRANSFER_COMPLETE);
+  }
+
+  if (dma_is_stream_flag_set(DMA2, DMA_STREAM5, DMA_STREAM_FLAG_TRANSFER_COMPLETE))
+  {
+    dma_stream_flag_clear(DMA2, DMA_STREAM5, DMA_STREAM_FLAG_TRANSFER_COMPLETE);
+  }
+
+  nvic_clear_pending_irq(NVIC_IRQ_DMA2_STREAM0);
+  nvic_clear_pending_irq(NVIC_IRQ_DMA2_STREAM5);
+}
+
+void
+dma2_stream5_isr(void)
+{
+  // usart_send_strfln(USART1, "Fired 5");
+  beio_transfer_complete(&be);
+
+  if (dma_is_stream_flag_set(DMA2, DMA_STREAM0, DMA_STREAM_FLAG_TRANSFER_COMPLETE))
+  {
+    dma_stream_flag_clear(DMA2, DMA_STREAM0, DMA_STREAM_FLAG_TRANSFER_COMPLETE);
+  }
+
+  if (dma_is_stream_flag_set(DMA2, DMA_STREAM5, DMA_STREAM_FLAG_TRANSFER_COMPLETE))
+  {
+    dma_stream_flag_clear(DMA2, DMA_STREAM5, DMA_STREAM_FLAG_TRANSFER_COMPLETE);
+  }
+
+  nvic_clear_pending_irq(NVIC_IRQ_DMA2_STREAM0);
+  nvic_clear_pending_irq(NVIC_IRQ_DMA2_STREAM5);
 }
 
 int
@@ -119,6 +171,7 @@ main(void)
   usart_setup();
   spi_setup();
 
+
   gpio_set_pin_high(GPIOA, GPIO0);
   usart_send_strfln(USART1, "Starting communication");
 
@@ -126,17 +179,43 @@ main(void)
     .spiconf = {
       .spi = SPI1,
       .role = SPIIF_ROLE_MASTER,
+      .baudrate = SPIIF_BAUDRATE_CLK_DIV256,
+      .clk_polarity = SPIIF_CLK_POLARITY_CLK_IDLE1,
+      .clk_phase = SPIIF_CLK_PHASE_SECOND,
       .options = SPIIF_CAP_MSB
     },
-    .cflags = 0,
+    .rxconf = {
+      .dma = DMA2,
+      .stream = DMAIF_STREAM0,
+      .channel = DMAIF_CHANNEL3,
+      .periph = DMAIF_PERIPH_SPI,
+      .msize = DMAIF_DATA_8bit,
+      .psize = DMAIF_DATA_8bit,
+      .direction = DMAIF_DIR_PERIPH2MEM,
+      .periph_addr = (u32) &SPI1->DR,
+      .options = DMAIF_CAP_MEM_INC_MODE
+    },
+    .txconf = {
+      .dma = DMA2,
+      .stream = DMAIF_STREAM5,
+      .channel = DMAIF_CHANNEL3,
+      .periph = DMAIF_PERIPH_SPI,
+      .msize = DMAIF_DATA_8bit,
+      .psize = DMAIF_DATA_8bit,
+      .direction = DMAIF_DIR_MEM2PERIPH,
+      .periph_addr = (u32) &SPI1->DR
+    },
+    .dma_active_caps = DMAIF_CAP_PERIPH_BURST1,
+    .cflags = BEIO_SPI_CFLAG_DMA,
     .cs_port = GPIOA,
     .cs_pin = GPIO0
   };
+  
+  nvic_irq_enable(NVIC_IRQ_DMA2_STREAM0);
+  nvic_irq_enable(NVIC_IRQ_DMA2_STREAM5);
 
-  struct beio be = {
-    .ctx = &bespi,
-    .ops = &ioops_spi,
-  };
+  be.ctx = &bespi;
+  be.ops = &ioops_spi;
 
   u32 code;
   if ((code = beio_init(&be)) != NEX_SUCCESS)
@@ -145,9 +224,8 @@ main(void)
     while (1);
   }
 
-  struct mpu9250 mpu = {
-    .beio = &be
-  };
+  spi_enable(SPI1);
+  mpu.beio = &be;
 
   mpu9250_sleep_disable(&mpu);
   mpu9250_gyro_standby_disable(&mpu);
@@ -165,21 +243,31 @@ main(void)
 
   constexpr double gyro_scale = 3.14159265 / 180.0 / 131.0;
   constexpr double accel_scale = 1.0 / 16384;
+
   while (1)
   {
-    float temp;
-    mpu9250_get_temperature(&mpu, 0, 333.87f, &temp);
+    u8 buf[14] = {};
+    struct mpu9250_sensors sensors = {
+      .temp_offset = 0,
+      .temp_sensitivity = 333.87f
+    };
+    struct mpu9250_transaction transaction = {
+      .buf = buf,
+      .count = 14
+    };
 
-    struct mpu9250_vec16 vec;
-    mpu9250_get_gyro(&mpu, &vec);
-    double xgyro = (double) vec.x * gyro_scale;
-    double ygyro = (double) vec.y * gyro_scale;
-    double zgyro = (double) vec.z * gyro_scale;
+    mpu9250_get_accel_temp_gyro_async(&mpu, &sensors, &transaction);
+    while (!transaction.complete);
 
-    mpu9250_get_accel(&mpu, &vec);
-    double xaccel = (double) vec.x * accel_scale;
-    double yaccel = (double) vec.y * accel_scale;
-    double zaccel = (double) vec.z * accel_scale;
+    double xgyro = (double) sensors.gyro.x * gyro_scale;
+    double ygyro = (double) sensors.gyro.y * gyro_scale;
+    double zgyro = (double) sensors.gyro.z * gyro_scale;
+
+    double xaccel = (double) sensors.accel.x * accel_scale;
+    double yaccel = (double) sensors.accel.y * accel_scale;
+    double zaccel = (double) sensors.accel.z * accel_scale;
+
+    float temp = sensors.temp;
 
     usart_send_strfln(USART1, "Gyro: %f, %f, %f", xgyro, ygyro, zgyro);
     usart_send_strfln(USART1, "Accel: %f, %f, %f", xaccel, yaccel, zaccel);
