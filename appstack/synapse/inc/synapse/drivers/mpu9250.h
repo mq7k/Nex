@@ -626,14 +626,35 @@ struct mpu9250_vec16
   i16 z;
 };
 
+struct mpu9250_sensors
+{
+  struct mpu9250_vec16 accel;
+  float temp;
+  struct mpu9250_vec16 gyro;
+
+  u16 temp_offset;
+  float temp_sensitivity;
+};
+
+struct mpu9250_transaction
+{
+  void* ctx;
+  u32 count;
+  u8* buf;
+  volatile u32 complete;
+};
+
 struct mpu9250
 {
   struct beio* beio;
-
-  // Only used in SPI.
-  volatile void* cs_port;
-  u32 cs_pin;
 };
+
+float
+mpu9250_calc_temperature(
+  u16 raw_temp,
+  u16 offset,
+  float sensitivity
+);
 
 u32
 mpu9250_get_self_test_gyro(
@@ -651,6 +672,13 @@ u32
 mpu9250_get_gyro_offset(
   struct mpu9250* mpu,
   struct mpu9250_vec16* axis
+);
+
+enum nex_code
+mpu9250_get_gyro_offset_async(
+  struct mpu9250* mpu,
+  struct mpu9250_vec16* axis,
+  struct mpu9250_transaction* transaction
 );
 
 u32
@@ -1130,7 +1158,7 @@ mpu9250_get_temperature_raw(
 u32
 mpu9250_get_temperature(
   struct mpu9250* mpu,
-  u32 offset,
+  u16 offset,
   float sensitivity,
   float* temp
 );
@@ -1139,6 +1167,20 @@ u32
 mpu9250_get_gyro(
   struct mpu9250* mpu,
   struct mpu9250_vec16* axis
+);
+
+enum nex_code
+mpu9250_get_gyro_async(
+  struct mpu9250* mpu,
+  struct mpu9250_vec16* vec,
+  struct mpu9250_transaction* transaction
+);
+
+enum nex_code
+mpu9250_get_accel_temp_gyro_async(
+  struct mpu9250* mpu,
+  struct mpu9250_sensors* sensors,
+  struct mpu9250_transaction* transaction
 );
 
 u32

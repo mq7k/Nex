@@ -1,24 +1,9 @@
 #include "synapse/drivers/mpu9250.h"
+#include "io/io_spi.h"
+#include "io/ioif.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
 #include "libcom/util.h"
-#include "synapse/soc/stm32/drivers/gpio/gpioif.h"
-
-static void
-_cs_low(
-  struct mpu9250* mpu
-)
-{
-  gpioif_pin_set_low(mpu->cs_port, mpu->cs_pin);
-}
-
-static void
-_cs_high(
-  struct mpu9250* mpu
-)
-{
-  gpioif_pin_set_high(mpu->cs_port, mpu->cs_pin);
-}
 
 static u32
 _read_reg_sync(
@@ -27,20 +12,20 @@ _read_reg_sync(
   u8* response
 )
 {
-  _cs_low(mpu);
-
+  beio_clear_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   reg |= 0x80;
+
   if (beio_write(mpu->beio, &reg, 1) != 1)
   {
     return NEX_FAILURE;
   }
 
+  beio_set_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   if (beio_read(mpu->beio, response, 1) != 1)
   {
     return NEX_FAILURE;
   }
 
-  _cs_high(mpu);
   return NEX_SUCCESS;
 }
 
@@ -51,20 +36,53 @@ _write_reg_sync(
   u8 value
 )
 {
-  _cs_low(mpu);
-
+  beio_clear_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   if (beio_write(mpu->beio, &reg, 1) != 1)
   {
     return NEX_FAILURE;
   }
 
+  beio_set_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   if (beio_write(mpu->beio, &value, 1) != 1)
   {
     return NEX_FAILURE;
   }
 
-  _cs_high(mpu);
   return NEX_SUCCESS;
+}
+
+static enum nex_code
+_read_regs_async(
+  struct mpu9250* mpu,
+  u8 reg,
+  struct mpu9250_transaction* transaction,
+  struct async_fn* fn
+)
+{
+  reg |= 0x80;
+
+  beio_clear_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
+  beio_write(mpu->beio, &reg, 1);
+
+  beio_set_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
+
+  enum nex_code code = beio_read_async(
+    mpu->beio,
+    transaction->buf,
+    transaction->count,
+    fn
+  );
+
+  return code;
+
+  // beio_transaction_start(mpu->beio);
+  //
+  // struct beio_transaction t = {
+  //   .reg = reg,
+  //   .count = 1,
+  //   .type = read,
+  //   .buf = transaction->buf,
+  // };
 }
 
 static u32
@@ -75,20 +93,19 @@ _read_regs_sync(
   u32 count
 )
 {
-  _cs_low(mpu);
-
   reg |= 0x80;
+  beio_clear_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   if (beio_write(mpu->beio, &reg, 1) != 1)
   {
     return NEX_FAILURE;
   }
 
+  beio_set_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   if (beio_read(mpu->beio, buf, count) != count)
   {
     return NEX_FAILURE;
   }
 
-  _cs_high(mpu);
   return NEX_SUCCESS;
 }
 
@@ -100,19 +117,18 @@ _write_regs_sync(
   u32 count
 )
 {
-  _cs_low(mpu);
-
+  beio_clear_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   if (beio_write(mpu->beio, &reg, 1) != 1)
   {
     return NEX_FAILURE;
   }
 
+  beio_set_flag(mpu->beio, BEIO_SPI_CFLAG_TC);
   if (beio_write(mpu->beio, buf, count) != count)
   {
     return NEX_FAILURE;
   }
 
-  _cs_high(mpu);
   return NEX_SUCCESS;
 }
 
@@ -132,6 +148,37 @@ _decode_vec16(
 }
 
 static void
+_decode_vec16_cb(
+  void* ctx
+)
+{
+  struct mpu9250_transaction* transaction = (struct mpu9250_transaction*) ctx;
+  struct mpu9250_vec16* vec = (struct mpu9250_vec16*) transaction->ctx;
+  _decode_vec16(vec, transaction->buf);
+  transaction->complete = 1;
+}
+
+static void
+_decode_sensors(
+  void* ctx
+)
+{
+  struct mpu9250_transaction* transaction = (struct mpu9250_transaction*) ctx;
+  struct mpu9250_sensors* sensors = (struct mpu9250_sensors*) transaction->ctx;
+  u8* buf = transaction->buf;
+  _decode_vec16(&sensors->accel, buf);
+
+  u16 temp_raw = (u16) ((buf[6] << 8) | buf[7]);
+  temp_raw -= sensors->temp_offset;
+  float result = (float) temp_raw / sensors->temp_sensitivity;
+  result += 21.0f;
+  sensors->temp = result;
+
+  _decode_vec16(&sensors->gyro, &buf[8]);
+  transaction->complete = 1;
+}
+
+static void
 _encode_vec16(
   struct mpu9250_vec16* vec,
   u8* buf
@@ -145,6 +192,25 @@ _encode_vec16(
 
   buf[4] = (u8) (vec->z >> 8);
   buf[5] = (u8) vec->z;
+}
+
+float
+mpu9250_calc_temperature(
+  u16 raw_temp,
+  u16 offset,
+  float sensitivity
+)
+{
+  // According to the formula in the datasheet:
+  // TEMP_degC = ((TEMP_OUT - RoomTemp_Offset) / Temp_Sensitivity) + 21degC
+  // Where:
+  // - Temp_degC:
+  //   Is the temperature in degrees C measured by the temperature sensor.
+  // - TEMP_OUT:
+  //   Is the actual output of the temperature sensor.
+  raw_temp -= offset;
+  float result = (float) raw_temp / sensitivity;
+  return result + 21.0f;
 }
 
 u32
@@ -188,6 +254,23 @@ mpu9250_get_gyro_offset(
 
   _decode_vec16(vec, buf);
   return NEX_SUCCESS;
+}
+
+enum nex_code
+mpu9250_get_gyro_offset_async(
+  struct mpu9250* mpu,
+  struct mpu9250_vec16* vec,
+  struct mpu9250_transaction* transaction
+)
+{
+  transaction->ctx = vec;
+
+  struct async_fn fn = {
+    .fn = _decode_vec16_cb,
+    .ctx = &transaction
+  };
+
+  return _read_regs_async(mpu, MPU9250_REG_XG_OFFSET_H, transaction, &fn);
 }
 
 u32
@@ -2309,7 +2392,7 @@ mpu9250_get_accel(
 )
 {
   u8 buf[6];
-  u32 res = _read_regs_sync(mpu, MPU9250_REG_ACCEL_XOUT_H, buf, 6);
+  u32 res = _read_regs_sync(mpu, MPU9250_REG_ACCEL_XOUT_H, buf, 1);
   if (res != NEX_SUCCESS)
   {
     return res;
@@ -2317,6 +2400,22 @@ mpu9250_get_accel(
 
   _decode_vec16(vec, buf);
   return NEX_SUCCESS;
+}
+
+enum nex_code
+mpu9250_get_accel_async(
+  struct mpu9250* mpu,
+  struct mpu9250_vec16* vec,
+  struct mpu9250_transaction* transaction
+)
+{
+  transaction->ctx = vec;
+  struct async_fn fn = {
+    .fn = _decode_vec16_cb,
+    .ctx = transaction,
+  };
+
+  return _read_regs_async(mpu, MPU9250_REG_ACCEL_XOUT_H, transaction, &fn);
 }
 
 u32
@@ -2339,7 +2438,7 @@ mpu9250_get_temperature_raw(
 u32
 mpu9250_get_temperature(
   struct mpu9250* mpu,
-  u32 offset,
+  u16 offset,
   float sensitivity,
   float* temp
 )
@@ -2351,17 +2450,7 @@ mpu9250_get_temperature(
     return res;
   }
 
-  // According to the formula in the datasheet:
-  // TEMP_degC = ((TEMP_OUT - RoomTemp_Offset) / Temp_Sensitivity) + 21degC
-  // Where:
-  // - Temp_degC:
-  //   Is the temperature in degrees C measured by the temperature sensor.
-  // - TEMP_OUT:
-  //   Is the actual output of the temperature sensor.
-  temperature -= (u16) offset;
-  float result = (float) temperature / sensitivity;
-  *temp = result + 21.0f;
-
+  *temp = mpu9250_calc_temperature(temperature, offset, sensitivity);
   return NEX_SUCCESS;
 }
 
@@ -2380,6 +2469,40 @@ mpu9250_get_gyro(
 
   _decode_vec16(vec, buf);
   return NEX_SUCCESS;
+}
+
+enum nex_code
+mpu9250_get_gyro_async(
+  struct mpu9250* mpu,
+  struct mpu9250_vec16* vec,
+  struct mpu9250_transaction* transaction
+)
+{
+  transaction->ctx = vec;
+
+  struct async_fn fn = {
+    .fn = _decode_vec16_cb,
+    .ctx = transaction
+  };
+
+  return _read_regs_async(mpu, MPU9250_REG_GYRO_XOUT_H, transaction, &fn);
+}
+
+enum nex_code
+mpu9250_get_accel_temp_gyro_async(
+  struct mpu9250* mpu,
+  struct mpu9250_sensors* sensors,
+  struct mpu9250_transaction* transaction
+)
+{
+  transaction->ctx = sensors;
+
+  struct async_fn fn = {
+    .fn = _decode_sensors,
+    .ctx = transaction
+  };
+
+  return _read_regs_async(mpu, MPU9250_REG_ACCEL_XOUT_H, transaction, &fn);
 }
 
 u32
