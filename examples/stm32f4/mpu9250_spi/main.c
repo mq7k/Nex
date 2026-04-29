@@ -1,5 +1,6 @@
 #include "libcom/util.h"
 #include "synapse/common/common.h"
+#include "synapse/cpu/cortex/periph/fpu.h"
 #include "synapse/soc/stm32/periph/gpio.h"
 #include "synapse/soc/stm32/periph/spi.h"
 #include "synapse/soc/stm32/periph/usart.h"
