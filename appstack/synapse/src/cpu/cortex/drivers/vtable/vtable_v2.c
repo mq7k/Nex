@@ -1,4 +1,5 @@
 #include "synapse/cpu/cortex/drivers/vtable/vtable_v2.h"
+#include "libcom/util.h"
 #include "synapse/cpu/cortex/drivers/nvic/nvic_v2.h"
 #include "synapse/specs.h"
 
@@ -7,7 +8,7 @@ u32 _stack = 0;
 void _reset(void) {}
 #endif
 
-__attribute__((section(".isr_vector")))
+NEX_SECTION(".isr_vector")
 struct vector_table vec_table = {
   .sp = (u32*) &_stack,
   .reset = _reset,
