@@ -24,6 +24,7 @@ nex_add_sources(
     common/fpu.S
     drivers/fpu/fpu_v1.c
     drivers/vtable/vtable_v1.c
+  MSG "Adding CPU driver: "
 )
 
 if (NEX_PLATFORM_ARM)
