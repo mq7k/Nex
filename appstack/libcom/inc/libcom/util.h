@@ -35,6 +35,7 @@ BEGIN_DECLARATIONS
 #define NEX_WEAK __attribute__((weak))
 #define NEX_ALIAS(name) __attribute__((alias(name)))
 #define NEX_WEAK_ALIAS(name) __attribute__((weak, alias(name)))
+#define NEX_SECTION(name) __attribute__((section(name)))
 
 #define FAST_MOD(a, b) ((a) & ((b) - 1))
 #define MAX(a, b) ((a) > (b) ? a : b)
@@ -63,6 +64,11 @@ u32
 nex_is_addr_aligned(
   void* addr,
   u32 alignment
+);
+
+u32
+nex_murmur_hash3_fmix32(
+  u32 value
 );
 
 END_DECLARATIONS

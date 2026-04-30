@@ -15,3 +15,11 @@ nex_add_headers(
   MSG "Adding common: "
 )
 
+if (NEX_PLATFORM_ARM)
+  nex_add_sources(
+    TARGET nex_synapse_util
+    PATH ${NEX_SYN_SRC_DIR}/common
+    SOURCES stkchk.c
+    MSG "Adding common file: "
+  )
+endif()
