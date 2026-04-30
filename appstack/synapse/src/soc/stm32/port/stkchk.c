@@ -1,5 +1,4 @@
 #include "synapse/common/stkchk.h"
-#include "soc/stm32/drivers/rcc/rcc_v2.h"
 #include "synapse/soc/stm32/system/specs.h"
 
 #if defined(STM32_RNG)
