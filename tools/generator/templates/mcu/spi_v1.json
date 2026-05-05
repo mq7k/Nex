@@ -2,6 +2,44 @@
   "periph": "_SPI",
   "path": "soc/stm32/drivers/spi/spi_v1.h",
   "struct": "spi_registers_map",
+  "regs": [
+    {
+      "name": "CR1",
+      "offset": "0x00"
+    },
+    {
+      "name": "CR2",
+      "offset": "0x04"
+    },
+    {
+      "name": "SR",
+      "offset": "0x08"
+    },
+    {
+      "name": "DR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "CRCPR",
+      "offset": "0x10"
+    },
+    {
+      "name": "RXCRCR",
+      "offset": "0x14"
+    },
+    {
+      "name": "TXCRCR",
+      "offset": "0x18"
+    },
+    {
+      "name": "I2SCFGR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "I2SPR",
+      "offset": "0x20"
+    }
+  ],
   "functions": [
     {
       "type": "bienum_set",

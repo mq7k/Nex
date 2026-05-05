@@ -4,6 +4,10 @@ if (NEX_INCLUDE_DEVMODE)
   nex_define_macros_i(nex_buildcfg NEX_INCLUDE_DEVMODE)
 endif()
 
+if (NEX_DEFAULT_ISR_HANDLER_BLOCKING)
+  nex_define_macros_i(nex_buildcfg NEX_DEFAULT_ISR_HANDLER_BLOCKING)
+endif()
+
 # Equals ignore case.
 string(TOLOWER ${CMAKE_BUILD_TYPE} _BUILDTYPE)
 
@@ -50,8 +54,10 @@ target_compile_options(nex_buildcfg INTERFACE
   -Wshadow
   -Wundef
   -Wformat=2
-  -lc
 )
+
+# Software float/double operations.
+target_link_libraries(nex_buildcfg INTERFACE gcc)
 
 target_compile_features(nex_buildcfg INTERFACE c_std_23)
 

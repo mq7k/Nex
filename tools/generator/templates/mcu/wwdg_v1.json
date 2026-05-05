@@ -2,6 +2,20 @@
   "periph": "WWDG",
   "path": "soc/stm32/drivers/wwdg/wwdg_v1.h",
   "struct": "wwdg_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "CFR",
+      "offset": "0x04"
+    },
+    {
+      "name": "SR",
+      "offset": "0x08"
+    }
+  ],
   "functions": [ 
     {
       "type": "fn_set_value",

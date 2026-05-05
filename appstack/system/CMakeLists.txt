@@ -10,9 +10,10 @@ nex_add_sources(
     profiler/profiler.c
 
     scheduler/scheduler.c
-    scheduler/task_history.c
+    # scheduler/task_history.c
 
-    time/backend/stm32_tim.c
+    time/backend/stm32_coarse_time.c
+    time/backend/stm32_monotonic_time.c
     time/dispatcher.c
     time/time.c
 
@@ -21,18 +22,18 @@ nex_add_sources(
 
 nex_add_headers(
   TARGET nex_system
-  PATH ${NEX_SYSTEM_INCLUDE_DIR}/system
+  PATH ${NEX_SYSTEM_INCLUDE_DIR}
   HEADERS
-    backends/crc/becrc.h
+    system/backends/crc/becrc.h
 
-    profiler/profiler.h
+    system/profiler/profiler.h
 
-    scheduler/scheduler.h
-    scheduler/task_history.h
+    system/scheduler/scheduler.h
+    system/scheduler/task_history.h
 
-    time/backend/stm32_tim.h
-    time/backend/timeif.h
-    time/time.h
+    system/time/backend/stm32_tim.h
+    system/time/backend/timeif.h
+    system/time/time.h
 )
 
 target_link_libraries(nex_system PUBLIC nex_libcom)

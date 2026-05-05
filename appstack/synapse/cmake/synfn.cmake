@@ -4,7 +4,7 @@ function (syn_register_tests)
 
     # We parse the test name from the C file source name.
     # dma/dma_v1_test.c -> dma_v1_test
-    string(REPLACE ".c" "" TEST_NAME ${test})
+    string(REPLACE ".cpp" "" TEST_NAME ${test})
     string(FIND ${TEST_NAME} "/" POS REVERSE)
     math(EXPR START "${POS} + 1")
     string(SUBSTRING ${TEST_NAME} ${START} -1 TEST_NAME)

@@ -110,11 +110,19 @@ enum dmaif_code
 enum dmaif_stream
 {
   DMAIF_STREAM0,
+  DMAIF_STREAM1,
+  DMAIF_STREAM2,
+  DMAIF_STREAM3,
+  DMAIF_STREAM4,
+  DMAIF_STREAM5,
 };
 
 enum dmaif_channel
 {
   DMAIF_CHANNEL0,
+  DMAIF_CHANNEL1,
+  DMAIF_CHANNEL2,
+  DMAIF_CHANNEL3,
 };
 
 enum dmaif_dir
@@ -168,6 +176,15 @@ enum dmaif_periph
   DMAIF_PERIPH_SPI
 };
 
+enum dmaif_interrupt
+{
+  DMAIF_INTERRUPT_FIFO_ERR,
+  DMAIF_INTERRUPT_DIRECT_MODE_ERR,
+  DMAIF_INTERRUPT_TRANSFER_ERR,
+  DMAIF_INTERRUPT_HALF_TRANSFER,
+  DMAIF_INTERRUPT_TC
+};
+
 u32
 dmaif_get_capabilities(void);
 
@@ -198,6 +215,12 @@ dmaif_query(
 );
 
 void
+dmaif_set_periph_addr(
+  struct dmaif_config* config,
+  uptr addr
+);
+
+void
 dmaif_set_mem_addr(
   struct dmaif_config* config,
   enum dmaif_memory mem,
@@ -223,6 +246,18 @@ dmaif_start_transfer(
 u32
 dmaif_get_current_db_target(
   struct dmaif_config* config
+);
+
+void
+dmaif_interrupt_enable(
+  struct dmaif_config* config,
+  enum dmaif_interrupt interrupt
+);
+
+void
+dmaif_interrupt_disable(
+  struct dmaif_config* config,
+  enum dmaif_interrupt interrupt
 );
 
 END_DECLARATIONS

@@ -62,6 +62,8 @@ struct afio_registers_map
    */
   u32 EXTICR[4];
 
+  u32 _padding;
+
   /**
    * @brief AFIO_MAPR2 - AF remap and debug I/O configuration register2
    *
@@ -651,6 +653,6 @@ afio_set_external_interrupt_source(
   enum afio_pin pin
 );
 
-BEGIN_DECLARATIONS
+END_DECLARATIONS
 
 #endif

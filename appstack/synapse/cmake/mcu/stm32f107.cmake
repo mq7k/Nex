@@ -6,7 +6,7 @@ nex_add_sources_property(
     rcc/rcc_v1.c
     gpio/gpio_v1.c
     adc/adc_v1.c
-    dac/dac_v1.c
+    dac/dac_v2.c
     dma/dma_v2.c
     tim/tim_v1.c
     rtc/rtc_v1.c

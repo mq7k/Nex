@@ -7,7 +7,7 @@ function (libcom_register_tests)
   set(TESTS_LIST ${ARGN})
   foreach (test IN LISTS TESTS_LIST)
 
-    string(REPLACE ".c" "" TEST_NAME ${test})
+    string(REPLACE ".cpp" "" TEST_NAME ${test})
     string(PREPEND test ${NEX_LIBCOM_TESTS_DIR}/)
     string(FIND ${TEST_NAME} "/" POS REVERSE)
     math(EXPR START "${POS} + 1")

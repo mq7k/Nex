@@ -16,8 +16,16 @@ struct queue
   u32 element_sz;
 };
 
-u32
+i32
 nex_queue_init(
+  struct queue* queue,
+  void* buf,
+  u32 len,
+  u32 element_sz
+);
+
+void
+nex_queue_init_unsafe(
   struct queue* queue,
   void* buf,
   u32 len,
@@ -30,7 +38,17 @@ nex_queue_alloc(
 );
 
 void*
+nex_queue_alloc_unsafe(
+  struct queue* queue
+);
+
+void*
 nex_queue_peek_head(
+  struct queue* queue
+);
+
+void*
+nex_queue_peek_head_unsafe(
   struct queue* queue
 );
 
@@ -40,18 +58,39 @@ nex_queue_peek_tail(
 );
 
 void*
+nex_queue_peek_tail_unsafe(
+  struct queue* queue
+);
+
+void*
 nex_queue_peek_nth(
   struct queue* queue,
   u32 idx
 );
 
-void
+void*
+nex_queue_peek_nth_unsafe(
+  struct queue* queue,
+  u32 idx
+);
+
+i32
 nex_queue_pop_head(
   struct queue* io
 );
 
 void
+nex_queue_pop_head_unsafe(
+  struct queue* io
+);
+
+i32
 nex_queue_pop_tail(
+  struct queue* io
+);
+
+void
+nex_queue_pop_tail_unsafe(
   struct queue* io
 );
 

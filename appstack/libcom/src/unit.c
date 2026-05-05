@@ -1,5 +1,5 @@
 #include "libcom/unit.h"
-#include "sys/devmode.h"
+#include "libcom/sys/devmode.h"
 
 #include <limits.h>
 

@@ -6,10 +6,15 @@
 
 BEGIN_DECLARATIONS
 
-struct sys_time_vtable
+struct sys_monotonic_time_vtable
 {
   u64 (*now)(void*);
   void (*on_overflow)(void*);
+};
+
+struct sys_coarse_time_vtable
+{
+  u32 (*now)(void*);
 };
 
 END_DECLARATIONS

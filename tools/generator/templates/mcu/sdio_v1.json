@@ -2,6 +2,72 @@
   "periph": "SDIO",
   "path": "soc/stm32/drivers/sdio/sdio_v1.h",
   "struct": "sdio_registers_map",
+  "regs": [
+    {
+      "name": "POWER",
+      "offset": "0x00"
+    },
+    {
+      "name": "CLKCR",
+      "offset": "0x04"
+    },
+    {
+      "name": "ARG",
+      "offset": "0x08"
+    },
+    {
+      "name": "CMD",
+      "offset": "0x0c"
+    },
+    {
+      "name": "RESPCMD",
+      "offset": "0x10"
+    },
+    {
+      "name": "RESP[0]",
+      "offset": "0x14"
+    },
+    {
+      "name": "RESP[1]",
+      "offset": "0x18"
+    },
+    {
+      "name": "DTIMER",
+      "offset": "0x24"
+    },
+    {
+      "name": "DLEN",
+      "offset": "0x28"
+    },
+    {
+      "name": "DCTRL",
+      "offset": "0x2c"
+    },
+    {
+      "name": "DCOUNT",
+      "offset": "0x30"
+    },
+    {
+      "name": "STA",
+      "offset": "0x34"
+    },
+    {
+      "name": "ICR",
+      "offset": "0x38"
+    },
+    {
+      "name": "MASK",
+      "offset": "0x3c"
+    },
+    {
+      "name": "FIFOCNT",
+      "offset": "0x48"
+    },
+    {
+      "name": "FIFO",
+      "offset": "0x80"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",
@@ -92,13 +158,23 @@
       "mask": "0xffffffff"
     },
     {
-      "type": "fn_set_value",
+      "type": "enum_set",
       "fn": "sdio_set_cmd",
-      "signature": "{val}",
+      "signature": "{cmd}",
       "reg": "CMD",
+      "shift": 0,
+      "mask": "0xffffffff",
       "options": [
         "ioreg"
-      ]
+      ],
+      "args": {
+        "cmd": [
+          {
+            "enum": "SDIO_COMMAND_GO_IDLE_STATE",
+            "value": 0
+          }
+        ]
+      }
     },
     {
       "type": "enum_set",

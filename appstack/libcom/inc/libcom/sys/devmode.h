@@ -2,7 +2,10 @@
 #define NEX_DEVMODE_H
 
 #include "libcom/types.h"
+#include "libcom/util.h"
 #include <stdarg.h>
+
+BEGIN_DECLARATIONS
 
 #define FILESRC __FILE_NAME__
 
@@ -171,5 +174,7 @@ void
 _devmode_halt(
   const struct devmode_trace* trace
 );
+
+END_DECLARATIONS
 
 #endif

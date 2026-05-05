@@ -1,4 +1,5 @@
 #include "libcom/bytebuf.h"
+#include "libcom/errcodes.h"
 #include "libcom/util.h"
 
 void
@@ -93,7 +94,7 @@ nex_bytebuf_set_cur(
   stream->cur = offset;
 }
 
-u32
+i32
 nex_bytebuf_read_u8(
   struct nex_bytebuf* stream,
   u8* var
@@ -101,38 +102,39 @@ nex_bytebuf_read_u8(
 {
   if (stream->cur + 1 > stream->len)
   {
-    return NEX_FAILURE;
+    return -NERR_EMPTY;
   }
 
-  *var = stream->buf[stream->cur++];
-  return NEX_SUCCESS;
+  *var = nex_bytebuf_read_u8_unsafe(stream);
+  return NOK;
 }
 
-void
+u8
 nex_bytebuf_read_u8_unsafe(
-  struct nex_bytebuf* stream,
-  u8* var
+  struct nex_bytebuf* stream
 )
 {
-  *var = stream->buf[stream->cur++];
+  return stream->buf[stream->cur++];
 }
 
-u32
+i32
 nex_bytebuf_read_u8_arr(
   struct nex_bytebuf* bytebuf,
   u8* buf,
   u32 len
 )
 {
+  i32 code;
   for (u32 i = 0; i < len; ++i)
   {
-    if (nex_bytebuf_read_u8(bytebuf, &buf[i]) != NEX_SUCCESS)
+    code = nex_bytebuf_read_u8(bytebuf, &buf[i]);
+    if (code < 0)
     {
-      return NEX_FAILURE;
+      return code;
     }
   }
 
-  return NEX_SUCCESS;
+  return NOK;
 }
 
 void
@@ -144,107 +146,160 @@ nex_bytebuf_read_u8_arr_unsafe(
 {
   for (u32 i = 0; i < len; ++i)
   {
-    nex_bytebuf_read_u8_unsafe(bytebuf, &buf[i]);
+    buf[i] = nex_bytebuf_read_u8_unsafe(bytebuf);
   }
 }
 
-u32
+i32
 nex_bytebuf_read_u16(
   struct nex_bytebuf* stream,
   u16* var
 )
 {
+  i32 code;
   u8 buf[2];
 
-  if (nex_bytebuf_read_u8(stream, &buf[0]) != NEX_SUCCESS)
+  code = nex_bytebuf_read_u8(stream, &buf[0]);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_read_u8(stream, &buf[1]) != NEX_SUCCESS)
+  code = nex_bytebuf_read_u8(stream, &buf[1]);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
   *var = nex_bytebuf_deserialize_u16(buf);
-  return NEX_SUCCESS;
+  return NOK;
 }
 
-void
+u16
 nex_bytebuf_read_u16_unsafe(
-  struct nex_bytebuf* stream,
-  u16* var
+  struct nex_bytebuf* stream
 )
 {
-  *var = nex_bytebuf_deserialize_u16(&stream->buf[stream->cur]);
+  u16 value = nex_bytebuf_deserialize_u16(&stream->buf[stream->cur]);
   stream->cur += sizeof(u16);
+  return value;
 }
 
-u32
+i32
 nex_bytebuf_read_u32(
   struct nex_bytebuf* stream,
   u32* var
 )
 {
+  i32 code;
   u8 buf[4];
 
-  if (nex_bytebuf_read_u8(stream, &buf[0]) != NEX_SUCCESS)
+  code = nex_bytebuf_read_u8(stream, &buf[0]);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_read_u8(stream, &buf[1]) != NEX_SUCCESS)
+  code = nex_bytebuf_read_u8(stream, &buf[1]);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_read_u8(stream, &buf[2]) != NEX_SUCCESS)
+  code = nex_bytebuf_read_u8(stream, &buf[2]);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_read_u8(stream, &buf[3]) != NEX_SUCCESS)
+  code = nex_bytebuf_read_u8(stream, &buf[3]);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
   
   *var = nex_bytebuf_deserialize_u32(buf);
-  return NEX_SUCCESS;
-}
-
-void
-nex_bytebuf_read_u32_unsafe(
-  struct nex_bytebuf* stream,
-  u32* var
-)
-{
-  *var = nex_bytebuf_deserialize_u32(&stream->buf[stream->cur]);
-  stream->cur += sizeof(u32);
+  return NOK;
 }
 
 u32
-bytebuf_read_str(
-  struct nex_bytebuf* stream,
-  u8* buf,
-  u32* read_count
+nex_bytebuf_read_u32_unsafe(
+  struct nex_bytebuf* stream
 )
 {
-  // TODO: Make sure count is initialized before using it in the loop.
+  u32 value = nex_bytebuf_deserialize_u32(&stream->buf[stream->cur]);
+  stream->cur += sizeof(u32);
+  return value;
+}
+
+i32
+nex_bytebuf_read_str(
+  struct nex_bytebuf* stream,
+  u8* buf
+)
+{
+  i32 code;
   u32 count = 0;
-  nex_bytebuf_read_u32(stream, &count);
+
+  code = nex_bytebuf_read_u32(stream, &count);
+  if (code < 0)
+  {
+    return code;
+  }
 
   u32 i;
   for (i = 0; i < count; ++i)
   {
-    buf[i] = stream->buf[stream->cur++];
+    code = nex_bytebuf_read_u8(stream, &buf[i]);
+    if (code < 0)
+    {
+      return code;
+    }
   }
 
-  *read_count = i;
-  return NEX_SUCCESS;
+  return (i32) i;
 }
 
-
 u32
+nex_bytebuf_read_str_unsafe(
+  struct nex_bytebuf* bytebuf,
+  u8* buf
+)
+{
+  u32 count = nex_bytebuf_read_u32_unsafe(bytebuf);
+  for (u32 i = 0; i < count; ++i)
+  {
+    buf[i] = nex_bytebuf_read_u8_unsafe(bytebuf);
+  }
+
+  return count;
+}
+
+i32
+nex_bytebuf_write_u8(
+  struct nex_bytebuf* stream,
+  u8 var
+)
+{
+  if (stream->cur + 1 > stream->len)
+  {
+    return -NERR_FULL;
+  }
+
+  nex_bytebuf_write_u8_unsafe(stream, var);
+  return NOK;
+}
+
+void
+nex_bytebuf_write_u8_unsafe(
+  struct nex_bytebuf* stream,
+  u8 var
+)
+{
+  stream->buf[stream->cur++] = var;
+}
+
+i32
 nex_bytebuf_write_u8_arr(
   struct nex_bytebuf* stream,
   u8* buf,
@@ -253,15 +308,20 @@ nex_bytebuf_write_u8_arr(
 {
   if (nex_bytebuf_bytes_left(stream) < len)
   {
-    return NEX_FAILURE;
+    return -NERR_EMPTY;
   }
 
+  i32 code;
   for (u32 i = 0; i < len; ++i)
   {
-    nex_bytebuf_write_u8(stream, buf[i]);
+    code = nex_bytebuf_write_u8(stream, buf[i]);
+    if (code < 0)
+    {
+      return code;
+    }
   }
 
-  return NEX_SUCCESS;
+  return NOK;
 }
 
 void
@@ -277,50 +337,29 @@ nex_bytebuf_write_u8_arr_unsafe(
   }
 }
 
-u32
-nex_bytebuf_write_u8(
-  struct nex_bytebuf* stream,
-  u8 var
-)
-{
-  if (stream->cur + 1 > stream->len)
-  {
-    return NEX_FAILURE;
-  }
-
-  stream->buf[stream->cur++] = var;
-  return NEX_SUCCESS;
-}
-
-void
-nex_bytebuf_write_u8_unsafe(
-  struct nex_bytebuf* stream,
-  u8 var
-)
-{
-  stream->buf[stream->cur++] = var;
-}
-
-u32
+i32
 nex_bytebuf_write_u16(
   struct nex_bytebuf* stream,
   u16 var
 )
 {
+  i32 code;
   u8 byte0 = (u8) ((var >> 0) & 0xff);
   u8 byte1 = (u8) ((var >> 8) & 0xff);
 
-  if (nex_bytebuf_write_u8(stream, byte0) != NEX_SUCCESS)
+  code = nex_bytebuf_write_u8(stream, byte0);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_write_u8(stream, byte1) != NEX_SUCCESS)
+  code = nex_bytebuf_write_u8(stream, byte1);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  return NEX_SUCCESS;
+  return NOK;
 }
 
 void
@@ -336,38 +375,83 @@ nex_bytebuf_write_u16_unsafe(
   nex_bytebuf_write_u8_unsafe(stream, buf[1]);
 }
 
-u32
+i32
+nex_bytebuf_write_u16_arr(
+  struct nex_bytebuf* stream,
+  u16* buf,
+  u32 len
+)
+{
+  // 1 element = 2 bytes
+  // So we need len * 2 (= len << 1) bytes.
+  if (nex_bytebuf_bytes_left(stream) < (len << 1))
+  {
+    return -NERR_EMPTY;
+  }
+
+  i32 code;
+  for (u32 i = 0; i < len; ++i)
+  {
+    code = nex_bytebuf_write_u16(stream, buf[i]);
+    if (code < 0)
+    {
+      return code;
+    }
+  }
+
+  return NOK;
+}
+
+void
+nex_bytebuf_write_u16_arr_unsafe(
+  struct nex_bytebuf* stream,
+  u16* buf,
+  u32 len
+)
+{
+  for (u32 i = 0; i < len; ++i)
+  {
+    nex_bytebuf_write_u16_unsafe(stream, buf[i]);
+  }
+}
+
+i32
 nex_bytebuf_write_u32(
   struct nex_bytebuf* stream,
   u32 var
 )
 {
+  i32 code;
   u8 byte0 = (u8) ((var >> 0) & 0xff);
   u8 byte1 = (u8) ((var >> 8) & 0xff);
   u8 byte2 = (u8) ((var >> 16) & 0xff);
   u8 byte3 = (u8) ((var >> 24) & 0xff);
 
-  if (nex_bytebuf_write_u8(stream, byte0) != NEX_SUCCESS)
+  code = nex_bytebuf_write_u8(stream, byte0);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_write_u8(stream, byte1) != NEX_FAILURE)
+  code = nex_bytebuf_write_u8(stream, byte1);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_write_u8(stream, byte2) != NEX_FAILURE)
+  code = nex_bytebuf_write_u8(stream, byte2);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  if (nex_bytebuf_write_u8(stream, byte3) != NEX_FAILURE)
+  code = nex_bytebuf_write_u8(stream, byte3);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
-  return NEX_SUCCESS;
+  return NOK;
 }
 
 void
@@ -385,27 +469,70 @@ nex_bytebuf_write_u32_unsafe(
   nex_bytebuf_write_u8_unsafe(stream, buf[3]);
 }
 
-u32
+i32
+nex_bytebuf_write_u32_arr(
+  struct nex_bytebuf* stream,
+  u32* buf,
+  u32 len
+)
+{
+  // 1 element = 4 bytes
+  // So we need len * 4 (= len << 2) bytes.
+  if (nex_bytebuf_bytes_left(stream) < (len << 2))
+  {
+    return -NERR_EMPTY;
+  }
+
+  i32 code;
+  for (u32 i = 0; i < len; ++i)
+  {
+    code = nex_bytebuf_write_u32(stream, buf[i]);
+    if (code < 0)
+    {
+      return code;
+    }
+  }
+
+  return NOK;
+}
+
+void
+nex_bytebuf_write_u32_arr_unsafe(
+  struct nex_bytebuf* stream,
+  u32* buf,
+  u32 len
+)
+{
+  for (u32 i = 0; i < len; ++i)
+  {
+    nex_bytebuf_write_u32_unsafe(stream, buf[i]);
+  }
+}
+
+i32
 nex_bytebuf_write_str(
   struct nex_bytebuf* stream,
   const char* buf,
   u32 len
 )
 {
-  if (nex_bytebuf_write_u32(stream, len) != NEX_SUCCESS)
+  i32 code;
+  code = nex_bytebuf_write_u32(stream, len);
+  if (code < 0)
   {
-    return NEX_FAILURE;
+    return code;
   }
 
   for (u32 i = 0; i < len; ++i)
   {
-    if (nex_bytebuf_write_u8(stream, (u8) buf[i]) != NEX_SUCCESS)
+    code = nex_bytebuf_write_u8(stream, (u8) buf[i]);
+    if (code < 0)
     {
-      return NEX_FAILURE;
+      return code;
     }
   }
 
-  return NEX_SUCCESS;
+  return NOK;
 }
 
 void

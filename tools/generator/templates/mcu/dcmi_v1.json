@@ -2,6 +2,52 @@
   "periph": "DCMI",
   "path": "soc/stm32/drivers/dcmi/dcmi_v1.h",
   "struct": "dcmi_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "SR",
+      "offset": "0x04"
+    },
+    {
+      "name": "RIS",
+      "offset": "0x08"
+    },
+    {
+      "name": "IER",
+      "offset": "0x0c"
+    },
+    {
+      "name": "MIS",
+      "offset": "0x10"
+    },
+    {
+      "name": "ICR",
+      "offset": "0x14"
+    },
+    {
+      "name": "ESCR",
+      "offset": "0x18"
+    },
+    {
+      "name": "ESUR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "CWSTRT",
+      "offset": "0x20"
+    },
+    {
+      "name": "CWSIZE",
+      "offset": "0x24"
+    },
+    {
+      "name": "DR",
+      "offset": "0x28"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

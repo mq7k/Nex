@@ -50,7 +50,7 @@ def get_cli_args() -> argparse.Namespace:
 
     _ = parser.add_argument(
         '--filename-fmt',
-        default='{file}_test.c',
+        default='{file}_test.cpp',
         type=str,
         help='Specify the input file to generate the output test.'
     )

@@ -2,6 +2,20 @@
   "periph": "RNG",
   "path": "soc/stm32/drivers/rng/rng_v1.h",
   "struct": "rng_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "SR",
+      "offset": "0x04"
+    },
+    {
+      "name": "DR",
+      "offset": "0x08"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

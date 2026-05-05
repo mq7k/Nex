@@ -2,6 +2,153 @@
   "periph": "LTDC",
   "path": "soc/stm32/drivers/ltdc/ltdc_v1.h",
   "struct": "ltdc_registers_map",
+  "regs": [
+    {
+      "name": "SSCR",
+      "offset": "0x08"
+    },
+    {
+      "name": "BPCR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "AWCR",
+      "offset": "0x10"
+    },
+    {
+      "name": "TWCR",
+      "offset": "0x14"
+    },
+    {
+      "name": "GCR",
+      "offset": "0x18"
+    },
+    {
+      "name": "SRCR",
+      "offset": "0x24"
+    },
+    {
+      "name": "BCCR",
+      "offset": "0x2c"
+    },
+    {
+      "name": "IER",
+      "offset": "0x34"
+    },
+    {
+      "name": "ISR",
+      "offset": "0x38"
+    },
+    {
+      "name": "ICR",
+      "offset": "0x3c"
+    },
+    {
+      "name": "LIPCR",
+      "offset": "0x40"
+    },
+    {
+      "name": "CDSR",
+      "offset": "0x48"
+    },
+    {
+      "name": "layers[0].LCR",
+      "offset": "0x84"
+    },
+    {
+      "name": "layers[0].LWHPCR",
+      "offset": "0x88"
+    },
+    {
+      "name": "layers[0].LWVPCR",
+      "offset": "0x8c"
+    },
+    {
+      "name": "layers[0].LCKCR",
+      "offset": "0x90"
+    },
+    {
+      "name": "layers[0].LPFCR",
+      "offset": "0x94"
+    },
+    {
+      "name": "layers[0].LCACR",
+      "offset": "0x98"
+    },
+    {
+      "name": "layers[0].LDCCR",
+      "offset": "0x9c"
+    },
+    {
+      "name": "layers[0].LBFCR",
+      "offset": "0xa0"
+    },
+    {
+      "name": "layers[0].LCFBAR",
+      "offset": "0xac"
+    },
+    {
+      "name": "layers[0].LCFBLR",
+      "offset": "0xb0"
+    },
+    {
+      "name": "layers[0].LCFBLNR",
+      "offset": "0xb4"
+    },
+    {
+      "name": "layers[0].LCLUTWR",
+      "offset": "0xc4"
+    },
+
+    {
+      "name": "layers[1].LCR",
+      "offset": "0x104"
+    },
+    {
+      "name": "layers[1].LWHPCR",
+      "offset": "0x108"
+    },
+    {
+      "name": "layers[1].LWVPCR",
+      "offset": "0x10c"
+    },
+    {
+      "name": "layers[1].LCKCR",
+      "offset": "0x110"
+    },
+    {
+      "name": "layers[1].LPFCR",
+      "offset": "0x114"
+    },
+    {
+      "name": "layers[1].LCACR",
+      "offset": "0x118"
+    },
+    {
+      "name": "layers[1].LDCCR",
+      "offset": "0x11c"
+    },
+    {
+      "name": "layers[1].LBFCR",
+      "offset": "0x120"
+    },
+    {
+      "name": "layers[1].LCFBAR",
+      "offset": "0x12c"
+    },
+    {
+      "name": "layers[1].LCFBLR",
+      "offset": "0x130"
+    },
+    {
+      "name": "layers[1].LCFBLNR",
+      "offset": "0x134"
+    },
+    {
+      "name": "layers[1].LCLUTWR",
+      "offset": "0x144"
+    }
+  ],
   "functions": [
     {
       "type": "fn_set_value",

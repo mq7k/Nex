@@ -2,6 +2,60 @@
   "periph": "DAC",
   "path": "soc/stm32/drivers/dac/dac_v2.h",
   "struct": "dac_registers_map",
+  "regs": [
+    {
+      "name": "CR",
+      "offset": "0x00"
+    },
+    {
+      "name": "SWTRIGR",
+      "offset": "0x04"
+    },
+    {
+      "name": "DHR12R1",
+      "offset": "0x08"
+    },
+    {
+      "name": "DHR12L1",
+      "offset": "0x0c"
+    },
+    {
+      "name": "DHR8R1",
+      "offset": "0x10"
+    },
+    {
+      "name": "DHR12R2",
+      "offset": "0x14"
+    },
+    {
+      "name": "DHR12L2",
+      "offset": "0x18"
+    },
+    {
+      "name": "DHR8R2",
+      "offset": "0x1c"
+    },
+    {
+      "name": "DHR12RD",
+      "offset": "0x20"
+    },
+    {
+      "name": "DHR12LD",
+      "offset": "0x24"
+    },
+    {
+      "name": "DHR8RD",
+      "offset": "0x28"
+    },
+    {
+      "name": "DOR1",
+      "offset": "0x2c"
+    },
+    {
+      "name": "DOR2",
+      "offset": "0x30"
+    }
+  ],
   "functions": [
     {
       "type": "enum_toggle",
@@ -61,7 +115,7 @@
     },
     {
       "type": "enum_set",
-      "fn": "dac_channel_set_trigger",
+      "fn": "dac_set_channel_trigger",
       "reg": "CR",
       "signature": "{channel}, {trigger}",
       "mask": "0x7",
@@ -219,7 +273,7 @@
     },
     {
       "type": "enum_toggle",
-      "fn": "dac_dma_enable",
+      "fn": "dac_dma",
       "reg": "CR",
       "signature": "{channel}",
       "args": {
@@ -245,12 +299,12 @@
         "channel": [
           {
             "enum": "DAC_CHANNEL1",
-            "shift": 1
+            "shift": 0
           },
           {
             "enum": "DAC_CHANNEL2",
             "ifdef": "STM32_DAC_CHANNEL2",
-            "shift": 2
+            "shift": 1
           }
         ]
       }
@@ -259,6 +313,10 @@
       "type": "fn_set_value",
       "fn": "dac_set_channel_12bit_right_aligned_data",
       "signature": "{channel}, {val}",
+      "options": [
+        "ioreg"
+      ],
+      "mask": "0xfff",
       "args": {
         "channel": [
           {
@@ -293,6 +351,10 @@
       "fn": "dac_set_channel_12bit_left_aligned_data",
       "signature": "{channel}, {val}",
       "shift": 4,
+      "mask": "0xfff",
+      "options": [
+        "ioreg"
+      ],
       "args": {
         "channel": [
           {
@@ -323,6 +385,11 @@
       "type": "fn_set_value",
       "fn": "dac_set_channel_8bit_data",
       "signature": "{channel}, {val}",
+      "mask": "0xff",
+      "shift": 0,
+      "options": [
+        "ioreg"
+      ],
       "args": {
         "channel": [
           {

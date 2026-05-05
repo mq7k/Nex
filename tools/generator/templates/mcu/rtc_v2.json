@@ -2,6 +2,104 @@
   "periph": "RTC",
   "path": "soc/stm32/drivers/rtc/rtc_v2.h",
   "struct": "rtc_registers_map",
+  "regs": [
+    {
+      "name": "TR",
+      "offset": "0x00"
+    },
+    {
+      "name": "DR",
+      "offset": "0x04"
+    },
+    {
+      "name": "CR",
+      "offset": "0x08"
+    },
+    {
+      "name": "ISR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "PRER",
+      "offset": "0x10"
+    },
+    {
+      "name": "WUTR",
+      "offset": "0x14"
+    },
+    {
+      "name": "CALIBR",
+      "offset": "0x18",
+      "ifdef": "STM32_RTC_EXTENDED"
+    },
+    {
+      "name": "ALRMAR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "ALRMBR",
+      "offset": "0x20",
+      "ifdef": "STM32_RTC_EXTENDED"
+    },
+    {
+      "name": "WPR",
+      "offset": "0x24"
+    },
+    {
+      "name": "SSR",
+      "offset": "0x28"
+    },
+    {
+      "name": "SHIFTR",
+      "offset": "0x2c"
+    },
+    {
+      "name": "TSTR",
+      "offset": "0x30"
+    },
+    {
+      "name": "TSSSR",
+      "offset": "0x38"
+    },
+    {
+      "name": "CALR",
+      "offset": "0x3c"
+    },
+    {
+      "name": "TAFCR",
+      "offset": "0x40",
+      "ifdef": "STM32_RTC_TAFCR_REG"
+    },
+    {
+      "name": "TAMPCR",
+      "offset": "0x40",
+      "ifdef": "STM32_RTC_TAMPCR_REG"
+    },
+    {
+      "name": "ALRMASSR",
+      "offset": "0x44"
+    },
+    {
+      "name": "ALRMBSSR",
+      "offset": "0x48",
+      "ifdef": "STM32_RTC_ALARMB"
+    },
+    {
+      "name": "OR",
+      "offset": "0x4c",
+      "ifdef": "STM32_RTC_OPTION_REG"
+    },
+    {
+      "name": "BKPR[0]",
+      "offset": "0x50",
+      "ifdef": "STM32_RTC_BKP_WORDS"
+    },
+    {
+      "name": "BKPR[1]",
+      "offset": "0x54",
+      "ifdef": "STM32_RTC_BKP_WORDS"
+    }
+  ],
   "functions": [
     {
       "type": "fn_set_value (TODO)",

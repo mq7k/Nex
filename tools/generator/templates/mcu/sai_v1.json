@@ -3,6 +3,49 @@
   "path": "soc/stm32/drivers/sai/sai_v1.h",
   "struct": "sai_registers_map",
   "output_dir": "sai",
+  "regs": [
+    {
+      "name": "GCR",
+      "offset": "0x00",
+      "ifdef": "STM32_SAI_GCR"
+    },
+    {
+      "name": "CR1",
+      "offset": "0x04"
+    },
+    {
+      "name": "CR2",
+      "offset": "0x08"
+    },
+    {
+      "name": "FRCR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "SLOTR",
+      "offset": "0x10"
+    },
+    {
+      "name": "IM",
+      "offset": "0x14"
+    },
+    {
+      "name": "SR",
+      "offset": "0x18"
+    },
+    {
+      "name": "CLRFR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "DR",
+      "offset": "0x20"
+    },
+    {
+      "name": "CR1",
+      "offset": "0x04"
+    }
+  ],
   "functions": [
     {
       "type": "enum_set",

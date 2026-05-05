@@ -62,6 +62,10 @@ include(cpu/${NEX_ARCH_DRIVERS_GROUP})
 # Examples: `cm.S` is shared across the entire Cortex lineup.
 add_subdirectory(src/cpu/${NEX_CPU_FAMILY})
 
+if (NEX_PLATFORM_ARM)
+  add_subdirectory(src/soc/${NEX_MCU_FAMILY}/port)
+endif()
+
 add_subdirectory(src/common)
 add_subdirectory(src/drivers)
 add_subdirectory(src/io)
@@ -111,11 +115,11 @@ if (NEX_BUILD_TESTS)
   enable_testing()
 
   get_target_property(SOC_SRC_LIST nex_synapse_soc NEX_SRC_FILES)
-  list(TRANSFORM SOC_SRC_LIST REPLACE "\\.c" "_test.c")
+  list(TRANSFORM SOC_SRC_LIST REPLACE "\\.c" "_test.cpp")
   list(TRANSFORM SOC_SRC_LIST PREPEND ${NEX_SYN_TESTS_DIR}/soc/)
 
   get_target_property(CPU_SRC_LIST nex_synapse_cpu NEX_SRC_FILES)
-  list(TRANSFORM CPU_SRC_LIST REPLACE "\\.c" "_test.c")
+  list(TRANSFORM CPU_SRC_LIST REPLACE "\\.c" "_test.cpp")
   list(TRANSFORM CPU_SRC_LIST PREPEND ${NEX_SYN_TESTS_DIR}/cpu/)
 
   syn_register_tests(${SOC_SRC_LIST})

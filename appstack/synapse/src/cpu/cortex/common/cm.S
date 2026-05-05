@@ -3,54 +3,52 @@
 
 .section .text
 
-#if defined(NEX_PLATFORM_ARM)
-
 .global cm_irq_enable
 .type cm_irq_enable, %function
 cm_irq_enable:
-  cpsie i // Clears `PRIMASK` 
+  cpsie i
   isb
   bx lr
 
 .global cm_irq_disable
 .type cm_irq_disable, %function
 cm_irq_disable:
-  cpsid i // Sets `PRIMASK`
+  cpsid i
   isb
   bx lr
 
 .global cm_faults_enable
 .type cm_faults_enable, %function
 cm_faults_enable:
-  cpsie f // Clears register `FAULTMASK`
+  cpsie f
   isb
   bx lr
 
 .global cm_faults_disable
 .type cm_faults_disable, %function
 cm_faults_disable:
-  cpsid f // Sets `FAULTMASK`
-  isb // Instruction Synchronization Barrier
+  cpsid f
+  isb
   bx lr
 
 .global cm_wfe
 .type cm_wf3, %function
 cm_wfe:
-  wfe // Waits for event
+  wfe
   isb
   bx lr
 
 .global cm_wfi
 .type cm_wfi, %function
 cm_wfi:
-  wfi // Waits for interrupt
+  wfi
   isb
   bx lr
 
 .global cm_get_primask
 .type cm_get_primask, %function
 cm_get_primask:
-  mrs r0, PRIMASK // Reads `PRIMASK` and stores its value to r0
+  mrs r0, PRIMASK
   bx lr
 
 .global cm_get_faultmask
@@ -68,7 +66,7 @@ cm_get_basepri:
 .global cm_set_basepri
 .type cm_set_basepri, %function
 cm_set_basepri:
-  msr BASEPRI, r0 // Reads `r0` and stores its value to BASEPRI
+  msr BASEPRI, r0
   bx lr
 
 .global cm_get_msp
@@ -144,122 +142,17 @@ cm_strex:
   mov r0, r2
   bx lr
 
-#else
+.global cm_rfind_first_cleared_bit
+.type cm_rfind_first_cleared_bit, %function
+cm_rfind_first_cleared_bit:
+  rbit r0, r0
+  clz r0, r0
+  bx lr
 
-.global cm_irq_enable
-.type cm_irq_enable, %function
-cm_irq_enable:
-  ret
-
-.global cm_irq_disable
-.type cm_irq_disable, %function
-cm_irq_disable:
-  ret
-
-.global cm_faults_enable
-.type cm_faults_enable, %function
-cm_faults_enable:
-  ret
-
-.global cm_faults_disable
-.type cm_faults_disable, %function
-cm_faults_disable:
-  ret
-
-.global cm_wfe
-.type cm_wf3, %function
-cm_wfe:
-  ret
-
-.global cm_wfi
-.type cm_wfi, %function
-cm_wfi:
-  ret
-
-.global cm_get_primask
-.type cm_get_primask, %function
-cm_get_primask:
-  mov $0, %eax
-  ret
-
-.global cm_get_faultmask
-.type cm_get_faultmask, %function
-cm_get_faultmask:
-  mov $0, %eax
-  ret
-
-.global cm_get_basepri
-.type cm_get_basepri, %function
-cm_get_basepri:
-  mov $0, %eax
-  ret
-
-.global cm_set_basepri
-.type cm_set_basepri, %function
-cm_set_basepri:
-  mov $0, %eax
-  ret
-
-.global cm_get_msp
-.type cm_get_msp, %function
-cm_get_msp:
-  mov $0, %eax
-  ret
-
-.global cm_set_msp
-.type cm_set_msp, %function
-cm_set_msp:
-  ret
-
-.global cm_get_psp
-.type cm_get_psp, %function
-cm_get_psp:
-  mov $0, %eax
-  ret
-
-.global cm_set_psp
-.type cm_set_psp, %function
-cm_set_psp:
-  ret
-
-.global cm_get_control
-.type cm_get_control, %function
-cm_get_control:
-  mov $0, %eax
-  ret
-
-.global cm_set_control
-.type cm_set_control, %function
-cm_set_control:
-  ret
-
-.global cm_isb
-.type cm_isb, %function
-cm_isb:
-  ret
-
-.global cm_dsb
-.type cm_dsb, %function
-cm_dsb:
-  ret
-
-.global cm_dmb
-.type cm_dmb, %function
-cm_dmb:
-  ret
-
-.global cm_bkpt
-.type cm_bkpt, %function
-cm_bkpt:
-  ret
-
-.global cm_ldrex
-.type cm_ldrex, %function
-cm_ldrex:
-  ret
-
-.global cm_strex
-.type cm_strex, %function
-cm_strex:
-  ret
-#endif
+.global cm_lfind_first_cleared_bit
+.type cm_lfind_first_cleared_bit, %function
+cm_lfind_first_cleared_bit:
+  clz r1, r0
+  mov r2, #31
+  sub r0, r2, r1
+  bx lr

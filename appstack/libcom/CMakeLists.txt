@@ -29,20 +29,21 @@ endif()
 
 nex_add_headers(
   TARGET nex_libcom
-  PATH ${NEX_LIBCOM_INC_DIR}/libcom
+  PATH ${NEX_LIBCOM_INC_DIR}
   HEADERS
-    data/queue.h
-    data/ring_buffer.h
+    libcom/data/queue.h
+    libcom/data/ring_buffer.h
 
-    sys/devmode.h
-    sys/runtime.h
+    libcom/sys/devmode.h
+    libcom/sys/runtime.h
 
-    bytebuf.h
-    format.h
-    semver.h
-    types.h
-    unit.h
-    util.h
+    libcom/bytebuf.h
+    libcom/errcodes.h
+    libcom/format.h
+    libcom/semver.h
+    libcom/types.h
+    libcom/unit.h
+    libcom/util.h
 )
 
 target_link_libraries(nex_libcom PUBLIC nex_buildcfg)
@@ -51,10 +52,10 @@ target_include_directories(nex_libcom PUBLIC ${NEX_LIBCOM_INC_DIR})
 if (NEX_BUILD_TESTS)
   enable_testing()
   libcom_register_tests(
-    unit_test.c
-    format_test.c
-    queue_test.c
-    ring_buffer_test.c
+    unit_test.cpp
+    format_test.cpp
+    queue_test.cpp
+    ring_buffer_test.cpp
   )
 endif()
 

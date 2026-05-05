@@ -2,6 +2,76 @@
   "periph": "SCB",
   "path": "cpu/cortex/drivers/scb/scb_v1.h",
   "struct": "scb_registers_map",
+  "regs": [
+    {
+      "name": "ACTLR",
+      "offset": "0x00"
+    },
+    {
+      "name": "CPUID",
+      "offset": "0xcf8"
+    },
+    {
+      "name": "ICSR",
+      "offset": "0xcfc"
+    },
+    {
+      "name": "VTOR",
+      "offset": "0xd00"
+    },
+    {
+      "name": "AIRCR",
+      "offset": "0xd04"
+    },
+    {
+      "name": "SCR",
+      "offset": "0xd08"
+    },
+    {
+      "name": "CCR",
+      "offset": "0xd0c"
+    },
+    {
+      "name": "SHPR1",
+      "offset": "0xd10"
+    },
+    {
+      "name": "SHPR2",
+      "offset": "0xd14"
+    },
+    {
+      "name": "SHPR3",
+      "offset": "0xd18"
+    },
+    {
+      "name": "SHCSR",
+      "offset": "0xd1c"
+    },
+    {
+      "name": "CFSR",
+      "offset": "0xd20"
+    },
+    {
+      "name": "HFSR",
+      "offset": "0xd24"
+    },
+    {
+      "name": "DFSR",
+      "offset": "0xd28"
+    },
+    {
+      "name": "MMFAR",
+      "offset": "0xd2c"
+    },
+    {
+      "name": "BFAR",
+      "offset": "0xd30"
+    },
+    {
+      "name": "AFSR",
+      "offset": "0xd34"
+    }
+  ],
   "functions": [
     {
       "type": "fn_toggle",

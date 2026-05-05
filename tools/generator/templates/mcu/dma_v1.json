@@ -2,6 +2,216 @@
   "periph": "_DMA",
   "path": "soc/stm32/drivers/dma/dma_v1.h",
   "struct": "dma_registers_map",
+  "regs": [
+    {
+      "name": "LISR",
+      "offset": "0x00"
+    },
+    {
+      "name": "HISR",
+      "offset": "0x04"
+    },
+    {
+      "name": "LIFCR",
+      "offset": "0x08"
+    },
+    {
+      "name": "HIFCR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "streams[0].SCR",
+      "offset": "0x10"
+    },
+    {
+      "name": "streams[0].SNDTR",
+      "offset": "0x14"
+    },
+    {
+      "name": "streams[0].SPAR",
+      "offset": "0x18"
+    },
+    {
+      "name": "streams[0].SM0AR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "streams[0].SM1AR",
+      "offset": "0x20"
+    },
+    {
+      "name": "streams[0].SFCR",
+      "offset": "0x24"
+    },
+    {
+      "name": "streams[1].SCR",
+      "offset": "0x28"
+    },
+    {
+      "name": "streams[1].SNDTR",
+      "offset": "0x2c"
+    },
+    {
+      "name": "streams[1].SPAR",
+      "offset": "0x30"
+    },
+    {
+      "name": "streams[1].SM0AR",
+      "offset": "0x34"
+    },
+    {
+      "name": "streams[1].SM1AR",
+      "offset": "0x38"
+    },
+    {
+      "name": "streams[1].SFCR",
+      "offset": "0x3c"
+    },
+    {
+      "name": "streams[2].SCR",
+      "offset": "0x40"
+    },
+    {
+      "name": "streams[2].SNDTR",
+      "offset": "0x44"
+    },
+    {
+      "name": "streams[2].SPAR",
+      "offset": "0x48"
+    },
+    {
+      "name": "streams[2].SM0AR",
+      "offset": "0x4c"
+    },
+    {
+      "name": "streams[2].SM1AR",
+      "offset": "0x50"
+    },
+    {
+      "name": "streams[2].SFCR",
+      "offset": "0x54"
+    },
+    {
+      "name": "streams[3].SCR",
+      "offset": "0x58"
+    },
+    {
+      "name": "streams[3].SNDTR",
+      "offset": "0x5c"
+    },
+    {
+      "name": "streams[3].SPAR",
+      "offset": "0x60"
+    },
+    {
+      "name": "streams[3].SM0AR",
+      "offset": "0x64"
+    },
+    {
+      "name": "streams[3].SM1AR",
+      "offset": "0x68"
+    },
+    {
+      "name": "streams[3].SFCR",
+      "offset": "0x6c"
+    },
+    {
+      "name": "streams[4].SCR",
+      "offset": "0x70"
+    },
+    {
+      "name": "streams[4].SNDTR",
+      "offset": "0x74"
+    },
+    {
+      "name": "streams[4].SPAR",
+      "offset": "0x78"
+    },
+    {
+      "name": "streams[4].SM0AR",
+      "offset": "0x7c"
+    },
+    {
+      "name": "streams[4].SM1AR",
+      "offset": "0x80"
+    },
+    {
+      "name": "streams[4].SFCR",
+      "offset": "0x84"
+    },
+    {
+      "name": "streams[5].SCR",
+      "offset": "0x88"
+    },
+    {
+      "name": "streams[5].SNDTR",
+      "offset": "0x8c"
+    },
+    {
+      "name": "streams[5].SPAR",
+      "offset": "0x90"
+    },
+    {
+      "name": "streams[5].SM0AR",
+      "offset": "0x94"
+    },
+    {
+      "name": "streams[5].SM1AR",
+      "offset": "0x98"
+    },
+    {
+      "name": "streams[5].SFCR",
+      "offset": "0x9c"
+    },
+    {
+      "name": "streams[6].SCR",
+      "offset": "0xa0"
+    },
+    {
+      "name": "streams[6].SNDTR",
+      "offset": "0xa4"
+    },
+    {
+      "name": "streams[6].SPAR",
+      "offset": "0xa8"
+    },
+    {
+      "name": "streams[6].SM0AR",
+      "offset": "0xac"
+    },
+    {
+      "name": "streams[6].SM1AR",
+      "offset": "0xb0"
+    },
+    {
+      "name": "streams[6].SFCR",
+      "offset": "0xb4"
+    },
+    {
+      "name": "streams[7].SCR",
+      "offset": "0xb8"
+    },
+    {
+      "name": "streams[7].SNDTR",
+      "offset": "0xbc"
+    },
+    {
+      "name": "streams[7].SPAR",
+      "offset": "0xc0"
+    },
+    {
+      "name": "streams[7].SM0AR",
+      "offset": "0xc4"
+    },
+    {
+      "name": "streams[7].SM1AR",
+      "offset": "0xc8"
+    },
+    {
+      "name": "streams[7].SFCR",
+      "offset": "0xcc"
+    }
+  ],
   "functions": [
     {
       "type": "flag_is_set",

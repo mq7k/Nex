@@ -2,6 +2,48 @@
   "periph": "_DMA",
   "path": "soc/stm32/drivers/dma/dma_v2.h",
   "struct": "dma_registers_map",
+  "regs": [
+    {
+      "name": "ISR",
+      "offset": "0x00"
+    },
+    {
+      "name": "IFCR",
+      "offset": "0x04"
+    },
+    {
+      "name": "channels[0].CCR",
+      "offset": "0x08"
+    },
+    {
+      "name": "channels[0].CNDTR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "channels[0].CPAR",
+      "offset": "0x10"
+    },
+    {
+      "name": "channels[0].CMAR",
+      "offset": "0x14"
+    },
+    {
+      "name": "channels[1].CCR",
+      "offset": "0x1c"
+    },
+    {
+      "name": "channels[1].CNDTR",
+      "offset": "0x20"
+    },
+    {
+      "name": "channels[1].CPAR",
+      "offset": "0x24"
+    },
+    {
+      "name": "channels[1].CMAR",
+      "offset": "0x28"
+    }
+  ],
   "functions": [
     {
       "type": "flag_is_set",

@@ -2,6 +2,32 @@
   "periph": "EXTI",
   "path": "soc/stm32/drivers/exti/exti_v1.h",
   "struct": "exti_registers_map",
+  "regs": [
+    {
+      "name": "IMR",
+      "offset": "0x00"
+    },
+    {
+      "name": "EMR",
+      "offset": "0x04"
+    },
+    {
+      "name": "RTSR",
+      "offset": "0x08"
+    },
+    {
+      "name": "FTSR",
+      "offset": "0x0c"
+    },
+    {
+      "name": "SWIER",
+      "offset": "0x10"
+    },
+    {
+      "name": "PR",
+      "offset": "0x14"
+    }
+  ],
   "functions": [
     {
       "type": "bitmap (TODO)",

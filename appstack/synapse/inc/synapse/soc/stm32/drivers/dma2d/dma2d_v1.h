@@ -29,6 +29,11 @@ struct dma2d_registers_map
   u32 NLR;
   u32 LWR;
   u32 AMTCR;
+
+  u8 _padding[944];
+
+  u32 FGCLUT[256];
+  u32 BGCLUT[256];
 };
 
 enum dma2d_cr : u32
@@ -675,6 +680,18 @@ dma2d_deadtime_disable(void);
 void
 dma2d_set_deadtime(
   u32 deadtime
+);
+
+void
+dma2d_set_fg_clut(
+  u32* arr,
+  u32 len
+);
+
+void
+dma2d_set_bg_clut(
+  u32* arr,
+  u32 len
 );
 
 END_DECLARATIONS

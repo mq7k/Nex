@@ -21,12 +21,6 @@ target_link_libraries(nex_synapse PUBLIC nex_synapse_soc)
 target_link_libraries(nex_synapse PUBLIC nex_buildcfg)
 target_link_libraries(nex_synapse PUBLIC nex_libcom)
 
-# Software float/double operations.
-target_link_libraries(nex_synapse PUBLIC gcc)
-
-# String functions.
-target_link_libraries(nex_synapse PUBLIC c)
-
 # Toggling hardware (FPU) floats.
 # The user can specify preferences with '--float'.
 if (NEX_PLATFORM_ARM)

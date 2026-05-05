@@ -195,6 +195,6 @@ crc_set_initial_value(
 );
 #endif
 
-BEGIN_DECLARATIONS
+END_DECLARATIONS
 
 #endif

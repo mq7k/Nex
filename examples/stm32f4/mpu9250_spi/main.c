@@ -1,7 +1,6 @@
 #include "libcom/util.h"
-#include "synapse/cpu/cortex/drivers/fpu/fpu_v1.h"
 #include "synapse/common/common.h"
-#include "synapse/soc/stm32/drivers/spi/spi_v1.h"
+#include "synapse/cpu/cortex/periph/fpu.h"
 #include "synapse/soc/stm32/periph/gpio.h"
 #include "synapse/soc/stm32/periph/spi.h"
 #include "synapse/soc/stm32/periph/usart.h"
@@ -14,6 +13,7 @@ rcc_setup(void)
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_SPI1);
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
+  rcc_periph_clock_enable(RCC_PERIPH_DMA2);
 }
 
 void
@@ -65,6 +65,8 @@ spi_setup(void)
   spi_set_baudrate_control(SPI1, SPI_BAUDRATE_CONTROL_DIV256);
   spi_set_role(SPI1, SPI_ROLE_MASTER);
   spi_set_frame_format(SPI1, SPI_FRAME_FORMAT_MSB_FIRST);
+  spi_set_clock_polarity(SPI1, SPI_CLOCK_POLARITY_HIGH_ON_IDLE);
+  spi_set_clock_phase(SPI1, SPI_CLOCK_PHASE_SECOND_TRANSITION);
   spi_software_slave_management_enable(SPI1);
   spi_internal_slave_select_enable(SPI1);
   spi_enable(SPI1);
@@ -78,7 +80,7 @@ _enumerate_device(void)
   constexpr u32 reg = 117 | 0x80;
   spi_transfer_byte(SPI1, reg);
 
-  u8 byte = spi_receive_byte_after(SPI1, 0x00);
+  u8 byte = spi_receive_byte(SPI1);
 
   while ((SPI1->SR & SPI_SR_BSY) != 0);
 
@@ -99,7 +101,7 @@ _enumerate_device(void)
       break;
 
     default:
-      usart_send_strfln(USART1, "Device: Unknown");
+      usart_send_strfln(USART1, "Device: Unknown (0x%x)", byte);
       return NEX_FAILURE;
   }
 
@@ -134,7 +136,8 @@ main(void)
     spi_transfer_byte(SPI1, temp_reg | 0x80);
 
     u8 buf[2];
-    spi_receive_bytes_after(SPI1, buf, 2, 0x00);
+    spi_receive_bytes(SPI1, buf, 2);
+
     gpio_set_pin_high(GPIOA, GPIO0);
 
     u32 raw_value = ((u16) (buf[0] << 8)) | (u16) buf[1];

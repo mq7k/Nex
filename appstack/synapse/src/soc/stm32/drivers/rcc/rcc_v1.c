@@ -1111,7 +1111,7 @@ rcc_periph_reset(
 #if defined(STM32_GPIO_RST_AHB)
       RCC->AHBENR |= RCC_AHBENR_GPIOGRST;
 #else
-      RCC->APB2RSTR |= RCC_APB2RSTR_IOPFRST;
+      RCC->APB2RSTR |= RCC_APB2RSTR_IOPGRST;
 #endif
       break;
 #endif
@@ -1796,6 +1796,24 @@ rcc_periph_clock_disable(
       RCC->AHBENR &= ~RCC_AHBENR_CRCEN;
       break;
 
+#if defined(STM32_TSC)
+    case RCC_PERIPH_TSC:
+      RCC->AHBENR &= ~RCC_AHBENR_TSCEN;
+      break;
+#endif
+
+#if defined(STM32_FSMC)
+    case RCC_PERIPH_FSMC:
+      RCC->AHBENR &= ~RCC_AHBENR_FSMCEN;
+      break;
+#endif
+
+#if defined(STM32_SDIO)
+    case RCC_PERIPH_SDIO:
+      RCC->AHBENR &= ~RCC_AHBENR_SDIOEN;
+      break;
+#endif
+
 #if defined(STM32_RCC_OTGFS)
     case RCC_PERIPH_OTGFS:
       RCC->AHBENR &= ~RCC_AHBENR_OTGFSEN;
@@ -1816,9 +1834,15 @@ rcc_periph_clock_disable(
       break;
 #endif
 
+#if defined(STM32_RCC_SYSCFG)
+    case RCC_PERIPH_SYSCFG:
+      RCC->APB2ENR &= ~RCC_APB22ENR_SYSCFGCOMPEN;
+      break;
+#elif defined(STM32_RCC_AFIO)
     case RCC_PERIPH_AFIO:
       RCC->APB2ENR &= ~RCC_APB2ENR_AFIOEN;
       break;
+#endif
 
 #if defined(STM32_GPIOA)
     case RCC_PERIPH_GPIOA:
@@ -2019,6 +2043,30 @@ rcc_periph_clock_disable(
 #if defined(STM32_TIM14)
     case RCC_PERIPH_TIM14:
       RCC->APB1ENR &= ~RCC_APB1ENR_TIM14EN;
+      break;
+#endif
+
+#if defined(STM32_TIM15)
+    case RCC_PERIPH_TIM15:
+      RCC->APB2ENR &= ~RCC_APB2ENR_TIM15EN;
+      break;
+#endif
+
+#if defined(STM32_TIM16)
+    case RCC_PERIPH_TIM16:
+      RCC->APB2ENR &= ~RCC_APB2ENR_TIM16EN;
+      break;
+#endif
+
+#if defined(STM32_TIM17)
+    case RCC_PERIPH_TIM17:
+      RCC->APB2ENR &= ~RCC_APB2ENR_TIM17EN;
+      break;
+#endif
+
+#if defined(STM32_DBGMCU)
+    case RCC_PERIPH_DBGMCU:
+      RCC->APB2ENR |= ~RCC_APB2ENR_DBGMCUENR;
       break;
 #endif
 

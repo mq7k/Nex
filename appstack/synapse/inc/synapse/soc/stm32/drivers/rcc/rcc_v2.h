@@ -113,8 +113,6 @@ struct rcc_registers_map
 #endif
 };
 
-END_DECLARATIONS
-
 // Core
 enum rcc_cr : u32
 {
@@ -2858,5 +2856,7 @@ rcc_set_lptimer1_clock_source(
   enum rcc_lptimer1_clock_source source
 );
 #endif
+
+END_DECLARATIONS
 
 #endif

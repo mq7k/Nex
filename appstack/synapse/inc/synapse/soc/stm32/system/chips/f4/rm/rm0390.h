@@ -77,4 +77,6 @@
 #define STM32_QUADSPI_V1
 #define STM32_NVIC_QUADSPI_OFFSET
 
+#define STM32_RTC_TAFCR_REG
+
 #endif

@@ -47,6 +47,8 @@ struct rtc_registers_map
   u32 TAMPCR;
 #elif defined(STM32_RTC_TAFCR_REG)
   u32 TAFCR;
+#else
+  u32 _reserved2;
 #endif
 
   u32 ALRMASSR;
@@ -54,13 +56,13 @@ struct rtc_registers_map
 #if defined(STM32_RTC_ALARMB)
   u32 ALRMBSSR;
 #else
-  u32 __reserved2;
+  u32 __reserved3;
 #endif
 
 #if defined(STM32_RTC_OPTION_REG)
   u32 OR;
 #else
-  u32 __reserved3;
+  u32 __reserved4;
 #endif
 
 #if defined(STM32_RTC_BKP_WORDS)

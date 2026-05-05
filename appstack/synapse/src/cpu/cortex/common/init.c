@@ -1,5 +1,9 @@
 #include "libcom/types.h"
 
+#if defined(NEX_DEBUG_BUILD)
+#include "synapse/common/stkchk.h"
+#endif
+
 // Defined in the linker script.
 extern u32 _data_lma_addr;
 extern u32 _sdata;
@@ -67,6 +71,10 @@ _reset(void)
 
   // Executes init array functions.
   invoke_all(__init_array_start, __init_array_end);
+
+#if defined(NEX_DEBUG_BUILD)
+  __stack_chk_guard = syn_stkchk_guard_generate();
+#endif
 
   // Calls the main function.
   (void)main();
