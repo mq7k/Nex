@@ -57,7 +57,7 @@ if (NEX_PLATFORM_ARM)
   # NEX_FLOAT_HARD, NEX_FLOAT_SOFTFP and NEX_FLOAT_SOFT
   # are preferences specified by the user.
   get_target_property(has_fpu nex_buildcfg NEX_HAS_FPU)
-  if (DEFINED NEX_FLOAT_HARD AND ${has_fpu} STREQUAL "ON")
+  if ((DEFINED NEX_FLOAT_HARD OR DEFINED NEX_FLOAT_AUTO) AND ${has_fpu} STREQUAL "ON")
     get_target_property(FPU_HW_TYPE nex_buildcfg NEX_FPU_TYPE)
 
     target_compile_options(nex_buildcfg INTERFACE
@@ -98,7 +98,7 @@ if (NEX_PLATFORM_ARM)
       -mfloat-abi=soft
     )
 
-    if (DEFINED NEX_FLOAT_HARD OR DEFINED NEX_FLOAT_SOFTFP)
+    if ((DEFINED NEX_FLOAT_HARD OR DEFINED NEX_FLOAT_SOFTFP) AND NOT DEFINED NEX_FLOAT_AUTO)
       nex_log(WARNING "Float type was set to '${NEX_FLOAT}' but the hardware does not support it. Falling back to software float.")
     else()
       nex_log(STATUS "Using software float.")

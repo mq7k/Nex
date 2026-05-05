@@ -133,8 +133,8 @@ def get_cli_args():
     # - Fallback to software float otherwise.
     parser.add_argument(
         '--float',
-        choices=['hard', 'softfp', 'soft'],
-        default='hard',
+        choices=['hard', 'softfp', 'soft', 'auto'],
+        default='auto',
         type=str,
         help='Select how floating point operations are handled. Only used in "arm" builds.'
     )
