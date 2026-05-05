@@ -1,6 +1,5 @@
 #include "libcom/sys/runtime.h"
 #include "libcom/types.h"
-#include <stdint.h>
 
 extern u32 _sdata;
 extern u32 _edata;
@@ -24,7 +23,7 @@ u32
 nex_get_RAM_usage(void)
 {
   u32 sp = nex_get_sp();
-  uintptr_t stack_used = ((uintptr_t) &_stack) - sp;
+  uptr stack_used = ((uintptr_t) &_stack) - sp;
   u32 data_size = (u32) (&_edata - &_sdata);
   u32 bss_size = (u32) (&_ebss - &_sbss);
   return (u32) (data_size + bss_size + stack_used);

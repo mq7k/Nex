@@ -62,7 +62,10 @@ include(cpu/${NEX_ARCH_DRIVERS_GROUP})
 # Examples: `cm.S` is shared across the entire Cortex lineup.
 add_subdirectory(src/cpu/${NEX_CPU_FAMILY})
 
-add_subdirectory(src/soc/${NEX_MCU_FAMILY}/port)
+if (NEX_PLATFORM_ARM)
+  add_subdirectory(src/soc/${NEX_MCU_FAMILY}/port)
+endif()
+
 add_subdirectory(src/common)
 add_subdirectory(src/drivers)
 add_subdirectory(src/io)

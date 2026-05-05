@@ -148,13 +148,13 @@ def get_cli_args():
         help='Select the default SoC ISR handler implementation.'
     )
 
-    # Excludes default canary guard init implementation.
-    # The user must provide a custom implementation.
-    # Failing to do so would result in a `undefined reference to 'syn_stkchk_guard_generate'`.
+    # Excludes SoC-specific canary init implementation.
+    # The user can provide a strong function symbol to override
+    # the default weak implementation.
     parser.add_argument(
         '--custom-canary-guard',
         action='store_true',
-        help='No default canary init function is provided, the user must provide one'
+        help='Provide only a default weak symbol to initialize the canary. The user can provide a custom implementation'
     )
 
     group = parser.add_mutually_exclusive_group()
