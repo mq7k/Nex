@@ -1,7 +1,7 @@
 #ifndef SYN_CORTEX_COM_MEMORY_H
 #define SYN_CORTEX_COM_MEMORY_H
 
-#include "util.h"
+#include "libcom/util.h"
 
 BEGIN_DECLARATIONS
 
