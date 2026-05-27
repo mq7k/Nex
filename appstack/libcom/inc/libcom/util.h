@@ -40,6 +40,7 @@ BEGIN_DECLARATIONS
 #define FAST_MOD(a, b) ((a) & ((b) - 1))
 #define MAX(a, b) ((a) > (b) ? a : b)
 #define MIN(a, b) ((a) < (b) ? a : b)
+#define CLAMP(value, min, max) MIN(MAX(value, min), max)
 
 #define ARR_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 #define MEMPTR(x) *((volatile uintptr_t*) (x))
