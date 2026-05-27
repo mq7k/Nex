@@ -184,7 +184,7 @@ main(void)
     float temp;
     mpu9250_get_temperature(&mpu, 0, 333.87f, &temp);
 
-    struct mpu9250_vec16 vec;
+    struct nex_vec3i16 vec;
     mpu9250_get_gyro(&mpu, &vec);
     double xgyro = (double) vec.x * gyro_scale;
     double ygyro = (double) vec.y * gyro_scale;

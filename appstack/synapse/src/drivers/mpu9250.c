@@ -134,7 +134,7 @@ _write_regs_sync(
 
 static void
 _decode_vec16(
-  struct mpu9250_vec16* vec,
+  struct nex_vec3i16* vec,
   u8* buf
 )
 {
@@ -153,7 +153,7 @@ _decode_vec16_cb(
 )
 {
   struct mpu9250_transaction* transaction = (struct mpu9250_transaction*) ctx;
-  struct mpu9250_vec16* vec = (struct mpu9250_vec16*) transaction->ctx;
+  struct nex_vec3i16* vec = (struct nex_vec3i16*) transaction->ctx;
   _decode_vec16(vec, transaction->buf);
   transaction->complete = 1;
 }
@@ -180,7 +180,7 @@ _decode_sensors(
 
 static void
 _encode_vec16(
-  struct mpu9250_vec16* vec,
+  struct nex_vec3i16* vec,
   u8* buf
 )
 {
@@ -216,33 +216,33 @@ mpu9250_calc_temperature(
 u32
 mpu9250_get_self_test_gyro(
   struct mpu9250* mpu,
-  struct mpu9250_vec8* vec
+  struct nex_vec3i8* vec
 )
 {
   u8 buf[3];
-  buf[0] = vec->x;
-  buf[1] = vec->y;
-  buf[2] = vec->z;
+  buf[0] = (u8) vec->x;
+  buf[1] = (u8) vec->y;
+  buf[2] = (u8) vec->z;
   return _read_regs_sync(mpu, MPU9250_REG_SELF_TEST_X_GYRO, buf, 3);
 }
 
 u32
 mpu9250_get_self_test_accel(
   struct mpu9250* mpu,
-  struct mpu9250_vec8* vec
+  struct nex_vec3i8* vec
 )
 {
   u8 buf[3];
-  buf[0] = vec->x;
-  buf[1] = vec->y;
-  buf[2] = vec->z;
+  buf[0] = (u8) vec->x;
+  buf[1] = (u8) vec->y;
+  buf[2] = (u8) vec->z;
   return _read_regs_sync(mpu, MPU9250_REG_SELF_TEST_X_ACCEL, buf, 3);
 }
 
 u32
 mpu9250_get_gyro_offset(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec
+  struct nex_vec3i16* vec
 )
 {
   u8 buf[6];
@@ -259,7 +259,7 @@ mpu9250_get_gyro_offset(
 enum nex_code
 mpu9250_get_gyro_offset_async(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec,
+  struct nex_vec3i16* vec,
   struct mpu9250_transaction* transaction
 )
 {
@@ -276,7 +276,7 @@ mpu9250_get_gyro_offset_async(
 u32
 mpu9250_set_gyro_offset(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec
+  struct nex_vec3i16* vec
 )
 {
   u8 buf[6];
@@ -2388,11 +2388,11 @@ mpu9250_get_int_status_reg(
 u32
 mpu9250_get_accel(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec
+  struct nex_vec3i16* vec
 )
 {
   u8 buf[6];
-  u32 res = _read_regs_sync(mpu, MPU9250_REG_ACCEL_XOUT_H, buf, 1);
+  u32 res = _read_regs_sync(mpu, MPU9250_REG_ACCEL_XOUT_H, buf, 6);
   if (res != NEX_SUCCESS)
   {
     return res;
@@ -2405,7 +2405,7 @@ mpu9250_get_accel(
 enum nex_code
 mpu9250_get_accel_async(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec,
+  struct nex_vec3i16* vec,
   struct mpu9250_transaction* transaction
 )
 {
@@ -2457,7 +2457,7 @@ mpu9250_get_temperature(
 u32
 mpu9250_get_gyro(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec
+  struct nex_vec3i16* vec
 )
 {
   u8 buf[6];
@@ -2474,7 +2474,7 @@ mpu9250_get_gyro(
 enum nex_code
 mpu9250_get_gyro_async(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec,
+  struct nex_vec3i16* vec,
   struct mpu9250_transaction* transaction
 )
 {
@@ -3139,7 +3139,7 @@ mpu9250_get_device_id(
 u32
 mpu9250_set_accel_offset(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec
+  struct nex_vec3i16* vec
 )
 {
   u8 buf[6];

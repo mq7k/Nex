@@ -1,6 +1,8 @@
 #ifndef DRIVERS_MPU9250_H
 #define DRIVERS_MPU9250_H
 
+#include "libcom/math/vec3i8.h"
+#include "libcom/math/veci16.h"
 #include "libcom/util.h"
 #include "synapse/io/ioif.h"
 
@@ -612,25 +614,11 @@ enum mpu9250_axis
   MPU9250_AXIS_X = BIT(2)
 };
 
-struct mpu9250_vec8
-{
-  u8 x;
-  u8 y;
-  u8 z;
-};
-
-struct mpu9250_vec16
-{
-  i16 x;
-  i16 y;
-  i16 z;
-};
-
 struct mpu9250_sensors
 {
-  struct mpu9250_vec16 accel;
+  struct nex_vec3i16 accel;
   float temp;
-  struct mpu9250_vec16 gyro;
+  struct nex_vec3i16 gyro;
 
   u16 temp_offset;
   float temp_sensitivity;
@@ -659,32 +647,32 @@ mpu9250_calc_temperature(
 u32
 mpu9250_get_self_test_gyro(
   struct mpu9250* mpu,
-  struct mpu9250_vec8* vec
+  struct nex_vec3i8* vec
 );
 
 u32
 mpu9250_get_self_test_accel(
   struct mpu9250* mpu,
-  struct mpu9250_vec8* vec
+  struct nex_vec3i8* vec
 );
 
 u32
 mpu9250_get_gyro_offset(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* axis
+  struct nex_vec3i16* axis
 );
 
 enum nex_code
 mpu9250_get_gyro_offset_async(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* axis,
+  struct nex_vec3i16* axis,
   struct mpu9250_transaction* transaction
 );
 
 u32
 mpu9250_set_gyro_offset(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* axis
+  struct nex_vec3i16* axis
 );
 
 u32
@@ -1146,7 +1134,7 @@ mpu9250_get_int_status_reg(
 u32
 mpu9250_get_accel(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* axis
+  struct nex_vec3i16* axis
 );
 
 u32
@@ -1166,13 +1154,13 @@ mpu9250_get_temperature(
 u32
 mpu9250_get_gyro(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* axis
+  struct nex_vec3i16* axis
 );
 
 enum nex_code
 mpu9250_get_gyro_async(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec,
+  struct nex_vec3i16* vec,
   struct mpu9250_transaction* transaction
 );
 
@@ -1377,7 +1365,7 @@ mpu9250_get_device_id(
 u32
 mpu9250_set_accel_offset(
   struct mpu9250* mpu,
-  struct mpu9250_vec16* vec
+  struct nex_vec3i16* vec
 );
 
 END_DECLARATIONS
