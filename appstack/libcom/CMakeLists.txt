@@ -5,8 +5,14 @@ nex_add_sources(
   TARGET nex_libcom
   PATH ${NEX_LIBCOM_SRC_DIR}
   SOURCES
+    algo/pid.c
+
     data/queue.c
     data/ring_buffer.c
+
+    math/mat4x4f.c
+    math/nxmath.c
+    math/vec4f.c
 
     sys/devmode.c
 
