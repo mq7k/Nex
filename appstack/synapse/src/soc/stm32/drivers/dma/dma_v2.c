@@ -774,3 +774,75 @@ dmaif_interrupt_disable(
       break;
   }
 }
+
+u32
+dmaif_is_flag_set(
+  struct dmaif_config* config,
+  enum dmaif_stream_flag flag
+)
+{
+  switch (flag)
+  {
+    case DMAIF_STREAM_FLAG_FIFO_ERR:
+    case DMAIF_STREAM_FLAG_DIRECT_MODE_ERR:
+      return 0;
+
+    case DMAIF_STREAM_FLAG_TRANSFER_ERR:
+      return dma_is_channel_flag_set(config->dma, config->channel, DMA_FLAG_TRANSFER_ERROR);
+
+    case DMAIF_STREAM_FLAG_HT:
+      return dma_is_channel_flag_set(config->dma, config->channel, DMA_FLAG_HALF_TRANSFER);
+
+    case DMAIF_STREAM_FLAG_TC:
+      return dma_is_channel_flag_set(config->dma, config->channel, DMA_FLAG_TRANSER_COMPLETE);
+
+    case DMAIF_STREAM_FLAG_GLOBAL:
+      return dma_is_channel_flag_set(config->dma, config->channel, DMA_FLAG_GLOBAL_INTERRUPT);
+
+    default:
+      devmode_error_invalid_enum(enum dmaif_stream_flag, flag);
+      return 0;
+  }
+}
+
+void
+dmaif_flag_clear(
+  struct dmaif_config* config,
+  enum dmaif_stream_flag flag
+)
+{
+  switch (flag)
+  {
+    case DMAIF_STREAM_FLAG_FIFO_ERR:
+    case DMAIF_STREAM_FLAG_DIRECT_MODE_ERR:
+      break;
+
+    case DMAIF_STREAM_FLAG_TRANSFER_ERR:
+      dma_channel_flag_clear(config->dma, config->channel, DMA_FLAG_TRANSFER_ERROR);
+      break;
+
+    case DMAIF_STREAM_FLAG_HT:
+      dma_channel_flag_clear(config->dma, config->channel, DMA_FLAG_HALF_TRANSFER);
+      break;
+
+    case DMAIF_STREAM_FLAG_TC:
+      dma_channel_flag_clear(config->dma, config->channel, DMA_FLAG_TRANSER_COMPLETE);
+      break;
+
+    case DMAIF_STREAM_FLAG_GLOBAL:
+      dma_channel_flag_clear(config->dma, config->channel, DMA_FLAG_GLOBAL_INTERRUPT);
+      break;
+
+    default:
+      devmode_error_invalid_enum(enum dmaif_stream_flag, flag);
+      break;
+  }
+}
+
+void
+dmaif_stream_enable(
+  struct dmaif_config* config
+)
+{
+  dma_channel_enable(config->dma, config->channel);
+}
