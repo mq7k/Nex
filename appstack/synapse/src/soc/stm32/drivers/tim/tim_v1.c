@@ -1,7 +1,11 @@
 #include "synapse/soc/stm32/drivers/tim/tim_v1.h"
+#include "libcom/format.h"
+#include "libcom/util.h"
+#include "soc/stm32/drivers/tim/timif.h"
 #include "synapse/common/common.h"
 #include "libcom/sys/devmode.h"
 #include "libcom/types.h"
+#include "synapse/cpu/cortex/common/sys.h"
 
 typedef volatile struct tim_registers_map tim_periph;
 
@@ -2392,4 +2396,297 @@ tma_dma_burst_access_reg_read(
 )
 {
   return tim->DMAR;
+}
+
+u32
+timif_get_capabitilies(void)
+{
+  u32 caps = 0;
+  caps |= TIMIF_CAP_OC_PRELOAD;
+  return caps;
+}
+
+u32
+timif_is_capability_supported(
+  enum timif_capability cap
+)
+{
+  return timif_get_capabitilies() & cap;
+}
+
+enum timif_code
+timif_auto_config(
+  struct timif_config* config,
+  u32 enabled_caps
+);
+
+static u32
+_map_clkdivif(
+  enum timif_clkdiv divif,
+  enum tim_clock_division* division
+)
+{
+  switch (divif)
+  {
+    case TIMIF_CLKDIV_NODIV:
+      *division = TIM_CLOCK_DIVISION_NODIV;
+      break;
+
+    case TIMIF_CLKDIV_DIV2:
+      *division = TIM_CLOCK_DIVISION_DIV2;
+      break;
+
+    case TIMIF_CLKDIV_DIV4:
+      *division = TIM_CLOCK_DIVISION_DIV4;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_oc_modeif(
+  enum timif_oc_mode modeif,
+  enum tim_oc_mode* mode
+)
+{
+  switch (modeif)
+  {
+    case TIMIF_OC_MODE_FROZEN:
+      *mode = TIM_OC_MODE_FROZEN;
+      break;
+
+    case TIMIF_OC_MODE_FORCED_HIGH:
+      *mode = TIM_OC_MODE_FORCED_HIGH;
+      break;
+
+    case TIMIF_OC_MODE_FORCED_LOW:
+      *mode = TIM_OC_MODE_FORCED_LOW;
+      break;
+
+    case TIMIF_OC_MODE_TOGGLE:
+      *mode = TIM_OC_MODE_TOGGLE;
+      break;
+
+    case TIMIF_OC_MODE_FORCE_INACTIVE:
+      *mode = TIM_OC_MODE_FORCE_INACTIVE;
+      break;
+
+    case TIMIF_OC_MODE_FORCE_ACTIVE:
+      *mode = TIM_OC_MODE_FORCE_ACTIVE;
+      break;
+
+    case TIMIF_OC_MODE_PWM1:
+      *mode = TIM_OC_MODE_PWM1;
+      break;
+
+    case TIMIF_OC_MODE_PWM2:
+      *mode = TIM_OC_MODE_PWM2;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_alignif(
+  enum timif_align alignif,
+  enum tim_center_aligned_mode* mode
+)
+{
+  switch (alignif)
+  {
+    case TIMIF_ALIGN_EDGE:
+      *mode = TIM_CENTER_ALIGNED_MODE_EDGE;
+      break;
+
+    case TIMIF_ALIGN_MODE1:
+      *mode = TIM_CENTER_ALIGNED_MODE_1;
+      break;
+
+    case TIMIF_ALIGN_MODE2:
+      *mode = TIM_CENTER_ALIGNED_MODE_2;
+      break;
+
+    case TIMIF_ALIGN_MODE3:
+      *mode = TIM_CENTER_ALIGNED_MODE_3;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_directionif(
+  enum timif_direction directionif,
+  enum tim_counter_direction* dir
+)
+{
+  switch (directionif) 
+  {
+    case TIMIF_DIRECTION_UP:
+      *dir = TIM_COUNTER_DIRECTION_UP;
+      break;
+
+    case TIMIF_DIRECTION_DOWN:
+      *dir = TIM_COUNTER_DIRECTION_DOWN;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_dmareqif(
+  enum timif_dma_req reqif,
+  enum tim_dma_request* req
+)
+{
+  switch (reqif)
+  {
+    case TIMIF_DMA_REQ_UP:
+      *req = TIM_DMA_MODE_UPDATE;
+      break;
+
+    case TIMIF_DMA_REQ_CC1:
+      *req = TIM_DMA_MODE_CC1;
+      break;
+
+    case TIMIF_DMA_REQ_CC2:
+      *req = TIM_DMA_MODE_CC2;
+      break;
+
+    case TIMIF_DMA_REQ_CC3:
+      *req = TIM_DMA_MODE_CC3;
+      break;
+
+    case TIMIF_DMA_REQ_CC4:
+      *req = TIM_DMA_MODE_CC4;
+      break;
+
+    case TIMIF_DMA_REQ_COM:
+      *req = TIM_DMA_MODE_COM;
+      break;
+
+    case TIMIF_DMA_REQ_TRIGGER:
+      *req = TIM_DMA_MODE_TRIGGER;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+static u32
+_map_req_srcif(
+  enum timif_dma_req_src srcif,
+  enum tim_cc_dma_request_source* src
+)
+{
+  switch (srcif)
+  {
+    case TIMIF_DMA_REQ_SRC_CC:
+      *src = TIM_CC_DMA_REQUEST_SOURCE_CC_EVENT;
+      break;
+
+    case TIMIF_DMA_REQ_SRC_UP:
+      *src = TIM_CC_DMA_REQUEST_SOURCE_UPDATE_EVENT;
+      break;
+
+    default:
+      return NEX_FAILURE;
+  }
+
+  return NEX_SUCCESS;
+}
+
+enum timif_code
+timif_configure(
+  struct timif_config* config
+)
+{
+  enum tim_clock_division clkdiv;
+  if (_map_clkdivif(config->clkdiv, &clkdiv) != NEX_SUCCESS)
+  {
+    return TIMIF_CODE_INVALID_CLKDIV;
+  }
+
+  tim_set_clock_division(config->tim, clkdiv);
+
+  enum tim_oc_mode oc_mode;
+  if (_map_oc_modeif(config->oc_mode, &oc_mode) != NEX_SUCCESS)
+  {
+    return TIMIF_CODE_INVALID_OC_MODE;
+  }
+
+  tim_set_oc_mode(config->tim, config->channel, oc_mode);
+
+  enum tim_center_aligned_mode align_mode;
+  if (_map_alignif(config->align, &align_mode) != NEX_SUCCESS)
+  {
+    return TIMIF_CODE_INVALID_ALIGN;
+  }
+
+  tim_set_center_aligned_mode(config->tim, align_mode);
+
+  enum tim_counter_direction direction;
+  if (_map_directionif(config->direction, &direction) != NEX_SUCCESS)
+  {
+    return TIMIF_CODE_INVALID_DIRECTION;
+  }
+
+  tim_set_counter_direction(config->tim, direction);
+
+  u32 dma_requests = config->dma_req;
+  while (dma_requests > 0)
+  {
+    u32 bitpos = 31 - cm_rfind_first_cleared_bit(~dma_requests);
+    enum timif_dma_req req = 1u << bitpos;
+    enum tim_dma_request request;
+    if (_map_dmareqif(req, &request) != NEX_SUCCESS)
+    {
+      return TIMIF_CODE_INVALID_DMA_REQ;
+    }
+
+    tim_dma_request_enable(config->tim, request);
+  }
+
+  enum tim_cc_dma_request_source req_src;
+  if (_map_req_srcif(config->dma_req_src, &req_src) != NEX_SUCCESS)
+  {
+    return TIMIF_CODE_INVALID_DMA_REQ_SRC;
+  }
+
+  return TIMIF_CODE_OK;
+}
+
+void
+timif_counter_enable(
+  struct timif_config* config
+)
+{
+  tim_counter_enable(config->tim);
+}
+
+void
+timif_set_cc_value(
+  struct timif_config* config,
+  u32 value
+)
+{
+  tim_set_cc_value(config->tim, config->channel, value);
 }
