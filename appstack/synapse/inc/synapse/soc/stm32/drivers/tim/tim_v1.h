@@ -766,20 +766,61 @@ enum tim_register
   TIM_REGISTER_DMAR
 };
 
+#if defined(STM32_TIM1)
 extern volatile struct tim_registers_map* TIM1;
+#endif
+
+#if defined(STM32_TIM2)
 extern volatile struct tim_registers_map* TIM2;
+#endif
+
+#if defined(STM32_TIM3)
 extern volatile struct tim_registers_map* TIM3;
+#endif
+
+#if defined(STM32_TIM4)
 extern volatile struct tim_registers_map* TIM4;
+#endif
+
+#if defined(STM32_TIM5)
 extern volatile struct tim_registers_map* TIM5;
+#endif
+
+#if defined(STM32_TIM6)
 extern volatile struct tim_registers_map* TIM6;
+#endif
+
+#if defined(STM32_TIM7)
 extern volatile struct tim_registers_map* TIM7;
+#endif
+
+#if defined(STM32_TIM8)
 extern volatile struct tim_registers_map* TIM8;
+#endif
+
+#if defined(STM32_TIM9)
 extern volatile struct tim_registers_map* TIM9;
+#endif
+
+#if defined(STM32_TIM10)
 extern volatile struct tim_registers_map* TIM10;
+#endif
+
+#if defined(STM32_TIM11)
 extern volatile struct tim_registers_map* TIM11;
+#endif
+
+#if defined(STM32_TIM12)
 extern volatile struct tim_registers_map* TIM12;
+#endif
+
+#if defined(STM32_TIM13)
 extern volatile struct tim_registers_map* TIM13;
+#endif
+
+#if defined(STM32_TIM14)
 extern volatile struct tim_registers_map* TIM14;
+#endif
 
 void
 tim_counter_enable(
