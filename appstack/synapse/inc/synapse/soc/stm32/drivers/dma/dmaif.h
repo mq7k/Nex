@@ -185,6 +185,16 @@ enum dmaif_interrupt
   DMAIF_INTERRUPT_TC
 };
 
+enum dmaif_stream_flag
+{
+  DMAIF_STREAM_FLAG_FIFO_ERR,
+  DMAIF_STREAM_FLAG_DIRECT_MODE_ERR,
+  DMAIF_STREAM_FLAG_TRANSFER_ERR,
+  DMAIF_STREAM_FLAG_HT,
+  DMAIF_STREAM_FLAG_TC,
+  DMAIF_STREAM_FLAG_GLOBAL
+};
+
 u32
 dmaif_get_capabilities(void);
 
@@ -258,6 +268,23 @@ void
 dmaif_interrupt_disable(
   struct dmaif_config* config,
   enum dmaif_interrupt interrupt
+);
+
+u32
+dmaif_is_flag_set(
+  struct dmaif_config* config,
+  enum dmaif_stream_flag flag
+);
+
+void
+dmaif_flag_clear(
+  struct dmaif_config* config,
+  enum dmaif_stream_flag flag
+);
+
+void
+dmaif_stream_enable(
+  struct dmaif_config* config
 );
 
 END_DECLARATIONS
