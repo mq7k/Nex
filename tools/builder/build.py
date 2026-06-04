@@ -65,21 +65,19 @@ def main():
 
     if args.tests:
         build_dir = options['build_dir']
+        paths = [
+            'appstack/libcom',
+            'appstack/synapse',
+            'appstack/system',
+            'appstack/blackbird'
+        ]
 
-        code = run_tests(f'{build_dir}/appstack/libcom')
-        if code:
-            print('Error while executing libcom tests: non-zero exit code or timed out')
-            return code
-
-        code = run_tests(f'{build_dir}/appstack/synapse')
-        if code:
-            print('Error while executing synapse tests: non-zero exit code or timed out')
-            return code
-
-        code = run_tests(f'{build_dir}/appstack/system')
-        if code:
-            print('Error while executing system tests: non-zero exit code or timed out')
-            return code
+        for path in paths:
+            code = run_tests(f'{build_dir}/{path}')
+            if code:
+                name = path[path.rindex('/')+1:]
+                print(f'Error while executing {name} tests: non-zero exit code or timed out')
+                return code
 
     return 0
 
