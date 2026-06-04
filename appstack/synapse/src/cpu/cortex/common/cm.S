@@ -157,14 +157,14 @@ cm_rbit:
 .global cm_rfind_first_cleared_bit
 .type cm_rfind_first_cleared_bit, %function
 cm_rfind_first_cleared_bit:
-  rbit r0, r0
   clz r0, r0
+  mov r1, #31
+  sub r0, r1, r0
   bx lr
 
 .global cm_lfind_first_cleared_bit
 .type cm_lfind_first_cleared_bit, %function
 cm_lfind_first_cleared_bit:
-  clz r1, r0
-  mov r2, #31
-  sub r0, r2, r1
+  rbit r0, r0
+  clz r0, r0
   bx lr
