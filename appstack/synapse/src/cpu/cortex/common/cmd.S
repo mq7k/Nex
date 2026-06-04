@@ -117,6 +117,12 @@ cm_ldrex:
 cm_strex:
   ret
 
+.global cm_rbit
+.type cm_rbit, %function
+cm_rbit:
+  mov $0, %eax
+  ret
+
 .global cm_rfind_first_cleared_bit
 .type cm_rfind_first_cleared_bit, %function
 cm_rfind_first_cleared_bit:

@@ -142,6 +142,12 @@ cm_strex:
   mov r0, r2
   bx lr
 
+.global cm_rbit
+.type cm_rbit, %function
+cm_rbit:
+  rbit r0, r0
+  bx lr
+
 .global cm_rfind_first_cleared_bit
 .type cm_rfind_first_cleared_bit, %function
 cm_rfind_first_cleared_bit:
