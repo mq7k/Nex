@@ -117,6 +117,12 @@ cm_ldrex:
 cm_strex:
   ret
 
+.global cm_clz
+.type cm_clz, %function
+cm_clz:
+  mov $0, %eax
+  ret
+
 .global cm_rbit
 .type cm_rbit, %function
 cm_rbit:

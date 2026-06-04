@@ -96,6 +96,11 @@ cm_set_fpu_fpscr(
 #endif
 
 extern u32
+cm_clz(
+  u32 value
+);
+
+extern u32
 cm_rbit(
   u32 value
 );

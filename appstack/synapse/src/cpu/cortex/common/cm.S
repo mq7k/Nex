@@ -142,6 +142,12 @@ cm_strex:
   mov r0, r2
   bx lr
 
+.global cm_clz
+.type cm_clz, %function
+cm_clz:
+  clz r0, r0
+  bx lr
+
 .global cm_rbit
 .type cm_rbit, %function
 cm_rbit:
