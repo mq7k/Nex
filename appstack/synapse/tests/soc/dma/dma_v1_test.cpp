@@ -7713,169 +7713,169 @@ void
 test_dma_stream_direct_mode(void)
 {
   _DMA->streams[DMA_STREAM0].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM0);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM0);
   ASSERT_EQ(_DMA->streams[DMA_STREAM0].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM0].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM0);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM0);
   ASSERT_EQ(_DMA->streams[DMA_STREAM0].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM0].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM0);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM0);
   ASSERT_EQ(_DMA->streams[DMA_STREAM0].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM0].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM0);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM0);
   ASSERT_EQ(_DMA->streams[DMA_STREAM0].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
   _DMA->streams[DMA_STREAM1].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM1);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM1);
   ASSERT_EQ(_DMA->streams[DMA_STREAM1].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM1].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM1);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM1);
   ASSERT_EQ(_DMA->streams[DMA_STREAM1].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM1].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM1);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM1);
   ASSERT_EQ(_DMA->streams[DMA_STREAM1].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM1].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM1);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM1);
   ASSERT_EQ(_DMA->streams[DMA_STREAM1].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
   _DMA->streams[DMA_STREAM2].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM2);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM2);
   ASSERT_EQ(_DMA->streams[DMA_STREAM2].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM2].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM2);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM2);
   ASSERT_EQ(_DMA->streams[DMA_STREAM2].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM2].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM2);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM2);
   ASSERT_EQ(_DMA->streams[DMA_STREAM2].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM2].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM2);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM2);
   ASSERT_EQ(_DMA->streams[DMA_STREAM2].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
   _DMA->streams[DMA_STREAM3].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM3);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM3);
   ASSERT_EQ(_DMA->streams[DMA_STREAM3].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM3].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM3);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM3);
   ASSERT_EQ(_DMA->streams[DMA_STREAM3].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM3].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM3);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM3);
   ASSERT_EQ(_DMA->streams[DMA_STREAM3].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM3].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM3);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM3);
   ASSERT_EQ(_DMA->streams[DMA_STREAM3].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
   _DMA->streams[DMA_STREAM4].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM4);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM4);
   ASSERT_EQ(_DMA->streams[DMA_STREAM4].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM4].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM4);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM4);
   ASSERT_EQ(_DMA->streams[DMA_STREAM4].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM4].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM4);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM4);
   ASSERT_EQ(_DMA->streams[DMA_STREAM4].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM4].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM4);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM4);
   ASSERT_EQ(_DMA->streams[DMA_STREAM4].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
   _DMA->streams[DMA_STREAM5].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM5);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM5);
   ASSERT_EQ(_DMA->streams[DMA_STREAM5].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM5].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM5);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM5);
   ASSERT_EQ(_DMA->streams[DMA_STREAM5].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM5].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM5);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM5);
   ASSERT_EQ(_DMA->streams[DMA_STREAM5].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM5].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM5);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM5);
   ASSERT_EQ(_DMA->streams[DMA_STREAM5].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
   _DMA->streams[DMA_STREAM6].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM6);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM6);
   ASSERT_EQ(_DMA->streams[DMA_STREAM6].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM6].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM6);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM6);
   ASSERT_EQ(_DMA->streams[DMA_STREAM6].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM6].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM6);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM6);
   ASSERT_EQ(_DMA->streams[DMA_STREAM6].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM6].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM6);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM6);
   ASSERT_EQ(_DMA->streams[DMA_STREAM6].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 
 
   _DMA->streams[DMA_STREAM7].SFCR = 0;
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM7);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM7);
   ASSERT_EQ(_DMA->streams[DMA_STREAM7].SFCR, (1u << 2));
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM7].SFCR = ~(1u << 2);
-  dma_stream_direct_mode_enable(_DMA, DMA_STREAM7);
+  dma_stream_direct_mode_disable(_DMA, DMA_STREAM7);
   ASSERT_EQ(_DMA->streams[DMA_STREAM7].SFCR, 0xffffffff);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM7].SFCR = (1u << 2);
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM7);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM7);
   ASSERT_EQ(_DMA->streams[DMA_STREAM7].SFCR, 0);
   ASSERT_FALSE(execution_halted());
 
   _DMA->streams[DMA_STREAM7].SFCR = 0xffffffff;
-  dma_stream_direct_mode_disable(_DMA, DMA_STREAM7);
+  dma_stream_direct_mode_enable(_DMA, DMA_STREAM7);
   ASSERT_EQ(_DMA->streams[DMA_STREAM7].SFCR, ~(1u << 2));
   ASSERT_FALSE(execution_halted());
 

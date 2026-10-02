@@ -1066,7 +1066,10 @@
           "DMA_STREAM6",
           "DMA_STREAM7"
         ]
-      }
+      },
+      "options": [
+        "inverted"
+      ]
     },
     {
       "type": "fn_get",
