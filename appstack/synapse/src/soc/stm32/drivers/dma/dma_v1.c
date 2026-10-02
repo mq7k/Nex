@@ -792,7 +792,7 @@ dma_stream_direct_mode_enable(
 )
 {
   dma_stream_vt* dma_stream = get_dma_stream(dma, stream);
-  dma_stream->SFCR |= DMA_SFCR_DMDIS;
+  dma_stream->SFCR &= ~DMA_SFCR_DMDIS;
 }
 
 void
@@ -802,7 +802,7 @@ dma_stream_direct_mode_disable(
 )
 {
   dma_stream_vt* dma_stream = get_dma_stream(dma, stream);
-  dma_stream->SFCR &= ~DMA_SFCR_DMDIS;
+  dma_stream->SFCR |= DMA_SFCR_DMDIS;
 }
 
 u32
