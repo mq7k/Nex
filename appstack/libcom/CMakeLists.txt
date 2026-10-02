@@ -17,6 +17,7 @@ nex_add_sources(
     sys/devmode.c
 
     bytebuf.c
+    byteorder.c
     format.c
     semver.c
     unit.c
