@@ -507,8 +507,12 @@ tim8_cc_isr(void)
 }
 #endif
 
+NEX_WEAK
 void
-dma1_stream7_isr(void);
+dma1_stream7_isr(void)
+{
+  default_isr_handler();
+}
 
 #if defined(STM32_FSMC)
 NEX_WEAK

@@ -95,7 +95,7 @@ struct vector_table vec_table = {
     [NVIC_IRQ_TIM8_CC] = tim8_cc_isr,
 #endif
 
-    [NVIC_IRQ_DMA1_STREAM7] = dma2_stream7_isr,
+    [NVIC_IRQ_DMA1_STREAM7] = dma1_stream7_isr,
 
 #if defined(STM32_FSMC)
     [NVIC_IRQ_FSMC] = fsmc_isr,
