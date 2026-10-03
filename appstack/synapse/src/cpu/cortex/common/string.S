@@ -41,12 +41,9 @@ strlen_loop:
   b strlen_loop
 
 strlen_scan_word:
-  lsr r7, r8, #24
-  cmp r7, #0
-  beq strlen_end
+  ldr r8, [r0]
 
-  add r5, #1
-  lsr r7, r8, #16
+  ands r7, r8, #0xff
   cmp r7, #0
   beq strlen_end
 
@@ -56,10 +53,19 @@ strlen_scan_word:
   beq strlen_end
 
   add r5, #1
+  lsr r7, r8, #16
+  cmp r7, #0
+  beq strlen_end
+
+  add r5, #1
+  lsr r7, r8, #24
+  cmp r7, #0
+  beq strlen_end
   
 strlen_end:
   mov r0, r5
   pop { r4-r8, lr }
+  bx lr
 
 /*
  * size_t strlen8(const char* str)
@@ -80,6 +86,7 @@ strlen8_loop:
 strlen8_end:
   mov r0, r5
   pop { r4-r6, pc }
+  bx lr
 
 /*
  * int strcmp(const char* a, const char* b)
@@ -102,6 +109,7 @@ strcmp_loop:
 strcmp_end:
   mov r0, r6
   pop { r4-r6, pc }
+  bx lr
 
 /*
  * int strcmp8(const char* a, const char* b)
@@ -127,6 +135,7 @@ strcmp8_loop:
 strcmp8_end:
   mov r0, r6
   pop { r4-r8, pc }
+  bx lr
 
 /*
  * int strncmp(const char* a, const char* b, u32 len)
@@ -176,6 +185,7 @@ strncmp_loop:
 strncmp_end:
   mov r0, r6
   pop { r4-r10, pc }
+  bx lr
 
 /*
  * int strncmp8(const char* a, const char* b, u32 len)
@@ -197,4 +207,5 @@ strncmp8_loop:
 strncmp8_end:
   mov r0, r6
   pop { r4-r6, pc }
+  bx lr
 
