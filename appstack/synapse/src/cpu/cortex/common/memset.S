@@ -52,6 +52,7 @@ memset_end:
   add sp, sp, #4
   mvn r6, r6
   pop { r4-r11, pc }
+  bx lr
 
 /*
  * void* memset16(void* dst, u8 byte, u32 len)
@@ -77,6 +78,7 @@ memset16_loop:
 
 memset16_end:
   pop { r4, pc }
+  bx lr
 
 /*
  * void* memset32(void* dst, u8 byte, u32 len)
@@ -103,6 +105,7 @@ memset32_loop:
 
 memset32_end:
   pop { r4, pc }
+  bx lr
 
 /*
  * void* memset32x2(void* dst, u8 byte, u32 len)
@@ -131,6 +134,7 @@ memset32x2_loop:
 
 memset32x2_end:
   pop { r4-r6, pc }
+  bx lr
 
 /*
  * void* memset32x4(void* dst, u8 byte, u32 len)
@@ -160,6 +164,7 @@ memset32x4_loop:
 
 memset32x4_end:
   pop { r4-r8, pc }
+  bx lr
 
 /*
  * void* memset32x8(void* dst, u8 byte, u32 len)
@@ -195,5 +200,6 @@ memset32x8_loop:
 memset32x8_end:
   add sp, sp, #4
   pop { r4-r11, pc }
+  bx lr
 
 
