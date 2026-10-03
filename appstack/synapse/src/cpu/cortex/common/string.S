@@ -41,12 +41,9 @@ strlen_loop:
   b strlen_loop
 
 strlen_scan_word:
-  lsr r7, r8, #24
-  cmp r7, #0
-  beq strlen_end
+  ldr r8, [r0]
 
-  add r5, #1
-  lsr r7, r8, #16
+  ands r7, r8, #0xff
   cmp r7, #0
   beq strlen_end
 
@@ -56,6 +53,14 @@ strlen_scan_word:
   beq strlen_end
 
   add r5, #1
+  lsr r7, r8, #16
+  cmp r7, #0
+  beq strlen_end
+
+  add r5, #1
+  lsr r7, r8, #24
+  cmp r7, #0
+  beq strlen_end
   
 strlen_end:
   mov r0, r5
