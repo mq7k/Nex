@@ -41,6 +41,7 @@ BEGIN_DECLARATIONS
 #define MAX(a, b) ((a) > (b) ? a : b)
 #define MIN(a, b) ((a) < (b) ? a : b)
 #define CLAMP(value, min, max) MIN(MAX(value, min), max)
+#define ABS(a) ((a) >= 0 ? (a) : -(a))
 
 #define ARR_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 #define MEMPTR(x) *((volatile uintptr_t*) (x))
