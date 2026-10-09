@@ -323,7 +323,7 @@ gpio_set_pin_high(
   u32 pins
 )
 {
-  gpio->BSRR |= pins;
+  gpio->BSRR = pins;
 }
 
 void
@@ -332,7 +332,7 @@ gpio_set_pin_low(
   u32 pins
 )
 {
-  gpio->BSRR |= (pins << 16);
+  gpio->BSRR = (pins << 16);
 }
 
 void
