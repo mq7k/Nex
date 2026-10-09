@@ -53,7 +53,7 @@ do_tests_run(
       std::exit(1);
     }
 
-    std::printf(" %spassed!%s", term_color::green, term_color::reset);
+    std::printf(" %spassed!%s\n", term_color::green, term_color::reset);
     std::fflush(stdout);
   }
 
