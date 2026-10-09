@@ -43,6 +43,7 @@ nex_log(STATUS "Examples: ${NEX_BUILD_EXAMPLES}")
 add_subdirectory(appstack/libcom)
 add_subdirectory(appstack/synapse)
 add_subdirectory(appstack/system)
+add_subdirectory(appstack/blackbird)
 
 if (NEX_BUILD_TESTS)
   add_subdirectory(appstack/libtest)
