@@ -23,15 +23,15 @@ bb_vehicle_tick(
   _try_arm(vehicle, inputs);
 
   const u32 val = inputs->channels[6];
-  if (val <= 250)
+  if (bb_is_channel_low(val))
   {
     vehicle->flight_mode = BB_FLIGHT_MODE_ACRO;
   }
-  else if (val >= 900 && val <= 1050)
+  else if (bb_is_channel_centered(val))
   {
     vehicle->flight_mode = BB_FLIGHT_MODE_ANGLE;
   }
-  else if (val >= 1600)
+  else if (bb_is_channel_high(val))
   {
     vehicle->flight_mode = BB_FLIGHT_MODE_DDRIVE;
   }
@@ -58,17 +58,18 @@ _try_arm(
   struct bb_input_channels* inputs
 )
 {
-  if (inputs->channels[5] > 1500)
+  const u32 arm_channel_value = inputs->channels[BB_ARM_CHANNEL];
+  if (bb_is_channel_high(arm_channel_value))
   {
     if (!vehicle->trying_arming)
     {
       vehicle->trying_arming = 1;
-      vehicle->armed = inputs->channels[0] <= 200;
+      vehicle->armed = inputs->channels[0] <= BB_ARM_CHANNEL_THRESHOLD;
     }
   }
   else
   {
-    if (inputs->channels[0] <= 200)
+    if (inputs->channels[0] <= BB_ARM_CHANNEL_THRESHOLD)
     {
       vehicle->armed = 0;
     }

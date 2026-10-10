@@ -21,6 +21,8 @@ nex_add_sources(
     vehicle/quadcopter.c
     vehicle/vehicle.c
 
+    inputs.c
+
   MSG "Adding blackbird file: "
 )
 
