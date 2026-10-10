@@ -1,10 +1,12 @@
 #include "blackbird/proto/crsf.h"
+#include "blackbird/bbconf.h"
+#include "cpu/cortex/common/memory.h"
+#include "cpu/cortex/common/string.h"
 #include "cpu/cortex/common/sys.h"
 #include "libcom/bytebuf.h"
 #include "libcom/data/ring_buffer.h"
 #include "libcom/errcodes.h"
 #include "libcom/util.h"
-#include <string.h>
 
 constexpr u8 crc8tab[256] = {
   0x00, 0xd5, 0x7f, 0xaa, 0xfe, 0x2b, 0x81, 0x54, 0x29, 0xfc, 0x56, 0x83, 0xd7, 0x02, 0xa8, 0x7d,
@@ -153,12 +155,6 @@ _decode_frame_link_stats(
 );
 
 static i32
-_decode_frame_rc_channels(
-  struct bb_crsf_frame* frame,
-  struct nex_bytebuf* buf
-);
-
-static i32
 _decode_frame_link_stats_rx(
   struct bb_crsf_frame* frame,
   struct nex_bytebuf* buf
@@ -166,6 +162,18 @@ _decode_frame_link_stats_rx(
 
 static i32
 _decode_frame_link_stats_tx(
+  struct bb_crsf_frame* frame,
+  struct nex_bytebuf* buf
+);
+
+static i32
+_decode_frame_rc_channels(
+  struct bb_crsf_frame* frame,
+  struct nex_bytebuf* buf
+);
+
+static i32
+_decode_frame_param_dev_info(
   struct bb_crsf_frame* frame,
   struct nex_bytebuf* buf
 );
@@ -272,10 +280,10 @@ _is_valid_type(
 
 static u32
 _is_bc_frame(
-  struct bb_crsf_frame* frame
+  u8 type
 )
 {
-  return frame->type <= 0x27;
+  return type <= 0x27;
 }
 
 static u32
@@ -384,6 +392,7 @@ _get_frame_size(
 
 static i32
 _encode_frame(
+  u8 sync_byte,
   struct bb_crsf_frame* frame,
   u8* buf,
   u32 len
@@ -392,7 +401,7 @@ _encode_frame(
   struct nex_bytebuf bytebuf;
   nex_bytebuf_init(&bytebuf, buf, len);
 
-  nex_bytebuf_write_u8(&bytebuf, 0xc8);
+  nex_bytebuf_write_u8(&bytebuf, sync_byte);
   nex_bytebuf_write_u8(&bytebuf, 0x00); // Placeholder for the frame len.
   nex_bytebuf_write_u8(&bytebuf, frame->type);
   i32 code;
@@ -550,6 +559,64 @@ _forward_frame(
   return success;
 }
 
+static i32
+_handle_ext_frame_ping_dev(
+  struct bb_crsf_node* node,
+  struct bb_crsf_port* port
+)
+{
+  struct bb_crsf_frame frame;
+  frame.type = BB_CRSF_FRAME_TYPE_PARAM_DEV_INFO;
+
+  u32 len = ARR_SIZE(BB_DEVICE_NAME);
+  if (len < 60)
+  {
+    u8* dst = frame.ext.param_dev_info.device_name;
+    memcpy(dst, BB_DEVICE_NAME, sizeof(BB_DEVICE_NAME));
+    dst[len] = 0;
+  }
+  else
+  {
+    u8* dst = frame.ext.param_dev_info.device_name;
+    const char* name = "Generic";
+    len = strlen(name);
+    memcpy(dst, name, len);
+    dst[len] = 0;
+  }
+
+  frame.ext.param_dev_info.serial_number = BB_SERIAL_NUMBER;
+  frame.ext.param_dev_info.hardware_id = BB_HARDWARE_ID;
+  frame.ext.param_dev_info.firmware_id = BB_FIRMWARE_ID;
+  
+  // TODO: Implement parameters counter.
+  frame.ext.param_dev_info.parameters_total = 0;
+  frame.ext.param_dev_info.parameter_version_number = 0x02;
+
+  bb_crsf_port_enqueue_packet(node, port->idx, &frame);
+  return NOK;
+}
+
+static i32
+_handle_ext_frame(
+  struct bb_crsf_node* node,
+  struct bb_crsf_port* port,
+  struct bb_crsf_frame* frame
+)
+{
+  switch (frame->type)
+  {
+    case BB_CRSF_FRAME_TYPE_PARAM_PING_DEV:
+      return _handle_ext_frame_ping_dev(node, port);
+
+    case BB_CRSF_FRAME_TYPE_PARAM_DEV_INFO:
+    case BB_CRSF_FRAME_TYPE_PARAM_SETTINGS:
+      return -NERR_NOTIMPL;
+
+    default:
+      return -NERR_INV_ARG;
+  }
+}
+
 static void
 _set_port_tx_state(
   struct bb_crsf_port* port,
@@ -635,7 +702,7 @@ _tick_port_rx(
       }
 
       const u32 max_depth = MIN(128, items_avb);
-      i32 off = _find_byte(src, 0xc8, max_depth);
+      i32 off = _find_byte(src, port->sync_byte, max_depth);
       if (off < 0)
       {
         // Failed to find sync byte, update cursor and exit.
@@ -715,12 +782,16 @@ _tick_port_rx(
         return;
       }
 
-      if (_is_bc_frame(&frame))
+      if (_is_bc_frame(frame.type))
       {
         _forward_frame(node, port);
+        node->ops->on_packet_ready(port, &frame);
+      }
+      else
+      {
+        _handle_ext_frame(node, port, &frame);
       }
 
-      node->ops->on_packet_ready(port, &frame);
       _reset_port_rx(port);
       return;
       break;
@@ -837,6 +908,19 @@ bb_crsf_read_packet(
     return -NERR_INV_ARG;
   }
 
+  if (!_is_bc_frame(frame->type))
+  {
+    if ((code = nex_bytebuf_read_u8(&bytebuf, &frame->dst_addr)) != NOK)
+    {
+      return code;
+    }
+
+    if ((code = nex_bytebuf_read_u8(&bytebuf, &frame->origin_addr)) != NOK)
+    {
+      return code;
+    }
+  }
+
   code = bb_crsf_decode_packet(frame, &bytebuf);
   if (code != NOK)
   {
@@ -904,6 +988,15 @@ bb_crsf_decode_packet(
     case BB_CRSF_FRAME_TYPE_BAROMETRIC_ALT_VSPEED:
     case BB_CRSF_FRAME_TYPE_AIRSPEED:
       return -NERR_NOTIMPL;
+
+    case BB_CRSF_FRAME_TYPE_PARAM_PING_DEV:
+      // This frame has no payload.
+      return NOK;
+
+    case BB_CRSF_FRAME_TYPE_PARAM_DEV_INFO:
+      return _decode_frame_param_dev_info(frame, buf);
+
+    case BB_CRSF_FRAME_TYPE_PARAM_SETTINGS:
 
     default:
       return -NERR_INV_ARG;
@@ -1612,6 +1705,59 @@ _decode_frame_rc_channels(
 }
 
 static i32
+_decode_frame_param_dev_info(
+  struct bb_crsf_frame* frame,
+  struct nex_bytebuf* buf
+)
+{
+  i32 code;
+  u8 byte;
+  u32 idx = 0;
+
+  do
+  {
+    if ((code = nex_bytebuf_read_u8(buf, &byte)) != NOK)
+    {
+      return code;
+    }
+
+    frame->ext.param_dev_info.device_name[idx++] = byte;
+  } while (byte != 0x00);
+
+  code = nex_bytebuf_read_u32_be(buf, &frame->ext.param_dev_info.serial_number);
+  if (code != NOK)
+  {
+    return code;
+  }
+
+  code = nex_bytebuf_read_u32_be(buf, &frame->ext.param_dev_info.hardware_id);
+  if (code != NOK)
+  {
+    return code;
+  }
+
+  code = nex_bytebuf_read_u32_be(buf, &frame->ext.param_dev_info.firmware_id);
+  if (code != NOK)
+  {
+    return code;
+  }
+
+  code = nex_bytebuf_read_u8(buf, &frame->ext.param_dev_info.parameters_total);
+  if (code != NOK)
+  {
+    return code;
+  }
+
+  code = nex_bytebuf_read_u8(buf, &frame->ext.param_dev_info.parameter_version_number);
+  if (code != NOK)
+  {
+    return code;
+  }
+
+  return NOK;
+}
+
+static i32
 _decode_frame_link_stats_rx(
   struct bb_crsf_frame* frame,
   struct nex_bytebuf* buf
@@ -1760,11 +1906,23 @@ bb_crsf_node_add_port(
   port->outbuf_rcur = 0;
 
   port->inbuf_rcur = 0;
+  port->idx = idx;
 
   _set_port_tx_state(port, BB_CRSF_PORT_TX_STATE_READY);
   _set_port_rx_state(port, BB_CRSF_PORT_RX_STATE_WAIT_SYNC);
 
   return idx;
+}
+
+void
+bb_crsf_port_set_sync_byte(
+  struct bb_crsf_node* node,
+  i32 port_idx,
+  u8 sync_byte
+)
+{
+  struct bb_crsf_port* port = &node->ports[port_idx];
+  port->sync_byte = sync_byte;
 }
 
 // void
@@ -1830,7 +1988,7 @@ bb_crsf_port_enqueue_packet(
   }
 
   u8 buf[64] = {0};
-  i32 count = _encode_frame(frame, buf, 64);
+  i32 count = _encode_frame(port->sync_byte, frame, buf, 64);
   nex_ring_buffer_write(&port->rbbuf_out, (u8) count);
   nex_ring_buffer_write_bytes(&port->rbbuf_out, buf, (u32) count);
   
