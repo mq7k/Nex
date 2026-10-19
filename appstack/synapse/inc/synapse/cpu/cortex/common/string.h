@@ -31,14 +31,14 @@ int
 strncmp(
   const char* a,
   const char* b,
-  u32 len
+  unsigned long len
 );
 
 int
 strncmp8(
   const char* a,
   const char* b,
-  u32 len
+  unsigned long len
 );
 
 END_DECLARATIONS
