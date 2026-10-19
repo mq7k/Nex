@@ -162,7 +162,7 @@ def get_cli_args():
     # Enables tests building.
     # This flag sets build_dir to 'desktop' (Unless explicitly given)
     # and sets the compiler to 'gcc' to build and run on a desktop.
-    # Cannot be used together with '--examples'.
+    # Cannot be used together with '--examples' and '--apps'.
     group.add_argument(
         '--tests',
         action='store_true',
@@ -172,11 +172,21 @@ def get_cli_args():
     # Enables examples building.
     # This flags sets 'build_dir' to 'arm' (Unless explicitly given)
     # and sets the compiler to 'arm-none-eabi-gcc' to build and run on a MCU.
-    # Cannot be used together with '--tests'.
+    # Cannot be used together with '--apps' and '--tests'.
     group.add_argument(
         '--examples',
         action='store_true',
         help='Enable examples (Mutually exclusive with \'--tests\'). Overrides \'--platform\'.'
+    )
+
+    # Enamples apps building.
+    # This flag sets 'build_dir' to 'arm' (Unless explicitly given)
+    # and sets the compiler to 'arm-none-eabi-gcc' to build and run on a MCU.
+    # Cannot be used together with '--examples' and '--tests'.
+    group.add_argument(
+        '--apps',
+        action='store_true',
+        help=''
     )
 
     args = parser.parse_args()
@@ -184,7 +194,7 @@ def get_cli_args():
     # The order matters.
     # Swapping these two checks leads to
     # '--example' trying to compile on desktop platform.
-    if args.examples:
+    if args.examples or args.apps:
         args.platform = 'arm'
     elif args.tests or args.platform is None:
         args.platform = 'desktop'

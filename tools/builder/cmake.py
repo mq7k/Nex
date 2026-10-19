@@ -35,7 +35,7 @@ def parse_platform(args):
     if args.tests:
         return 'desktop'
 
-    if args.examples:
+    if args.examples or args.apps:
         return 'arm'
 
     platform = args.platform
@@ -67,6 +67,7 @@ def parse_cmake_vars(args):
             'NEX_PLATFORM': parse_platform,
             'NEX_BUILD_EXAMPLES': args.examples,
             'NEX_BUILD_TESTS': args.tests,
+            'NEX_BUILD_APPS': args.apps,
             'NEX_FLOAT': args.float,
             'NEX_GC_SECTIONS': args.gc_sections,
             'NEX_INCLUDE_DEVMODE': to_cmake_bool(args.devmode or args.tests),

@@ -49,7 +49,11 @@ if (NEX_BUILD_TESTS)
   add_subdirectory(appstack/libtest)
 endif()
 
-if (NEX_BUILD_EXAMPLES AND NEX_PLATFORM_ARM)
-  add_subdirectory(examples)
+if (NEX_PLATFORM_ARM)
+  if (NEX_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+  elseif(NEX_BUILD_APPS)
+    add_subdirectory(app/fc)
+  endif()
 endif()
 
