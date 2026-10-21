@@ -13,7 +13,8 @@ enum nex_code : i32
   NERR_FULL = 3,
   NERR_NOT_FOUND = 4,
   NERR_EMPTY = 5,
-  NERR_BUSY = 6
+  NERR_BUSY = 6,
+  NERR_NOTIMPL = 7
 };
 
 END_DECLARATIONS
