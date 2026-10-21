@@ -8,10 +8,7 @@
 #include "synapse/soc/stm32/periph/rcc.h"
 #include "synapse/soc/stm32/periph/gpio.h"
 #include "synapse/soc/stm32/periph/usart.h"
-#include "system/time/backend/stm32_tim.h"
-#include "system/time/dispatcher.h"
 #include "system/time/time.h"
-#include "system/time/dispatcher.h"
 
 void
 rcc_setup(void)
@@ -74,27 +71,21 @@ main(void)
   timer_setup();
   usart_setup();
 
-  struct system_stm32_timer_backend_ctx time_ctx = {
-    .tim = TIM2,
-    .value_width_bits = 16
+  struct system_coarse_time time = {
+    .ctx = TIM2,
   };
 
-  struct sys_coarse_time_backend time_backend = {
-    .vtable = system_get_coarse_time_backend(SYSTEM_COARSE_TIME_BACKEND_STM32_TIM),
-    .ctx = &time_ctx
-  };
-
-  system_set_coarse_time_source(&time_backend);
+  system_coarse_time_set_source(&time);
 
   usart_send_strfln(USART1, "\n");
   usart_send_strfln(USART1, "Starting profiler...");
 
   struct profiler_section nop_section = {};
 
-  u32 start = system_get_coarse_time();
+  u32 start = system_coarse_time_now();
   syn_delay_nop(1000000);
 
-  u32 end = system_get_coarse_time();
+  u32 end = system_coarse_time_now();
   profiler_section_update(&nop_section, (end - start));
 
   usart_send_strfln(USART1, "call_count: %u", nop_section.call_count);
