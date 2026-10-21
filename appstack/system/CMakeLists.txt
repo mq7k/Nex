@@ -12,9 +12,6 @@ nex_add_sources(
     scheduler/scheduler.c
     # scheduler/task_history.c
 
-    time/backend/stm32_coarse_time.c
-    time/backend/stm32_monotonic_time.c
-    time/dispatcher.c
     time/time.c
 
   MSG "Adding system file: "
@@ -31,8 +28,6 @@ nex_add_headers(
     system/scheduler/scheduler.h
     system/scheduler/task_history.h
 
-    system/time/backend/stm32_tim.h
-    system/time/backend/timeif.h
     system/time/time.h
 )
 

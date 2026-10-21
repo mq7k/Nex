@@ -3,40 +3,49 @@
 
 #include "libcom/types.h"
 #include "libcom/util.h"
-#include "system/time/backend/timeif.h"
 
 BEGIN_DECLARATIONS
 
-struct sys_coarse_time_backend
+struct system_coarse_time
 {
-  struct sys_coarse_time_vtable* vtable;
-  void* ctx;
+  volatile void* ctx;
 };
 
-struct sys_monotonic_time_backend
+struct system_monotonic_time
 {
-  struct sys_monotonic_time_vtable* vtable;
-  void* ctx;
+  volatile void* ctx;
+  u32 value_width_bits;
+  u32 ofcount;
 };
 
 void
-system_set_coarse_time_source(
-  struct sys_coarse_time_backend* backend
+system_coarse_time_set_source(
+  struct system_coarse_time* time
 );
 
 void
-system_set_monotonic_time_source(
-  struct sys_monotonic_time_backend* backend
+system_monotonic_time_set_source(
+  struct system_monotonic_time* time
 );
 
 u32
-system_get_coarse_time(void);
+system_coarse_time_get_value(
+  void* ctx
+);
 
-u64 
-system_get_monotonic_time(void);
+u32
+system_monotonic_time_get_value(
+  void* ctx
+);
 
 void
-system_time_handle_monotonic_overflow(void);
+system_monotonic_time_overflow(void);
+
+u32
+system_coarse_time_now(void);
+
+u64
+system_monotonic_time_now(void);
 
 END_DECLARATIONS
 
