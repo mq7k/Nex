@@ -22,6 +22,19 @@ bb_vehicle_tick(
 {
   _try_arm(vehicle, inputs);
 
+  if (vehicle->sensors.fresh_accel_data)
+  {
+    // New accel data available.
+    // Let's convert it from IMU position
+    // to world position.
+    vehicle->sensors.fresh_accel_data = 0;
+    nex_mat3x3f_mul_vec3f(
+      &vehicle->sensors.accel_abs,
+      &vehicle->sensors.rotmat,
+      &vehicle->sensors.accel_raw
+    );
+  }
+
   const u32 val = inputs->channels[6];
   if (bb_is_channel_low(val))
   {
@@ -124,4 +137,12 @@ bb_vehicle_handle_thrust(
   }
 
   commands->thrust *= (float) vehicle->armed;
+}
+
+void
+bb_vehicle_refresh_accel_data(
+  struct bb_vehicle* vehicle
+)
+{
+  vehicle->sensors.fresh_accel_data = 1;
 }

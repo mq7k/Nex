@@ -32,8 +32,6 @@
 #include "synapse/soc/stm32/periph/usart.h"
 #include "synapse/soc/stm32/periph/flash.h"
 #include "system/time/time.h"
-#include "system/time/dispatcher.h"
-#include "system/time/backend/stm32_tim.h"
 #include "synapse/cpu/cortex/common/sys.h"
 #include "synapse/cpu/cortex/periph/fpu.h"
 #include "synapse/cpu/cortex/common/memory.h"
@@ -768,17 +766,11 @@ main()
 
   timer_setup();
 
-  struct system_stm32_timer_backend_ctx time_ctx = {
-    .tim = TIM2,
-    .value_width_bits = 32 
+  struct system_coarse_time time = {
+    .ctx = TIM2
   };
 
-  struct sys_coarse_time_backend time_backend = {
-    .vtable = system_get_coarse_time_backend(SYSTEM_COARSE_TIME_BACKEND_STM32_TIM),
-    .ctx = &time_ctx
-  };
-
-  system_set_coarse_time_source(&time_backend);
+  system_coarse_time_set_source(&time);
   system_timer_setup();
 
   system_scheduler_init(&scheduler);

@@ -10,6 +10,7 @@ nex_add_sources(
     data/queue.c
     data/ring_buffer.c
 
+    math/mat3x3f.c
     math/mat4x4f.c
     math/nxmath.c
     math/vec4f.c

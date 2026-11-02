@@ -3,6 +3,7 @@
 
 #include "blackbird/inputs.h"
 #include "libcom/algo/pid.h"
+#include "libcom/math/mat3x3.h"
 #include "libcom/math/vec3f.h"
 #include "libcom/types.h"
 #include "libcom/util.h"
@@ -14,8 +15,18 @@ BEGIN_DECLARATIONS
 
 struct bb_sensors
 {
-  struct nex_vec3f accel;
-  struct nex_vec3f gyro;
+  u32 fresh_accel_data;
+  struct nex_vec3f accel_raw;
+  struct nex_vec3f accel_abs;
+
+  struct nex_vec3f gyro_raw;
+
+  // Converts the IMU coordinate system to
+  // the FC coordinate system.
+  // The FC follows the FRD model (Front [x], Right [y], Down [z]),
+  // but the IMU may be mounted on a different orientation.
+  // If so, we need to convert into the format the FC expects.
+  struct nex_mat3x3f rotmat;
 };
 
 struct vehicle_config
@@ -77,6 +88,11 @@ void
 bb_vehicle_handle_thrust(
   struct bb_vehicle* vehicle,
   struct bb_input_channels* inputs
+);
+
+void
+bb_vehicle_refresh_accel_data(
+  struct bb_vehicle* vehicle
 );
 
 END_DECLARATIONS
