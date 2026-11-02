@@ -39,7 +39,7 @@ bb_mode_acro_compute(
   commands->yaw = nex_pid_tick(
     &vehicle->yaw_pid,
     target,
-    vehicle->sensors.gyro.z,
+    vehicle->sensors.accel_abs.z,
     dt
   );
 
@@ -55,7 +55,7 @@ bb_mode_acro_compute(
   commands->roll = nex_pid_tick(
     &vehicle->roll_pid,
     target,
-    vehicle->sensors.gyro.x,
+    vehicle->sensors.accel_abs.x,
     dt
   );
 
@@ -71,7 +71,7 @@ bb_mode_acro_compute(
   commands->pitch = nex_pid_tick(
     &vehicle->pitch_pid,
     target,
-    vehicle->sensors.gyro.y,
+    vehicle->sensors.accel_abs.y,
     dt
   );
 }
