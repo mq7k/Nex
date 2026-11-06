@@ -35,7 +35,7 @@ bb_vehicle_tick(
     );
   }
 
-  const u32 val = inputs->channels[6];
+  const u32 val = bb_get_input_channel(inputs, BB_IN_FLIGHT_MODE);
   if (bb_is_channel_low(val))
   {
     vehicle->flight_mode = BB_FLIGHT_MODE_ACRO;
@@ -71,18 +71,20 @@ _try_arm(
   struct bb_input_channels* inputs
 )
 {
-  const u32 arm_channel_value = inputs->channels[BB_ARM_CHANNEL];
+  const u32 arm_channel_value = bb_get_input_channel(inputs, BB_IN_ARM);
+  const u32 throttle_channel_value = bb_get_input_channel(inputs, BB_IN_THROTTLE);
+
   if (bb_is_channel_high(arm_channel_value))
   {
     if (!vehicle->trying_arming)
     {
       vehicle->trying_arming = 1;
-      vehicle->armed = inputs->channels[0] <= BB_ARM_CHANNEL_THRESHOLD;
+      vehicle->armed = throttle_channel_value <= BB_ARM_CHANNEL_THRESHOLD;
     }
   }
   else
   {
-    if (inputs->channels[0] <= BB_ARM_CHANNEL_THRESHOLD)
+    if (throttle_channel_value <= BB_ARM_CHANNEL_THRESHOLD)
     {
       vehicle->armed = 0;
     }
@@ -100,12 +102,13 @@ bb_vehicle_handle_thrust(
   const u32 ch_min = 174;
   const u32 ch_max = 1811;
   struct bb_vehicle_commands* commands = &vehicle->commands;
+  const u32 throttle = bb_get_input_channel(inputs, BB_IN_THROTTLE);
 
   switch (vehicle->thrust_mode)
   {
     case BB_VEHICLE_THRUST_RANGE_MODE_CLAMP:
       commands->thrust = nex_lerpf(
-        (float) inputs->channels[0],
+        (float) throttle,
         (float) ch_min,
         (float) ch_max,
         0.0f,
@@ -121,7 +124,7 @@ bb_vehicle_handle_thrust(
 
     case BB_VEHICLE_THRUST_RANGE_MODE_LERP:
       commands->thrust = nex_lerpf(
-        (float) inputs->channels[0],
+        (float) throttle,
         (float) ch_min,
         (float) ch_max,
         0.0f,
