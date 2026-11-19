@@ -81,6 +81,12 @@ typedef u16 ttype;
     #condition " is expected to be false, but it's true"\
   )
 
+#define devmode_assert_nonnull(ptr)\
+  devmode_assert_true(ptr != NULL)
+
+#define devmode_assert_null(ptr)\
+  devmode_assert_true(ptr == NULL)
+
 #define devmode_log(fmt, ...)\
   _devmode_log(fmt, ##__VA_ARGS__)
 
@@ -113,6 +119,8 @@ typedef u16 ttype;
 #define devmode_assert_zero(value)
 #define devmode_assert_true(condition)
 #define devmode_assert_false(condition)
+#define devmode_assert_nonnull(ptr)
+#define devmode_assert_null(ptr)
 #define devmode_log(fmt, ...)
 #define devmode_warning(fmt, ...)
 #define devmode_warning_if(condition, fmt, ...)
