@@ -1,47 +1,32 @@
-target_compile_options(nex_hw_flags INTERFACE
-  -mcpu=cortex-m4
-  -mthumb
-)
+syn_cpu_group(
+  ID cm4f 
+  MODEL cortex-m4
+  FPU fpv4-sp-d16
+  DRIVERS
+    drivers/systick/systick_v1.c
+    drivers/nvic/nvic_v1.c
+    drivers/scb/scb_v1.c
 
-target_link_options(nex_hw_flags INTERFACE
-  -mcpu=cortex-m4
-  -mthumb
-)
-
-nex_add_sources_property(
-  TARGET nex_synapse_cpu
-  SOURCES
-    systick/systick_v1.c
-    nvic/nvic_v1.c
-    scb/scb_v1.c
-)
-
-# No need for a test for these.
-nex_add_sources(
-  TARGET nex_synapse_cpu
-  PATH ${NEX_SYN_SRC_DIR}/cpu/cortex
-  SOURCES 
     common/fpu.S
     drivers/fpu/fpu_v1.c
     drivers/vtable/vtable_v1.c
-  MSG "Adding CPU driver: "
+
+  COMPILE_OPTIONS
+    -mthumb
+    -mcpu=cortex-m4
+
+  LINK_OPTIONS
+    -mthumb
+    -mcpu=cortex-m4
 )
 
 if (NEX_PLATFORM_ARM)
-  nex_add_sources(
-    TARGET nex_synapse_cpu
-    PATH ${NEX_SYN_SRC_DIR}/cpu/cortex
-    SOURCES
+  syn_cpu_group_append(
+    ID cm4f 
+    DRIVERS
       common/memcpy.S
       common/memset.S
       common/string.S
   )
 endif()
-
-set_target_properties(nex_buildcfg PROPERTIES
-  NEX_HAS_FPU "ON"
-
-  # VFPv4, single-precision only, 16 double-precision registers.
-  NEX_FPU_TYPE fpv4-sp-d16
-)
 

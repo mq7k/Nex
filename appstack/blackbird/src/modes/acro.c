@@ -24,12 +24,16 @@ bb_mode_acro_compute(
   const u32 ch_max = 1811;
   float target;
 
+  const u32 yaw_channel = bb_get_input_channel(inputs, BB_IN_YAW);
+  const u32 pitch_channel = bb_get_input_channel(inputs, BB_IN_PITCH);
+  const u32 roll_channel = bb_get_input_channel(inputs, BB_IN_ROLL);
+
   // Thrust
   bb_vehicle_handle_thrust(vehicle, inputs);
 
   // Yaw (rate setpoint)
   target = nex_lerpf(
-    (float) inputs->channels[1],
+    (float) yaw_channel,
     (float) ch_min,
     (float) ch_max,
     yaw_rate_min,
@@ -45,7 +49,7 @@ bb_mode_acro_compute(
 
   // Roll (rate setpoint)
   target = nex_lerpf(
-    (float) inputs->channels[2],
+    (float) roll_channel,
     (float) ch_min,
     (float) ch_max,
     roll_rate_min,
@@ -61,7 +65,7 @@ bb_mode_acro_compute(
 
   // Pitch (rate setpoint)
   target = nex_lerpf(
-    (float) inputs->channels[3],
+    (float) pitch_channel,
     (float) ch_min,
     (float) ch_max,
     pitch_rate_min,

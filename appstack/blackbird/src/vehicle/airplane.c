@@ -14,8 +14,8 @@ bb_airplane_mixer_compute(
   struct nex_vec4f vec = {
     .x = commands->thrust,
     .y = commands->yaw,
-    .z = commands->roll,
-    .w = commands->pitch
+    .z = commands->pitch,
+    .w = commands->roll
   };
 
   struct motor_stats stats;

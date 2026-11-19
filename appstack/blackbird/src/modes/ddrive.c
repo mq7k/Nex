@@ -15,12 +15,16 @@ bb_mode_ddrive_compute(
   const u32 ch_max = 1811;
   float target;
 
+  const u32 yaw_channel = bb_get_input_channel(inputs, BB_IN_YAW);
+  const u32 pitch_channel = bb_get_input_channel(inputs, BB_IN_PITCH);
+  const u32 roll_channel = bb_get_input_channel(inputs, BB_IN_ROLL);
+
   // Thrust
   bb_vehicle_handle_thrust(vehicle, inputs);
 
   // Yaw
   target = nex_lerpf(
-    (float) inputs->channels[1],
+    (float) yaw_channel,
     (float) ch_min,
     (float) ch_max,
     0.0f,
@@ -32,7 +36,7 @@ bb_mode_ddrive_compute(
 
   // Roll
   target = nex_lerpf(
-    (float) inputs->channels[2],
+    (float) roll_channel,
     (float) ch_min,
     (float) ch_max,
     0.0f,
@@ -44,7 +48,7 @@ bb_mode_ddrive_compute(
 
   // Pitch
   target = nex_lerpf(
-    (float) inputs->channels[3],
+    (float) pitch_channel,
     (float) ch_min,
     (float) ch_max,
     0.0f,

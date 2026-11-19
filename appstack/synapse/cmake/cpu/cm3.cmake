@@ -1,43 +1,27 @@
-target_compile_options(nex_hw_flags INTERFACE
-  -mcpu=cortex-m3
-  -mthumb
-)
+syn_cpu_group(
+  ID cm3
+  MODEL cortex-m3
+  DRIVERS
+    drivers/systick/systick_v1.c
+    drivers/nvic/nvic_v2.c
+    drivers/scb/scb_v1.c
+    drivers/vtable/vtable_v2.c
 
-target_link_options(nex_hw_flags INTERFACE
-  -mcpu=cortex-m3
-  -mthumb
-)
+  COMPILE_OPTIONS
+    -mthumb
+    -mcpu=cortex-m3
 
-nex_add_sources_property(
-  TARGET nex_synapse_cpu
-  SOURCES
-    systick/systick_v1.c
-    nvic/nvic_v2.c
-    scb/scb_v1.c
-)
-
-# No need for a test for the vtable.
-nex_add_sources(
-  TARGET nex_synapse_cpu
-  PATH ${NEX_SYN_SRC_DIR}/cpu/cortex/drivers
-  SOURCES
-    vtable/vtable_v2.c
-  MSG "Adding CPU driver: "
+  LINK_OPTIONS
+    -mthumb
+    -mcpu=cortex-m3
 )
 
 if (NEX_PLATFORM_ARM)
-
-nex_add_sources(
-  TARGET nex_synapse_cpu
-  PATH ${NEX_SYN_SRC_DIR}/cpu/cortex
-  SOURCES
-    common/memcpy.S
-    common/memset.S
-    common/string.S
-  MSG "Adding CPU driver: "
-)
+  syn_cpu_group_append(
+    ID cm3 
+    DRIVERS
+      common/memcpy.S
+      common/memset.S
+      common/string.S
+  )
 endif()
-
-set_target_properties(nex_buildcfg PROPERTIES
-  NEX_HAS_FPU "OFF"
-)

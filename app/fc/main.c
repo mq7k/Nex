@@ -134,6 +134,17 @@ struct bb_vehicle vehicle = {
   .thrust_mode = BB_VEHICLE_THRUST_RANGE_MODE_LERP
 };
 
+struct bb_input_map input_map = {
+  .channels = {
+    [BB_CH_THROTTLE] = 1,
+    [BB_CH_YAW] = 2,
+    [BB_CH_PITCH] = 3,
+    [BB_CH_ROLL] = 4,
+    [BB_CH_FLIGHT_MODE] = 6,
+    [BB_CH_ARM] = 8
+  }
+};
+
 #define ACTUATORS_COUNT (2)
 
 struct bb_actuator actuators[ACTUATORS_COUNT] = {
@@ -550,7 +561,10 @@ _fc_tick(
 )
 {
   cm_irq_disable();
-  bb_vehicle_tick(&vehicle, &inputs, 0.001f);
+
+  struct bb_input_channels ch;
+  bb_map_channels(&inputs, &ch, &input_map);
+  bb_vehicle_tick(&vehicle, &ch, 0.001f);
 
   bb_airplane_mixer_compute(
     &vehicle,

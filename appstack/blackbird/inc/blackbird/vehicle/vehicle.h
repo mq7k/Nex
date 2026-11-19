@@ -10,7 +10,6 @@
 
 BEGIN_DECLARATIONS
 
-#define BB_ARM_CHANNEL (5)
 #define BB_ARM_CHANNEL_THRESHOLD (200)
 
 struct bb_sensors
