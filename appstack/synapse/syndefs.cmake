@@ -36,3 +36,4 @@ elseif (NEX_FLOAT STREQUAL "auto")
 else()
   nex_log(FATAL_ERROR "Invalid float type: '${NEX_FLOAT}'")
 endif()
+

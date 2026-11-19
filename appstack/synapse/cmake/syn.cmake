@@ -1,9 +1,10 @@
 # Formats `stm32f411xe` -> `STM32F411xE`
-list(TRANSFORM NEX_MCU_GROUPS TOUPPER OUTPUT_VARIABLE NEX_MCU_FORMATTED_GROUPS)
+list(TRANSFORM SYN_DEFS_LIST TOUPPER OUTPUT_VARIABLE NEX_MCU_FORMATTED_GROUPS)
 list(TRANSFORM NEX_MCU_FORMATTED_GROUPS REPLACE "X" "x")
 
 # Example: CPU_CM4F
-set(NEX_CPU_MODEL CPU_${NEX_ARCH_DRIVERS_GROUP})
+set(NEX_CPU_MODEL CPU_${SYN_CDG_GROUP})
+string(TOUPPER ${NEX_CPU_MODEL} NEX_CPU_MODEL)
 
 # We add those macros to `nex_buildcfg`
 # so any layer can inherit them.
@@ -26,15 +27,12 @@ target_link_libraries(nex_synapse PUBLIC nex_libcom)
 if (NEX_PLATFORM_ARM)
 
   # First, we can safely add CPU flags.
-  get_target_property(HW_CFLAGS nex_hw_flags INTERFACE_COMPILE_OPTIONS)
-  get_target_property(HW_LFLAGS nex_hw_flags INTERFACE_LINK_OPTIONS)
-
-  if (NOT HW_CFLAGS STREQUAL "HW_CFLAGS-NOTFOUND")
-    target_compile_options(nex_buildcfg INTERFACE ${HW_CFLAGS})
+  if (DEFINED SYN_CPU_CO)
+    target_compile_options(nex_buildcfg INTERFACE ${SYN_CPU_CO})
   endif()
 
-  if (NOT HW_LFLAGS STREQUAL "HW_LFLAGS-NOTFOUND")
-    target_link_options(nex_buildcfg INTERFACE ${HW_LFLAGS})
+  if (DEFINED SYN_CPU_LO)
+    target_link_options(nex_buildcfg INTERFACE ${SYN_CPU_LO})
   endif()
 
   # We always need this one.
@@ -47,7 +45,7 @@ if (NEX_PLATFORM_ARM)
 
   # Not the most aesthetic piece of code, I know.
   target_link_options(nex_synapse PUBLIC 
-    -T${NEX_SYN_LD_SCRIPTS_DIR}/${NEX_MCU_FAMILY}/${NEX_MCU_LD_SCRIPT}
+    -T${NEX_SYN_LD_SCRIPTS_DIR}/${NEX_MCU_FAMILY}/${SYN_SOC_LD}.ld
     -L${NEX_SYN_LD_SCRIPTS_DIR}/${NEX_MCU_FAMILY}
   )
 
@@ -56,34 +54,29 @@ if (NEX_PLATFORM_ARM)
   # this property, if available.
   # NEX_FLOAT_HARD, NEX_FLOAT_SOFTFP and NEX_FLOAT_SOFT
   # are preferences specified by the user.
-  get_target_property(has_fpu nex_buildcfg NEX_HAS_FPU)
-  if ((DEFINED NEX_FLOAT_HARD OR DEFINED NEX_FLOAT_AUTO) AND ${has_fpu} STREQUAL "ON")
-    get_target_property(FPU_HW_TYPE nex_buildcfg NEX_FPU_TYPE)
-
+  if ((DEFINED NEX_FLOAT_HARD OR DEFINED NEX_FLOAT_AUTO) AND DEFINED SYN_CPU_FPU)
     target_compile_options(nex_buildcfg INTERFACE
       -mfloat-abi=hard
-      -mfpu=${FPU_HW_TYPE}
+      -mfpu=${SYN_CPU_FPU}
     )
 
     target_link_options(nex_buildcfg INTERFACE
       -mfloat-abi=hard
-      -mfpu=${FPU_HW_TYPE}
+      -mfpu=${SYN_CPU_FPU}
     )
 
     nex_define_macros_i(nex_buildcfg NEX_FPU NEX_FPU_FPREG)
     nex_log(STATUS "Using hardware float (Full).")
 
-  elseif (DEFINED NEX_FLOAT_SOFTFP AND ${has_fpu} STREQUAL "ON")
-    get_target_property(FPU_HW_TYPE nex_buildcfg NEX_FPU_TYPE)
-
+  elseif (DEFINED NEX_FLOAT_SOFTFP AND DEFINED SYN_CPU_FPU)
     target_compile_options(nex_buildcfg INTERFACE
       -mfloat-abi=softfp
-      -mfpu=${FPU_HW_TYPE}
+      -mfpu=${SYN_CPU_FPU}
     )
 
     target_link_options(nex_buildcfg INTERFACE
       -mfloat-abi=softfp
-      -mfpu=${FPU_HW_TYPE}
+      -mfpu=${SYN_CPU_FPU}
     )
 
     nex_define_macros_i(nex_buildcfg NEX_FPU)
