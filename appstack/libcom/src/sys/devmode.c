@@ -13,9 +13,9 @@ _devmode_warning(
   va_list list;
   va_start(list, fmt);
   _devmode_log(
-    "[Warning] %s:%u in function %s(): ",
+    "[Warning] %s:" DEVMODE_UINT32_FMT " in function %s(): ",
     file,
-    (ttype) line,
+    line,
     func
   );
   _devmode_logv(fmt, list);
@@ -34,9 +34,9 @@ _devmode_error(
   va_list list;
   va_start(list, fmt);
   _devmode_log(
-    "[Error] %s:%u in function %s(): ",
+    "[Error] %s:" DEVMODE_UINT32_FMT " in function %s(): ",
     file,
-    (ttype) line,
+    line,
     func
   );
   _devmode_logv(fmt, list);
@@ -68,9 +68,9 @@ _devmode_assert(
   va_list list;
   va_start(list, fmt);
   _devmode_log(
-    "[Error] Assertion failed: %s:%u in function %s(): ",
+    "[Error] Assertion failed: %s:" DEVMODE_UINT32_FMT " in function %s(): ",
     file,
-    (ttype) line,
+    line,
     func
   );
   _devmode_logv(fmt, list);
