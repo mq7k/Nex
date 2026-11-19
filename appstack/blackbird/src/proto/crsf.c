@@ -568,7 +568,7 @@ _handle_ext_frame_ping_dev(
   struct bb_crsf_frame frame;
   frame.type = BB_CRSF_FRAME_TYPE_PARAM_DEV_INFO;
 
-  u32 len = ARR_SIZE(BB_DEVICE_NAME);
+  size_t len = ARR_SIZE(BB_DEVICE_NAME);
   if (len < 60)
   {
     u8* dst = frame.ext.param_dev_info.device_name;
