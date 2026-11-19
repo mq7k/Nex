@@ -42,18 +42,22 @@ def try_compile(file):
 
     print('Success')
 
-def open_dir(path):
-    print(f'Opening dir: {path}')
+def load_mcu_list():
+    arr = []
+    path = 'tools/ecoguard/lists'
     for file in os.listdir(path):
-        fullpath = f'{path}/{file}'
-        if os.path.isdir(fullpath):
-            open_dir(fullpath)
-        elif file.endswith('.cmake'):
-            try_compile(file)
+        with open(f'{path}/{file}', 'r') as f:
+            mcus = [ line.replace('\n', '') for line in f.readlines() ]
+            arr.extend(mcus)
+    return arr
+
+def try_compile_all(mcu_list):
+    for mcu in mcu_list:
+        try_compile(mcu)
 
 def main():
-    path = 'appstack/synapse/cmake/targets'
-    open_dir(path)
+    mcu_list = load_mcu_list()
+    try_compile_all(mcu_list)
 
 if __name__ == '__main__':
     main()
