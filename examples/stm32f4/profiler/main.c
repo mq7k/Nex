@@ -10,11 +10,21 @@
 #include "synapse/soc/stm32/periph/usart.h"
 #include "system/time/time.h"
 
+#if defined(STM32_TIM2)
+#define TIM TIM2
+#define TIM_PERIPH RCC_PERIPH_TIM2
+#define TIM_NVIC NVIC_IRQ_TIM2
+#else
+#define TIM TIM9
+#define TIM_PERIPH RCC_PERIPH_TIM9
+#define TIM_NVIC NVIC_IRQ_TIM1_BREAK_TIM9
+#endif
+
 void
 rcc_setup(void)
 {
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
-  rcc_periph_clock_enable(RCC_PERIPH_TIM2);
+  rcc_periph_clock_enable(TIM_PERIPH);
   rcc_periph_clock_enable(RCC_PERIPH_USART1);
 }
 
@@ -50,12 +60,12 @@ usart_setup(void)
 void
 timer_setup(void)
 {
-  tim_set_prescaler(TIM2, 0);
-  tim_set_clock_division(TIM2, TIM_CLOCK_DIVISION_NODIV);
-  tim_oc_preload_enable(TIM2, TIM_CHANNEL4);
-  tim_set_counter_direction(TIM2, TIM_COUNTER_DIRECTION_UP);
-  tim_cc_channel_enable(TIM2, TIM_CHANNEL4);
-  tim_counter_enable(TIM2);
+  tim_set_prescaler(TIM, 0);
+  tim_set_clock_division(TIM, TIM_CLOCK_DIVISION_NODIV);
+  tim_oc_preload_enable(TIM, TIM_CHANNEL4);
+  tim_set_counter_direction(TIM, TIM_COUNTER_DIRECTION_UP);
+  tim_cc_channel_enable(TIM, TIM_CHANNEL4);
+  tim_counter_enable(TIM);
 }
 
 int
@@ -67,7 +77,7 @@ main(void)
   usart_setup();
 
   struct system_coarse_time time = {
-    .ctx = TIM2,
+    .ctx = TIM,
   };
 
   system_coarse_time_set_source(&time);

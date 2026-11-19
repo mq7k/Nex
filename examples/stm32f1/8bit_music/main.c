@@ -8,6 +8,14 @@
 #include "synapse/cpu/cortex/common/sys.h"
 #include "synapse/cpu/cortex/periph/systick.h"
 
+#if defined(STM32_TIM1)
+#define TIM TIM1
+#define TIM_PERIPH RCC_PERIPH_TIM1
+#elif defined(STM32_TIM2)
+#define TIM TIM2
+#define TIM_PERIPH RCC_PERIPH_TIM2
+#endif
+
 #define NOTE_C4  262
 #define NOTE_D4  294
 #define NOTE_E4  330
@@ -132,7 +140,7 @@ rcc_setup(void)
 {
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
-  rcc_periph_clock_enable(RCC_PERIPH_TIM1);
+  rcc_periph_clock_enable(TIM_PERIPH);
 }
 
 void
@@ -156,16 +164,16 @@ gpio_setup(void)
 void
 timer_setup(void)
 {
-  tim_set_prescaler(TIM1, 7);
-  tim_set_clock_division(TIM1, TIM_CLOCK_DIVISION_NODIV);
-  tim_set_autoreload_value(TIM1, 999);
-  tim_oc_preload_enable(TIM1, TIM_CHANNEL4);
-  tim_set_oc_mode(TIM1, TIM_CHANNEL4, TIM_OC_MODE_PWM1);
-  tim_set_center_aligned_mode(TIM1, TIM_CENTER_ALIGNED_MODE_EDGE);
-  tim_set_counter_direction(TIM1, TIM_COUNTER_DIRECTION_UP);
-  tim_set_cc_value(TIM1, TIM_CHANNEL4, 0);
-  tim_counter_enable(TIM1);
-  tim_main_output_enable(TIM1);
+  tim_set_prescaler(TIM, 7);
+  tim_set_clock_division(TIM, TIM_CLOCK_DIVISION_NODIV);
+  tim_set_autoreload_value(TIM, 999);
+  tim_oc_preload_enable(TIM, TIM_CHANNEL4);
+  tim_set_oc_mode(TIM, TIM_CHANNEL4, TIM_OC_MODE_PWM1);
+  tim_set_center_aligned_mode(TIM, TIM_CENTER_ALIGNED_MODE_EDGE);
+  tim_set_counter_direction(TIM, TIM_COUNTER_DIRECTION_UP);
+  tim_set_cc_value(TIM, TIM_CHANNEL4, 0);
+  tim_counter_enable(TIM);
+  tim_main_output_enable(TIM);
 }
 
 void
@@ -218,19 +226,19 @@ main(void)
     const struct note* note = &notes_tetris[idx];
     if (note->frequency == REST)
     {
-      tim_cc_channel_disable(TIM1, TIM_CHANNEL4);
+      tim_cc_channel_disable(TIM, TIM_CHANNEL4);
     }
     else
     {
       u32 val = (1000000 / note->frequency) - 1;
-      tim_set_autoreload_value(TIM1, val);
-      tim_set_cc_value(TIM1, TIM_CHANNEL4, val >> 1);
-      tim_trigger_event_generation(TIM1, TIM_EVENT_UPDATE);
-      tim_cc_channel_enable(TIM1, TIM_CHANNEL4);
+      tim_set_autoreload_value(TIM, val);
+      tim_set_cc_value(TIM, TIM_CHANNEL4, val >> 1);
+      tim_trigger_event_generation(TIM, TIM_EVENT_UPDATE);
+      tim_cc_channel_enable(TIM, TIM_CHANNEL4);
     }
     
     _delay_ms(note->duration_ms);
-    tim_cc_channel_disable(TIM1, TIM_CHANNEL4);
+    tim_cc_channel_disable(TIM, TIM_CHANNEL4);
     _delay_ms(30);
     
     if (++idx >= size)

@@ -12,12 +12,22 @@
 #include "system/time/time.h"
 #include "synapse/cpu/cortex/common/sys.h"
 
+#if defined(STM32_TIM1)
+#define TIM TIM1
+#define TIM_PERIPH RCC_PERIPH_TIM1
+#define TIM_NVIC NVIC_IRQ_TIM1_UPDATE
+#elif defined(STM32_TIM3)
+#define TIM TIM3
+#define TIM_PERIPH RCC_PERIPH_TIM3
+#define TIM_NVIC NVIC_IRQ_TIM3
+#endif
+
 struct system_scheduler scheduler;
 
 void
 rcc_setup(void)
 {
-  rcc_periph_clock_enable(RCC_PERIPH_TIM1);
+  rcc_periph_clock_enable(TIM_PERIPH);
   rcc_periph_clock_enable(RCC_PERIPH_TIM2);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
@@ -98,28 +108,28 @@ system_timer_setup(void)
 void
 timer_setup(void)
 {
-  tim_oc_preload_enable(TIM1, TIM_CHANNEL4);
-  tim_auto_reload_preload_enable(TIM1);
-  tim_set_clock_division(TIM1, TIM_CLOCK_DIVISION_NODIV);
-  tim_set_counter_direction(TIM1, TIM_COUNTER_DIRECTION_UP);
-  tim_set_prescaler(TIM1, 0);
-  tim_set_autoreload_value(TIM1, 7999);
-  tim_cc_channel_enable(TIM1, TIM_CHANNEL4);
-  tim_interrupt_enable(TIM1, TIM_INTERRUPT_UPDATE);
+  tim_oc_preload_enable(TIM, TIM_CHANNEL4);
+  tim_auto_reload_preload_enable(TIM);
+  tim_set_clock_division(TIM, TIM_CLOCK_DIVISION_NODIV);
+  tim_set_counter_direction(TIM, TIM_COUNTER_DIRECTION_UP);
+  tim_set_prescaler(TIM, 0);
+  tim_set_autoreload_value(TIM, 7999);
+  tim_cc_channel_enable(TIM, TIM_CHANNEL4);
+  tim_interrupt_enable(TIM, TIM_INTERRUPT_UPDATE);
 }
 
 void
 nvic_setup(void)
 {
-  nvic_irq_enable(NVIC_IRQ_TIM1_UPDATE);
+  nvic_irq_enable(TIM_NVIC);
   nvic_irq_enable(NVIC_IRQ_TIM2);
 }
 
 void
 tim1_up_isr(void)
 {
-  nvic_clear_pending_irq(NVIC_IRQ_TIM1_UPDATE);
-  tim_flag_clear(TIM1, TIM_FLAG_UPDATE);
+  nvic_clear_pending_irq(TIM_NVIC);
+  tim_flag_clear(TIM, TIM_FLAG_UPDATE);
   system_scheduler_wakeup(&scheduler);
 }
 
@@ -210,7 +220,7 @@ main()
   system_scheduler_task_enable(&scheduler, bl_task);
   system_scheduler_task_enable(&scheduler, btn_check);
 
-  tim_counter_enable(TIM1);
+  tim_counter_enable(TIM);
   system_scheduler_loop(&scheduler);
 
   while (1);
