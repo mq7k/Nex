@@ -14,6 +14,16 @@
 #include "synapse/cpu/cortex/common/sys.h"
 #include "synapse/cpu/cortex/periph/fpu.h"
 
+#if defined(STM32_TIM2)
+#define TIM TIM2
+#define TIM_PERIPH RCC_PERIPH_TIM2
+#define TIM_NVIC NVIC_IRQ_TIM2
+#else
+#define TIM TIM9
+#define TIM_PERIPH RCC_PERIPH_TIM9
+#define TIM_NVIC NVIC_IRQ_TIM1_BREAK_TIM9
+#endif
+
 struct system_scheduler scheduler;
 
 void
@@ -26,7 +36,7 @@ rcc_setup(void)
   rcc_system_clock_source_ready_wait(RCC_SYSTEM_CLOCK_SOURCE_HSE);
 
   rcc_periph_clock_enable(RCC_PERIPH_TIM1);
-  rcc_periph_clock_enable(RCC_PERIPH_TIM2);
+  rcc_periph_clock_enable(TIM_PERIPH);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOB);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
@@ -114,13 +124,13 @@ usart_setup(void)
 void
 system_timer_setup(void)
 {
-  tim_set_prescaler(TIM2, 24);
-  tim_set_clock_division(TIM2, TIM_CLOCK_DIVISION_NODIV);
-  tim_oc_preload_enable(TIM2, TIM_CHANNEL4);
-  tim_set_counter_direction(TIM2, TIM_COUNTER_DIRECTION_UP);
-  tim_cc_channel_enable(TIM2, TIM_CHANNEL4);
-  tim_trigger_event_generation(TIM2, TIM_EVENT_UPDATE);
-  tim_counter_enable(TIM2);
+  tim_set_prescaler(TIM, 24);
+  tim_set_clock_division(TIM, TIM_CLOCK_DIVISION_NODIV);
+  tim_oc_preload_enable(TIM, TIM_CHANNEL4);
+  tim_set_counter_direction(TIM, TIM_COUNTER_DIRECTION_UP);
+  tim_cc_channel_enable(TIM, TIM_CHANNEL4);
+  tim_trigger_event_generation(TIM, TIM_EVENT_UPDATE);
+  tim_counter_enable(TIM);
 }
 
 void
@@ -140,7 +150,7 @@ void
 nvic_setup(void)
 {
   nvic_irq_enable(NVIC_IRQ_TIM1_UPDATE_TIM10);
-  nvic_irq_enable(NVIC_IRQ_TIM2);
+  nvic_irq_enable(TIM_NVIC);
 }
 
 void

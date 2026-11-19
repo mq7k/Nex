@@ -13,6 +13,18 @@
 #include "libcom/unit.h"
 #include "libcom/util.h"
 
+#if defined(STM32_TIM1)
+#define TIM TIM1
+#define TIM_PERIPH RCC_PERIPH_TIM1
+#define TIM_NVIC NVIC_IRQ_TIM1_UPDATE
+#define TIM_DMA_CH DMA_CHANNEL5
+#elif defined(STM32_TIM3)
+#define TIM TIM3
+#define TIM_PERIPH RCC_PERIPH_TIM3
+#define TIM_NVIC NVIC_IRQ_TIM3
+#define TIM_DMA_CH DMA_CHANNEL3
+#endif
+
 // DShot150
 // #define TIM_AUTORELOAD_VALUE (483)
 
@@ -104,7 +116,7 @@ rcc_setup(void)
   rcc_set_sysclock_source(RCC_SYSCLOCK_PLL);
   while (rcc_get_sysclock_status() != RCC_SYSCLOCK_PLL);
 
-  rcc_periph_clock_enable(RCC_PERIPH_TIM1);
+  rcc_periph_clock_enable(TIM_PERIPH);
   rcc_periph_clock_enable(RCC_PERIPH_TIM2);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_DMA1);
@@ -133,39 +145,39 @@ gpio_setup(void)
 void
 dma_setup(void)
 {
-  dma_channel_disable(DMA1, DMA_CHANNEL5);
-  dma_channel_set_periph_address(DMA1, DMA_CHANNEL5, (u32) &TIM1->CCR4);
-  dma_channel_set_memory_address(DMA1, DMA_CHANNEL5, (u32) arr);
-  dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, ARR_SIZE(arr));
-  dma_channel_set_priority_level(DMA1, DMA_CHANNEL5, DMA_CHANNEL_PRIORITY_VERY_HIGH);
-  dma_channel_set_data_transfer_direction(DMA1, DMA_CHANNEL5, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
-  dma_channel_mem2mem_mode_disable(DMA1, DMA_CHANNEL5);
-  dma_channel_periph_increment_mode_disable(DMA1, DMA_CHANNEL5);
-  dma_channel_memory_increment_mode_enable(DMA1, DMA_CHANNEL5);
-  dma_channel_set_memory_size(DMA1, DMA_CHANNEL5, DMA_MEMORY_SIZE_16BITS);
-  dma_channel_set_periph_size(DMA1, DMA_CHANNEL5, DMA_PERIPH_SIZE_16BITS);
-  dma_channel_circular_mode_disable(DMA1, DMA_CHANNEL5);
-  dma_channel_enable(DMA1, DMA_CHANNEL5);
+  dma_channel_disable(DMA1, TIM_DMA_CH);
+  dma_channel_set_periph_address(DMA1, TIM_DMA_CH, (u32) &TIM->CCR4);
+  dma_channel_set_memory_address(DMA1, TIM_DMA_CH, (u32) arr);
+  dma_set_channel_transfer_items_count(DMA1, TIM_DMA_CH, ARR_SIZE(arr));
+  dma_channel_set_priority_level(DMA1, TIM_DMA_CH, DMA_CHANNEL_PRIORITY_VERY_HIGH);
+  dma_channel_set_data_transfer_direction(DMA1, TIM_DMA_CH, DMA_TRANSFER_DIRECTION_FROM_MEMORY);
+  dma_channel_mem2mem_mode_disable(DMA1, TIM_DMA_CH);
+  dma_channel_periph_increment_mode_disable(DMA1, TIM_DMA_CH);
+  dma_channel_memory_increment_mode_enable(DMA1, TIM_DMA_CH);
+  dma_channel_set_memory_size(DMA1, TIM_DMA_CH, DMA_MEMORY_SIZE_16BITS);
+  dma_channel_set_periph_size(DMA1, TIM_DMA_CH, DMA_PERIPH_SIZE_16BITS);
+  dma_channel_circular_mode_disable(DMA1, TIM_DMA_CH);
+  dma_channel_enable(DMA1, TIM_DMA_CH);
 }
 
 void
 timer_setup(void)
 {
-  tim_set_prescaler(TIM1, 0);
-  tim_set_clock_division(TIM1, TIM_CLOCK_DIVISION_NODIV);
-  tim_set_autoreload_value(TIM1, TIM_AUTORELOAD_VALUE - 1);
-  tim_oc_preload_enable(TIM1, TIM_CHANNEL4);
-  tim_set_oc_mode(TIM1, TIM_CHANNEL4, TIM_OC_MODE_PWM1);
-  tim_set_center_aligned_mode(TIM1, TIM_CENTER_ALIGNED_MODE_EDGE);
-  tim_set_counter_direction(TIM1, TIM_COUNTER_DIRECTION_UP);
-  tim_set_cc_value(TIM1, TIM_CHANNEL4, 0);
-  tim_counter_enable(TIM1);
-  tim_cc_channel_enable(TIM1, TIM_CHANNEL4);
-  tim_main_output_enable(TIM1);
+  tim_set_prescaler(TIM, 0);
+  tim_set_clock_division(TIM, TIM_CLOCK_DIVISION_NODIV);
+  tim_set_autoreload_value(TIM, TIM_AUTORELOAD_VALUE - 1);
+  tim_oc_preload_enable(TIM, TIM_CHANNEL4);
+  tim_set_oc_mode(TIM, TIM_CHANNEL4, TIM_OC_MODE_PWM1);
+  tim_set_center_aligned_mode(TIM, TIM_CENTER_ALIGNED_MODE_EDGE);
+  tim_set_counter_direction(TIM, TIM_COUNTER_DIRECTION_UP);
+  tim_set_cc_value(TIM, TIM_CHANNEL4, 0);
+  tim_counter_enable(TIM);
+  tim_cc_channel_enable(TIM, TIM_CHANNEL4);
+  tim_main_output_enable(TIM);
 
-  tim_dma_request_enable(TIM1, TIM_DMA_MODE_UPDATE);
-  tim_set_cc_dma_request_source(TIM1, TIM_CC_DMA_REQUEST_SOURCE_UPDATE_EVENT);
-  tim_set_update_request_event_source(TIM1, TIM_UPDATE_REQUEST_SOURCE_COUNTER_AND_DMA);
+  tim_dma_request_enable(TIM, TIM_DMA_MODE_UPDATE);
+  tim_set_cc_dma_request_source(TIM, TIM_CC_DMA_REQUEST_SOURCE_UPDATE_EVENT);
+  tim_set_update_request_event_source(TIM, TIM_UPDATE_REQUEST_SOURCE_COUNTER_AND_DMA);
 }
 
 void
@@ -264,10 +276,10 @@ main(void)
 
       delay_us(25);
 
-      dma_channel_set_periph_address(DMA1, DMA_CHANNEL5, (u32) &TIM1->CCR4);
-      dma_channel_set_memory_address(DMA1, DMA_CHANNEL5, (u32) arr);
-      dma_set_channel_transfer_items_count(DMA1, DMA_CHANNEL5, ARR_SIZE(arr));
-      dma_channel_enable(DMA1, DMA_CHANNEL5);
+      dma_channel_set_periph_address(DMA1, TIM_DMA_CH, (u32) &TIM->CCR4);
+      dma_channel_set_memory_address(DMA1, TIM_DMA_CH, (u32) arr);
+      dma_set_channel_transfer_items_count(DMA1, TIM_DMA_CH, ARR_SIZE(arr));
+      dma_channel_enable(DMA1, TIM_DMA_CH);
     }
 
     if (!adc_is_flag_set(ADC1, ADC_FLAG_START))
