@@ -12,6 +12,16 @@
 #include "synapse/cpu/cortex/periph/fpu.h"
 #include "synapse/cpu/cortex/periph/nvic.h"
 
+#if defined(STM32_TIM2)
+#define TIM TIM2
+#define TIM_PERIPH RCC_PERIPH_TIM2
+#define TIM_NVIC NVIC_IRQ_TIM2
+#else
+#define TIM TIM9
+#define TIM_PERIPH RCC_PERIPH_TIM9
+#define TIM_NVIC NVIC_IRQ_TIM1_BREAK_TIM9
+#endif
+
 // DShot150
 // #define TIM_AUTORELOAD_VALUE (667)
 
@@ -104,7 +114,7 @@ rcc_setup(void)
   rcc_system_clock_source_ready_wait(RCC_SYSTEM_CLOCK_SOURCE_PLL);
 
   rcc_periph_clock_enable(RCC_PERIPH_TIM1);
-  rcc_periph_clock_enable(RCC_PERIPH_TIM2);
+  rcc_periph_clock_enable(TIM_PERIPH);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOA);
   rcc_periph_clock_enable(RCC_PERIPH_GPIOC);
   rcc_periph_clock_enable(RCC_PERIPH_DMA2);
@@ -225,13 +235,13 @@ timer_setup(void)
 void
 timer_sys_setup(void)
 {
-  tim_set_prescaler(TIM2, 3);
-  tim_set_clock_division(TIM2, TIM_CLOCK_DIVISION_NODIV);
-  tim_set_autoreload_value(TIM2, 24);
-  tim_set_counter_direction(TIM2, TIM_COUNTER_DIRECTION_UP);
-  tim_set_cc_value(TIM2, TIM_CHANNEL4, 0);
-  tim_interrupt_enable(TIM2, TIM_INTERRUPT_UPDATE);
-  nvic_irq_enable(NVIC_IRQ_TIM2);
+  tim_set_prescaler(TIM, 3);
+  tim_set_clock_division(TIM, TIM_CLOCK_DIVISION_NODIV);
+  tim_set_autoreload_value(TIM, 24);
+  tim_set_counter_direction(TIM, TIM_COUNTER_DIRECTION_UP);
+  tim_set_cc_value(TIM, TIM_CHANNEL4, 0);
+  tim_interrupt_enable(TIM, TIM_INTERRUPT_UPDATE);
+  nvic_irq_enable(TIM_NVIC);
 }
 
 void
@@ -248,8 +258,8 @@ volatile u32 delay;
 void
 tim2_isr(void)
 {
-  tim_flag_clear(TIM2, TIM_FLAG_UPDATE);
-  nvic_clear_pending_irq(NVIC_IRQ_TIM2);
+  tim_flag_clear(TIM, TIM_FLAG_UPDATE);
+  nvic_clear_pending_irq(TIM_NVIC);
 
   if (delay > 0)
   {
@@ -260,11 +270,11 @@ tim2_isr(void)
 void
 delay_us(u32 us)
 {
-  tim_set_counter_value(TIM2, 0);
+  tim_set_counter_value(TIM, 0);
   delay = us;
-  tim_counter_enable(TIM2);
+  tim_counter_enable(TIM);
   while (delay > 0);
-  tim_counter_disable(TIM2);
+  tim_counter_disable(TIM);
 
   cm_dmb();
 }

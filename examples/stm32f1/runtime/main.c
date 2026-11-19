@@ -6,7 +6,7 @@
 #include "synapse/soc/stm32/periph/rcc.h"
 #include "synapse/soc/stm32/periph/usart.h"
 
-#define FOO_ARRAY_ELEMENTS_COUNT (2048)
+#define FOO_ARRAY_ELEMENTS_COUNT (1024)
 volatile u32 foo[FOO_ARRAY_ELEMENTS_COUNT];
 
 void
