@@ -53,6 +53,7 @@ target_compile_options(nex_buildcfg INTERFACE
   -Wconversion
   -Wshadow
   -Wundef
+  -Wno-error=undef
   -Wformat=2
 )
 
