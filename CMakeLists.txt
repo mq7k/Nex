@@ -40,9 +40,20 @@ endif()
 nex_log(STATUS "Tests: ${NEX_BUILD_TESTS}")
 nex_log(STATUS "Examples: ${NEX_BUILD_EXAMPLES}")
 
+message(NOTICE "")
+nex_log(STATUS "Initializing Libcom")
 add_subdirectory(appstack/libcom)
+
+message(NOTICE "")
+nex_log(STATUS "Initializing Synapse")
 add_subdirectory(appstack/synapse)
+
+message(NOTICE "")
+nex_log(STATUS "Initializing System")
 add_subdirectory(appstack/system)
+
+message(NOTICE "")
+nex_log(STATUS "Initializing Blackbird")
 add_subdirectory(appstack/blackbird)
 
 if (NEX_BUILD_TESTS)
@@ -50,9 +61,12 @@ if (NEX_BUILD_TESTS)
 endif()
 
 if (NEX_PLATFORM_ARM)
+  message(NOTICE "")
   if (NEX_BUILD_EXAMPLES)
+    nex_log(STATUS "Registering examples")
     add_subdirectory(examples)
   elseif(NEX_BUILD_APPS)
+    nex_log(STATUS "Registering apps")
     add_subdirectory(app/fc)
   endif()
 endif()
