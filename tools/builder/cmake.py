@@ -1,12 +1,6 @@
 def to_cmake_bool(value):
     return "ON" if value else "OFF"
 
-def parse_target_path(args):
-    family = parse_mcu_family(args)
-    series = args.target[5:7]
-    fullname = args.target
-    return f'{family}/{series}/{fullname}'
-
 def parse_mcu_fullname(args):
     if len(args.target) < 5:
         raise ValueError(f'Invalid fullname: "{args.target}"')
@@ -59,7 +53,6 @@ def parse_cmake_vars(args):
             'CMAKE_TOOLCHAIN_FILE': parse_toolchain,
             'CMAKE_BUILD_TYPE': args.build_type,
             'NEX_VERBOSE': args.verbose,
-            'NEX_TARGET_PATH': parse_target_path,
             'NEX_MCU_FULLNAME': parse_mcu_fullname,
             'NEX_MCU_FAMILY': parse_mcu_family,
             'NEX_MCU_FAMILY_LINE': parse_mcu_family_line,
