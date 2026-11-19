@@ -1,6 +1,7 @@
 #ifndef STM32_DS6517_H
 #define STM32_DS6517_H
 
+#define STM32_TIM1
 #define STM32_TIM2
 #define STM32_TIM3
 #define STM32_TIM4
