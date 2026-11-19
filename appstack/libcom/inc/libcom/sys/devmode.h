@@ -9,10 +9,15 @@ BEGIN_DECLARATIONS
 
 #define FILESRC __FILE_NAME__
 
-#ifdef BUILD_TESTS
-typedef u32 ttype;
+// `u32` is defined as `uint32_t` (see types.h).
+// `uint32_t` is defined as `unsigned long int`.
+// On ARM, an `unsigned long int` is 32bit,
+// on x86_64 is a 64bit, so we have to
+// define the format specifier accordingly.
+#if defined(NEX_PLATFORM_ARM)
+#define DEVMODE_UINT32_FMT "%lu"
 #else
-typedef u16 ttype;
+#define DEVMODE_UINT32_FMT "%u"
 #endif
 
 #if defined(NEX_INCLUDE_DEVMODE)
@@ -24,49 +29,49 @@ typedef u16 ttype;
   devmode_assert(\
     (value) >= (min) && (value) < (max),\
     #value " is not within range (min=%u, max=%u, value=%u)",\
-    (ttype) (value), (ttype) (min), (ttype) (max)\
+    (value), (min), (max)\
   )
 
 #define devmode_assert_lower(value, compare)\
   devmode_assert(\
     (value) < (compare),\
     #value " exceed maximum allowed value (%u >= %u)",\
-    (ttype) (value), (ttype) (compare)\
+    (value), (compare)\
   )
 
 #define devmode_assert_lower_or_eq(value, compare)\
   devmode_assert(\
     (value) <= (compare),\
     #value " exceed maximum allowed value (%u > %u)",\
-    (ttype) (value), (ttype) (compare)\
+    (value), (compare)\
   )
 
 #define devmode_assert_greater(value, compare)\
   devmode_assert(\
     (value) > (compare),\
     #value " is less than minimum allowed value (%u <= %u)",\
-    (ttype) (value), (ttype) (compare)\
+    (value), (compare)\
   )
 
 #define devmode_assert_greater_or_eq(value, compare)\
   devmode_assert(\
     (value) >= (compare),\
     #value " is less than minimum allowed value (%u < %u)",\
-    (ttype) value, (ttype) compare\
+    value, compare\
   )
 
 #define devmode_assert_nonzero(value)\
   devmode_assert(\
     (value) != 0,\
     #value " is expected to be non-zero, but it's %d",\
-    (ttype) value\
+    value\
   )
 
 #define devmode_assert_zero(value)\
   devmode_assert(\
     (value) == 0,\
     #value " is expected to be zero, but it's %d",\
-    (ttype) (value)\
+    (value)\
   )
 
 #define devmode_assert_true(condition)\
@@ -103,7 +108,7 @@ typedef u16 ttype;
   _devmode_error(\
     FILESRC, __func__, __LINE__,\
     "Invalid " #type " value=%u",\
-    (ttype) (value)\
+    (value)\
   )
 
 #define devmode_halt(trace) _devmode_halt(trace)
