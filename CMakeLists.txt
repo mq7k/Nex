@@ -21,7 +21,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
 include(cmake/nexfn)
 include(cmake/nexdefs)
-include(cmake/properties)
 include(cmake/build_config)
 
 nex_log(STATUS "Toolchain: ${CMAKE_TOOLCHAIN_FILE}")
