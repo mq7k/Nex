@@ -42,21 +42,21 @@ system_monotonic_time_get_value(
 void
 system_monotonic_time_overflow(void)
 {
-  devmode_assert_nonzero(coarse_time);
+  devmode_assert_nonnull(coarse_time);
   ++monotonic_time->ofcount;
 }
 
 u32
 system_coarse_time_now(void)
 {
-  devmode_assert_nonzero(coarse_time);
+  devmode_assert_nonnull(coarse_time);
   return system_coarse_time_get_value(coarse_time);
 }
 
 u64
 system_monotonic_time_now(void)
 {
-  devmode_assert_nonzero(monotonic_time);
+  devmode_assert_nonnull(monotonic_time);
   u32 shift = monotonic_time->value_width_bits;
   u32 cur = system_monotonic_time_get_value(monotonic_time);
   u32 ofcount = monotonic_time->ofcount;
